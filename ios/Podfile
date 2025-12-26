@@ -7,8 +7,6 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, '15.0'
 prepare_react_native_project!
 
-flipper_config = FlipperConfiguration.disabled
-
 target 'MobileTodoList' do
   config = use_native_modules!
   
