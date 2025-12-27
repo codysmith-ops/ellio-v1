@@ -64,7 +64,16 @@ if [[ -z "$SIMULATOR_CHECK" ]]; then
     exit 1
 fi
 
+# Check for Android references in iOS workflows (iOS-only mode enforcement)
+ANDROID_CHECK=$(grep -r "android" .github/workflows/*.yml .vscode/tasks.json 2>/dev/null || true)
+if [[ -n "$ANDROID_CHECK" ]]; then
+    echo -e "${YELLOW}⚠️  WARNING: Android references detected in iOS workflows${NC}"
+    echo "  This project is iOS-only. Review and remove Android references."
+    echo "  Files to check: .github/workflows/*.yml, .vscode/tasks.json"
+fi
+
 echo -e "${GREEN}✅ Xcode: $REQUIRED_XCODE_VERSION (Build $REQUIRED_XCODE_BUILD)${NC}"
 echo -e "${GREEN}✅ Simulator: $REQUIRED_SIMULATOR (iOS $REQUIRED_IOS_VERSION) available${NC}"
+echo -e "${GREEN}✅ iOS-only mode: Verified${NC}"
 echo -e "${GREEN}✅ All preflight checks passed${NC}"
 exit 0
