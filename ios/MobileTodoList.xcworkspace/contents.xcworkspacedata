@@ -55,4 +55,7 @@
    <FileRef
       location = "group:ADDITIONAL_IMPROVEMENTS.md">
    </FileRef>
+   <FileRef
+      location = "group:COMPLETE_RECOMMENDATIONS.md">
+   </FileRef>
 </Workspace>
