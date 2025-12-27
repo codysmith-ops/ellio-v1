@@ -22,6 +22,18 @@ import {
   groupStoresByType,
 } from '../services/storeDiscovery';
 import {palette, spacing, radius} from '../theme';
+import {
+  LocationIcon,
+  PhoneIcon,
+  NavigationIcon,
+  LinkIcon,
+  StarIcon,
+  ListIcon,
+  FolderIcon,
+  MapIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+} from './icons';
 
 interface Props {
   results: StoreResult[];
@@ -102,9 +114,17 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
     <TouchableOpacity
       style={styles.storeCard}
       onPress={() => onStoreSelect?.(item)}
-      activeOpacity={0.7}>
+      activeOpacity={0.7}
+      accessible={true}
+      accessibilityRole="button"
+      accessibilityLabel={`${item.store}, ${item.productName}, $${item.price.toFixed(2)}, ${item.availability}${
+        item.storeLocation?.distance
+          ? `, ${formatDistance(item.storeLocation.distance)} away`
+          : ''
+      }`}
+      accessibilityHint="Double tap to view store details">
       <View style={styles.cardHeader}>
-        <Text style={styles.storeLogo}>{item.storeLogo}</Text>
+        <Text style={styles.storeLogo} aria-hidden="true">{item.storeLogo}</Text>
         <View style={styles.headerInfo}>
           <Text style={styles.storeName}>{item.store}</Text>
           {item.storeLocation?.distance && (
@@ -129,31 +149,57 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
         <View style={styles.priceRow}>
           <Text style={styles.price}>${item.price.toFixed(2)}</Text>
           {item.storeLocation?.rating && (
-            <Text style={styles.rating}>
-              ⭐️ {item.storeLocation.rating.toFixed(1)}
-            </Text>
+            <View style={styles.ratingContainer}>
+              <StarIcon size={16} color="#D97706" filled />
+              <Text style={styles.rating}>
+                {item.storeLocation.rating.toFixed(1)}
+              </Text>
+            </View>
           )}
         </View>
       </View>
 
       {item.storeLocation && (
         <View style={styles.cardFooter}>
-          <Text style={styles.address} numberOfLines={1}>
-            📍 {item.storeLocation.address}
-          </Text>
+          <View style={styles.addressContainer}>
+            <LocationIcon size={14} color={palette.textSecondary} />
+            <Text style={styles.address} numberOfLines={1}>
+              {item.storeLocation.address}
+            </Text>
+          </View>
           <View style={styles.actions}>
             {item.storeLocation.phone && (
               <TouchableOpacity
-                onPress={() => Linking.openURL(`tel:${item.storeLocation!.phone}`)}>
-                <Text style={styles.actionButton}>📞 Call</Text>
+                style={styles.actionButtonContainer}
+                onPress={() => Linking.openURL(`tel:${item.storeLocation!.phone}`)}
+                accessible={true}
+                accessibilityRole="button"
+                accessibilityLabel={`Call ${item.store}`}
+                accessibilityHint="Double tap to call this store">
+                <PhoneIcon size={16} color={palette.primary} />
+                <Text style={styles.actionButton}>Call</Text>
               </TouchableOpacity>
             )}
-            <TouchableOpacity onPress={() => openNavigation(item)}>
-              <Text style={styles.actionButton}>🧭 Navigate</Text>
+            <TouchableOpacity
+              style={styles.actionButtonContainer}
+              onPress={() => openNavigation(item)}
+              accessible={true}
+              accessibilityRole="button"
+              accessibilityLabel="Navigate to store"
+              accessibilityHint="Double tap to open navigation in Maps">
+              <NavigationIcon size={16} color={palette.primary} />
+              <Text style={styles.actionButton}>Navigate</Text>
             </TouchableOpacity>
             {item.url && (
-              <TouchableOpacity onPress={() => Linking.openURL(item.url!)}>
-                <Text style={styles.actionButton}>🔗 View</Text>
+              <TouchableOpacity
+                style={styles.actionButtonContainer}
+                onPress={() => Linking.openURL(item.url!)}
+                accessible={true}
+                accessibilityRole="button"
+                accessibilityLabel="View store website"
+                accessibilityHint="Double tap to open store website">
+                <LinkIcon size={16} color={palette.primary} />
+                <Text style={styles.actionButton}>View</Text>
               </TouchableOpacity>
             )}
           </View>
@@ -172,6 +218,11 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
         <View style={styles.headerStats}>
           <Text style={styles.statText}>
             {filteredResults.filter(r => r.inStock).length} in stock
+        accessible={true}
+        accessibilityRole="button"
+        accessibilityLabel={filters.showFilters ? "Hide filters" : "Show filters"}
+        accessibilityHint="Double tap to toggle filter panel"
+        accessibilityState={{expanded: filters.showFilters}}
           </Text>
           <Text style={styles.statDivider}>•</Text>
           <Text style={styles.statText}>
@@ -184,9 +235,14 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
       <TouchableOpacity
         style={styles.filterToggle}
         onPress={() => setFilters(p => ({...p, showFilters: !p.showFilters}))}>
-        <Text style={styles.filterToggleText}>
-          {filters.showFilters ? '▼' : '▶'} Filters
-        </Text>
+        <View style={styles.filterToggleContent}>
+          {filters.showFilters ? (
+            <ChevronDownIcon size={18} color={palette.primary} />
+          ) : (
+            <ChevronRightIcon size={18} color={palette.primary} />
+          )}
+          <Text style={styles.filterToggleText}>Filters</Text>
+        </View>
         {(filters.inStockOnly || filters.storeTypes.length > 0) && (
           <View style={styles.activeFilterBadge}>
             <Text style={styles.activeFilterText}>Active</Text>
@@ -284,23 +340,28 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
 
       {/* View Mode Selector */}
       <View style={styles.viewModeSelector}>
-        {(['list', 'grouped', 'map'] as const).map(mode => (
-          <TouchableOpacity
-            key={mode}
-            style={[
-              styles.viewModeButton,
-              viewMode === mode && styles.viewModeButtonActive,
-            ]}
-            onPress={() => setViewMode(mode)}>
-            <Text
+        {(['list', 'grouped', 'map'] as const).map(mode => {
+          const isActive = viewMode === mode;
+          const iconColor = isActive ? palette.primary : palette.textTertiary;
+          return (
+            <TouchableOpacity
+              key={mode}
+              accessible={true}
+              accessibilityRole="button"
+              accessibilityLabel={`${mode} view`}
+              accessibilityHint={`Double tap to switch to ${mode} view`}
+              accessibilityState={{selected: isActive}}
               style={[
-                styles.viewModeText,
-                viewMode === mode && styles.viewModeTextActive,
-              ]}>
-              {mode === 'list' ? '📋' : mode === 'grouped' ? '📂' : '🗺️'}
-            </Text>
-          </TouchableOpacity>
-        ))}
+                styles.viewModeButton,
+                isActive && styles.viewModeButtonActive,
+              ]}
+              onPress={() => setViewMode(mode)}>
+              {mode === 'list' && <ListIcon size={24} color={iconColor} />}
+              {mode === 'grouped' && <FolderIcon size={24} color={iconColor} />}
+              {mode === 'map' && <MapIcon size={24} color={iconColor} />}
+            </TouchableOpacity>
+          );
+        })}
       </View>
 
       {/* Results */}
@@ -334,8 +395,9 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
         </ScrollView>
       ) : (
         <View style={styles.mapPlaceholder}>
+          <MapIcon size={64} color={palette.textTertiary} />
           <Text style={styles.mapPlaceholderText}>
-            🗺️ Map view coming soon
+            Map view coming soon
           </Text>
           <Text style={styles.mapPlaceholderSubtext}>
             Will show all {filteredResults.length} stores on interactive map
@@ -384,6 +446,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: palette.border,
   },
+  filterToggleContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
   filterToggleText: {
     fontSize: 16,
     fontWeight: '600',
@@ -393,7 +460,7 @@ const styles = StyleSheet.create({
     backgroundColor: palette.primary,
     paddingHorizontal: spacing.sm,
     paddingVertical: 4,
-    borderRadius: radius.sm,
+    borderRadius: radius.badge, // 6px per design system
   },
   activeFilterText: {
     color: '#fff',
@@ -432,7 +499,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: spacing.sm,
     marginHorizontal: 4,
-    borderRadius: radius.sm,
+    borderRadius: radius.button, // 8px per design system
     borderWidth: 1,
     borderColor: palette.border,
     alignItems: 'center',
@@ -532,7 +599,7 @@ const styles = StyleSheet.create({
     marginHorizontal: spacing.md,
     marginVertical: spacing.sm,
     padding: spacing.md,
-    borderRadius: radius.md,
+    borderRadius: radius.card, // 12px per design system
     borderWidth: 1,
     borderColor: palette.border,
   },
@@ -560,7 +627,7 @@ const styles = StyleSheet.create({
   availabilityBadge: {
     paddingHorizontal: spacing.sm,
     paddingVertical: 4,
-    borderRadius: radius.sm,
+    borderRadius: radius.badge, // 6px per design system
   },
   availabilityText: {
     fontSize: 11,
@@ -585,8 +652,14 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: palette.primary,
   },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
   rating: {
     fontSize: 14,
+    fontWeight: '600',
     color: palette.textSecondary,
   },
   cardFooter: {
@@ -594,14 +667,28 @@ const styles = StyleSheet.create({
     borderTopColor: palette.border,
     paddingTop: spacing.sm,
   },
+  addressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: spacing.sm,
+  },
   address: {
+    flex: 1,
     fontSize: 13,
     color: palette.textSecondary,
-    marginBottom: spacing.xs,
   },
   actions: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    gap: spacing.sm,
+  },
+  actionButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 6,
   },
   actionButton: {
     fontSize: 13,
@@ -622,10 +709,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: spacing.xl,
+    gap: spacing.md,
   },
   mapPlaceholderText: {
-    fontSize: 24,
-    marginBottom: spacing.md,
+    fontSize: 18,
+    fontWeight: '600',
+    color: palette.text,
   },
   mapPlaceholderSubtext: {
     fontSize: 14,
