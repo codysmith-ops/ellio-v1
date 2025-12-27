@@ -386,15 +386,22 @@ const App = (): React.JSX.Element => {
           <Text style={styles.cardTitle}>Add item</Text>
           {imageUri && (
             <View style={styles.imagePreview}>
-              <Image source={{uri: imageUri}} style={styles.previewImage} />
+              <Image 
+                source={{uri: imageUri}} 
+                style={styles.previewImage}
+                accessible={true}
+                accessibilityLabel="Product photo preview"
+                accessibilityRole="image" />
               <TouchableOpacity
                 style={styles.removeImage}
                 onPress={() => {
                   setImageUri(undefined);
                   setProductBrand('');
                   setProductDetails('');
-                }}>
-                <Text style={styles.removeImageText}>X</Text>
+                }}
+                accessibilityRole="button"
+                accessibilityLabel="Remove photo"
+                accessibilityHint="Double tap to remove the captured photo">                <Text style={styles.removeImageText}>X</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -404,6 +411,8 @@ const App = (): React.JSX.Element => {
             value={title}
             onChangeText={setTitle}
             style={styles.input}
+            accessibilityLabel="Task title"
+            accessibilityHint="Enter what you need to buy or do"
           />
           <TextInput
             placeholder="Notes (optional)"
@@ -411,6 +420,8 @@ const App = (): React.JSX.Element => {
             value={note}
             onChangeText={setNote}
             style={styles.input}
+            accessibilityLabel="Task notes"
+            accessibilityHint="Add optional notes or details"
           />
           {productBrand ? (
             <TextInput
@@ -419,6 +430,8 @@ const App = (): React.JSX.Element => {
               value={productBrand}
               onChangeText={setProductBrand}
               style={styles.input}
+              accessibilityLabel="Product brand name"
+              accessibilityHint="Detected from photo, you can edit this"
             />
           ) : null}
           {productDetails ? (
@@ -429,6 +442,8 @@ const App = (): React.JSX.Element => {
               onChangeText={setProductDetails}
               style={styles.input}
               multiline
+              accessibilityLabel="Product details"
+              accessibilityHint="Additional product information detected from photo"
             />
           ) : null}
           <TextInput
@@ -437,6 +452,8 @@ const App = (): React.JSX.Element => {
             value={locationLabel}
             onChangeText={setLocationLabel}
             style={styles.input}
+            accessibilityLabel="Location label"
+            accessibilityHint="Name of store or service location"
           />
           <View style={styles.row}>
             <TextInput
@@ -446,6 +463,8 @@ const App = (): React.JSX.Element => {
               onChangeText={setLatitude}
               style={[styles.input, styles.halfInput]}
               keyboardType="numeric"
+              accessibilityLabel="Latitude coordinate"
+              accessibilityHint="GPS latitude for this location"
             />
             <TextInput
               placeholder="Lng"
@@ -454,6 +473,8 @@ const App = (): React.JSX.Element => {
               onChangeText={setLongitude}
               style={[styles.input, styles.halfInput]}
               keyboardType="numeric"
+              accessibilityLabel="Longitude coordinate"
+              accessibilityHint="GPS longitude for this location"
             />
           </View>
           <GhostButton
@@ -492,7 +513,10 @@ const App = (): React.JSX.Element => {
                 <TouchableOpacity
                   key={idx}
                   style={styles.storeCard}
-                  onPress={() => result.url && Linking.openURL(result.url)}>
+                  onPress={() => result.url && Linking.openURL(result.url)}
+                  accessibilityRole="button"
+                  accessibilityLabel={`${result.store}, ${result.productName}, $${result.price?.toFixed(2) || 'price unknown'}, ${result.availability}${result.storeLocation?.distance ? ', ' + (result.storeLocation.distance < 1 ? (result.storeLocation.distance * 1000).toFixed(0) + ' meters away' : result.storeLocation.distance.toFixed(1) + ' kilometers away') : ''}`}
+                  accessibilityHint="Double tap to view store details and get directions">
                   <View style={styles.storeHeader}>
                     <View style={styles.storeNameRow}>
                       <Text style={styles.storeLogo}>{result.storeLogo}</Text>
@@ -611,7 +635,12 @@ const PrimaryButton = ({
   label: string;
   onPress: () => void;
 }) => (
-  <TouchableOpacity style={styles.primaryButton} onPress={onPress}>
+  <TouchableOpacity 
+    style={styles.primaryButton} 
+    onPress={onPress}
+    accessibilityRole="button"
+    accessibilityLabel={label}
+    accessibilityHint="Double tap to activate">
     <Text style={styles.primaryButtonText}>{label}</Text>
   </TouchableOpacity>
 );
@@ -628,7 +657,11 @@ const GhostButton = ({
   <TouchableOpacity 
     style={[styles.ghostButton, disabled && styles.ghostButtonDisabled]} 
     onPress={onPress}
-    disabled={disabled}>
+    disabled={disabled}
+    accessibilityRole="button"
+    accessibilityLabel={label}
+    accessibilityState={{disabled: disabled || false}}
+    accessibilityHint={disabled ? "Button is disabled" : "Double tap to activate"}>
     <Text style={[styles.ghostButtonText, disabled && styles.ghostButtonTextDisabled]}>{label}</Text>
   </TouchableOpacity>
 );
@@ -644,7 +677,11 @@ const Chip = ({
 }) => (
   <TouchableOpacity
     onPress={onPress}
-    style={[styles.chip, active && styles.chipActive]}>
+    style={[styles.chip, active && styles.chipActive]}
+    accessibilityRole="button"
+    accessibilityLabel={label}
+    accessibilityState={{selected: active}}
+    accessibilityHint={active ? "Double tap to deselect" : "Double tap to select"}>
     <Text style={[styles.chipText, active && styles.chipTextActive]}>
       {label}
     </Text>
@@ -685,8 +722,12 @@ const TaskCard = ({
           onPress={onToggle}
         />
         <GhostButton label="Navigate" onPress={onNavigate} />
-        <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
-          <Text style={styles.deleteText}>Delete</Text>
+        <TouchableOpacity 
+          onPress={onDelete} 
+          style={styles.deleteButton}
+          accessibilityRole="button"
+          accessibilityLabel={`Delete ${task.title}`}
+          accessibilityHint="Double tap to remove this task permanently">          <Text style={styles.deleteText}>Delete</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -883,9 +924,11 @@ const styles = StyleSheet.create({
   primaryButton: {
     flex: 1,
     backgroundColor: palette.primary,
-    paddingVertical: spacing.sm,
+    paddingVertical: spacing.md,  // 16pt padding = 32pt + text height ≈ 44pt minimum
+    paddingHorizontal: spacing.md,
     borderRadius: radius.md,
     alignItems: 'center',
+    minHeight: 44,  // WCAG AA minimum touch target
   },
   primaryButtonText: {
     color: '#FFFFFF',
@@ -893,11 +936,13 @@ const styles = StyleSheet.create({
   },
   ghostButton: {
     flex: 1,
-    paddingVertical: spacing.sm,
+    paddingVertical: spacing.md,  // 16pt padding = 32pt + text height ≈ 44pt minimum
+    paddingHorizontal: spacing.md,
     borderRadius: radius.md,
     borderColor: palette.primary,
     borderWidth: 1,
     alignItems: 'center',
+    minHeight: 44,  // WCAG AA minimum touch target
   },
   ghostButtonText: {
     color: palette.primary,
@@ -914,10 +959,11 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     flexWrap: 'wrap',
   },
-  chip: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.xs,
+  chip: {sm,  // 8pt + text = ~36pt, still tappable
     borderRadius: radius.lg,
+    borderColor: palette.border,
+    borderWidth: 1,
+    minHeight: 36,  // Smaller chips acceptable for non-critical actionsadius.lg,
     borderColor: palette.border,
     borderWidth: 1,
   },
@@ -1026,10 +1072,11 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   deleteButton: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.xs,
+    paddingHorizontal: spacinsm,  // Increased for better touch target
     borderRadius: radius.md,
     borderColor: '#DC2626',
+    borderWidth: 1,
+    minHeight: 36,  // Minimum touch targetDC2626',
     borderWidth: 1,
   },
   deleteText: {
