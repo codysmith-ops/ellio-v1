@@ -57,16 +57,29 @@ target 'MobileTodoList' do
     # Fix for gRPC-Core and other C++ compilation issues
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-        # Set deployment target to iOS 16.0
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
+        # Set deployment target to iOS 16.0 for ALL pods (minimum 12.0, recommended 16.0)
+        current_target = config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']
+        if current_target.nil? || current_target.to_f < 16.0
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
+        end
         
         # Fix C++ language standard - use C++17 for better compatibility
         config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
         config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
         
-        # Disable some warnings for third-party code
+        # Disable warnings for third-party code to reduce noise
         config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'
         config.build_settings['CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER'] = 'NO'
+        config.build_settings['CLANG_WARN_DOCUMENTATION_COMMENTS'] = 'NO'
+        config.build_settings['CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS'] = 'NO'
+        
+        # Suppress implicit conversion warnings
+        config.build_settings['GCC_WARN_64_TO_32_BIT_CONVERSION'] = 'NO'
+        config.build_settings['CLANG_WARN_IMPLICIT_SIGN_CONVERSION'] = 'NO'
+        
+        # Fix duplicate library warning
+        config.build_settings['OTHER_LDFLAGS'] ||= ['$(inherited)']
+        config.build_settings['OTHER_LDFLAGS'].delete('-lc++') if config.build_settings['OTHER_LDFLAGS'].include?('-lc++')
         
         # Additional fixes for gRPC - use gnu++17 for better template support
         if target.name.start_with?('gRPC')
@@ -78,6 +91,19 @@ target 'MobileTodoList' do
         # Fix for abseil (used by gRPC)
         if target.name.start_with?('abseil')
           config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
+        end
+        
+        # Fix for specific pods with known issues
+        case target.name
+        when 'react-native-geolocation', 'react-native-image-picker', 'react-native-voice'
+          # These have deployment target 9.0, force to 16.0
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
+        when 'RNDateTimePicker', 'RNGestureHandler', 'SocketRocket'
+          # These have deployment target 11.0, force to 16.0
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
+        when 'fmt', 'libevent'
+          # These have deployment target 10.0, force to 16.0
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
         end
       end
     end
