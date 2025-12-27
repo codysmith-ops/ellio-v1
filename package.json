@@ -7,7 +7,15 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "xcode:audit": "python3 xcode_auditor.py --audit-only",
+    "xcode:fix": "python3 xcode_auditor.py --fix",
+    "xcode:fix-quick": "bash fix_build_phases.sh",
+    "pods": "cd ios && pod install",
+    "pods:clean": "cd ios && rm -rf Pods Podfile.lock && pod install",
+    "ios:clean": "cd ios && xcodebuild clean && rm -rf build",
+    "prebuild:ios": "npm run xcode:fix",
+    "postinstall": "npm run pods"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^8.5.1",

@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "name": "Xcode Build Configuration Protocol",
+  "description": "Automated detection and fixing of Xcode build issues for React Native projects",
+  "buildPhaseConfiguration": {
+    "scriptPhases": {
+      "rules": [
+        {
+          "id": "BP001",
+          "scriptName": "Bundle React Native code and images",
+          "requiredOutputs": [
+            "$(DERIVED_FILE_DIR)/main.jsbundle",
+            "$(DERIVED_FILE_DIR)/main.jsbundle.map"
+          ],
+          "description": "React Native bundler script must specify output files to enable incremental builds"
+        },
+        {
+          "id": "BP002",
+          "scriptName": "[CP-User] [RNFB] Core Configuration",
+          "requiredOutputs": [
+            "$(DERIVED_FILE_DIR)/rnfb-config-generated.stamp"
+          ],
+          "description": "Firebase configuration script must specify output to avoid running on every build"
+        },
+        {
+          "id": "BP003",
+          "scriptNamePattern": "\\[CP.*\\]",
+          "requiredOutputs": [
+            "$(DERIVED_FILE_DIR)/cocoapods-script.stamp"
+          ],
+          "description": "Generic CocoaPods scripts should have stamp file outputs"
+        }
+      ]
+    }
+  },
+  "automationRules": {
+    "autoFixEnabled": true,
+    "backupBeforeFix": true,
+    "reportFormat": "json"
+  }
+}

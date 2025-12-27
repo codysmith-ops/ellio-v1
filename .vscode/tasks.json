@@ -1,0 +1,93 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Xcode: Quick Fix Build Phases",
+      "type": "shell",
+      "command": "./fix_build_phases.sh",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "Xcode: Full Audit and Fix",
+      "type": "shell",
+      "command": "python3 xcode_auditor.py --fix",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "Xcode: Audit Only",
+      "type": "shell",
+      "command": "python3 xcode_auditor.py --audit-only",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "iOS: Clean and Rebuild",
+      "type": "shell",
+      "command": "cd ios && rm -rf build && xcodebuild clean build -workspace MobileTodoList.xcworkspace -scheme MobileTodoList -configuration Debug -sdk iphonesimulator",
+      "problemMatcher": {
+        "owner": "xcode",
+        "fileLocation": "absolute",
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "CocoaPods: Clean Install",
+      "type": "shell",
+      "command": "cd ios && rm -rf Pods Podfile.lock && pod install",
+      "problemMatcher": []
+    },
+    {
+      "label": "React Native: Start Metro",
+      "type": "shell",
+      "command": "npx react-native start",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "."
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "."
+        }
+      }
+    },
+    {
+      "label": "iOS: Run on Simulator",
+      "type": "shell",
+      "command": "npx react-native run-ios",
+      "dependsOn": ["React Native: Start Metro"],
+      "problemMatcher": []
+    }
+  ]
+}

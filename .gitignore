@@ -47,7 +47,19 @@ fastlane/test_output
 .env.*.local
 
 # IDE
-.vscode/
+# Keep .vscode/ for tasks and settings
+!.vscode/
+.vscode/*
+!.vscode/tasks.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/xcode-build-protocol.json
+
+# Xcode Build Automation
+.xcode_backup/
+xcode-audit-report.json
+*.pbxproj.backup.*
+ios/build.log
 .idea/
 
 # Testing

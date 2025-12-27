@@ -1,0 +1,51 @@
+name: iOS Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Run Xcode Audit
+      run: |
+        python3 xcode_auditor.py --audit-only
+    
+    - name: Install CocoaPods dependencies
+      run: |
+        cd ios
+        pod install
+    
+    - name: Build iOS app
+      run: |
+        cd ios
+        xcodebuild clean build \
+          -workspace MobileTodoList.xcworkspace \
+          -scheme MobileTodoList \
+          -configuration Debug \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,name=iPhone 15'
+    
+    - name: Upload build artifacts
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-logs
+        path: |
+          xcode-audit-report.json
+          ios/build/
