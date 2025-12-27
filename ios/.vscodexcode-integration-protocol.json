@@ -1,0 +1,87 @@
+{
+  "name": "Xcode Build Automation Protocol",
+  "version": "1.0.0",
+  "description": "VS Code protocol for automated Xcode build issue resolution",
+  "compatibility": {
+    "vscode": ">=1.80.0",
+    "xcode": ">=14.0",
+    "react-native": ">=0.70.0"
+  },
+  "protocol": {
+    "errorDetection": {
+      "triggers": [
+        "Run script build phase.*will be run during every build",
+        "No matching function for call to 'CallSeqFactory'",
+        "does not specify any outputs",
+        "Based on dependency analysis"
+      ],
+      "actions": [
+        {
+          "pattern": "Run script build phase.*will be run during every build",
+          "handler": "xcode_auditor.py",
+          "autoFix": true
+        },
+        {
+          "pattern": "No matching function for call to 'CallSeqFactory'",
+          "handler": "fix_react_native_codegen.sh",
+          "autoFix": true
+        }
+      ]
+    },
+    "automationSequence": [
+      {
+        "step": 1,
+        "name": "Audit Phase",
+        "script": "python3 xcode_auditor.py --scan",
+        "continueOnError": false
+      },
+      {
+        "step": 2,
+        "name": "Fix Phase",
+        "script": "python3 xcode_auditor.py --fix",
+        "continueOnError": false
+      },
+      {
+        "step": 3,
+        "name": "Verify Phase",
+        "script": "python3 xcode_auditor.py --verify",
+        "continueOnError": false
+      },
+      {
+        "step": 4,
+        "name": "React Native Codegen Fix",
+        "script": "bash fix_react_native_codegen.sh",
+        "continueOnError": true
+      }
+    ],
+    "backupStrategy": {
+      "enabled": true,
+      "location": ".xcode_backup",
+      "retentionDays": 7,
+      "filetypes": [".pbxproj", ".xcworkspace"]
+    },
+    "industryStandards": {
+      "buildPhaseOutputs": true,
+      "dependencyTracking": true,
+      "incrementalBuilds": true,
+      "codegenCompatibility": true
+    }
+  },
+  "tasks": [
+    {
+      "label": "Xcode: Full Audit & Fix",
+      "command": "python3 xcode_auditor.py --full",
+      "problemMatcher": "$gcc"
+    },
+    {
+      "label": "Xcode: Quick Scan",
+      "command": "python3 xcode_auditor.py --scan",
+      "problemMatcher": "$gcc"
+    },
+    {
+      "label": "Xcode: Fix All Issues",
+      "command": "bash fix_build_phases.sh",
+      "problemMatcher": "$gcc"
+    }
+  ]
+}

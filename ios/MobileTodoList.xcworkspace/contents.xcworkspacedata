@@ -109,4 +109,22 @@
    <FileRef
       location = "group:package.json.scripts.example">
    </FileRef>
+   <FileRef
+      location = "group:QUICK_REFERENCE.md">
+   </FileRef>
+   <FileRef
+      location = "group:IMPLEMENTATION_CHECKLIST.md">
+   </FileRef>
+   <FileRef
+      location = "group:START_HERE_COMPLETE_SUMMARY.md">
+   </FileRef>
+   <FileRef
+      location = "group:gitignore_additions.txt">
+   </FileRef>
+   <FileRef
+      location = "group:fix_react_native_codegen.sh">
+   </FileRef>
+   <FileRef
+      location = "group:xcode_auditor 2.py">
+   </FileRef>
 </Workspace>

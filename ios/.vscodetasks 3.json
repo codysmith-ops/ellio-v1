@@ -1,0 +1,138 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Xcode: Full Audit & Fix",
+      "type": "shell",
+      "command": "python3",
+      "args": [
+        "${workspaceFolder}/xcode_auditor.py",
+        "--full"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Xcode: Quick Scan",
+      "type": "shell",
+      "command": "python3",
+      "args": [
+        "${workspaceFolder}/xcode_auditor.py",
+        "--scan"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Xcode: Apply Fixes Only",
+      "type": "shell",
+      "command": "python3",
+      "args": [
+        "${workspaceFolder}/xcode_auditor.py",
+        "--fix"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Xcode: Verify Fixes",
+      "type": "shell",
+      "command": "python3",
+      "args": [
+        "${workspaceFolder}/xcode_auditor.py",
+        "--verify"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "React Native: Fix CallSeqFactory Error",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/fix_react_native_codegen.sh"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "iOS: Clean Build",
+      "type": "shell",
+      "command": "rm",
+      "args": [
+        "-rf",
+        "${workspaceFolder}/ios/build",
+        "${workspaceFolder}/ios/DerivedData"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "iOS: Reinstall Pods",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "cd ${workspaceFolder}/ios && rm -rf Pods Podfile.lock && pod install"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Full Fix: All Issues",
+      "dependsOn": [
+        "Xcode: Full Audit & Fix",
+        "React Native: Fix CallSeqFactory Error",
+        "iOS: Clean Build",
+        "iOS: Reinstall Pods"
+      ],
+      "dependsOrder": "sequence",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

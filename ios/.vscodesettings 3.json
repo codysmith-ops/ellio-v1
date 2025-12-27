@@ -1,0 +1,41 @@
+{
+  "files.associations": {
+    "*.pbxproj": "xml",
+    "Podfile": "ruby",
+    "*.xcconfig": "properties"
+  },
+  "files.exclude": {
+    "**/.xcode_backup": true,
+    "**/ios/build": true,
+    "**/ios/Pods": true,
+    "**/ios/DerivedData": true,
+    "**/*.xcworkspace/xcuserdata": true,
+    "**/*.xcodeproj/xcuserdata": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/ios/Pods": true,
+    "**/ios/build": true,
+    "**/.xcode_backup": true
+  },
+  "python.defaultInterpreterPath": "python3",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "black",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python",
+    "editor.formatOnSave": true
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "shellformat.flag": "-i 2 -ci",
+  "terminal.integrated.env.osx": {
+    "XCODE_AUTOMATION": "enabled"
+  },
+  "terminal.integrated.env.linux": {
+    "XCODE_AUTOMATION": "enabled"
+  },
+  "xcode.integration.autoFix": true,
+  "xcode.integration.protocol": "${workspaceFolder}/.vscode/xcode-integration-protocol.json"
+}
