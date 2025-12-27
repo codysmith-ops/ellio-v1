@@ -2,37 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Xcode: Quick Fix Build Phases",
+      "label": "iOS: Preflight Check",
       "type": "shell",
-      "command": "./fix_build_phases.sh",
-      "problemMatcher": [],
-      "presentation": {
-        "reveal": "always",
-        "panel": "new"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": false
-      }
-    },
-    {
-      "label": "Xcode: Full Audit and Fix",
-      "type": "shell",
-      "command": "python3 xcode_auditor.py --fix",
-      "problemMatcher": [],
-      "presentation": {
-        "reveal": "always",
-        "panel": "new"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": false
-      }
-    },
-    {
-      "label": "Xcode: Audit Only",
-      "type": "shell",
-      "command": "python3 xcode_auditor.py --audit-only",
+      "command": "./scripts/preflight.sh",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",
@@ -40,54 +12,60 @@
       }
     },
     {
-      "label": "iOS: Clean and Rebuild",
+      "label": "iOS: Clean Build (ENFORCED)",
       "type": "shell",
-      "command": "cd ios && rm -rf build && xcodebuild clean build -workspace MobileTodoList.xcworkspace -scheme MobileTodoList -configuration Debug -sdk iphonesimulator",
-      "problemMatcher": {
-        "owner": "xcode",
-        "fileLocation": "absolute",
-        "pattern": {
-          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-          "file": 1,
-          "line": 2,
-          "column": 3,
-          "severity": 4,
-          "message": 5
-        }
-      },
+      "command": "./scripts/preflight.sh && cd ios && xcodebuild clean build -workspace MobileTodoList.xcworkspace -scheme MobileTodoList -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5'",
       "group": {
         "kind": "build",
         "isDefault": true
+      },
+      "problemMatcher": ["$gcc"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
       }
     },
     {
-      "label": "CocoaPods: Clean Install",
+      "label": "iOS: Build (ENFORCED)",
       "type": "shell",
-      "command": "cd ios && rm -rf Pods Podfile.lock && pod install",
-      "problemMatcher": []
-    },
-    {
-      "label": "React Native: Start Metro",
-      "type": "shell",
-      "command": "npx react-native start",
-      "isBackground": true,
-      "problemMatcher": {
-        "pattern": {
-          "regexp": "."
-        },
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": ".",
-          "endsPattern": "."
-        }
+      "command": "./scripts/preflight.sh && cd ios && xcodebuild build -workspace MobileTodoList.xcworkspace -scheme MobileTodoList -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5'",
+      "group": "build",
+      "problemMatcher": ["$gcc"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
       }
     },
     {
-      "label": "iOS: Run on Simulator",
+      "label": "iOS: Test (ENFORCED)",
       "type": "shell",
-      "command": "npx react-native run-ios",
-      "dependsOn": ["React Native: Start Metro"],
-      "problemMatcher": []
+      "command": "./scripts/preflight.sh && cd ios && xcodebuild test -workspace MobileTodoList.xcworkspace -scheme MobileTodoList -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5'",
+      "group": "test",
+      "problemMatcher": ["$gcc"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "iOS: Run on Simulator (ENFORCED)",
+      "type": "shell",
+      "command": "./scripts/preflight.sh && npx react-native run-ios --simulator='iPhone 15' --mode Debug",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "iOS: Install Pods",
+      "type": "shell",
+      "command": "cd ios && pod install",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
     }
   ]
 }

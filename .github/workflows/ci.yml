@@ -7,7 +7,7 @@ on:
     branches: [ main, develop ]
 
 env:
-  XCODE_VERSION: '16.0'  # NOT 26.2 - requires stable GA Xcode
+  XCODE_VERSION: '15.4'  # ENFORCED: Stable GA Xcode 15.4
   IOS_SIMULATOR: 'iPhone 15'
   IOS_VERSION: '17.5'
   NODE_VERSION: '18'
@@ -80,16 +80,20 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
       
+      - name: Select Xcode ${{ env.XCODE_VERSION }} (ENFORCED)
+        run: sudo xcode-select -s /Applications/Xcode_${{ env.XCODE_VERSION }}.app/Contents/Developer
+      
+      - name: Run Preflight Checks (ENFORCED)
+        run: |
+          chmod +x ./scripts/preflight.sh
+          ./scripts/preflight.sh
+      
       - name: Install CocoaPods dependencies
         run: |
           cd ios
           pod install
       
-      - name: Select Xcode version
-        run: sudo xcode-select -s /Applications/Xcode_${{ env.XCODE_VERSION }}.app
-        continue-on-error: true  # May not be available
-      
-      - name: Build iOS app (Debug)
+      - name: Build iOS app (Debug) - ENFORCED DESTINATION
         run: |
           xcodebuild \
             -workspace ios/MobileTodoList.xcworkspace \
