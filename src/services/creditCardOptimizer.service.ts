@@ -9,7 +9,7 @@ export interface CreditCard {
   issuer: string;
   categories: {
     [category: string]: {
-      pointsPerDollar: number;
+      pointsPerDollar?: number;
       cashbackPercent?: number;
     };
   };

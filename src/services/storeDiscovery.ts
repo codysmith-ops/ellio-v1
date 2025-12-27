@@ -38,6 +38,21 @@ export interface StoreCategory {
   placeTypes: string[];
 }
 
+interface GooglePlaceResult {
+  place_id: string;
+  name: string;
+  vicinity: string;
+  geometry: {
+    location: {
+      lat: number;
+      lng: number;
+    };
+  };
+  formatted_phone_number?: string;
+  rating?: number;
+  types?: string[];
+}
+
 // Comprehensive store categories
 export const STORE_CATEGORIES: StoreCategory[] = [
   {
@@ -258,7 +273,7 @@ const searchPlacesByCategory = async (
       const data = await response.json();
       
       if (data.results) {
-        data.results.forEach((place: any) => {
+        data.results.forEach((place: GooglePlaceResult) => {
           // Check if it matches our known chains
           const chain = category.chains.find(c => 
             place.name.toLowerCase().includes(c.toLowerCase())

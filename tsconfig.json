@@ -9,7 +9,7 @@
     "lib": ["es2017"],
     "moduleResolution": "node",
     "noEmit": true,
-    "strict": false,
+    "strict": true,
     "target": "esnext",
     "skipLibCheck": true,
     "resolveJsonModule": true

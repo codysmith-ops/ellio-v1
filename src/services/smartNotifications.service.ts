@@ -14,7 +14,7 @@ export interface SmartNotification {
   priority: 'high' | 'medium' | 'low';
   triggerCondition: {
     type: string;
-    params: any;
+    params: Record<string, unknown>;
   };
   actionable: boolean;
   actions?: Array<{
@@ -29,7 +29,12 @@ export interface NotificationRule {
   id: string;
   type: string;
   enabled: boolean;
-  conditions: any;
+  conditions: {
+    distance?: number;
+    percentDrop?: number;
+    daysBeforeExpiry?: number;
+    [key: string]: unknown;
+  };
   message: string;
 }
 
@@ -152,7 +157,7 @@ class SmartNotificationService {
         { latitude: store.lat, longitude: store.lng }
       );
 
-      if (distance <= rule.conditions.distance && store.itemCount > 0) {
+      if (rule.conditions.distance !== undefined && distance <= rule.conditions.distance && store.itemCount > 0) {
         const notifId = `proximity-${store.name}-${Date.now()}`;
         
         if (!this.sentNotifications.has(notifId)) {
@@ -193,7 +198,7 @@ class SmartNotificationService {
 
     const percentDrop = ((oldPrice - newPrice) / oldPrice) * 100;
     
-    if (percentDrop >= rule.conditions.percentDrop) {
+    if (rule.conditions.percentDrop !== undefined && percentDrop >= rule.conditions.percentDrop) {
       const notifId = `price-${item}-${store}-${Date.now()}`;
       
       this.sendNotification({
@@ -237,7 +242,7 @@ class SmartNotificationService {
 
     const expiringItems = pantryItems.filter(item => {
       const daysUntilExpiry = (item.expiryDate.getTime() - Date.now()) / (24 * 60 * 60 * 1000);
-      return daysUntilExpiry <= rule.conditions.daysBeforeExpiry && daysUntilExpiry > 0;
+      return rule.conditions.daysBeforeExpiry !== undefined && daysUntilExpiry <= rule.conditions.daysBeforeExpiry && daysUntilExpiry > 0;
     });
 
     if (expiringItems.length > 0) {
@@ -250,7 +255,7 @@ class SmartNotificationService {
           title: 'Items expiring soon',
           message: rule.message
             .replace('{count}', expiringItems.length.toString())
-            .replace('{days}', rule.conditions.daysBeforeExpiry.toString()),
+            .replace('{days}', (rule.conditions.daysBeforeExpiry ?? 0).toString()),
           priority: 'medium',
           triggerCondition: {
             type: 'expiry',
@@ -291,7 +296,7 @@ class SmartNotificationService {
         { latitude: deal.lat, longitude: deal.lng }
       );
 
-      if (distance <= rule.conditions.distance) {
+      if (rule.conditions.distance !== undefined && distance <= rule.conditions.distance) {
         const notifId = `deal-${deal.store}-${Date.now()}`;
         
         if (!this.sentNotifications.has(notifId)) {

@@ -20,7 +20,7 @@ export interface VoiceCommand {
 export interface VoiceResponse {
   text: string;
   action?: () => void;
-  data?: any;
+  data?: unknown;
 }
 
 class VoiceAssistantService {
@@ -42,13 +42,15 @@ class VoiceAssistantService {
     this.isListening = false;
   };
 
-  private onSpeechResults = (e: any) => {
-    const transcript = e.value[0];
-    this.processCommand(transcript);
+  private onSpeechResults = (e: { value?: string[] }) => {
+    const transcript = e.value?.[0];
+    if (transcript) {
+      this.processCommand(transcript);
+    }
   };
 
-  private onSpeechError = (e: any) => {
-    console.error('Voice error:', e);
+  private onSpeechError = (e: { error?: { message?: string; code?: string } }) => {
+    console.error('Voice error:', e.error?.message || e);
     this.isListening = false;
   };
 

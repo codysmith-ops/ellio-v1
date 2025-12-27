@@ -11,6 +11,7 @@ interface IconProps {
   size?: number;
   color?: string;
   strokeWidth?: number;
+  filled?: boolean;
 }
 
 // Location/Pin Icon

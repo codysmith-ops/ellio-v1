@@ -37,6 +37,21 @@ type StoreType = {
   categoryPriority: number; // Lower = higher priority in search
 };
 
+interface GooglePlaceResult {
+  place_id: string;
+  name: string;
+  vicinity: string;
+  geometry: {
+    location: {
+      lat: number;
+      lng: number;
+    };
+  };
+  formatted_phone_number?: string;
+  rating?: number;
+  types?: string[];
+}
+
 // Comprehensive store type definitions for dynamic discovery
 const STORE_TYPES: Record<string, StoreType> = {
   // Big Box Retail
@@ -324,7 +339,7 @@ const findNearbyStores = async (
       },
     });
 
-    return response.data.results.map((place: any) => ({
+    return response.data.results.map((place: GooglePlaceResult) => ({
       name: place.name,
       address: place.vicinity,
       latitude: place.geometry.location.lat,
