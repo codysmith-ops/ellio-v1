@@ -5,7 +5,6 @@ import {
   Image,
   KeyboardAvoidingView,
   Linking,
-  PermissionsAndroid,
   Platform,
   SafeAreaView,
   StatusBar,
@@ -192,14 +191,6 @@ const App = (): React.JSX.Element => {
 
   const takePhoto = useCallback(async () => {
     try {
-      if (Platform.OS === 'android') {
-        const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
-        if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-          Alert.alert('Permission denied', 'Camera permission is required');
-          return;
-        }
-      }
-
       const result = await launchCamera({
         mediaType: 'photo',
         saveToPhotos: false,
