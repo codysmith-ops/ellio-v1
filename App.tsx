@@ -35,6 +35,9 @@ import { TimelinePage } from './src/pages/TimelinePage';
 import { TaskAnalyticsPage } from './src/pages/TaskAnalyticsPage';
 import { TaskMeter } from './src/components/TaskMeter';
 import { BrandPreferenceDialog, BrandPreference } from './src/components/BrandPreferenceDialog';
+import { StorePreferenceDialog } from './src/components/StorePreferenceDialog';
+import { TaskCompletionDialog } from './src/components/TaskCompletionDialog';
+import { GeofenceMonitor } from './src/components/GeofenceMonitor';
 import {
   getTaskIcon,
   ScannerIcon,
@@ -43,8 +46,65 @@ import {
   AssignIcon,
 } from './src/components/TaskTypeIcons';
 
+// Helper to detect task type from title
+const getTaskType = (title: string): string => {
+  const lowerTitle = title.toLowerCase();
+  if (lowerTitle.includes('return') || lowerTitle.includes('refund')) {
+    return 'returns';
+  }
+  if (
+    lowerTitle.includes('grocery') ||
+    lowerTitle.includes('groceries') ||
+    lowerTitle.includes('food') ||
+    lowerTitle.includes('produce')
+  ) {
+    return 'groceries';
+  }
+  if (
+    lowerTitle.includes('hardware') ||
+    lowerTitle.includes('tool') ||
+    lowerTitle.includes('repair')
+  ) {
+    return 'hardware';
+  }
+  if (
+    lowerTitle.includes('retail') ||
+    lowerTitle.includes('store') ||
+    lowerTitle.includes('shop')
+  ) {
+    return 'retail';
+  }
+  if (
+    lowerTitle.includes('medical') ||
+    lowerTitle.includes('pharmacy') ||
+    lowerTitle.includes('doctor') ||
+    lowerTitle.includes('prescription')
+  ) {
+    return 'medical';
+  }
+  if (
+    lowerTitle.includes('home') ||
+    lowerTitle.includes('house') ||
+    lowerTitle.includes('cleaning')
+  ) {
+    return 'home';
+  }
+  return 'other';
+};
+
 const App = (): React.JSX.Element => {
-  const { tasks, addTask, toggleComplete, removeTask } = useTodoStore();
+  const {
+    tasks,
+    addTask,
+    toggleComplete,
+    removeTask,
+    storePreferences,
+    categoriesWithStorePrefs,
+    setStorePreferences,
+    setUserPreferences,
+    attachReceipt,
+    updateTask,
+  } = useTodoStore();
 
   // Setup wizard state
   const [setupComplete, setSetupComplete] = useState(false);
@@ -58,13 +118,18 @@ const App = (): React.JSX.Element => {
   const [title, setTitle] = useState('');
   const [note, setNote] = useState('');
   const [quantity, setQuantity] = useState('1');
+  const [nearbyTasks, setNearbyTasks] = useState<Task[]>([]);
+  const [showCompletionDialog, setShowCompletionDialog] = useState(false);
+
   const [dueDate, setDueDate] = useState('');
   const [assignedTo, setAssignedTo] = useState('');
   const [imageUri, setImageUri] = useState<string | undefined>();
   const [skuCode, setSkuCode] = useState('');
   const [showBrandDialog, setShowBrandDialog] = useState(false);
+  const [showStoreDialog, setShowStoreDialog] = useState(false);
   const [pendingTaskData, setPendingTaskData] = useState<any>(null);
   const [isFirstTask, setIsFirstTask] = useState(true);
+  const [pendingCategory, setPendingCategory] = useState<string>('other');
 
   // Activity log state
   const [activityLog, setActivityLog] = useState<
@@ -74,6 +139,37 @@ const App = (): React.JSX.Element => {
   const handleSetupComplete = (userData: UserSetupData) => {
     setUserName(userData.name);
     setSetupComplete(true);
+
+    // Save user preferences to store
+    setUserPreferences({
+      goals: userData.goals,
+      budgetAmount: userData.budgetAmount,
+      budgetPeriod: userData.budgetPeriod,
+      creditCards: userData.creditCards,
+      aiSuggestionsEnabled: true,
+      dealAlertsEnabled: userData.goals.includes('save-money'),
+      priceComparisonEnabled: userData.goals.includes('save-money'),
+      loyaltyProgramsEnabled: userData.goals.includes('credit-points'),
+      autoReceiptUploadEnabled: userData.goals.includes('budget'),
+      geofencingEnabled: true,
+      autoCompleteRadius: 100,
+    });
+
+    // Show welcome message based on goals
+    const goalMessages = {
+      'save-money': 'deal alerts and price comparisons',
+      'credit-points': 'smart card recommendations',
+      'budget': 'budget tracking and spending alerts',
+      'collaborate': 'team collaboration features',
+      'organize': 'advanced organization tools',
+      'efficiency': 'smart routing and time optimization',
+    };
+
+    const features = userData.goals.map(g => goalMessages[g]).join(', ');
+    Alert.alert(
+      `Welcome, ${userData.name}!`,
+      `Your app is configured with ${features}. Let's get started!`
+    );
   };
 
   const handleAdd = () => {
@@ -91,10 +187,22 @@ const App = (): React.JSX.Element => {
       productBrand: skuCode || undefined,
     };
 
+    // Detect task category
+    const category = getTaskType(taskData.title);
+
     // Show brand preference dialog for first few tasks
     if (isFirstTask && tasks.length < 5) {
       setPendingTaskData(taskData);
+      setPendingCategory(category);
       setShowBrandDialog(true);
+      return;
+    }
+
+    // Check if user needs to set store preferences for this category
+    if (!categoriesWithStorePrefs.has(category)) {
+      setPendingTaskData(taskData);
+      setPendingCategory(category);
+      setShowStoreDialog(true);
       return;
     }
 
@@ -135,6 +243,16 @@ const App = (): React.JSX.Element => {
           : pendingTaskData.note,
       };
 
+      // Check if store preferences dialog should be shown
+      if (!categoriesWithStorePrefs.has(pendingCategory)) {
+        // Save task data and show store dialog
+        setPendingTaskData(taskWithBrand);
+        setShowBrandDialog(false);
+        setShowStoreDialog(true);
+        setIsFirstTask(false);
+        return;
+      }
+
       addTask(taskWithBrand);
 
       // Add to activity log
@@ -162,6 +280,103 @@ const App = (): React.JSX.Element => {
 
       Alert.alert('Success', 'Task added with your preferences!');
     }
+  };
+
+  const handleStorePreferenceSubmit = (stores: string[]) => {
+    // Save store preferences for this category
+    setStorePreferences(pendingCategory, stores);
+
+    // Add the pending task
+    if (pendingTaskData) {
+      addTask(pendingTaskData);
+
+      // Add to activity log
+      setActivityLog(prev => [
+        {
+          id: Date.now().toString(),
+          action: 'added',
+          timestamp: Date.now(),
+          taskTitle: pendingTaskData.title,
+        },
+        ...prev.slice(0, 9),
+      ]);
+
+      // Reset form
+      setTitle('');
+      setNote('');
+      setQuantity('1');
+      setDueDate('');
+      setAssignedTo('');
+      setImageUri(undefined);
+      setSkuCode('');
+      setPendingTaskData(null);
+      setShowStoreDialog(false);
+
+      Alert.alert('Success', 'Task added with your store preferences!');
+    }
+  };
+
+  const handleStorePreferenceSkip = () => {
+    // Add the task without setting store preferences
+    if (pendingTaskData) {
+      addTask(pendingTaskData);
+
+      // Add to activity log
+      setActivityLog(prev => [
+        {
+          id: Date.now().toString(),
+          action: 'added',
+          timestamp: Date.now(),
+          taskTitle: pendingTaskData.title,
+        },
+        ...prev.slice(0, 9),
+      ]);
+
+      // Reset form
+      setTitle('');
+      setNote('');
+      setQuantity('1');
+      setDueDate('');
+      setAssignedTo('');
+      setImageUri(undefined);
+      setSkuCode('');
+      setPendingTaskData(null);
+      setShowStoreDialog(false);
+
+      Alert.alert('Success', 'Task added successfully');
+    }
+  };
+
+  const handleTasksNearby = (tasks: Task[]) => {
+    if (tasks.length > 0) {
+      setNearbyTasks(tasks);
+      setShowCompletionDialog(true);
+    }
+  };
+
+  const handleTaskComplete = (taskId: string, receiptUri?: string) => {
+    if (receiptUri) {
+      attachReceipt(taskId, receiptUri);
+    }
+    updateTask(taskId, {
+      completed: true,
+      completedAt: Date.now(),
+    });
+
+    setActivityLog(prev => [
+      {
+        id: Date.now().toString(),
+        action: 'completed',
+        timestamp: Date.now(),
+        taskTitle: tasks.find(t => t.id === taskId)?.title || 'Task',
+      },
+      ...prev.slice(0, 9),
+    ]);
+  };
+
+  const handleTaskSkip = (taskId: string) => {
+    // Remove from nearby tasks but don't mark complete
+    setNearbyTasks(prev => prev.filter(t => t.id !== taskId));
   };
 
   const handleToggle = (task: Task) => {
@@ -473,18 +688,6 @@ const App = (): React.JSX.Element => {
             </View>
           ) : (
             (() => {
-              // Helper to detect task type
-              const getTaskType = (title: string): string => {
-                const lowerTitle = title.toLowerCase();
-                if (lowerTitle.includes('return') || lowerTitle.includes('refund')) return 'returns';
-                if (lowerTitle.includes('grocery') || lowerTitle.includes('groceries') || lowerTitle.includes('food') || lowerTitle.includes('produce')) return 'groceries';
-                if (lowerTitle.includes('hardware') || lowerTitle.includes('tool') || lowerTitle.includes('repair')) return 'hardware';
-                if (lowerTitle.includes('retail') || lowerTitle.includes('store') || lowerTitle.includes('shop')) return 'retail';
-                if (lowerTitle.includes('medical') || lowerTitle.includes('pharmacy') || lowerTitle.includes('doctor') || lowerTitle.includes('prescription')) return 'medical';
-                if (lowerTitle.includes('home') || lowerTitle.includes('house') || lowerTitle.includes('cleaning')) return 'home';
-                return 'other';
-              };
-
               // Apply filter based on task type
               const filteredTasks = taskFilter
                 ? tasks.filter(task => {
@@ -590,6 +793,30 @@ const App = (): React.JSX.Element => {
           setIsFirstTask(false);
         }}
       />
+
+      {/* Store Preference Dialog */}
+      <StorePreferenceDialog
+        visible={showStoreDialog}
+        category={pendingCategory}
+        onSubmit={handleStorePreferenceSubmit}
+        onSkip={handleStorePreferenceSkip}
+      />
+
+      {/* Task Completion Dialog */}
+      <TaskCompletionDialog
+        visible={showCompletionDialog}
+        tasks={nearbyTasks}
+        onComplete={handleTaskComplete}
+        onSkip={handleTaskSkip}
+        onDismiss={() => {
+          setShowCompletionDialog(false);
+          setNearbyTasks([]);
+        }}
+        requireReceipt={false}
+      />
+
+      {/* Geofence Monitor */}
+      {setupComplete && <GeofenceMonitor onTasksNearby={handleTasksNearby} />}
     </SafeAreaView>
   );
 };

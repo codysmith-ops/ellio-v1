@@ -8,12 +8,15 @@ import {
   ScrollView,
   Alert,
   Image,
+  Platform,
 } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
 
 interface SetupWizardProps {
   onComplete: (userData: UserSetupData) => void;
 }
+
+export type UserGoal = 'save-money' | 'credit-points' | 'budget' | 'collaborate' | 'organize' | 'efficiency';
 
 export interface UserSetupData {
   name: string;
@@ -22,6 +25,10 @@ export interface UserSetupData {
   notificationsEnabled: boolean;
   defaultView: 'list' | 'grid';
   authProvider?: 'apple' | 'google' | 'email';
+  goals: UserGoal[];
+  budgetAmount?: number;
+  budgetPeriod?: 'weekly' | 'monthly';
+  creditCards?: Array<{ name: string; rewardsType: string }>;
 }
 
 export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
@@ -32,6 +39,60 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [defaultView, setDefaultView] = useState<'list' | 'grid'>('list');
   const [authProvider, setAuthProvider] = useState<'apple' | 'google' | 'email' | undefined>();
+  const [selectedGoals, setSelectedGoals] = useState<UserGoal[]>([]);
+  const [budgetAmount, setBudgetAmount] = useState('');
+  const [budgetPeriod, setBudgetPeriod] = useState<'weekly' | 'monthly'>('monthly');
+  const [creditCardName, setCreditCardName] = useState('');
+  const [rewardsType, setRewardsType] = useState('');
+  const [showCardSuggestions, setShowCardSuggestions] = useState(false);
+  const [showRewardsSuggestions, setShowRewardsSuggestions] = useState(false);
+
+  // Popular credit cards
+  const popularCards = [
+    'Chase Sapphire Preferred',
+    'Chase Sapphire Reserve',
+    'Chase Freedom Unlimited',
+    'Chase Freedom Flex',
+    'American Express Gold',
+    'American Express Platinum',
+    'Capital One Venture',
+    'Capital One Venture X',
+    'Citi Double Cash',
+    'Discover it Cash Back',
+    'Wells Fargo Active Cash',
+    'Bank of America Premium Rewards',
+    'Apple Card',
+  ];
+
+  // Common rewards types
+  const rewardsTypes = [
+    'Travel Points',
+    'Cashback',
+    'Airline Miles',
+    'Hotel Points',
+    'Flex Points',
+    'Membership Rewards',
+    'Ultimate Rewards',
+    'ThankYou Points',
+  ];
+
+  const filteredCards = creditCardName
+    ? popularCards.filter(card =>
+        card.toLowerCase().includes(creditCardName.toLowerCase())
+      )
+    : popularCards;
+
+  const filteredRewards = rewardsType
+    ? rewardsTypes.filter(reward =>
+        reward.toLowerCase().includes(rewardsType.toLowerCase())
+      )
+    : rewardsTypes;
+
+  const toggleGoal = (goal: UserGoal) => {
+    setSelectedGoals(prev =>
+      prev.includes(goal) ? prev.filter(g => g !== goal) : [...prev, goal]
+    );
+  };
 
   const handleAppleSignIn = () => {
     // Simulate Apple Sign In
@@ -229,6 +290,283 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
         </View>
       ),
     },
+    {
+      title: 'What matters most to you?',
+      subtitle: 'Select your goals so we can personalize your experience',
+      content: (
+        <View style={styles.goalsContent}>
+          <Text style={styles.goalsIntro}>
+            Choose one or more goals. We'll configure the app with AI-powered features to help you achieve them.
+          </Text>
+
+          <TouchableOpacity
+            style={[styles.goalCard, selectedGoals.includes('save-money') && styles.goalCardSelected]}
+            onPress={() => toggleGoal('save-money')}
+          >
+            <View style={styles.goalHeader}>
+              <Text style={styles.goalIcon}>💰</Text>
+              <View style={styles.goalInfo}>
+                <Text style={styles.goalTitle}>Save Money</Text>
+                <Text style={styles.goalDescription}>Find deals, compare prices, track savings</Text>
+              </View>
+              <View style={[styles.checkbox, selectedGoals.includes('save-money') && styles.checkboxSelected]}>
+                {selectedGoals.includes('save-money') && <Text style={styles.checkmark}>✓</Text>}
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.goalCard, selectedGoals.includes('credit-points') && styles.goalCardSelected]}
+            onPress={() => toggleGoal('credit-points')}
+          >
+            <View style={styles.goalHeader}>
+              <Text style={styles.goalIcon}>💳</Text>
+              <View style={styles.goalInfo}>
+                <Text style={styles.goalTitle}>Maximize Credit Card Points</Text>
+                <Text style={styles.goalDescription}>Earn rewards on every purchase</Text>
+              </View>
+              <View style={[styles.checkbox, selectedGoals.includes('credit-points') && styles.checkboxSelected]}>
+                {selectedGoals.includes('credit-points') && <Text style={styles.checkmark}>✓</Text>}
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.goalCard, selectedGoals.includes('budget') && styles.goalCardSelected]}
+            onPress={() => toggleGoal('budget')}
+          >
+            <View style={styles.goalHeader}>
+              <Text style={styles.goalIcon}>📊</Text>
+              <View style={styles.goalInfo}>
+                <Text style={styles.goalTitle}>Stay Within Budget</Text>
+                <Text style={styles.goalDescription}>Track spending, set limits, get alerts</Text>
+              </View>
+              <View style={[styles.checkbox, selectedGoals.includes('budget') && styles.checkboxSelected]}>
+                {selectedGoals.includes('budget') && <Text style={styles.checkmark}>✓</Text>}
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.goalCard, selectedGoals.includes('collaborate') && styles.goalCardSelected]}
+            onPress={() => toggleGoal('collaborate')}
+          >
+            <View style={styles.goalHeader}>
+              <Text style={styles.goalIcon}>👥</Text>
+              <View style={styles.goalInfo}>
+                <Text style={styles.goalTitle}>Collaborate with Others</Text>
+                <Text style={styles.goalDescription}>Share lists, assign tasks, work together</Text>
+              </View>
+              <View style={[styles.checkbox, selectedGoals.includes('collaborate') && styles.checkboxSelected]}>
+                {selectedGoals.includes('collaborate') && <Text style={styles.checkmark}>✓</Text>}
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.goalCard, selectedGoals.includes('organize') && styles.goalCardSelected]}
+            onPress={() => toggleGoal('organize')}
+          >
+            <View style={styles.goalHeader}>
+              <Text style={styles.goalIcon}>📋</Text>
+              <View style={styles.goalInfo}>
+                <Text style={styles.goalTitle}>Stay Organized</Text>
+                <Text style={styles.goalDescription}>Categories, reminders, prioritization</Text>
+              </View>
+              <View style={[styles.checkbox, selectedGoals.includes('organize') && styles.checkboxSelected]}>
+                {selectedGoals.includes('organize') && <Text style={styles.checkmark}>✓</Text>}
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.goalCard, selectedGoals.includes('efficiency') && styles.goalCardSelected]}
+            onPress={() => toggleGoal('efficiency')}
+          >
+            <View style={styles.goalHeader}>
+              <Text style={styles.goalIcon}>⚡</Text>
+              <View style={styles.goalInfo}>
+                <Text style={styles.goalTitle}>Maximize Efficiency</Text>
+                <Text style={styles.goalDescription}>Smart routing, batch tasks, time optimization</Text>
+              </View>
+              <View style={[styles.checkbox, selectedGoals.includes('efficiency') && styles.checkboxSelected]}>
+                {selectedGoals.includes('efficiency') && <Text style={styles.checkmark}>✓</Text>}
+              </View>
+            </View>
+          </TouchableOpacity>
+        </View>
+      ),
+    },
+    // Conditional goal-specific configuration steps
+    ...(selectedGoals.includes('budget')
+      ? [
+          {
+            title: 'Set Your Budget',
+            subtitle: "We'll help you stay on track",
+            content: (
+              <View style={styles.budgetContent}>
+                <Text style={styles.configIntro}>
+                  Set a spending limit and we'll track your purchases, alert you when you're approaching the limit, and provide insights to help you save.
+                </Text>
+
+                <View style={styles.inputGroup}>
+                  <Text style={styles.label}>Budget Amount</Text>
+                  <View style={styles.budgetInputContainer}>
+                    <Text style={styles.currencySymbol}>$</Text>
+                    <TextInput
+                      style={styles.budgetInput}
+                      placeholder="500"
+                      value={budgetAmount}
+                      onChangeText={setBudgetAmount}
+                      keyboardType="decimal-pad"
+                      placeholderTextColor={palette.textTertiary}
+                    />
+                  </View>
+                </View>
+
+                <View style={styles.periodSelector}>
+                  <Text style={styles.label}>Budget Period</Text>
+                  <View style={styles.periodButtons}>
+                    <TouchableOpacity
+                      style={[
+                        styles.periodButton,
+                        budgetPeriod === 'weekly' && styles.periodButtonActive,
+                      ]}
+                      onPress={() => setBudgetPeriod('weekly')}
+                    >
+                      <Text
+                        style={[
+                          styles.periodButtonText,
+                          budgetPeriod === 'weekly' && styles.periodButtonTextActive,
+                        ]}
+                      >
+                        Weekly
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[
+                        styles.periodButton,
+                        budgetPeriod === 'monthly' && styles.periodButtonActive,
+                      ]}
+                      onPress={() => setBudgetPeriod('monthly')}
+                    >
+                      <Text
+                        style={[
+                          styles.periodButtonText,
+                          budgetPeriod === 'monthly' && styles.periodButtonTextActive,
+                        ]}
+                      >
+                        Monthly
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                <View style={styles.aiFeatureBox}>
+                  <Text style={styles.aiFeatureIcon}>🤖</Text>
+                  <View style={styles.aiFeatureContent}>
+                    <Text style={styles.aiFeatureTitle}>AI-Powered Budget Assistant</Text>
+                    <Text style={styles.aiFeatureText}>
+                      Get smart spending recommendations, category breakdowns, and early warnings when you're likely to exceed your budget.
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            ),
+          },
+        ]
+      : []),
+    ...(selectedGoals.includes('credit-points')
+      ? [
+          {
+            title: 'Maximize Your Rewards',
+            subtitle: 'Tell us about your credit cards',
+            content: (
+              <View style={styles.creditCardContent}>
+                <Text style={styles.configIntro}>
+                  Add your credit cards and we'll suggest which card to use for each purchase to maximize your points and cashback.
+                </Text>
+
+                <View style={styles.inputGroup}>
+                  <Text style={styles.label}>Card Name</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Start typing..."
+                    value={creditCardName}
+                    onChangeText={(text) => {
+                      setCreditCardName(text);
+                      setShowCardSuggestions(text.length > 0);
+                    }}
+                    onFocus={() => setShowCardSuggestions(creditCardName.length > 0)}
+                    onBlur={() => setTimeout(() => setShowCardSuggestions(false), 200)}
+                    placeholderTextColor={palette.textTertiary}
+                  />
+                  {showCardSuggestions && filteredCards.length > 0 && (
+                    <ScrollView style={styles.suggestionsContainer} nestedScrollEnabled>
+                      {filteredCards.slice(0, 5).map((card, index) => (
+                        <TouchableOpacity
+                          key={index}
+                          style={styles.suggestionItem}
+                          onPress={() => {
+                            setCreditCardName(card);
+                            setShowCardSuggestions(false);
+                          }}
+                        >
+                          <Text style={styles.suggestionText}>{card}</Text>
+                        </TouchableOpacity>
+                      ))}
+                    </ScrollView>
+                  )}
+                </View>
+
+                <View style={styles.inputGroup}>
+                  <Text style={styles.label}>Rewards Type</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Start typing..."
+                    value={rewardsType}
+                    onChangeText={(text) => {
+                      setRewardsType(text);
+                      setShowRewardsSuggestions(text.length > 0);
+                    }}
+                    onFocus={() => setShowRewardsSuggestions(rewardsType.length > 0)}
+                    onBlur={() => setTimeout(() => setShowRewardsSuggestions(false), 200)}
+                    placeholderTextColor={palette.textTertiary}
+                  />
+                  {showRewardsSuggestions && filteredRewards.length > 0 && (
+                    <ScrollView style={styles.suggestionsContainer} nestedScrollEnabled>
+                      {filteredRewards.slice(0, 5).map((reward, index) => (
+                        <TouchableOpacity
+                          key={index}
+                          style={styles.suggestionItem}
+                          onPress={() => {
+                            setRewardsType(reward);
+                            setShowRewardsSuggestions(false);
+                          }}
+                        >
+                          <Text style={styles.suggestionText}>{reward}</Text>
+                        </TouchableOpacity>
+                      ))}
+                    </ScrollView>
+                  )}
+                </View>
+
+                <View style={styles.aiFeatureBox}>
+                  <Text style={styles.aiFeatureIcon}>💡</Text>
+                  <View style={styles.aiFeatureContent}>
+                    <Text style={styles.aiFeatureTitle}>Smart Card Recommendations</Text>
+                    <Text style={styles.aiFeatureText}>
+                      Our AI analyzes category bonuses, rotating rewards, and special offers to recommend the best card for each purchase.
+                    </Text>
+                  </View>
+                </View>
+
+                <Text style={styles.skipHint}>You can add more cards later in settings</Text>
+              </View>
+            ),
+          },
+        ]
+      : []),
   ];
 
   const currentStep = steps[step];
@@ -245,9 +583,21 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
       }
     }
 
+    if (step === 3) {
+      if (selectedGoals.length === 0) {
+        Alert.alert('Select at least one goal', 'Choose what matters most to you so we can personalize your experience');
+        return;
+      }
+    }
+
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
+      // Prepare credit cards array
+      const creditCards = creditCardName.trim()
+        ? [{ name: creditCardName, rewardsType: rewardsType || 'cashback' }]
+        : undefined;
+
       onComplete({
         name,
         email,
@@ -255,6 +605,10 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
         notificationsEnabled,
         defaultView,
         authProvider,
+        goals: selectedGoals,
+        budgetAmount: budgetAmount ? parseFloat(budgetAmount) : undefined,
+        budgetPeriod,
+        creditCards,
       });
     }
   };
@@ -598,5 +952,182 @@ const styles = StyleSheet.create({
   nextButtonText: {
     ...typography.bodyBold,
     color: palette.surface,
+  },
+  goalsContent: {
+    gap: spacing.md,
+  },
+  goalsIntro: {
+    ...typography.body,
+    color: palette.textSecondary,
+    marginBottom: spacing.md,
+    textAlign: 'center',
+    lineHeight: 22,
+  },
+  goalCard: {
+    backgroundColor: palette.surface,
+    borderWidth: 2,
+    borderColor: palette.border,
+    borderRadius: radius.large,
+    padding: spacing.md,
+  },
+  goalCardSelected: {
+    borderColor: palette.primary,
+    backgroundColor: palette.primaryLight || '#EBF5FF',
+  },
+  goalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+  },
+  goalIcon: {
+    fontSize: 32,
+  },
+  goalInfo: {
+    flex: 1,
+  },
+  goalTitle: {
+    ...typography.bodyBold,
+    color: palette.text,
+    marginBottom: 4,
+  },
+  goalDescription: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+  },
+  checkbox: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: palette.border,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkboxSelected: {
+    backgroundColor: palette.primary,
+    borderColor: palette.primary,
+  },
+  checkmark: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  budgetContent: {
+    gap: spacing.lg,
+  },
+  creditCardContent: {
+    gap: spacing.lg,
+  },
+  configIntro: {
+    ...typography.body,
+    color: palette.textSecondary,
+    lineHeight: 22,
+  },
+  budgetInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: palette.border,
+    borderRadius: radius.medium,
+    paddingHorizontal: spacing.md,
+    backgroundColor: palette.surface,
+  },
+  currencySymbol: {
+    ...typography.h3,
+    color: palette.textSecondary,
+    marginRight: spacing.sm,
+  },
+  budgetInput: {
+    flex: 1,
+    ...typography.h3,
+    color: palette.text,
+    paddingVertical: spacing.md,
+  },
+  periodSelector: {
+    gap: spacing.sm,
+  },
+  periodButtons: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+  },
+  periodButton: {
+    flex: 1,
+    paddingVertical: spacing.md,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: palette.border,
+    borderRadius: radius.button,
+    backgroundColor: palette.surface,
+  },
+  periodButtonActive: {
+    borderColor: palette.primary,
+    backgroundColor: palette.primaryLight || '#EBF5FF',
+  },
+  periodButtonText: {
+    ...typography.bodyBold,
+    color: palette.textSecondary,
+  },
+  periodButtonTextActive: {
+    color: palette.primary,
+  },
+  aiFeatureBox: {
+    flexDirection: 'row',
+    gap: spacing.md,
+    backgroundColor: palette.primaryLight || '#EBF5FF',
+    padding: spacing.md,
+    borderRadius: radius.medium,
+    borderWidth: 1,
+    borderColor: palette.primary + '30',
+  },
+  aiFeatureIcon: {
+    fontSize: 24,
+  },
+  aiFeatureContent: {
+    flex: 1,
+    gap: 4,
+  },
+  aiFeatureTitle: {
+    ...typography.bodyBold,
+    color: palette.text,
+  },
+  aiFeatureText: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+    lineHeight: 18,
+  },
+  skipHint: {
+    ...typography.secondary,
+    color: palette.textTertiary,
+    textAlign: 'center',
+    fontStyle: 'italic',
+  },
+  suggestionsContainer: {
+    maxHeight: 180,
+    borderWidth: 1,
+    borderColor: palette.border,
+    borderRadius: radius.medium,
+    backgroundColor: palette.surface,
+    marginTop: spacing.xs,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+      },
+      android: {
+        elevation: 3,
+      },
+    }),
+  },
+  suggestionItem: {
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: palette.border,
+  },
+  suggestionText: {
+    ...typography.body,
+    color: palette.text,
   },
 });
