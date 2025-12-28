@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
 import { ChartIcon, DollarIcon, TrendUpIcon, LightbulbIcon, CreditCardIcon, BellIcon, UsersIcon, CalendarIcon, CheckmarkIcon, LocationIcon, CameraIcon } from './Icons';
+import { EllioLogo } from './EllioLogo';
 
 export type NavigationPage = 'home' | 'account' | 'preferences' | 'integrations' | 'help' | 'chat' | 'notifications' | 'reports' | 'team' | 'receipts' | 'budget' | 'family' | 'cashback' | 'savingsdashboard' | 'weeklysummary' | 'monthlyreport' | 'insights' | 'timeline' | 'analytics';
 
@@ -99,7 +100,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
 
   return (
     <>
-      {/* Header with Menu Button */}
+      {/* Header with Menu Button and Logo */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.menuButton} onPress={openMenu}>
           <View style={styles.menuIcon}>
@@ -108,7 +109,10 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
             <View style={styles.menuLine} />
           </View>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Task Manager</Text>
+        <View style={styles.logoContainer}>
+          <EllioLogo size={28} showText={false} />
+          <Text style={styles.headerTitle}>ellio</Text>
+        </View>
         <View style={styles.headerSpacer} />
       </View>
 
@@ -193,6 +197,15 @@ const styles = StyleSheet.create({
   headerTitle: {
     ...typography.subtitle,
     color: palette.text,
+    fontFamily: 'Montserrat-Bold',
+    fontSize: 20,
+    marginLeft: spacing.xs,
+  },
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
   },
   headerSpacer: {
     width: 40,
