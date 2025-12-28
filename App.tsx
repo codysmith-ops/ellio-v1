@@ -18,8 +18,6 @@ import {
 import Geolocation from '@react-native-community/geolocation';
 import { getDistance } from 'geolib';
 import { launchCamera } from 'react-native-image-picker';
-import MlkitOcr from 'react-native-mlkit-ocr';
-import analytics from '@react-native-firebase/analytics';
 import { useTodoStore, NavPreference, Task } from './src/store';
 import { palette, radius, shadow, spacing } from './src/theme';
 import { useVoiceInput } from './src/hooks/useVoiceInput';
@@ -51,25 +49,6 @@ const App = (): React.JSX.Element => {
   const alertedRef = useRef<Record<string, number>>({});
 
   const { isListening, transcript, error: voiceError, start, stop, reset } = useVoiceInput();
-
-  // Initialize Firebase Analytics
-  useEffect(() => {
-    const initFirebase = async () => {
-      try {
-        // Log app start event
-        await analytics().logEvent('app_start', {
-          platform: Platform.OS,
-          version: Platform.Version,
-        });
-
-        console.log('Firebase Analytics initialized successfully');
-      } catch (error) {
-        console.error('Firebase initialization error:', error);
-      }
-    };
-
-    initFirebase();
-  }, []);
 
   useEffect(() => {
     if (transcript) {
@@ -234,23 +213,11 @@ const App = (): React.JSX.Element => {
       const photoUri = result.assets[0].uri;
       setImageUri(photoUri);
 
-      // Perform text recognition
-      const recognitionResult = await MlkitOcr.detectFromUri(photoUri);
-
-      // Extract brand and product details
-      const allText = recognitionResult.map(block => block.text).join(' ');
-
-      // Simple heuristic: first line is often the brand
-      const lines = recognitionResult.map(block => block.text);
-      if (lines.length > 0) {
-        setProductBrand(lines[0]);
-        setProductDetails(allText);
-
-        // Auto-search stores when product is detected
-        handleStoreSearch(lines[0], allText);
-      }
+      // Note: OCR functionality removed (was using react-native-mlkit-ocr)
+      // Image is saved but text extraction is disabled
+      // Can manually enter product details
     } catch (error) {
-      console.error('Camera/OCR error:', error);
+      console.error('Camera error:', error);
       Alert.alert('Error', 'Failed to process image');
     }
   }, []);
