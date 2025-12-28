@@ -362,7 +362,6 @@ const App = (): React.JSX.Element => {
                 accessibilityLabel="Remove photo"
                 accessibilityHint="Double tap to remove the captured photo"
               >
-                {' '}
                 <Text style={styles.removeImageText}>X</Text>
               </TouchableOpacity>
             </View>
@@ -682,7 +681,6 @@ const TaskCard = ({
           accessibilityLabel={`Delete ${task.title}`}
           accessibilityHint="Double tap to remove this task permanently"
         >
-          {' '}
           <Text style={styles.deleteText}>Delete</Text>
         </TouchableOpacity>
       </View>
