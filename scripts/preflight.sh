@@ -26,6 +26,7 @@ EXIT_ANDROID_REFS_FOUND=4
 EXIT_WORKING_TREE_DIRTY=5
 EXIT_ORIGIN_REMOTE_MISSING=6
 EXIT_XCODE_SELECT_WRONG=7
+EXIT_NODE_VERSION_MISMATCH=8
 
 # =============================================================================
 # HARD CONSTRAINTS (NON-NEGOTIABLE)
@@ -35,6 +36,7 @@ REQUIRED_XCODE_BUILD="15F31d"
 REQUIRED_IOS_VERSION="17.5"
 REQUIRED_SIMULATOR_NAME="iPhone 15"
 REQUIRED_XCODE_PATH="/Applications/Xcode-15.4.app"
+REQUIRED_NODE_MAJOR="18"
 
 # =============================================================================
 # Helper Functions
@@ -199,7 +201,38 @@ check_working_tree() {
 }
 
 # =============================================================================
-# CHECK 6: Origin Remote Exists
+# CHECK 6: Node.js Version (Hard Pin to v18)
+# =============================================================================
+
+check_node_version() {
+    log_info "Checking Node.js version..."
+    
+    # Check if node is installed
+    if ! command -v node &> /dev/null; then
+        log_fatal "Node.js not found\\n  Fix: Install Node.js $REQUIRED_NODE_MAJOR (use nvm or volta)" $EXIT_NODE_VERSION_MISMATCH
+    fi
+    
+    # Get node version
+    local node_version
+    node_version=$(node -v 2>/dev/null | sed 's/v//' || echo "")
+    
+    # Extract major version
+    local node_major
+    node_major=$(echo "$node_version" | cut -d. -f1)
+    
+    if [[ "$node_major" != "$REQUIRED_NODE_MAJOR" ]]; then
+        log_fatal "Node.js version mismatch\\n  Current: v$node_version (major: $node_major)\\n  Required: v$REQUIRED_NODE_MAJOR.x\\n  Fix: Use 'nvm use' or 'volta pin node@18' to switch to Node 18" $EXIT_NODE_VERSION_MISMATCH
+    fi
+    
+    # Get npm version for info
+    local npm_version
+    npm_version=$(npm -v 2>/dev/null || echo "unknown")
+    
+    log_info "✅ Node.js v$node_version (npm v$npm_version) verified"
+}
+
+# =============================================================================
+# CHECK 7: Origin Remote Exists
 # =============================================================================
 
 check_origin_remote() {
@@ -235,6 +268,7 @@ main() {
     check_simulator
     check_android_references
     check_working_tree
+    check_node_version
     check_origin_remote
     
     echo ""
