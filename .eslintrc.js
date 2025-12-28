@@ -17,4 +17,12 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['jest.setup.js', 'jest.config.js'],
+      env: {
+        jest: true,
+      },
+    },
+  ],
 };

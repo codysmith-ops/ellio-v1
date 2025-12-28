@@ -544,19 +544,13 @@ export const checkInventory = async (
 
 // Web scraping fallback for stores without APIs
 export const scrapeStoreWebsite = async (
-  url: string
+  _url: string
 ): Promise<{ inStock: boolean; price?: number }> => {
-  try {
-    // In production, implement with cheerio on a backend service
-    // React Native doesn't support cheerio directly - need a proxy server
-    // For now, return mock data
-    return {
-      inStock: true,
-      price: 9.99,
-    };
-  } catch (error) {
-    console.error('Scraping error:', error);
-    // eslint-disable-next-line no-unreachable
-    return { inStock: false };
-  }
+  // In production, implement with cheerio on a backend service
+  // React Native doesn't support cheerio directly - need a proxy server
+  // For now, return mock data
+  return {
+    inStock: true,
+    price: 9.99,
+  };
 };

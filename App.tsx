@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Alert,
   FlatList,
@@ -22,26 +16,20 @@ import {
   View,
 } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
-import {getDistance} from 'geolib';
-import {launchCamera} from 'react-native-image-picker';
+import { getDistance } from 'geolib';
+import { launchCamera } from 'react-native-image-picker';
 import MlkitOcr from 'react-native-mlkit-ocr';
 import analytics from '@react-native-firebase/analytics';
-import {useTodoStore, NavPreference, Task} from './src/store';
-import {palette, radius, shadow, spacing} from './src/theme';
-import {useVoiceInput} from './src/hooks/useVoiceInput';
-import {searchStores, StoreResult} from './src/services/storeSearch';
+import { useTodoStore, NavPreference, Task } from './src/store';
+import { palette, radius, shadow, spacing } from './src/theme';
+import { useVoiceInput } from './src/hooks/useVoiceInput';
+import { searchStores, StoreResult } from './src/services/storeSearch';
 
 const SPEED_MPS = 9; // roughly 32 km/h city driving
 
 const App = (): React.JSX.Element => {
-  const {
-    tasks,
-    addTask,
-    toggleComplete,
-    removeTask,
-    setNavPreference,
-    navPreference,
-  } = useTodoStore();
+  const { tasks, addTask, toggleComplete, removeTask, setNavPreference, navPreference } =
+    useTodoStore();
 
   const [title, setTitle] = useState('');
   const [note, setNote] = useState('');
@@ -53,29 +41,18 @@ const App = (): React.JSX.Element => {
   const [productDetails, setProductDetails] = useState('');
   const [routePlan, setRoutePlan] = useState<Task[]>([]);
   const [routeMessage, setRouteMessage] = useState<string | null>(null);
-  const [currentPosition, setCurrentPosition] = useState<
-    | {
-        latitude: number;
-        longitude: number;
-      }
-    | null
-  >(null);
+  const [currentPosition, setCurrentPosition] = useState<{
+    latitude: number;
+    longitude: number;
+  } | null>(null);
   const [locationStatus, setLocationStatus] = useState<string>('Detecting location...');
   const [storeResults, setStoreResults] = useState<StoreResult[]>([]);
   const [isSearchingStores, setIsSearchingStores] = useState(false);
   const alertedRef = useRef<Record<string, number>>({});
 
-  const {
-    isListening,
-    transcript,
-    error: voiceError,
-    start,
-    stop,
-    reset,
-  } = useVoiceInput();
+  const { isListening, transcript, error: voiceError, start, stop, reset } = useVoiceInput();
 
-  // Initialize Firebase Analytics and Crashlytics
-  useEffect(() => {
+  // Initialize Firebase Analytics
   useEffect(() => {
     const initFirebase = async () => {
       try {
@@ -84,13 +61,13 @@ const App = (): React.JSX.Element => {
           platform: Platform.OS,
           version: Platform.Version,
         });
-        
+
         console.log('Firebase Analytics initialized successfully');
       } catch (error) {
         console.error('Firebase initialization error:', error);
       }
     };
-    
+
     initFirebase();
   }, []);
 
@@ -104,7 +81,7 @@ const App = (): React.JSX.Element => {
     if (Platform.OS === 'ios') {
       Geolocation.requestAuthorization?.();
     }
-    
+
     // Get initial position immediately
     Geolocation.getCurrentPosition(
       position => {
@@ -118,7 +95,7 @@ const App = (): React.JSX.Element => {
       error => {
         setLocationStatus(`Location unavailable: ${error.message}`);
       },
-      {enableHighAccuracy: true, timeout: 10000, maximumAge: 0},
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
     );
 
     // Continue watching for updates
@@ -134,7 +111,7 @@ const App = (): React.JSX.Element => {
       error => {
         setLocationStatus(`Location error: ${error.message}`);
       },
-      {enableHighAccuracy: true, distanceFilter: 50, timeout: 10000},
+      { enableHighAccuracy: true, distanceFilter: 50, timeout: 10000 }
     );
 
     return () => {
@@ -158,30 +135,23 @@ const App = (): React.JSX.Element => {
           latitude: currentPosition.latitude,
           longitude: currentPosition.longitude,
         },
-        {latitude: task.latitude, longitude: task.longitude},
+        { latitude: task.latitude, longitude: task.longitude }
       );
       const etaMinutes = Math.max(1, Math.round(meters / SPEED_MPS / 60));
       if (etaMinutes <= 10 && etaMinutes >= 5) {
         const last = alertedRef.current[task.id];
         if (!last || now - last > 10 * 60 * 1000) {
           alertedRef.current[task.id] = now;
-          Alert.alert(
-            'Nearby reminder',
-            `${task.title} is about ${etaMinutes} minutes away.`,
-            [
-              {text: 'Ignore', style: 'cancel'},
-              {text: 'Confirm', onPress: () => openNavigation(task, navPreference)},
-            ],
-          );
+          Alert.alert('Nearby reminder', `${task.title} is about ${etaMinutes} minutes away.`, [
+            { text: 'Ignore', style: 'cancel' },
+            { text: 'Confirm', onPress: () => openNavigation(task, navPreference) },
+          ]);
         }
       }
     });
   }, [tasks, currentPosition, navPreference]);
 
-  const pendingCount = useMemo(
-    () => tasks.filter(task => !task.completed).length,
-    [tasks],
-  );
+  const pendingCount = useMemo(() => tasks.filter(task => !task.completed).length, [tasks]);
 
   const handleAdd = useCallback(() => {
     if (!title.trim()) {
@@ -244,9 +214,7 @@ const App = (): React.JSX.Element => {
   const takePhoto = useCallback(async () => {
     try {
       if (Platform.OS === 'android') {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-        );
+        const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
         if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
           Alert.alert('Permission denied', 'Camera permission is required');
           return;
@@ -268,16 +236,16 @@ const App = (): React.JSX.Element => {
 
       // Perform text recognition
       const recognitionResult = await MlkitOcr.detectFromUri(photoUri);
-      
+
       // Extract brand and product details
       const allText = recognitionResult.map(block => block.text).join(' ');
-      
+
       // Simple heuristic: first line is often the brand
       const lines = recognitionResult.map(block => block.text);
       if (lines.length > 0) {
         setProductBrand(lines[0]);
         setProductDetails(allText);
-        
+
         // Auto-search stores when product is detected
         handleStoreSearch(lines[0], allText);
       }
@@ -287,33 +255,36 @@ const App = (): React.JSX.Element => {
     }
   }, []);
 
-  const handleStoreSearch = useCallback(async (brand?: string, details?: string) => {
-    const searchTerm = title || brand || details;
-    if (!searchTerm?.trim()) {
-      Alert.alert('Search required', 'Please enter a product name or take a photo');
-      return;
-    }
-
-    setIsSearchingStores(true);
-    try {
-      const results = await searchStores({
-        productBrand: productBrand || brand,
-        productDetails: productDetails || details,
-        searchTerm: searchTerm.trim(),
-        userLocation: currentPosition || undefined,
-      });
-      setStoreResults(results);
-      
-      if (results.length === 0) {
-        Alert.alert('No results', 'No stores found for this product');
+  const handleStoreSearch = useCallback(
+    async (brand?: string, details?: string) => {
+      const searchTerm = title || brand || details;
+      if (!searchTerm?.trim()) {
+        Alert.alert('Search required', 'Please enter a product name or take a photo');
+        return;
       }
-    } catch (error) {
-      console.error('Store search error:', error);
-      Alert.alert('Search failed', 'Could not search stores at this time');
-    } finally {
-      setIsSearchingStores(false);
-    }
-  }, [title, productBrand, productDetails, currentPosition]);
+
+      setIsSearchingStores(true);
+      try {
+        const results = await searchStores({
+          productBrand: productBrand || brand,
+          productDetails: productDetails || details,
+          searchTerm: searchTerm.trim(),
+          userLocation: currentPosition || undefined,
+        });
+        setStoreResults(results);
+
+        if (results.length === 0) {
+          Alert.alert('No results', 'No stores found for this product');
+        }
+      } catch (error) {
+        console.error('Store search error:', error);
+        Alert.alert('Search failed', 'Could not search stores at this time');
+      } finally {
+        setIsSearchingStores(false);
+      }
+    },
+    [title, productBrand, productDetails, currentPosition]
+  );
 
   const clearImage = useCallback(() => {
     setImageUri(undefined);
@@ -331,9 +302,7 @@ const App = (): React.JSX.Element => {
 
     const remaining = tasks.filter(
       task =>
-        !task.completed &&
-        typeof task.latitude === 'number' &&
-        typeof task.longitude === 'number',
+        !task.completed && typeof task.latitude === 'number' && typeof task.longitude === 'number'
     );
 
     if (!remaining.length) {
@@ -365,7 +334,7 @@ const App = (): React.JSX.Element => {
 
       const [next] = remaining.splice(bestIndex, 1);
       ordered.push(next);
-      cursor = {latitude: next.latitude!, longitude: next.longitude!};
+      cursor = { latitude: next.latitude!, longitude: next.longitude! };
     }
 
     setRoutePlan(ordered);
@@ -373,7 +342,7 @@ const App = (): React.JSX.Element => {
   }, [currentPosition, tasks]);
 
   const renderTask = useCallback(
-    ({item}: {item: Task}) => (
+    ({ item }: { item: Task }) => (
       <TaskCard
         task={item}
         onToggle={() => toggleComplete(item.id)}
@@ -381,7 +350,7 @@ const App = (): React.JSX.Element => {
         onNavigate={() => openNavigation(item, navPreference)}
       />
     ),
-    [navPreference, removeTask, toggleComplete],
+    [navPreference, removeTask, toggleComplete]
   );
 
   return (
@@ -389,7 +358,8 @@ const App = (): React.JSX.Element => {
       <StatusBar barStyle="light-content" backgroundColor={palette.primary} />
       <KeyboardAvoidingView
         style={styles.flex}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
         <View style={styles.hero}>
           <Text style={styles.title}>Mobile Todo</Text>
           <Text style={styles.subtitle}>
@@ -407,12 +377,13 @@ const App = (): React.JSX.Element => {
           <Text style={styles.cardTitle}>Add item</Text>
           {imageUri && (
             <View style={styles.imagePreview}>
-              <Image 
-                source={{uri: imageUri}} 
+              <Image
+                source={{ uri: imageUri }}
                 style={styles.previewImage}
                 accessible={true}
                 accessibilityLabel="Product photo preview"
-                accessibilityRole="image" />
+                accessibilityRole="image"
+              />
               <TouchableOpacity
                 style={styles.removeImage}
                 onPress={() => {
@@ -422,7 +393,10 @@ const App = (): React.JSX.Element => {
                 }}
                 accessibilityRole="button"
                 accessibilityLabel="Remove photo"
-                accessibilityHint="Double tap to remove the captured photo">                <Text style={styles.removeImageText}>X</Text>
+                accessibilityHint="Double tap to remove the captured photo"
+              >
+                {' '}
+                <Text style={styles.removeImageText}>X</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -498,16 +472,10 @@ const App = (): React.JSX.Element => {
               accessibilityHint="GPS longitude for this location"
             />
           </View>
+          <GhostButton label="Use current location" onPress={useCurrentLocation} />
+          <GhostButton label="Take photo" onPress={takePhoto} />
           <GhostButton
-            label="Use current location"
-            onPress={useCurrentLocation}
-          />
-          <GhostButton
-            label="Take photo"
-            onPress={takePhoto}
-          />
-          <GhostButton
-            label={isSearchingStores ? "Searching stores..." : "Search stores"}
+            label={isSearchingStores ? 'Searching stores...' : 'Search stores'}
             onPress={() => handleStoreSearch()}
             disabled={isSearchingStores}
           />
@@ -536,26 +504,36 @@ const App = (): React.JSX.Element => {
                   style={styles.storeCard}
                   onPress={() => result.url && Linking.openURL(result.url)}
                   accessibilityRole="button"
-                  accessibilityLabel={`${result.store}, ${result.productName}, $${result.price?.toFixed(2) || 'price unknown'}, ${result.availability}${result.storeLocation?.distance ? ', ' + (result.storeLocation.distance < 1 ? (result.storeLocation.distance * 1000).toFixed(0) + ' meters away' : result.storeLocation.distance.toFixed(1) + ' kilometers away') : ''}`}
-                  accessibilityHint="Double tap to view store details and get directions">
+                  accessibilityLabel={`${result.store}, ${result.productName}, $${
+                    result.price?.toFixed(2) || 'price unknown'
+                  }, ${result.availability}${
+                    result.storeLocation?.distance
+                      ? ', ' +
+                        (result.storeLocation.distance < 1
+                          ? (result.storeLocation.distance * 1000).toFixed(0) + ' meters away'
+                          : result.storeLocation.distance.toFixed(1) + ' kilometers away')
+                      : ''
+                  }`}
+                  accessibilityHint="Double tap to view store details and get directions"
+                >
                   <View style={styles.storeHeader}>
                     <View style={styles.storeNameRow}>
                       <Text style={styles.storeLogo}>{result.storeLogo}</Text>
                       <Text style={styles.storeName}>{result.store}</Text>
                     </View>
-                    <View style={[
-                      styles.availabilityBadge,
-                      result.inStock ? styles.inStockBadge : styles.outOfStockBadge
-                    ]}>
+                    <View
+                      style={[
+                        styles.availabilityBadge,
+                        result.inStock ? styles.inStockBadge : styles.outOfStockBadge,
+                      ]}
+                    >
                       <Text style={styles.availabilityText}>{result.availability}</Text>
                     </View>
                   </View>
                   <Text style={styles.productName} numberOfLines={1}>
                     {result.productName}
                   </Text>
-                  {result.price && (
-                    <Text style={styles.price}>${result.price.toFixed(2)}</Text>
-                  )}
+                  {result.price && <Text style={styles.price}>${result.price.toFixed(2)}</Text>}
                   {result.storeLocation && (
                     <View style={styles.storeLocationInfo}>
                       <Text style={styles.storeLocationName} numberOfLines={1}>
@@ -605,9 +583,7 @@ const App = (): React.JSX.Element => {
             <Text style={styles.cardTitle}>Route for today</Text>
             <GhostButton label="Plan route" onPress={optimizeRoute} />
           </View>
-          {routeMessage ? (
-            <Text style={styles.helperText}>{routeMessage}</Text>
-          ) : null}
+          {routeMessage ? <Text style={styles.helperText}>{routeMessage}</Text> : null}
           {routePlan.length ? (
             <View style={styles.routeList}>
               {routePlan.map((task, idx) => (
@@ -630,9 +606,7 @@ const App = (): React.JSX.Element => {
             renderItem={renderTask}
             ItemSeparatorComponent={() => <View style={styles.separator} />}
             ListEmptyComponent={
-              <Text style={styles.emptyText}>
-                Add text or use voice to capture a todo.
-              </Text>
+              <Text style={styles.emptyText}>Add text or use voice to capture a todo.</Text>
             }
             scrollEnabled={false}
           />
@@ -642,26 +616,21 @@ const App = (): React.JSX.Element => {
   );
 };
 
-const Metric = ({label, value}: {label: string; value: string | number}) => (
+const Metric = ({ label, value }: { label: string; value: string | number }) => (
   <View style={styles.metric}>
     <Text style={styles.metricValue}>{value}</Text>
     <Text style={styles.metricLabel}>{label}</Text>
   </View>
 );
 
-const PrimaryButton = ({
-  label,
-  onPress,
-}: {
-  label: string;
-  onPress: () => void;
-}) => (
-  <TouchableOpacity 
-    style={styles.primaryButton} 
+const PrimaryButton = ({ label, onPress }: { label: string; onPress: () => void }) => (
+  <TouchableOpacity
+    style={styles.primaryButton}
     onPress={onPress}
     accessibilityRole="button"
     accessibilityLabel={label}
-    accessibilityHint="Double tap to activate">
+    accessibilityHint="Double tap to activate"
+  >
     <Text style={styles.primaryButtonText}>{label}</Text>
   </TouchableOpacity>
 );
@@ -675,15 +644,18 @@ const GhostButton = ({
   onPress: () => void;
   disabled?: boolean;
 }) => (
-  <TouchableOpacity 
-    style={[styles.ghostButton, disabled && styles.ghostButtonDisabled]} 
+  <TouchableOpacity
+    style={[styles.ghostButton, disabled && styles.ghostButtonDisabled]}
     onPress={onPress}
     disabled={disabled}
     accessibilityRole="button"
     accessibilityLabel={label}
-    accessibilityState={{disabled: disabled || false}}
-    accessibilityHint={disabled ? "Button is disabled" : "Double tap to activate"}>
-    <Text style={[styles.ghostButtonText, disabled && styles.ghostButtonTextDisabled]}>{label}</Text>
+    accessibilityState={{ disabled: disabled || false }}
+    accessibilityHint={disabled ? 'Button is disabled' : 'Double tap to activate'}
+  >
+    <Text style={[styles.ghostButtonText, disabled && styles.ghostButtonTextDisabled]}>
+      {label}
+    </Text>
   </TouchableOpacity>
 );
 
@@ -701,11 +673,10 @@ const Chip = ({
     style={[styles.chip, active && styles.chipActive]}
     accessibilityRole="button"
     accessibilityLabel={label}
-    accessibilityState={{selected: active}}
-    accessibilityHint={active ? "Double tap to deselect" : "Double tap to select"}>
-    <Text style={[styles.chipText, active && styles.chipTextActive]}>
-      {label}
-    </Text>
+    accessibilityState={{ selected: active }}
+    accessibilityHint={active ? 'Double tap to deselect' : 'Double tap to select'}
+  >
+    <Text style={[styles.chipText, active && styles.chipTextActive]}>{label}</Text>
   </TouchableOpacity>
 );
 
@@ -723,16 +694,10 @@ const TaskCard = ({
   return (
     <View style={styles.taskCard}>
       <View style={styles.taskHeader}>
-        <Text style={[styles.taskTitle, task.completed && styles.completed]}>
-          {task.title}
-        </Text>
+        <Text style={[styles.taskTitle, task.completed && styles.completed]}>{task.title}</Text>
         <View style={styles.badgeRow}>
-          {task.locationLabel ? (
-            <Text style={styles.badge}>{task.locationLabel}</Text>
-          ) : null}
-          {task.latitude && task.longitude ? (
-            <Text style={styles.badge}>GPS saved</Text>
-          ) : null}
+          {task.locationLabel ? <Text style={styles.badge}>{task.locationLabel}</Text> : null}
+          {task.latitude && task.longitude ? <Text style={styles.badge}>GPS saved</Text> : null}
         </View>
       </View>
       {task.note ? <Text style={styles.taskNote}>{task.note}</Text> : null}
@@ -743,12 +708,15 @@ const TaskCard = ({
           onPress={onToggle}
         />
         <GhostButton label="Navigate" onPress={onNavigate} />
-        <TouchableOpacity 
-          onPress={onDelete} 
+        <TouchableOpacity
+          onPress={onDelete}
           style={styles.deleteButton}
           accessibilityRole="button"
           accessibilityLabel={`Delete ${task.title}`}
-          accessibilityHint="Double tap to remove this task permanently">          <Text style={styles.deleteText}>Delete</Text>
+          accessibilityHint="Double tap to remove this task permanently"
+        >
+          {' '}
+          <Text style={styles.deleteText}>Delete</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -773,13 +741,13 @@ const RouteStep = ({
 }: {
   index: number;
   task: Task;
-  previous: {latitude: number; longitude: number} | Task | null | undefined;
+  previous: { latitude: number; longitude: number } | Task | null | undefined;
 }) => {
   const hasPrev = previous && 'latitude' in previous && 'longitude' in previous;
   const legMeters = hasPrev
     ? getDistance(
-        {latitude: (previous as any).latitude, longitude: (previous as any).longitude},
-        {latitude: task.latitude!, longitude: task.longitude!},
+        { latitude: (previous as any).latitude, longitude: (previous as any).longitude },
+        { latitude: task.latitude!, longitude: task.longitude! }
       )
     : undefined;
 
@@ -801,9 +769,7 @@ const RouteStep = ({
 
 const openNavigation = (task: Task, preference: NavPreference) => {
   const hasCoords = task.latitude && task.longitude;
-  const coordsQuery = hasCoords
-    ? `${task.latitude},${task.longitude}`
-    : undefined;
+  const coordsQuery = hasCoords ? `${task.latitude},${task.longitude}` : undefined;
   const label = encodeURIComponent(task.locationLabel ?? task.title);
 
   let url = '';
@@ -813,9 +779,7 @@ const openNavigation = (task: Task, preference: NavPreference) => {
       ? `comgooglemaps://?daddr=${coordsQuery}&directionsmode=driving`
       : `comgooglemaps://?q=${label}`;
   } else if (preference === 'waze') {
-    url = coordsQuery
-      ? `waze://?ll=${coordsQuery}&navigate=yes`
-      : `waze://?q=${label}`;
+    url = coordsQuery ? `waze://?ll=${coordsQuery}&navigate=yes` : `waze://?q=${label}`;
   } else {
     url = coordsQuery
       ? `http://maps.apple.com/?daddr=${coordsQuery}`
@@ -945,11 +909,11 @@ const styles = StyleSheet.create({
   primaryButton: {
     flex: 1,
     backgroundColor: palette.primary,
-    paddingVertical: spacing.md,  // 16pt padding = 32pt + text height ≈ 44pt minimum
+    paddingVertical: spacing.md, // 16pt padding = 32pt + text height ≈ 44pt minimum
     paddingHorizontal: spacing.md,
     borderRadius: radius.md,
     alignItems: 'center',
-    minHeight: 44,  // WCAG AA minimum touch target
+    minHeight: 44, // WCAG AA minimum touch target
   },
   primaryButtonText: {
     color: '#FFFFFF',
@@ -957,13 +921,13 @@ const styles = StyleSheet.create({
   },
   ghostButton: {
     flex: 1,
-    paddingVertical: spacing.md,  // 16pt padding = 32pt + text height ≈ 44pt minimum
+    paddingVertical: spacing.md, // 16pt padding = 32pt + text height ≈ 44pt minimum
     paddingHorizontal: spacing.md,
     borderRadius: radius.md,
     borderColor: palette.primary,
     borderWidth: 1,
     alignItems: 'center',
-    minHeight: 44,  // WCAG AA minimum touch target
+    minHeight: 44, // WCAG AA minimum touch target
   },
   ghostButtonText: {
     color: palette.primary,
@@ -980,13 +944,13 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     flexWrap: 'wrap',
   },
-  chip: {sm,  // 8pt + text = ~36pt, still tappable
+  chip: {
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
     borderRadius: radius.lg,
     borderColor: palette.border,
     borderWidth: 1,
-    minHeight: 36,  // Smaller chips acceptable for non-critical actionsadius.lg,
-    borderColor: palette.border,
-    borderWidth: 1,
+    minHeight: 36, // Smaller chips acceptable for non-critical actions
   },
   chipActive: {
     backgroundColor: palette.primary,
@@ -1093,12 +1057,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   deleteButton: {
-    paddingHorizontal: spacinsm,  // Increased for better touch target
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
     borderRadius: radius.md,
     borderColor: '#DC2626',
     borderWidth: 1,
-    minHeight: 36,  // Minimum touch targetDC2626',
-    borderWidth: 1,
+    minHeight: 36, // Minimum touch target
   },
   deleteText: {
     color: '#DC2626',
