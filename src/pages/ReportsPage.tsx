@@ -1,0 +1,360 @@
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { palette, spacing, radius, typography } from '../theme';
+
+interface StatCard {
+  title: string;
+  value: string;
+  change: string;
+  isPositive: boolean;
+}
+
+interface ChartData {
+  label: string;
+  value: number;
+  color: string;
+}
+
+export const ReportsPage: React.FC = () => {
+  const [timeRange, setTimeRange] = useState<'week' | 'month' | 'year'>('week');
+
+  const stats: StatCard[] = [
+    { title: 'Tasks Completed', value: '47', change: '+12%', isPositive: true },
+    { title: 'Active Tasks', value: '23', change: '-8%', isPositive: true },
+    { title: 'Overdue Tasks', value: '5', change: '+2%', isPositive: false },
+    { title: 'Team Members', value: '8', change: '0%', isPositive: true },
+  ];
+
+  const tasksByCategory: ChartData[] = [
+    { label: 'Shopping', value: 15, color: '#4ADE80' },
+    { label: 'Work', value: 22, color: '#818CF8' },
+    { label: 'Personal', value: 10, color: '#F59E0B' },
+    { label: 'Errands', value: 8, color: '#EC4899' },
+    { label: 'Other', value: 5, color: '#64748B' },
+  ];
+
+  const tasksByStatus: ChartData[] = [
+    { label: 'Completed', value: 47, color: '#4ADE80' },
+    { label: 'In Progress', value: 23, color: '#818CF8' },
+    { label: 'Overdue', value: 5, color: '#EF4444' },
+    { label: 'Pending', value: 12, color: '#F59E0B' },
+  ];
+
+  const completionTrend = [
+    { day: 'Mon', completed: 5 },
+    { day: 'Tue', completed: 8 },
+    { day: 'Wed', completed: 6 },
+    { day: 'Thu', completed: 10 },
+    { day: 'Fri', completed: 12 },
+    { day: 'Sat', completed: 4 },
+    { day: 'Sun', completed: 2 },
+  ];
+
+  const maxCompleted = Math.max(...completionTrend.map(d => d.completed));
+
+  const renderBarChart = () => {
+    return (
+      <View style={styles.chartContainer}>
+        <Text style={styles.chartTitle}>Daily Completion Trend</Text>
+        <View style={styles.barChart}>
+          {completionTrend.map((item, index) => (
+            <View key={index} style={styles.barGroup}>
+              <View style={styles.barContainer}>
+                <View
+                  style={[
+                    styles.bar,
+                    {
+                      height: `${(item.completed / maxCompleted) * 100}%`,
+                    },
+                  ]}
+                />
+              </View>
+              <Text style={styles.barLabel}>{item.day}</Text>
+              <Text style={styles.barValue}>{item.completed}</Text>
+            </View>
+          ))}
+        </View>
+      </View>
+    );
+  };
+
+  const renderPieChart = (data: ChartData[], title: string) => {
+    const total = data.reduce((sum, item) => sum + item.value, 0);
+
+    return (
+      <View style={styles.chartContainer}>
+        <Text style={styles.chartTitle}>{title}</Text>
+        <View style={styles.legendContainer}>
+          {data.map((item, index) => {
+            const percentage = ((item.value / total) * 100).toFixed(1);
+            return (
+              <View key={index} style={styles.legendItem}>
+                <View style={[styles.legendColor, { backgroundColor: item.color }]} />
+                <Text style={styles.legendLabel}>{item.label}</Text>
+                <Text style={styles.legendValue}>
+                  {item.value} ({percentage}%)
+                </Text>
+              </View>
+            );
+          })}
+        </View>
+      </View>
+    );
+  };
+
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Reports & Analytics</Text>
+      </View>
+
+      <View style={styles.timeRangeContainer}>
+        {(['week', 'month', 'year'] as const).map(range => (
+          <TouchableOpacity
+            key={range}
+            style={[styles.timeRangeButton, timeRange === range && styles.timeRangeButtonActive]}
+            onPress={() => setTimeRange(range)}
+          >
+            <Text style={[styles.timeRangeText, timeRange === range && styles.timeRangeTextActive]}>
+              {range.charAt(0).toUpperCase() + range.slice(1)}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <View style={styles.statsGrid}>
+        {stats.map((stat, index) => (
+          <View key={index} style={styles.statCard}>
+            <Text style={styles.statTitle}>{stat.title}</Text>
+            <Text style={styles.statValue}>{stat.value}</Text>
+            <Text
+              style={[
+                styles.statChange,
+                stat.isPositive ? styles.statChangePositive : styles.statChangeNegative,
+              ]}
+            >
+              {stat.change}
+            </Text>
+          </View>
+        ))}
+      </View>
+
+      {renderBarChart()}
+      {renderPieChart(tasksByCategory, 'Tasks by Category')}
+      {renderPieChart(tasksByStatus, 'Tasks by Status')}
+
+      <View style={styles.insightsContainer}>
+        <Text style={styles.chartTitle}>Insights</Text>
+        <View style={styles.insightCard}>
+          <Text style={styles.insightIcon}>📈</Text>
+          <View style={styles.insightContent}>
+            <Text style={styles.insightTitle}>Productivity Up</Text>
+            <Text style={styles.insightText}>
+              You completed 12% more tasks this week compared to last week
+            </Text>
+          </View>
+        </View>
+        <View style={styles.insightCard}>
+          <Text style={styles.insightIcon}>⚠️</Text>
+          <View style={styles.insightContent}>
+            <Text style={styles.insightTitle}>Overdue Tasks</Text>
+            <Text style={styles.insightText}>
+              You have 5 overdue tasks. Consider rescheduling or delegating them.
+            </Text>
+          </View>
+        </View>
+        <View style={styles.insightCard}>
+          <Text style={styles.insightIcon}>🎯</Text>
+          <View style={styles.insightContent}>
+            <Text style={styles.insightTitle}>Peak Performance</Text>
+            <Text style={styles.insightText}>
+              Your most productive day is Thursday with an average of 10 completed tasks.
+            </Text>
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.bottomSpacer} />
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: palette.surface,
+  },
+  header: {
+    padding: spacing.lg,
+    borderBottomWidth: 1,
+    borderBottomColor: palette.border,
+  },
+  headerTitle: {
+    ...typography.h3,
+    color: palette.text,
+  },
+  timeRangeContainer: {
+    flexDirection: 'row',
+    padding: spacing.md,
+    gap: spacing.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: palette.border,
+  },
+  timeRangeButton: {
+    flex: 1,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderRadius: radius.button,
+    borderWidth: 1,
+    borderColor: palette.border,
+    backgroundColor: palette.surface,
+    alignItems: 'center',
+  },
+  timeRangeButtonActive: {
+    backgroundColor: palette.primary,
+    borderColor: palette.primary,
+  },
+  timeRangeText: {
+    ...typography.body,
+    color: palette.textSecondary,
+  },
+  timeRangeTextActive: {
+    ...typography.bodyBold,
+    color: palette.surface,
+  },
+  statsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: spacing.md,
+    gap: spacing.md,
+  },
+  statCard: {
+    width: '47%',
+    backgroundColor: palette.surface,
+    padding: spacing.md,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  statTitle: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+    marginBottom: spacing.xs,
+  },
+  statValue: {
+    ...typography.h2,
+    color: palette.text,
+    marginBottom: spacing.xs,
+  },
+  statChange: {
+    ...typography.secondary,
+    fontWeight: '600',
+  },
+  statChangePositive: {
+    color: palette.success,
+  },
+  statChangeNegative: {
+    color: palette.error,
+  },
+  chartContainer: {
+    backgroundColor: palette.surface,
+    margin: spacing.md,
+    padding: spacing.lg,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  chartTitle: {
+    ...typography.bodyBold,
+    color: palette.text,
+    marginBottom: spacing.md,
+  },
+  barChart: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    height: 200,
+    paddingTop: spacing.md,
+  },
+  barGroup: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  barContainer: {
+    width: '80%',
+    height: 150,
+    justifyContent: 'flex-end',
+  },
+  bar: {
+    backgroundColor: palette.primary,
+    borderRadius: radius.badge,
+    minHeight: 4,
+  },
+  barLabel: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+    marginTop: spacing.xs,
+  },
+  barValue: {
+    ...typography.secondary,
+    color: palette.text,
+    fontWeight: '600',
+    fontSize: 10,
+  },
+  legendContainer: {
+    gap: spacing.sm,
+  },
+  legendItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  legendColor: {
+    width: 16,
+    height: 16,
+    borderRadius: 4,
+  },
+  legendLabel: {
+    ...typography.body,
+    color: palette.text,
+    flex: 1,
+  },
+  legendValue: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+  },
+  insightsContainer: {
+    margin: spacing.md,
+    padding: spacing.lg,
+    backgroundColor: palette.surface,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  insightCard: {
+    flexDirection: 'row',
+    padding: spacing.md,
+    backgroundColor: palette.background,
+    borderRadius: radius.card,
+    marginTop: spacing.md,
+    gap: spacing.md,
+  },
+  insightIcon: {
+    fontSize: 32,
+  },
+  insightContent: {
+    flex: 1,
+  },
+  insightTitle: {
+    ...typography.bodyBold,
+    color: palette.text,
+    marginBottom: spacing.xs,
+  },
+  insightText: {
+    ...typography.body,
+    color: palette.textSecondary,
+  },
+  bottomSpacer: {
+    height: spacing.xxl,
+  },
+});

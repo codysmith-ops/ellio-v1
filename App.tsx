@@ -19,6 +19,18 @@ import { NavigationMenu, NavigationPage } from './src/components/NavigationMenu'
 import { AccountPage } from './src/pages/AccountPage';
 import { PreferencesPage } from './src/pages/PreferencesPage';
 import { IntegrationsPage } from './src/pages/IntegrationsPage';
+import { ChatPage } from './src/pages/ChatPage';
+import { NotificationsPage } from './src/pages/NotificationsPage';
+import { ReportsPage } from './src/pages/ReportsPage';
+import { TeamPage } from './src/pages/TeamPage';
+import { ReceiptScannerPage } from './src/pages/ReceiptScannerPage';
+import { BudgetPage } from './src/pages/BudgetPage';
+import { FamilyPage } from './src/pages/FamilyPage';
+import { CashbackAccountsPage } from './src/pages/CashbackAccountsPage';
+import { SavingsDashboardPage } from './src/pages/SavingsDashboardPage';
+import { WeeklySummaryPage } from './src/pages/WeeklySummaryPage';
+import { MonthlyReportPage } from './src/pages/MonthlyReportPage';
+import { InsightsPage } from './src/pages/InsightsPage';
 import {
   getTaskIcon,
   ScannerIcon,
@@ -188,6 +200,18 @@ const App = (): React.JSX.Element => {
         {currentPage === 'account' && <AccountPage />}
         {currentPage === 'preferences' && <PreferencesPage />}
         {currentPage === 'integrations' && <IntegrationsPage />}
+        {currentPage === 'chat' && <ChatPage />}
+        {currentPage === 'notifications' && <NotificationsPage />}
+        {currentPage === 'reports' && <ReportsPage />}
+        {currentPage === 'team' && <TeamPage />}
+        {currentPage === 'receipts' && <ReceiptScannerPage />}
+        {currentPage === 'budget' && <BudgetPage />}
+        {currentPage === 'family' && <FamilyPage />}
+        {currentPage === 'cashback' && <CashbackAccountsPage />}
+        {currentPage === 'savingsdashboard' && <SavingsDashboardPage />}
+        {currentPage === 'weeklysummary' && <WeeklySummaryPage />}
+        {currentPage === 'monthlyreport' && <MonthlyReportPage />}
+        {currentPage === 'insights' && <InsightsPage />}
         {currentPage === 'help' && (
           <View style={styles.placeholderPage}>
             <Text style={styles.placeholderText}>❓</Text>

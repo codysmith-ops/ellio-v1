@@ -5,7 +5,7 @@ export const palette = {
   primaryDark: '#3d4389', // Primary hover state
 
   // Backgrounds - per design system
-  background: '#F8FAFC', // Light background
+  background: '#FFFFFF', // White background
   backgroundDark: '#1E293B', // Dark Slate (NOT pure black)
   surface: '#FFFFFF',
   surfaceElevated: '#F1F5F9',
