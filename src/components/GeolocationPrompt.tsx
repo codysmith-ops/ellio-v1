@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Modal,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Animated,
-} from 'react-native';
+import { Modal, View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import { launchCamera } from 'react-native-image-picker';
 import { palette, spacing, radius, typography, shadow } from '../theme';
 
@@ -75,10 +68,7 @@ export const GeolocationPrompt: React.FC<GeolocationPromptProps> = ({
 
   return (
     <Modal visible={visible} transparent animationType="none">
-      <TouchableOpacity
-        style={styles.overlay}
-        activeOpacity={1}
-        onPress={handleSkip}>
+      <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={handleSkip}>
         <Animated.View
           style={[
             styles.promptCard,
@@ -86,14 +76,15 @@ export const GeolocationPrompt: React.FC<GeolocationPromptProps> = ({
               opacity: fadeAnim,
               transform: [{ translateY: slideAnim }],
             },
-          ]}>
+          ]}
+        >
           <View style={styles.iconContainer}>
             <Text style={styles.icon}>📍🧾</Text>
           </View>
           <Text style={styles.title}>Leaving {storeName}?</Text>
           <Text style={styles.message}>
-            Did you make a purchase? Upload your receipt to track spending and maximize
-            cashback rewards!
+            Did you make a purchase? Upload your receipt to track spending and maximize cashback
+            rewards!
           </Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.uploadButton} onPress={handleTakePhoto}>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
-import { palette, spacing, radius, typography } from '../theme';import { LightbulbIcon, ChartIcon, ClockIcon, DollarIcon } from '../components/Icons';
+import { palette, spacing, radius, typography } from '../theme';
+import { LightbulbIcon, ChartIcon, ClockIcon, DollarIcon } from '../components/Icons';
 const { width } = Dimensions.get('window');
 
 export const InsightsPage: React.FC = () => {
@@ -166,7 +167,9 @@ export const InsightsPage: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}><LightbulbIcon /> Smart Insights</Text>
+        <Text style={styles.headerTitle}>
+          <LightbulbIcon /> Smart Insights
+        </Text>
         <Text style={styles.headerSubtitle}>AI-powered recommendations to save more</Text>
       </View>
 
@@ -258,7 +261,9 @@ export const InsightsPage: React.FC = () => {
 
               <View style={styles.recFooter}>
                 <View style={styles.savingsTag}>
-                  <Text style={styles.savingsTagText}><DollarIcon /> Save ${rec.savings.toFixed(2)}/mo</Text>
+                  <Text style={styles.savingsTagText}>
+                    <DollarIcon /> Save ${rec.savings.toFixed(2)}/mo
+                  </Text>
                 </View>
                 <TouchableOpacity style={styles.actionButton}>
                   <Text style={styles.actionButtonText}>{rec.action}</Text>
@@ -301,7 +306,9 @@ export const InsightsPage: React.FC = () => {
           </View>
 
           {/* Immediate Actions */}
-          <Text style={styles.sectionLabel}><StarIcon /> Immediate Actions</Text>
+          <Text style={styles.sectionLabel}>
+            <StarIcon /> Immediate Actions
+          </Text>
           {opportunities
             .filter(o => o.type === 'immediate')
             .map(opp => (
@@ -323,7 +330,9 @@ export const InsightsPage: React.FC = () => {
             ))}
 
           {/* Action Required */}
-          <Text style={styles.sectionLabel}><TargetIcon /> Action Required</Text>
+          <Text style={styles.sectionLabel}>
+            <TargetIcon /> Action Required
+          </Text>
           {opportunities
             .filter(o => o.type === 'action-required')
             .map(opp => (

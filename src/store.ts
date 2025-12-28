@@ -3,7 +3,13 @@ import { nanoid } from 'nanoid/non-secure';
 
 export type NavPreference = 'apple' | 'google' | 'waze';
 
-export type UserGoal = 'save-money' | 'credit-points' | 'budget' | 'collaborate' | 'organize' | 'efficiency';
+export type UserGoal =
+  | 'save-money'
+  | 'credit-points'
+  | 'budget'
+  | 'collaborate'
+  | 'organize'
+  | 'efficiency';
 
 export type UserPreferences = {
   goals: UserGoal[];
@@ -207,9 +213,7 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
   },
   attachReceipt: (taskId, receiptUri) => {
     set(state => ({
-      tasks: state.tasks.map(task =>
-        task.id === taskId ? { ...task, receiptUri } : task
-      ),
+      tasks: state.tasks.map(task => (task.id === taskId ? { ...task, receiptUri } : task)),
     }));
   },
   getTasksNearLocation: (lat, lon) => {
@@ -218,17 +222,8 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
     const radius = state.userPreferences?.autoCompleteRadius || 100;
 
     state.tasks.forEach(task => {
-      if (
-        !task.completed &&
-        task.storeLatitude &&
-        task.storeLongitude
-      ) {
-        const distance = getDistance(
-          lat,
-          lon,
-          task.storeLatitude,
-          task.storeLongitude
-        );
+      if (!task.completed && task.storeLatitude && task.storeLongitude) {
+        const distance = getDistance(lat, lon, task.storeLatitude, task.storeLongitude);
 
         if (distance <= radius) {
           tasksNearby.push(task);
@@ -241,12 +236,7 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
 }));
 
 // Haversine formula for distance calculation
-function getDistance(
-  lat1: number,
-  lon1: number,
-  lat2: number,
-  lon2: number
-): number {
+function getDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371e3; // Earth radius in meters
   const phi1 = (lat1 * Math.PI) / 180;
   const phi2 = (lat2 * Math.PI) / 180;
@@ -255,8 +245,7 @@ function getDistance(
 
   const a =
     Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
-    Math.cos(phi1) * Math.cos(phi2) *
-    Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
+    Math.cos(phi1) * Math.cos(phi2) * Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
   return R * c; // Distance in meters

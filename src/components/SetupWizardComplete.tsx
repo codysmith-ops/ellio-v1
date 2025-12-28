@@ -33,7 +33,13 @@ interface SetupWizardProps {
   onComplete: (userData: UserSetupData) => void;
 }
 
-export type UserGoal = 'save-money' | 'credit-points' | 'budget' | 'collaborate' | 'organize' | 'efficiency';
+export type UserGoal =
+  | 'save-money'
+  | 'credit-points'
+  | 'budget'
+  | 'collaborate'
+  | 'organize'
+  | 'efficiency';
 
 export interface UserSetupData {
   name: string;
@@ -123,23 +129,14 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
     'Apple Card',
   ];
 
-  const rewardsTypes = [
-    'Travel Points',
-    'Cashback',
-    'Airline Miles',
-    'Hotel Points',
-  ];
+  const rewardsTypes = ['Travel Points', 'Cashback', 'Airline Miles', 'Hotel Points'];
 
   const filteredCards = creditCardName
-    ? popularCards.filter(card =>
-        card.toLowerCase().includes(creditCardName.toLowerCase())
-      )
+    ? popularCards.filter(card => card.toLowerCase().includes(creditCardName.toLowerCase()))
     : popularCards;
 
   const filteredRewards = rewardsType
-    ? rewardsTypes.filter(reward =>
-        reward.toLowerCase().includes(rewardsType.toLowerCase())
-      )
+    ? rewardsTypes.filter(reward => reward.toLowerCase().includes(rewardsType.toLowerCase()))
     : rewardsTypes;
 
   const toggleGoal = (goal: UserGoal) => {
@@ -150,7 +147,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
 
   // NOTE: This is a reference implementation showing the 9 steps structure
   // Due to size, see full implementation in separate PR
-  
+
   const steps = [
     // Step 1: Welcome (existing)
     // Step 2: Info (existing)

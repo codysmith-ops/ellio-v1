@@ -79,7 +79,9 @@ export const CashbackAccountsPage: React.FC = () => {
 
   const handleToggleLink = (id: string) => {
     const card = cards.find(c => c.id === id);
-    if (!card) return;
+    if (!card) {
+      return;
+    }
 
     if (!card.linked) {
       Alert.alert(

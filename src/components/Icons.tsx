@@ -42,7 +42,13 @@ export const DollarIcon = ({ size = 24, color = '#5159B0' }: IconProps) => (
 
 export const CheckmarkIcon = ({ size = 24, color = '#059669' }: IconProps) => (
   <Svg width={size} height={size} viewBox="0 0 20 20" fill="none">
-    <Path d="M3 10L8 15L17 5" stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+    <Path
+      d="M3 10L8 15L17 5"
+      stroke={color}
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
@@ -147,15 +153,39 @@ export const CreditCardIcon = ({ size = 24, color = '#5159B0' }: IconProps) => (
 
 export const TrendUpIcon = ({ size = 24, color = '#059669' }: IconProps) => (
   <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <Polyline points="3,18 7,12 11,15 16,8 21,4" stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-    <Polyline points="15,4 21,4 21,10" stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+    <Polyline
+      points="3,18 7,12 11,15 16,8 21,4"
+      stroke={color}
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Polyline
+      points="15,4 21,4 21,10"
+      stroke={color}
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
 export const TrendDownIcon = ({ size = 24, color = '#DC2626' }: IconProps) => (
   <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <Polyline points="21,6 16,12 12,9 7,16 3,20" stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-    <Polyline points="15,20 3,20 3,14" stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+    <Polyline
+      points="21,6 16,12 12,9 7,16 3,20"
+      stroke={color}
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Polyline
+      points="15,20 3,20 3,14"
+      stroke={color}
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </Svg>
 );
 
@@ -168,7 +198,13 @@ export const WarningIcon = ({ size = 24, color = '#D97706' }: IconProps) => (
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-    <Path d="M12 9V13" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Path
+      d="M12 9V13"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
     <Circle cx="12" cy="17" r="1" fill={color} />
   </Svg>
 );
@@ -213,10 +249,34 @@ export const LightbulbIcon = ({ size = 24, color = '#5159B0' }: IconProps) => (
       strokeLinejoin="round"
     />
     <Line x1="12" y1="1" x2="12" y2="2.5" stroke={color} strokeWidth="2.5" strokeLinecap="round" />
-    <Line x1="4.5" y1="4.5" x2="5.5" y2="5.5" stroke={color} strokeWidth="2.5" strokeLinecap="round" />
+    <Line
+      x1="4.5"
+      y1="4.5"
+      x2="5.5"
+      y2="5.5"
+      stroke={color}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
     <Line x1="1.5" y1="8" x2="3.5" y2="8" stroke={color} strokeWidth="2.5" strokeLinecap="round" />
-    <Line x1="19.5" y1="4.5" x2="18.5" y2="5.5" stroke={color} strokeWidth="2.5" strokeLinecap="round" />
-    <Line x1="20.5" y1="8" x2="22.5" y2="8" stroke={color} strokeWidth="2.5" strokeLinecap="round" />
+    <Line
+      x1="19.5"
+      y1="4.5"
+      x2="18.5"
+      y2="5.5"
+      stroke={color}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
+    <Line
+      x1="20.5"
+      y1="8"
+      x2="22.5"
+      y2="8"
+      stroke={color}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
   </Svg>
 );
 

@@ -121,7 +121,9 @@ export const IntegrationsPage: React.FC = () => {
       {/* Integrations by Category */}
       {categories.map(category => {
         const categoryIntegrations = integrations.filter(i => i.category === category.key);
-        if (categoryIntegrations.length === 0) return null;
+        if (categoryIntegrations.length === 0) {
+          return null;
+        }
 
         return (
           <View key={category.key} style={styles.section}>

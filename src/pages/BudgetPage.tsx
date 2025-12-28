@@ -78,8 +78,12 @@ export const BudgetPage: React.FC = () => {
 
   const getProgressColor = (spent: number, budgeted: number) => {
     const percentage = (spent / budgeted) * 100;
-    if (percentage >= 100) return palette.error;
-    if (percentage >= 85) return palette.warning;
+    if (percentage >= 100) {
+      return palette.error;
+    }
+    if (percentage >= 85) {
+      return palette.warning;
+    }
     return palette.success;
   };
 

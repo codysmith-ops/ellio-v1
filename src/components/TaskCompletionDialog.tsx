@@ -96,12 +96,7 @@ export const TaskCompletionDialog: React.FC<TaskCompletionDialogProps> = ({
   };
 
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="slide"
-      onRequestClose={onDismiss}
-    >
+    <Modal visible={visible} transparent animationType="slide" onRequestClose={onDismiss}>
       <View style={styles.overlay}>
         <View style={styles.container}>
           <View style={styles.header}>
@@ -121,13 +116,9 @@ export const TaskCompletionDialog: React.FC<TaskCompletionDialogProps> = ({
 
             <View style={styles.taskCard}>
               <Text style={styles.taskTitle}>{currentTask.title}</Text>
-              {currentTask.note && (
-                <Text style={styles.taskNote}>{currentTask.note}</Text>
-              )}
+              {currentTask.note && <Text style={styles.taskNote}>{currentTask.note}</Text>}
               {currentTask.quantity && currentTask.quantity > 1 && (
-                <Text style={styles.quantity}>
-                  Quantity: {currentTask.quantity}
-                </Text>
+                <Text style={styles.quantity}>Quantity: {currentTask.quantity}</Text>
               )}
             </View>
 
@@ -135,9 +126,7 @@ export const TaskCompletionDialog: React.FC<TaskCompletionDialogProps> = ({
               <View style={styles.reimbursementBanner}>
                 <Text style={styles.reimbursementIcon}>💰</Text>
                 <View style={styles.reimbursementContent}>
-                  <Text style={styles.reimbursementTitle}>
-                    Reimbursement Required
-                  </Text>
+                  <Text style={styles.reimbursementTitle}>Reimbursement Required</Text>
                   <Text style={styles.reimbursementText}>
                     Please upload a receipt for this purchase
                   </Text>
@@ -157,10 +146,7 @@ export const TaskCompletionDialog: React.FC<TaskCompletionDialogProps> = ({
                 </TouchableOpacity>
               </View>
             ) : (
-              <TouchableOpacity
-                style={styles.uploadButton}
-                onPress={handleUploadReceipt}
-              >
+              <TouchableOpacity style={styles.uploadButton} onPress={handleUploadReceipt}>
                 <Text style={styles.uploadIcon}>📷</Text>
                 <Text style={styles.uploadText}>Upload Receipt (Optional)</Text>
               </TouchableOpacity>
@@ -187,16 +173,10 @@ export const TaskCompletionDialog: React.FC<TaskCompletionDialogProps> = ({
           </ScrollView>
 
           <View style={styles.footer}>
-            <TouchableOpacity
-              style={styles.skipButton}
-              onPress={handleSkip}
-            >
+            <TouchableOpacity style={styles.skipButton} onPress={handleSkip}>
               <Text style={styles.skipButtonText}>Not Yet</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.completeButton}
-              onPress={handleComplete}
-            >
+            <TouchableOpacity style={styles.completeButton} onPress={handleComplete}>
               <Text style={styles.completeButtonText}>✓ Complete</Text>
             </TouchableOpacity>
           </View>

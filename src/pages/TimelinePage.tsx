@@ -11,20 +11,17 @@ export const TimelinePage: React.FC = () => {
   // Group tasks by date
   const groupedTasks = tasks
     .filter(t => !t.completed && t.dueDate)
-    .reduce(
-      (acc, task) => {
-        const date = new Date(task.dueDate!).toDateString();
-        if (!acc[date]) {
-          acc[date] = [];
-        }
-        acc[date].push(task);
-        return acc;
-      },
-      {} as Record<string, typeof tasks>,
-    );
+    .reduce((acc, task) => {
+      const date = new Date(task.dueDate!).toDateString();
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(task);
+      return acc;
+    }, {} as Record<string, typeof tasks>);
 
   const sortedDates = Object.keys(groupedTasks).sort(
-    (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+    (a, b) => new Date(a).getTime() - new Date(b).getTime()
   );
 
   const now = new Date();
@@ -35,7 +32,9 @@ export const TimelinePage: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}><CalendarIcon /> Timeline</Text>
+        <Text style={styles.headerTitle}>
+          <CalendarIcon /> Timeline
+        </Text>
         <Text style={styles.headerSubtitle}>Your tasks organized by due date</Text>
       </View>
 
@@ -45,9 +44,9 @@ export const TimelinePage: React.FC = () => {
           <TouchableOpacity
             key={mode}
             style={[styles.viewModeButton, viewMode === mode && styles.viewModeButtonActive]}
-            onPress={() => setViewMode(mode)}>
-            <Text
-              style={[styles.viewModeText, viewMode === mode && styles.viewModeTextActive]}>
+            onPress={() => setViewMode(mode)}
+          >
+            <Text style={[styles.viewModeText, viewMode === mode && styles.viewModeTextActive]}>
               {mode === 'day' ? 'Day' : mode === 'week' ? 'Week' : 'Month'}
             </Text>
           </TouchableOpacity>
@@ -83,15 +82,13 @@ export const TimelinePage: React.FC = () => {
                         backgroundColor: isToday(dateString)
                           ? palette.primary
                           : isPast(dateString)
-                            ? palette.error
-                            : palette.success,
+                          ? palette.error
+                          : palette.success,
                       },
                     ]}
                   />
                   <View style={styles.dateInfo}>
-                    <Text style={styles.dateName}>
-                      {isToday(dateString) ? 'Today' : dayName}
-                    </Text>
+                    <Text style={styles.dateName}>{isToday(dateString) ? 'Today' : dayName}</Text>
                     <Text style={styles.dateText}>{dateFormatted}</Text>
                   </View>
                   <View
@@ -101,10 +98,11 @@ export const TimelinePage: React.FC = () => {
                         backgroundColor: isToday(dateString)
                           ? palette.infoLight
                           : isPast(dateString)
-                            ? palette.errorLight
-                            : palette.successLight,
+                          ? palette.errorLight
+                          : palette.successLight,
                       },
-                    ]}>
+                    ]}
+                  >
                     <Text
                       style={[
                         styles.dateBadgeText,
@@ -112,10 +110,11 @@ export const TimelinePage: React.FC = () => {
                           color: isToday(dateString)
                             ? palette.primary
                             : isPast(dateString)
-                              ? palette.error
-                              : palette.success,
+                            ? palette.error
+                            : palette.success,
                         },
-                      ]}>
+                      ]}
+                    >
                       {taskList.length} {taskList.length === 1 ? 'task' : 'tasks'}
                     </Text>
                   </View>

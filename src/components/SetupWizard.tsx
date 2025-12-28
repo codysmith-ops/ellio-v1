@@ -12,13 +12,32 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
-import { CameraIcon, BellIcon, CheckmarkIcon, DollarIcon, CreditCardIcon, ChartIcon, UsersIcon, LightbulbIcon, ClockIcon, CalendarIcon, LocationIcon, TargetIcon } from './Icons';
+import {
+  CameraIcon,
+  BellIcon,
+  CheckmarkIcon,
+  DollarIcon,
+  CreditCardIcon,
+  ChartIcon,
+  UsersIcon,
+  LightbulbIcon,
+  ClockIcon,
+  CalendarIcon,
+  LocationIcon,
+  TargetIcon,
+} from './Icons';
 
 interface SetupWizardProps {
   onComplete: (userData: UserSetupData) => void;
 }
 
-export type UserGoal = 'save-money' | 'credit-points' | 'budget' | 'collaborate' | 'organize' | 'efficiency';
+export type UserGoal =
+  | 'save-money'
+  | 'credit-points'
+  | 'budget'
+  | 'collaborate'
+  | 'organize'
+  | 'efficiency';
 export type Category = 'groceries' | 'hardware' | 'errands' | 'medical' | 'shopping' | 'returns';
 
 export interface UserSetupData {
@@ -46,7 +65,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState('');
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
-  
+
   // New onboarding state
   const [locationPermissionGranted, setLocationPermissionGranted] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
@@ -94,15 +113,11 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
   ];
 
   const filteredCards = creditCardName
-    ? popularCards.filter(card =>
-        card.toLowerCase().includes(creditCardName.toLowerCase())
-      )
+    ? popularCards.filter(card => card.toLowerCase().includes(creditCardName.toLowerCase()))
     : popularCards;
 
   const filteredRewards = rewardsType
-    ? rewardsTypes.filter(reward =>
-        reward.toLowerCase().includes(rewardsType.toLowerCase())
-      )
+    ? rewardsTypes.filter(reward => reward.toLowerCase().includes(rewardsType.toLowerCase()))
     : rewardsTypes;
 
   const toggleGoal = (goal: UserGoal) => {
@@ -147,10 +162,14 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
     try {
       if (Platform.OS === 'ios') {
         // iOS: Request location permission (would use react-native-permissions in production)
-        Alert.alert('Location Permission', 'This app needs location access for automatic task completion when you leave stores.', [
-          { text: 'Not Now', onPress: () => setLocationPermissionGranted(false) },
-          { text: 'Allow', onPress: () => setLocationPermissionGranted(true) },
-        ]);
+        Alert.alert(
+          'Location Permission',
+          'This app needs location access for automatic task completion when you leave stores.',
+          [
+            { text: 'Not Now', onPress: () => setLocationPermissionGranted(false) },
+            { text: 'Allow', onPress: () => setLocationPermissionGranted(true) },
+          ]
+        );
       } else {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
@@ -165,10 +184,14 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
 
   const requestNotificationPermission = async () => {
     if (Platform.OS === 'ios') {
-      Alert.alert('Notification Permission', 'Allow notifications for task reminders and completion alerts?', [
-        { text: 'Not Now', onPress: () => setNotificationsEnabled(false) },
-        { text: 'Allow', onPress: () => setNotificationsEnabled(true) },
-      ]);
+      Alert.alert(
+        'Notification Permission',
+        'Allow notifications for task reminders and completion alerts?',
+        [
+          { text: 'Not Now', onPress: () => setNotificationsEnabled(false) },
+          { text: 'Allow', onPress: () => setNotificationsEnabled(true) },
+        ]
+      );
     } else {
       setNotificationsEnabled(true); // Android handles this differently
     }
@@ -203,9 +226,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
       content: (
         <View style={styles.welcomeContent}>
           <Text style={styles.sectionTitle}>Sign in to get started</Text>
-          
+
           <TouchableOpacity style={styles.appleSignInButton} onPress={handleAppleSignIn}>
-            <Text style={styles.appleIcon}></Text>
+            <Text style={styles.appleIcon} />
             <Text style={styles.appleSignInText}>Sign in with Apple</Text>
           </TouchableOpacity>
 
@@ -318,7 +341,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               <Text style={styles.preferenceSubtitle}>Choose how tasks are displayed</Text>
             </View>
           </View>
-          
+
           <View style={styles.viewOptions}>
             <TouchableOpacity
               style={[styles.viewOption, defaultView === 'list' && styles.viewOptionActive]}
@@ -330,7 +353,10 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 <View style={styles.listPreviewItem} />
               </View>
               <View style={styles.viewOptionHeader}>
-                <CheckmarkIcon size={16} color={defaultView === 'list' ? palette.primary : palette.textSecondary} />
+                <CheckmarkIcon
+                  size={16}
+                  color={defaultView === 'list' ? palette.primary : palette.textSecondary}
+                />
                 <Text
                   style={[
                     styles.viewOptionText,
@@ -340,11 +366,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   List View
                 </Text>
               </View>
-              <Text style={styles.viewOptionDescription}>
-                Tasks in a vertical list
-              </Text>
+              <Text style={styles.viewOptionDescription}>Tasks in a vertical list</Text>
             </TouchableOpacity>
-            
+
             <TouchableOpacity
               style={[styles.viewOption, defaultView === 'grid' && styles.viewOptionActive]}
               onPress={() => setDefaultView('grid')}
@@ -360,7 +384,10 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 </View>
               </View>
               <View style={styles.viewOptionHeader}>
-                <ChartIcon size={16} color={defaultView === 'grid' ? palette.primary : palette.textSecondary} />
+                <ChartIcon
+                  size={16}
+                  color={defaultView === 'grid' ? palette.primary : palette.textSecondary}
+                />
                 <Text
                   style={[
                     styles.viewOptionText,
@@ -370,9 +397,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   Grid View
                 </Text>
               </View>
-              <Text style={styles.viewOptionDescription}>
-                Tasks in a card grid
-              </Text>
+              <Text style={styles.viewOptionDescription}>Tasks in a card grid</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -384,11 +409,15 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
       content: (
         <View style={styles.goalsContent}>
           <Text style={styles.goalsIntro}>
-            Choose one or more goals. We'll configure the app with AI-powered features to help you achieve them.
+            Choose one or more goals. We'll configure the app with AI-powered features to help you
+            achieve them.
           </Text>
 
           <TouchableOpacity
-            style={[styles.goalCard, selectedGoals.includes('save-money') && styles.goalCardSelected]}
+            style={[
+              styles.goalCard,
+              selectedGoals.includes('save-money') && styles.goalCardSelected,
+            ]}
             onPress={() => toggleGoal('save-money')}
           >
             <View style={styles.goalHeader}>
@@ -397,16 +426,26 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Save Money</Text>
-                <Text style={styles.goalDescription}>Find deals, compare prices, track savings</Text>
+                <Text style={styles.goalDescription}>
+                  Find deals, compare prices, track savings
+                </Text>
               </View>
-              <View style={[styles.checkbox, selectedGoals.includes('save-money') && styles.checkboxSelected]}>
+              <View
+                style={[
+                  styles.checkbox,
+                  selectedGoals.includes('save-money') && styles.checkboxSelected,
+                ]}
+              >
                 {selectedGoals.includes('save-money') && <Text style={styles.checkmark}>✓</Text>}
               </View>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={[styles.goalCard, selectedGoals.includes('credit-points') && styles.goalCardSelected]}
+            style={[
+              styles.goalCard,
+              selectedGoals.includes('credit-points') && styles.goalCardSelected,
+            ]}
             onPress={() => toggleGoal('credit-points')}
           >
             <View style={styles.goalHeader}>
@@ -417,7 +456,12 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 <Text style={styles.goalTitle}>Maximize Credit Card Points</Text>
                 <Text style={styles.goalDescription}>Earn rewards on every purchase</Text>
               </View>
-              <View style={[styles.checkbox, selectedGoals.includes('credit-points') && styles.checkboxSelected]}>
+              <View
+                style={[
+                  styles.checkbox,
+                  selectedGoals.includes('credit-points') && styles.checkboxSelected,
+                ]}
+              >
                 {selectedGoals.includes('credit-points') && <Text style={styles.checkmark}>✓</Text>}
               </View>
             </View>
@@ -435,14 +479,22 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 <Text style={styles.goalTitle}>Stay Within Budget</Text>
                 <Text style={styles.goalDescription}>Track spending, set limits, get alerts</Text>
               </View>
-              <View style={[styles.checkbox, selectedGoals.includes('budget') && styles.checkboxSelected]}>
+              <View
+                style={[
+                  styles.checkbox,
+                  selectedGoals.includes('budget') && styles.checkboxSelected,
+                ]}
+              >
                 {selectedGoals.includes('budget') && <Text style={styles.checkmark}>✓</Text>}
               </View>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={[styles.goalCard, selectedGoals.includes('collaborate') && styles.goalCardSelected]}
+            style={[
+              styles.goalCard,
+              selectedGoals.includes('collaborate') && styles.goalCardSelected,
+            ]}
             onPress={() => toggleGoal('collaborate')}
           >
             <View style={styles.goalHeader}>
@@ -453,7 +505,12 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 <Text style={styles.goalTitle}>Collaborate with Others</Text>
                 <Text style={styles.goalDescription}>Share lists, assign tasks, work together</Text>
               </View>
-              <View style={[styles.checkbox, selectedGoals.includes('collaborate') && styles.checkboxSelected]}>
+              <View
+                style={[
+                  styles.checkbox,
+                  selectedGoals.includes('collaborate') && styles.checkboxSelected,
+                ]}
+              >
                 {selectedGoals.includes('collaborate') && <Text style={styles.checkmark}>✓</Text>}
               </View>
             </View>
@@ -471,14 +528,22 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 <Text style={styles.goalTitle}>Stay Organized</Text>
                 <Text style={styles.goalDescription}>Categories, reminders, prioritization</Text>
               </View>
-              <View style={[styles.checkbox, selectedGoals.includes('organize') && styles.checkboxSelected]}>
+              <View
+                style={[
+                  styles.checkbox,
+                  selectedGoals.includes('organize') && styles.checkboxSelected,
+                ]}
+              >
                 {selectedGoals.includes('organize') && <Text style={styles.checkmark}>✓</Text>}
               </View>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={[styles.goalCard, selectedGoals.includes('efficiency') && styles.goalCardSelected]}
+            style={[
+              styles.goalCard,
+              selectedGoals.includes('efficiency') && styles.goalCardSelected,
+            ]}
             onPress={() => toggleGoal('efficiency')}
           >
             <View style={styles.goalHeader}>
@@ -487,9 +552,16 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Maximize Efficiency</Text>
-                <Text style={styles.goalDescription}>Smart routing, batch tasks, time optimization</Text>
+                <Text style={styles.goalDescription}>
+                  Smart routing, batch tasks, time optimization
+                </Text>
               </View>
-              <View style={[styles.checkbox, selectedGoals.includes('efficiency') && styles.checkboxSelected]}>
+              <View
+                style={[
+                  styles.checkbox,
+                  selectedGoals.includes('efficiency') && styles.checkboxSelected,
+                ]}
+              >
                 {selectedGoals.includes('efficiency') && <Text style={styles.checkmark}>✓</Text>}
               </View>
             </View>
@@ -506,7 +578,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             content: (
               <View style={styles.budgetContent}>
                 <Text style={styles.configIntro}>
-                  Set a spending limit and we'll track your purchases, alert you when you're approaching the limit, and provide insights to help you save.
+                  Set a spending limit and we'll track your purchases, alert you when you're
+                  approaching the limit, and provide insights to help you save.
                 </Text>
 
                 <View style={styles.inputGroup}>
@@ -569,7 +642,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   <View style={styles.aiFeatureContent}>
                     <Text style={styles.aiFeatureTitle}>AI-Powered Budget Assistant</Text>
                     <Text style={styles.aiFeatureText}>
-                      Get smart spending recommendations, category breakdowns, and early warnings when you're likely to exceed your budget.
+                      Get smart spending recommendations, category breakdowns, and early warnings
+                      when you're likely to exceed your budget.
                     </Text>
                   </View>
                 </View>
@@ -586,7 +660,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             content: (
               <View style={styles.creditCardContent}>
                 <Text style={styles.configIntro}>
-                  Add your credit cards and we'll suggest which card to use for each purchase to maximize your points and cashback.
+                  Add your credit cards and we'll suggest which card to use for each purchase to
+                  maximize your points and cashback.
                 </Text>
 
                 <View style={styles.inputGroup}>
@@ -595,7 +670,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                     style={styles.input}
                     placeholder="Start typing..."
                     value={creditCardName}
-                    onChangeText={(text) => {
+                    onChangeText={text => {
                       setCreditCardName(text);
                       setShowCardSuggestions(text.length > 0);
                     }}
@@ -627,7 +702,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                     style={styles.input}
                     placeholder="Start typing..."
                     value={rewardsType}
-                    onChangeText={(text) => {
+                    onChangeText={text => {
                       setRewardsType(text);
                       setShowRewardsSuggestions(text.length > 0);
                     }}
@@ -660,7 +735,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   <View style={styles.aiFeatureContent}>
                     <Text style={styles.aiFeatureTitle}>Smart Card Recommendations</Text>
                     <Text style={styles.aiFeatureText}>
-                      Our AI analyzes category bonuses, rotating rewards, and special offers to recommend the best card for each purchase.
+                      Our AI analyzes category bonuses, rotating rewards, and special offers to
+                      recommend the best card for each purchase.
                     </Text>
                   </View>
                 </View>
@@ -682,14 +758,26 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           </View>
           <Text style={styles.permissionTitle}>Geofencing Magic</Text>
           <Text style={styles.permissionDescription}>
-            When you leave a store like Home Depot, we'll automatically ask if you completed your task "Buy screws". No more forgetting!
+            When you leave a store like Home Depot, we'll automatically ask if you completed your
+            task "Buy screws". No more forgetting!
           </Text>
           <TouchableOpacity
-            style={[styles.permissionButton, locationPermissionGranted && styles.permissionButtonActive]}
+            style={[
+              styles.permissionButton,
+              locationPermissionGranted && styles.permissionButtonActive,
+            ]}
             onPress={requestLocationPermission}
           >
-            <LocationIcon size={20} color={locationPermissionGranted ? palette.surface : palette.primary} />
-            <Text style={[styles.permissionButtonText, locationPermissionGranted && styles.permissionButtonTextActive]}>
+            <LocationIcon
+              size={20}
+              color={locationPermissionGranted ? palette.surface : palette.primary}
+            />
+            <Text
+              style={[
+                styles.permissionButtonText,
+                locationPermissionGranted && styles.permissionButtonTextActive,
+              ]}
+            >
               {locationPermissionGranted ? '✓ Location Enabled' : 'Enable Location'}
             </Text>
           </TouchableOpacity>
@@ -707,21 +795,85 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             We'll pre-populate store preferences and optimize your experience for these categories.
           </Text>
           <View style={styles.categoryGrid}>
-            {(['groceries', 'hardware', 'errands', 'medical', 'shopping', 'returns'] as Category[]).map(category => (
+            {(
+              ['groceries', 'hardware', 'errands', 'medical', 'shopping', 'returns'] as Category[]
+            ).map(category => (
               <TouchableOpacity
                 key={category}
-                style={[styles.categoryCard, selectedCategories.includes(category) && styles.categoryCardSelected]}
+                style={[
+                  styles.categoryCard,
+                  selectedCategories.includes(category) && styles.categoryCardSelected,
+                ]}
                 onPress={() => toggleCategory(category)}
               >
                 <View style={styles.categoryIconContainer}>
-                  {category === 'groceries' && <ChartIcon size={32} color={selectedCategories.includes(category) ? palette.primary : palette.textSecondary} />}
-                  {category === 'hardware' && <CheckmarkIcon size={32} color={selectedCategories.includes(category) ? palette.primary : palette.textSecondary} />}
-                  {category === 'errands' && <LocationIcon size={32} color={selectedCategories.includes(category) ? palette.primary : palette.textSecondary} />}
-                  {category === 'medical' && <CalendarIcon size={32} color={selectedCategories.includes(category) ? palette.primary : palette.textSecondary} />}
-                  {category === 'shopping' && <CreditCardIcon size={32} color={selectedCategories.includes(category) ? palette.primary : palette.textSecondary} />}
-                  {category === 'returns' && <TargetIcon size={32} color={selectedCategories.includes(category) ? palette.primary : palette.textSecondary} />}
+                  {category === 'groceries' && (
+                    <ChartIcon
+                      size={32}
+                      color={
+                        selectedCategories.includes(category)
+                          ? palette.primary
+                          : palette.textSecondary
+                      }
+                    />
+                  )}
+                  {category === 'hardware' && (
+                    <CheckmarkIcon
+                      size={32}
+                      color={
+                        selectedCategories.includes(category)
+                          ? palette.primary
+                          : palette.textSecondary
+                      }
+                    />
+                  )}
+                  {category === 'errands' && (
+                    <LocationIcon
+                      size={32}
+                      color={
+                        selectedCategories.includes(category)
+                          ? palette.primary
+                          : palette.textSecondary
+                      }
+                    />
+                  )}
+                  {category === 'medical' && (
+                    <CalendarIcon
+                      size={32}
+                      color={
+                        selectedCategories.includes(category)
+                          ? palette.primary
+                          : palette.textSecondary
+                      }
+                    />
+                  )}
+                  {category === 'shopping' && (
+                    <CreditCardIcon
+                      size={32}
+                      color={
+                        selectedCategories.includes(category)
+                          ? palette.primary
+                          : palette.textSecondary
+                      }
+                    />
+                  )}
+                  {category === 'returns' && (
+                    <TargetIcon
+                      size={32}
+                      color={
+                        selectedCategories.includes(category)
+                          ? palette.primary
+                          : palette.textSecondary
+                      }
+                    />
+                  )}
                 </View>
-                <Text style={[styles.categoryLabel, selectedCategories.includes(category) && styles.categoryLabelActive]}>
+                <Text
+                  style={[
+                    styles.categoryLabel,
+                    selectedCategories.includes(category) && styles.categoryLabelActive,
+                  ]}
+                >
                   {category.charAt(0).toUpperCase() + category.slice(1)}
                 </Text>
                 {selectedCategories.includes(category) && (
@@ -756,7 +908,12 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             onPress={requestNotificationPermission}
           >
             <BellIcon size={20} color={notificationsEnabled ? palette.surface : palette.primary} />
-            <Text style={[styles.permissionButtonText, notificationsEnabled && styles.permissionButtonTextActive]}>
+            <Text
+              style={[
+                styles.permissionButtonText,
+                notificationsEnabled && styles.permissionButtonTextActive,
+              ]}
+            >
               {notificationsEnabled ? '✓ Notifications Enabled' : 'Enable Notifications'}
             </Text>
           </TouchableOpacity>
@@ -790,7 +947,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                         style={[styles.input, { flex: 1 }]}
                         placeholder="email@example.com"
                         value={collab}
-                        onChangeText={(text) => updateCollaborator(index, text)}
+                        onChangeText={text => updateCollaborator(index, text)}
                         keyboardType="email-address"
                         autoCapitalize="none"
                         placeholderTextColor={palette.textTertiary}
@@ -811,7 +968,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 </View>
                 <View style={styles.permissionRow}>
                   <UsersIcon size={20} color={palette.primary} />
-                  <Text style={styles.permissionInfo}>Collaborators can view and edit shared lists</Text>
+                  <Text style={styles.permissionInfo}>
+                    Collaborators can view and edit shared lists
+                  </Text>
                 </View>
               </View>
             ),
@@ -827,7 +986,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           <View style={styles.preferenceRow}>
             <View style={styles.preferenceInfo}>
               <Text style={styles.preferenceTitle}>Auto-Upload Receipts</Text>
-              <Text style={styles.preferenceSubtitle}>Automatically save receipts when tasks are completed</Text>
+              <Text style={styles.preferenceSubtitle}>
+                Automatically save receipts when tasks are completed
+              </Text>
             </View>
             <TouchableOpacity
               style={[styles.toggle, autoReceiptUpload && styles.toggleActive]}
@@ -840,20 +1001,42 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             <Text style={styles.label}>Preferred Method</Text>
             <View style={styles.receiptOptions}>
               <TouchableOpacity
-                style={[styles.receiptOption, cameraPreference === 'camera' && styles.receiptOptionActive]}
+                style={[
+                  styles.receiptOption,
+                  cameraPreference === 'camera' && styles.receiptOptionActive,
+                ]}
                 onPress={() => setCameraPreference('camera')}
               >
-                <CameraIcon size={32} color={cameraPreference === 'camera' ? palette.primary : palette.textSecondary} />
-                <Text style={[styles.receiptOptionText, cameraPreference === 'camera' && styles.receiptOptionTextActive]}>
+                <CameraIcon
+                  size={32}
+                  color={cameraPreference === 'camera' ? palette.primary : palette.textSecondary}
+                />
+                <Text
+                  style={[
+                    styles.receiptOptionText,
+                    cameraPreference === 'camera' && styles.receiptOptionTextActive,
+                  ]}
+                >
                   Take Photo
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.receiptOption, cameraPreference === 'library' && styles.receiptOptionActive]}
+                style={[
+                  styles.receiptOption,
+                  cameraPreference === 'library' && styles.receiptOptionActive,
+                ]}
                 onPress={() => setCameraPreference('library')}
               >
-                <CheckmarkIcon size={32} color={cameraPreference === 'library' ? palette.primary : palette.textSecondary} />
-                <Text style={[styles.receiptOptionText, cameraPreference === 'library' && styles.receiptOptionTextActive]}>
+                <CheckmarkIcon
+                  size={32}
+                  color={cameraPreference === 'library' ? palette.primary : palette.textSecondary}
+                />
+                <Text
+                  style={[
+                    styles.receiptOptionText,
+                    cameraPreference === 'library' && styles.receiptOptionTextActive,
+                  ]}
+                >
                   Choose from Library
                 </Text>
               </TouchableOpacity>
@@ -868,12 +1051,18 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
       subtitle: 'Get the most out of your experience',
       content: (
         <View style={styles.tipsContent}>
-          <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator style={styles.tipsCarousel}>
+          <ScrollView
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator
+            style={styles.tipsCarousel}
+          >
             <View style={styles.tipSlide}>
               <TargetIcon size={48} color={palette.primary} />
               <Text style={styles.tipTitle}>Smart Task Completion</Text>
               <Text style={styles.tipDescription}>
-                Tap a task near its store location to automatically mark it complete with receipt capture.
+                Tap a task near its store location to automatically mark it complete with receipt
+                capture.
               </Text>
             </View>
             <View style={styles.tipSlide}>
@@ -887,7 +1076,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               <CreditCardIcon size={48} color={palette.primary} />
               <Text style={styles.tipTitle}>Maximize Rewards</Text>
               <Text style={styles.tipDescription}>
-                AI recommends the best credit card for each purchase to maximize points and cashback.
+                AI recommends the best credit card for each purchase to maximize points and
+                cashback.
               </Text>
             </View>
           </ScrollView>
@@ -910,7 +1100,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           </View>
           <Text style={styles.sampleTitle}>Ready to Get Started?</Text>
           <Text style={styles.sampleDescription}>
-            Want to see how it works? We can add a sample task to help you get familiar with the features.
+            Want to see how it works? We can add a sample task to help you get familiar with the
+            features.
           </Text>
           <View style={styles.samplePreview}>
             <View style={styles.sampleTaskCard}>
@@ -951,7 +1142,10 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
 
     if (step === 3) {
       if (selectedGoals.length === 0) {
-        Alert.alert('Select at least one goal', 'Choose what matters most to you so we can personalize your experience');
+        Alert.alert(
+          'Select at least one goal',
+          'Choose what matters most to you so we can personalize your experience'
+        );
         return;
       }
     }

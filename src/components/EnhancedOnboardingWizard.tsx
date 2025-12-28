@@ -26,12 +26,10 @@ export interface OnboardingPreferences {
   primaryGoal: 'save-money' | 'track-spending' | 'maximize-rewards' | 'family-budget';
 }
 
-export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
-  onComplete,
-}) => {
+export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({ onComplete }) => {
   const [step, setStep] = useState(0);
   const [showMLExplanation, setShowMLExplanation] = useState(false);
-  
+
   const [preferences, setPreferences] = useState<OnboardingPreferences>({
     enableGeolocationPrompts: true,
     enableFeatureTips: true,
@@ -67,19 +65,11 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
   const renderProgressBar = () => (
     <View style={styles.progressContainer}>
       <View style={styles.progressBar}>
-        {[0, 1, 2, 3, 4].map((s) => (
-          <View
-            key={s}
-            style={[
-              styles.progressDot,
-              s <= step && styles.progressDotActive,
-            ]}
-          />
+        {[0, 1, 2, 3, 4].map(s => (
+          <View key={s} style={[styles.progressDot, s <= step && styles.progressDotActive]} />
         ))}
       </View>
-      <Text style={styles.progressText}>
-        Step {step + 1} of 5
-      </Text>
+      <Text style={styles.progressText}>Step {step + 1} of 5</Text>
     </View>
   );
 
@@ -100,22 +90,22 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
                 { value: 'track-spending', icon: '📊', label: 'Track Spending' },
                 { value: 'maximize-rewards', icon: '🎁', label: 'Maximize Rewards' },
                 { value: 'family-budget', icon: '👨‍👩‍👧‍👦', label: 'Family Budget' },
-              ].map((goal) => (
+              ].map(goal => (
                 <TouchableOpacity
                   key={goal.value}
                   style={[
                     styles.optionCard,
                     preferences.primaryGoal === goal.value && styles.optionCardActive,
                   ]}
-                  onPress={() =>
-                    updatePreference('primaryGoal', goal.value as any)
-                  }>
+                  onPress={() => updatePreference('primaryGoal', goal.value as any)}
+                >
                   <Text style={styles.optionIcon}>{goal.icon}</Text>
                   <Text
                     style={[
                       styles.optionLabel,
                       preferences.primaryGoal === goal.value && styles.optionLabelActive,
-                    ]}>
+                    ]}
+                  >
                     {goal.label}
                   </Text>
                 </TouchableOpacity>
@@ -135,7 +125,8 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
 
             <TouchableOpacity
               style={styles.learnMoreButton}
-              onPress={() => setShowMLExplanation(true)}>
+              onPress={() => setShowMLExplanation(true)}
+            >
               <Text style={styles.learnMoreText}>How does machine learning work? →</Text>
             </TouchableOpacity>
 
@@ -143,7 +134,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
               <View style={styles.featureItem}>
                 <Switch
                   value={preferences.enableReceiptScanning}
-                  onValueChange={(v) => updatePreference('enableReceiptScanning', v)}
+                  onValueChange={v => updatePreference('enableReceiptScanning', v)}
                   trackColor={{ false: palette.border, true: palette.primary }}
                 />
                 <View style={styles.featureInfo}>
@@ -157,7 +148,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
               <View style={styles.featureItem}>
                 <Switch
                   value={preferences.enableCashbackOptimization}
-                  onValueChange={(v) => updatePreference('enableCashbackOptimization', v)}
+                  onValueChange={v => updatePreference('enableCashbackOptimization', v)}
                   trackColor={{ false: palette.border, true: palette.primary }}
                 />
                 <View style={styles.featureInfo}>
@@ -171,7 +162,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
               <View style={styles.featureItem}>
                 <Switch
                   value={preferences.enableBudgetTracking}
-                  onValueChange={(v) => updatePreference('enableBudgetTracking', v)}
+                  onValueChange={v => updatePreference('enableBudgetTracking', v)}
                   trackColor={{ false: palette.border, true: palette.primary }}
                 />
                 <View style={styles.featureInfo}>
@@ -190,15 +181,13 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
           <View style={styles.stepContent}>
             <Text style={styles.stepIcon}>📍</Text>
             <Text style={styles.stepTitle}>Location Features</Text>
-            <Text style={styles.stepDescription}>
-              Get helpful prompts when you're shopping
-            </Text>
+            <Text style={styles.stepDescription}>Get helpful prompts when you're shopping</Text>
 
             <View style={styles.demoCard}>
               <Text style={styles.demoTitle}>Example:</Text>
               <Text style={styles.demoText}>
-                When you leave a store, we'll ask if you want to scan your receipt.
-                This helps track spending and maximize cashback rewards.
+                When you leave a store, we'll ask if you want to scan your receipt. This helps track
+                spending and maximize cashback rewards.
               </Text>
             </View>
 
@@ -206,7 +195,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
               <View style={styles.featureItem}>
                 <Switch
                   value={preferences.enableGeolocationPrompts}
-                  onValueChange={(v) => updatePreference('enableGeolocationPrompts', v)}
+                  onValueChange={v => updatePreference('enableGeolocationPrompts', v)}
                   trackColor={{ false: palette.border, true: palette.primary }}
                 />
                 <View style={styles.featureInfo}>
@@ -231,15 +220,13 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
           <View style={styles.stepContent}>
             <Text style={styles.stepIcon}>💡</Text>
             <Text style={styles.stepTitle}>Learning Experience</Text>
-            <Text style={styles.stepDescription}>
-              How would you like to discover features?
-            </Text>
+            <Text style={styles.stepDescription}>How would you like to discover features?</Text>
 
             <View style={styles.featuresList}>
               <View style={styles.featureItem}>
                 <Switch
                   value={preferences.gradualFeatureIntroduction}
-                  onValueChange={(v) => updatePreference('gradualFeatureIntroduction', v)}
+                  onValueChange={v => updatePreference('gradualFeatureIntroduction', v)}
                   trackColor={{ false: palette.border, true: palette.primary }}
                 />
                 <View style={styles.featureInfo}>
@@ -253,7 +240,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
               <View style={styles.featureItem}>
                 <Switch
                   value={preferences.enableFeatureTips}
-                  onValueChange={(v) => updatePreference('enableFeatureTips', v)}
+                  onValueChange={v => updatePreference('enableFeatureTips', v)}
                   trackColor={{ false: palette.border, true: palette.primary }}
                 />
                 <View style={styles.featureInfo}>
@@ -278,16 +265,15 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
           <View style={styles.stepContent}>
             <Text style={styles.stepIcon}>👨‍👩‍👧‍👦</Text>
             <Text style={styles.stepTitle}>Family Setup</Text>
-            <Text style={styles.stepDescription}>
-              How many people are in your household?
-            </Text>
+            <Text style={styles.stepDescription}>How many people are in your household?</Text>
 
             <View style={styles.numberSelector}>
               <TouchableOpacity
                 style={styles.numberButton}
                 onPress={() =>
                   updatePreference('familyMembers', Math.max(1, preferences.familyMembers - 1))
-                }>
+                }
+              >
                 <Text style={styles.numberButtonText}>−</Text>
               </TouchableOpacity>
               <View style={styles.numberDisplay}>
@@ -300,16 +286,15 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
                 style={styles.numberButton}
                 onPress={() =>
                   updatePreference('familyMembers', Math.min(10, preferences.familyMembers + 1))
-                }>
+                }
+              >
                 <Text style={styles.numberButtonText}>+</Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.summaryCard}>
               <Text style={styles.summaryTitle}>✨ You're all set!</Text>
-              <Text style={styles.summaryText}>
-                Based on your selections, we've configured:
-              </Text>
+              <Text style={styles.summaryText}>Based on your selections, we've configured:</Text>
               <View style={styles.summaryList}>
                 {preferences.enableReceiptScanning && (
                   <Text style={styles.summaryItem}>✓ Receipt scanning & OCR</Text>
@@ -353,10 +338,9 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({
         )}
         <TouchableOpacity
           style={[styles.nextButton, step === 0 && styles.nextButtonFull]}
-          onPress={handleNext}>
-          <Text style={styles.nextButtonText}>
-            {step === 4 ? 'Get Started' : 'Continue'}
-          </Text>
+          onPress={handleNext}
+        >
+          <Text style={styles.nextButtonText}>{step === 4 ? 'Get Started' : 'Continue'}</Text>
         </TouchableOpacity>
       </View>
 

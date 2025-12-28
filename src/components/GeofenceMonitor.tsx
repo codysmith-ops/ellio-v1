@@ -109,12 +109,7 @@ export const GeofenceMonitor: React.FC<GeofenceMonitorProps> = ({ onTasksNearby 
 };
 
 // Haversine formula to calculate distance between coordinates
-function calculateDistance(
-  lat1: number,
-  lon1: number,
-  lat2: number,
-  lon2: number
-): number {
+function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371e3; // Earth's radius in meters
   const φ1 = (lat1 * Math.PI) / 180;
   const φ2 = (lat2 * Math.PI) / 180;

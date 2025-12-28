@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { palette, spacing, radius, typography } from '../theme';import { ChartIcon, TargetIcon, TrendUpIcon } from '../components/Icons';import { useTodoStore } from '../store';
+import { palette, spacing, radius, typography } from '../theme';
+import { ChartIcon, TargetIcon, TrendUpIcon } from '../components/Icons';
+import { useTodoStore } from '../store';
 
 export const TaskAnalyticsPage: React.FC = () => {
   const { tasks } = useTodoStore();
@@ -25,17 +27,16 @@ export const TaskAnalyticsPage: React.FC = () => {
   const activeTasks = totalTasks - completedTasks;
   const completionRate = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
   const overdueTasks = filteredTasks.filter(
-    t => !t.completed && t.dueDate && t.dueDate < now,
+    t => !t.completed && t.dueDate && t.dueDate < now
   ).length;
   const onTimeTasks = filteredTasks.filter(
-    t => t.completed && t.dueDate && t.completedAt && t.completedAt <= t.dueDate,
+    t => t.completed && t.dueDate && t.completedAt && t.completedAt <= t.dueDate
   ).length;
-  const onTimeRate =
-    completedTasks > 0 ? (onTimeTasks / completedTasks) * 100 : 0;
+  const onTimeRate = completedTasks > 0 ? (onTimeTasks / completedTasks) * 100 : 0;
 
   // Productivity score
   const productivityScore = Math.round(
-    (completionRate * 0.6 + onTimeRate * 0.3 + (100 - (overdueTasks / activeTasks) * 100) * 0.1),
+    completionRate * 0.6 + onTimeRate * 0.3 + (100 - (overdueTasks / activeTasks) * 100) * 0.1
   );
 
   // Daily completion trend
@@ -54,7 +55,7 @@ export const TaskAnalyticsPage: React.FC = () => {
         t.completed &&
         t.completedAt &&
         t.completedAt >= date.getTime() &&
-        t.completedAt < nextDay.getTime(),
+        t.completedAt < nextDay.getTime()
     ).length;
   });
 
@@ -63,7 +64,9 @@ export const TaskAnalyticsPage: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}><TrendUpIcon /> Task Analytics</Text>
+        <Text style={styles.headerTitle}>
+          <TrendUpIcon /> Task Analytics
+        </Text>
         <Text style={styles.headerSubtitle}>Your productivity insights</Text>
       </View>
 
@@ -73,12 +76,9 @@ export const TaskAnalyticsPage: React.FC = () => {
           <TouchableOpacity
             key={tf}
             style={[styles.timeframeButton, timeframe === tf && styles.timeframeButtonActive]}
-            onPress={() => setTimeframe(tf)}>
-            <Text
-              style={[
-                styles.timeframeText,
-                timeframe === tf && styles.timeframeTextActive,
-              ]}>
+            onPress={() => setTimeframe(tf)}
+          >
+            <Text style={[styles.timeframeText, timeframe === tf && styles.timeframeTextActive]}>
               {tf === 'week' ? 'This Week' : tf === 'month' ? 'This Month' : 'All Time'}
             </Text>
           </TouchableOpacity>
@@ -96,15 +96,17 @@ export const TaskAnalyticsPage: React.FC = () => {
           {productivityScore >= 80
             ? '<StarIcon /> Excellent!'
             : productivityScore >= 60
-              ? '👍 Good work!'
-              : '💪 Keep going!'}
+            ? '👍 Good work!'
+            : '💪 Keep going!'}
         </Text>
       </View>
 
       {/* Key Metrics Grid */}
       <View style={styles.metricsGrid}>
         <View style={styles.metricCard}>
-          <Text style={styles.metricIcon}><CheckmarkIcon /></Text>
+          <Text style={styles.metricIcon}>
+            <CheckmarkIcon />
+          </Text>
           <Text style={styles.metricValue}>{completedTasks}</Text>
           <Text style={styles.metricLabel}>Completed</Text>
           <Text style={styles.metricPercent}>{completionRate.toFixed(0)}%</Text>
@@ -120,7 +122,9 @@ export const TaskAnalyticsPage: React.FC = () => {
         </View>
 
         <View style={styles.metricCard}>
-          <Text style={styles.metricIcon}><ClockIcon /></Text>
+          <Text style={styles.metricIcon}>
+            <ClockIcon />
+          </Text>
           <Text style={styles.metricValue}>{onTimeTasks}</Text>
           <Text style={styles.metricLabel}>On Time</Text>
           <Text style={styles.metricPercent}>{onTimeRate.toFixed(0)}%</Text>
@@ -135,7 +139,9 @@ export const TaskAnalyticsPage: React.FC = () => {
 
       {/* Daily Completion Trend */}
       <View style={styles.trendCard}>
-        <Text style={styles.sectionTitle}><ChartIcon /> Daily Completions</Text>
+        <Text style={styles.sectionTitle}>
+          <ChartIcon /> Daily Completions
+        </Text>
         <View style={styles.chartContainer}>
           {last7Days.map((date, index) => {
             const count = dailyCompletions[index];
@@ -148,8 +154,7 @@ export const TaskAnalyticsPage: React.FC = () => {
                       styles.bar,
                       {
                         height: `${Math.max(height, 5)}%`,
-                        backgroundColor:
-                          index === 6 ? palette.primary : palette.info,
+                        backgroundColor: index === 6 ? palette.primary : palette.info,
                       },
                     ]}
                   />
@@ -166,11 +171,15 @@ export const TaskAnalyticsPage: React.FC = () => {
 
       {/* Insights */}
       <View style={styles.insightsCard}>
-        <Text style={styles.sectionTitle}><LightbulbIcon /> Insights</Text>
+        <Text style={styles.sectionTitle}>
+          <LightbulbIcon /> Insights
+        </Text>
 
         {completionRate >= 70 && (
           <View style={styles.insightItem}>
-            <Text style={styles.insightIcon}><CheckmarkIcon /></Text>
+            <Text style={styles.insightIcon}>
+              <CheckmarkIcon />
+            </Text>
             <Text style={styles.insightText}>
               Great job! You're completing {completionRate.toFixed(0)}% of your tasks.
             </Text>
@@ -179,10 +188,12 @@ export const TaskAnalyticsPage: React.FC = () => {
 
         {overdueTasks > 0 && (
           <View style={styles.insightItem}>
-            <Text style={styles.insightIcon}><WarningIcon /></Text>
+            <Text style={styles.insightIcon}>
+              <WarningIcon />
+            </Text>
             <Text style={styles.insightText}>
-              You have {overdueTasks} overdue {overdueTasks === 1 ? 'task' : 'tasks'}.
-              Consider rescheduling or breaking them into smaller tasks.
+              You have {overdueTasks} overdue {overdueTasks === 1 ? 'task' : 'tasks'}. Consider
+              rescheduling or breaking them into smaller tasks.
             </Text>
           </View>
         )}
@@ -200,8 +211,7 @@ export const TaskAnalyticsPage: React.FC = () => {
           <View style={styles.insightItem}>
             <Text style={styles.insightIcon}>📌</Text>
             <Text style={styles.insightText}>
-              You have {activeTasks} active tasks. Focus on completing high-priority items
-              first.
+              You have {activeTasks} active tasks. Focus on completing high-priority items first.
             </Text>
           </View>
         )}
@@ -210,8 +220,7 @@ export const TaskAnalyticsPage: React.FC = () => {
           <View style={styles.insightItem}>
             <Text style={styles.insightIcon}>💪</Text>
             <Text style={styles.insightText}>
-              Try breaking large tasks into smaller, achievable steps to boost your completion
-              rate.
+              Try breaking large tasks into smaller, achievable steps to boost your completion rate.
             </Text>
           </View>
         )}

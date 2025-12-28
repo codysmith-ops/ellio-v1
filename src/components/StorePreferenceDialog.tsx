@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Modal,
-  ScrollView,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
 
 interface StorePreferenceDialogProps {
@@ -122,12 +115,7 @@ export const StorePreferenceDialog: React.FC<StorePreferenceDialogProps> = ({
   };
 
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="slide"
-      onRequestClose={handleSkip}
-    >
+    <Modal visible={visible} transparent animationType="slide" onRequestClose={handleSkip}>
       <View style={styles.overlay}>
         <View style={styles.dialog}>
           <View style={styles.header}>
@@ -139,7 +127,7 @@ export const StorePreferenceDialog: React.FC<StorePreferenceDialogProps> = ({
 
           <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
             <View style={styles.storeGrid}>
-              {stores.map((store) => {
+              {stores.map(store => {
                 const isSelected = selectedStores.has(store.id);
                 return (
                   <TouchableOpacity
