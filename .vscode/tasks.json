@@ -87,10 +87,10 @@
         "reveal": "always",
         "panel": "dedicated",
         "showReuseMessage": false
-      },
-      "runOptions": {
-        "runOn": "never"
-      }label": "Compliance: Full Audit Cycle (BEFORE → Code → AFTER)",
+      }
+    },
+    {
+      "label": "Compliance: Full Audit Cycle (BEFORE → Code → AFTER)",
       "dependsOrder": "sequence",
       "dependsOn": [
         "Compliance: Audit BEFORE (Baseline)",
