@@ -226,16 +226,27 @@ enforce_dependency_determinism() {
     
     log_info "Running bundle install + bundle exec pod install..."
     pushd "${PROJECT_ROOT}/ios" > /dev/null
-    bundle install || {
-        log_error "bundle install failed"
-        popd > /dev/null
-        exit $EXIT_LOCKFILE_CHANGED
-    }
-    bundle exec pod install || {
-        log_error "pod install failed"
-        popd > /dev/null
-        exit $EXIT_LOCKFILE_CHANGED
-    }
+    
+    # Check if Gemfile exists (for bundler-managed projects)
+    if [[ -f "Gemfile" ]]; then
+        bundle install || {
+            log_error "bundle install failed"
+            popd > /dev/null
+            exit $EXIT_LOCKFILE_CHANGED
+        }
+        bundle exec pod install || {
+            log_error "pod install failed"
+            popd > /dev/null
+            exit $EXIT_LOCKFILE_CHANGED
+        }
+    else
+        log_info "No Gemfile found, running pod install directly..."
+        pod install || {
+            log_error "pod install failed"
+            popd > /dev/null
+            exit $EXIT_LOCKFILE_CHANGED
+        }
+    fi
     popd > /dev/null
     
     # Compute post-install hashes
@@ -748,6 +759,8 @@ bash scripts/audit_before.sh
 - Triple-pass build/test/analyze
 - Security scan (secret detection)
 - Markdown report generation
+
+**Note:** If Gemfile exists in ios/, will use `bundle exec pod install`, otherwise uses `pod install` directly.
 
 ### 3. Make Code Changes
 - Edit files in \`src/\` or \`ios/\`
