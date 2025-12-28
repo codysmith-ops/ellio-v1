@@ -11,6 +11,7 @@ import {
   Platform,
 } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
+import { CameraIcon, BellIcon, CheckmarkIcon, DollarIcon, CreditCardIcon, ChartIcon, UsersIcon, LightbulbIcon, ClockIcon, CalendarIcon } from './Icons';
 
 interface SetupWizardProps {
   onComplete: (userData: UserSetupData) => void;
@@ -162,10 +163,22 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
 
           <View style={styles.featuresContainer}>
             <Text style={styles.featuresTitle}>What you'll get:</Text>
-            <Text style={styles.welcomeText}>📋 Manage your tasks efficiently</Text>
-            <Text style={styles.welcomeText}>📷 Scan barcodes or take photos</Text>
-            <Text style={styles.welcomeText}>🔔 Get timely reminders</Text>
-            <Text style={styles.welcomeText}>⚙️ Customize to your workflow</Text>
+            <View style={styles.featureRow}>
+              <CheckmarkIcon size={20} color={palette.primary} />
+              <Text style={styles.featureText}>Manage your tasks efficiently</Text>
+            </View>
+            <View style={styles.featureRow}>
+              <CameraIcon size={20} color={palette.primary} />
+              <Text style={styles.featureText}>Scan barcodes or take photos</Text>
+            </View>
+            <View style={styles.featureRow}>
+              <BellIcon size={20} color={palette.primary} />
+              <Text style={styles.featureText}>Get timely reminders</Text>
+            </View>
+            <View style={styles.featureRow}>
+              <CheckmarkIcon size={20} color={palette.primary} />
+              <Text style={styles.featureText}>Customize to your workflow</Text>
+            </View>
           </View>
         </View>
       ),
@@ -247,14 +260,17 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 <View style={styles.listPreviewItem} />
                 <View style={styles.listPreviewItem} />
               </View>
-              <Text
-                style={[
-                  styles.viewOptionText,
-                  defaultView === 'list' && styles.viewOptionTextActive,
-                ]}
-              >
-                📋 List View
-              </Text>
+              <View style={styles.viewOptionHeader}>
+                <CheckmarkIcon size={16} color={defaultView === 'list' ? palette.primary : palette.textSecondary} />
+                <Text
+                  style={[
+                    styles.viewOptionText,
+                    defaultView === 'list' && styles.viewOptionTextActive,
+                  ]}
+                >
+                  List View
+                </Text>
+              </View>
               <Text style={styles.viewOptionDescription}>
                 Tasks in a vertical list
               </Text>
@@ -274,14 +290,17 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   <View style={styles.gridPreviewItem} />
                 </View>
               </View>
-              <Text
-                style={[
-                  styles.viewOptionText,
-                  defaultView === 'grid' && styles.viewOptionTextActive,
-                ]}
-              >
-                ⊞ Grid View
-              </Text>
+              <View style={styles.viewOptionHeader}>
+                <ChartIcon size={16} color={defaultView === 'grid' ? palette.primary : palette.textSecondary} />
+                <Text
+                  style={[
+                    styles.viewOptionText,
+                    defaultView === 'grid' && styles.viewOptionTextActive,
+                  ]}
+                >
+                  Grid View
+                </Text>
+              </View>
               <Text style={styles.viewOptionDescription}>
                 Tasks in a card grid
               </Text>
@@ -304,7 +323,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             onPress={() => toggleGoal('save-money')}
           >
             <View style={styles.goalHeader}>
-              <Text style={styles.goalIcon}>💰</Text>
+              <View style={styles.goalIconContainer}>
+                <DollarIcon size={32} color={palette.primary} />
+              </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Save Money</Text>
                 <Text style={styles.goalDescription}>Find deals, compare prices, track savings</Text>
@@ -320,7 +341,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             onPress={() => toggleGoal('credit-points')}
           >
             <View style={styles.goalHeader}>
-              <Text style={styles.goalIcon}>💳</Text>
+              <View style={styles.goalIconContainer}>
+                <CreditCardIcon size={32} color={palette.primary} />
+              </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Maximize Credit Card Points</Text>
                 <Text style={styles.goalDescription}>Earn rewards on every purchase</Text>
@@ -336,7 +359,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             onPress={() => toggleGoal('budget')}
           >
             <View style={styles.goalHeader}>
-              <Text style={styles.goalIcon}>📊</Text>
+              <View style={styles.goalIconContainer}>
+                <ChartIcon size={32} color={palette.primary} />
+              </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Stay Within Budget</Text>
                 <Text style={styles.goalDescription}>Track spending, set limits, get alerts</Text>
@@ -352,7 +377,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             onPress={() => toggleGoal('collaborate')}
           >
             <View style={styles.goalHeader}>
-              <Text style={styles.goalIcon}>👥</Text>
+              <View style={styles.goalIconContainer}>
+                <UsersIcon size={32} color={palette.primary} />
+              </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Collaborate with Others</Text>
                 <Text style={styles.goalDescription}>Share lists, assign tasks, work together</Text>
@@ -368,7 +395,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             onPress={() => toggleGoal('organize')}
           >
             <View style={styles.goalHeader}>
-              <Text style={styles.goalIcon}>📋</Text>
+              <View style={styles.goalIconContainer}>
+                <CheckmarkIcon size={32} color={palette.primary} />
+              </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Stay Organized</Text>
                 <Text style={styles.goalDescription}>Categories, reminders, prioritization</Text>
@@ -384,7 +413,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             onPress={() => toggleGoal('efficiency')}
           >
             <View style={styles.goalHeader}>
-              <Text style={styles.goalIcon}>⚡</Text>
+              <View style={styles.goalIconContainer}>
+                <ClockIcon size={32} color={palette.primary} />
+              </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Maximize Efficiency</Text>
                 <Text style={styles.goalDescription}>Smart routing, batch tasks, time optimization</Text>
@@ -463,7 +494,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 </View>
 
                 <View style={styles.aiFeatureBox}>
-                  <Text style={styles.aiFeatureIcon}>🤖</Text>
+                  <View style={styles.aiIconContainer}>
+                    <LightbulbIcon size={24} color={palette.primary} />
+                  </View>
                   <View style={styles.aiFeatureContent}>
                     <Text style={styles.aiFeatureTitle}>AI-Powered Budget Assistant</Text>
                     <Text style={styles.aiFeatureText}>
@@ -552,7 +585,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 </View>
 
                 <View style={styles.aiFeatureBox}>
-                  <Text style={styles.aiFeatureIcon}>💡</Text>
+                  <View style={styles.aiIconContainer}>
+                    <LightbulbIcon size={24} color={palette.primary} />
+                  </View>
                   <View style={styles.aiFeatureContent}>
                     <Text style={styles.aiFeatureTitle}>Smart Card Recommendations</Text>
                     <Text style={styles.aiFeatureText}>
@@ -792,15 +827,21 @@ const styles = StyleSheet.create({
     color: palette.text,
     marginBottom: spacing.sm,
   },
-  welcomeText: {
-    ...typography.body,
-    color: palette.text,
+  featureRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
     paddingVertical: spacing.sm,
     paddingHorizontal: spacing.md,
     backgroundColor: palette.surface,
     borderRadius: radius.card,
     borderWidth: 1,
     borderColor: palette.border,
+  },
+  featureText: {
+    ...typography.body,
+    color: palette.text,
+    flex: 1,
   },
   formContent: {
     gap: spacing.lg,
@@ -907,6 +948,12 @@ const styles = StyleSheet.create({
     backgroundColor: palette.border,
     borderRadius: 4,
   },
+  viewOptionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    justifyContent: 'center',
+  },
   viewOptionText: {
     ...typography.bodyBold,
     color: palette.textSecondary,
@@ -979,8 +1026,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing.md,
   },
-  goalIcon: {
-    fontSize: 32,
+  goalIconContainer: {
+    width: 48,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: radius.medium,
+    backgroundColor: '#FFFFFF',
   },
   goalInfo: {
     flex: 1,
@@ -1079,8 +1131,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: palette.primary + '30',
   },
-  aiFeatureIcon: {
-    fontSize: 24,
+  aiIconContainer: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: radius.small,
+    backgroundColor: '#FFFFFF',
   },
   aiFeatureContent: {
     flex: 1,

@@ -9,6 +9,7 @@ import {
   Animated,
 } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
+import { ChartIcon, DollarIcon, TrendUpIcon, LightbulbIcon, CreditCardIcon, BellIcon, UsersIcon, CalendarIcon, CheckmarkIcon, LocationIcon, CameraIcon } from './Icons';
 
 export type NavigationPage = 'home' | 'account' | 'preferences' | 'integrations' | 'help' | 'chat' | 'notifications' | 'reports' | 'team' | 'receipts' | 'budget' | 'family' | 'cashback' | 'savingsdashboard' | 'weeklysummary' | 'monthlyreport' | 'insights' | 'timeline' | 'analytics';
 
@@ -48,25 +49,52 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
     setTimeout(() => onNavigate(page), 250);
   };
 
+  const getIconForPage = (page: NavigationPage, isActive: boolean) => {
+    const color = isActive ? palette.primary : palette.textSecondary;
+    const size = 20;
+    
+    switch (page) {
+      case 'home': return <CheckmarkIcon size={size} color={color} />;
+      case 'timeline': return <CalendarIcon size={size} color={color} />;
+      case 'analytics': return <ChartIcon size={size} color={color} />;
+      case 'savingsdashboard': return <DollarIcon size={size} color={color} />;
+      case 'weeklysummary': return <CalendarIcon size={size} color={color} />;
+      case 'monthlyreport': return <TrendUpIcon size={size} color={color} />;
+      case 'insights': return <LightbulbIcon size={size} color={color} />;
+      case 'receipts': return <CameraIcon size={size} color={color} />;
+      case 'budget': return <DollarIcon size={size} color={color} />;
+      case 'family': return <UsersIcon size={size} color={color} />;
+      case 'cashback': return <CreditCardIcon size={size} color={color} />;
+      case 'chat': return <UsersIcon size={size} color={color} />;
+      case 'notifications': return <BellIcon size={size} color={color} />;
+      case 'team': return <UsersIcon size={size} color={color} />;
+      case 'account': return <CheckmarkIcon size={size} color={color} />;
+      case 'preferences': return <CheckmarkIcon size={size} color={color} />;
+      case 'integrations': return <CheckmarkIcon size={size} color={color} />;
+      case 'help': return <LightbulbIcon size={size} color={color} />;
+      default: return <CheckmarkIcon size={size} color={color} />;
+    }
+  };
+
   const menuItems = [
-    { icon: '🏠', label: 'Home', page: 'home' as NavigationPage },
-    { icon: '�', label: 'Timeline', page: 'timeline' as NavigationPage },
-    { icon: '📊', label: 'Task Analytics', page: 'analytics' as NavigationPage },
-    { icon: '💰', label: 'Savings Dashboard', page: 'savingsdashboard' as NavigationPage },
-    { icon: '📆', label: 'Weekly Summary', page: 'weeklysummary' as NavigationPage },
-    { icon: '📈', label: 'Monthly Report', page: 'monthlyreport' as NavigationPage },
-    { icon: '💡', label: 'Insights', page: 'insights' as NavigationPage },
-    { icon: '🧾', label: 'Receipts', page: 'receipts' as NavigationPage },
-    { icon: '💵', label: 'Budget', page: 'budget' as NavigationPage },
-    { icon: '👨‍👩‍👧‍👦', label: 'Family', page: 'family' as NavigationPage },
-    { icon: '💳', label: 'Cashback', page: 'cashback' as NavigationPage },
-    { icon: '💬', label: 'Messages', page: 'chat' as NavigationPage },
-    { icon: '🔔', label: 'Notifications', page: 'notifications' as NavigationPage },
-    { icon: '👥', label: 'Team', page: 'team' as NavigationPage },
-    { icon: '👤', label: 'Account', page: 'account' as NavigationPage },
-    { icon: '⚙️', label: 'Preferences', page: 'preferences' as NavigationPage },
-    { icon: '🔌', label: 'Integrations', page: 'integrations' as NavigationPage },
-    { icon: '❓', label: 'Help & Support', page: 'help' as NavigationPage },
+    { , label: 'Home', page: 'home' as NavigationPage },
+    {  label: 'Timeline', page: 'timeline' as NavigationPage },
+    { , label: 'Task Analytics', page: 'analytics' as NavigationPage },
+    { , label: 'Savings Dashboard', page: 'savingsdashboard' as NavigationPage },
+    { , label: 'Weekly Summary', page: 'weeklysummary' as NavigationPage },
+    { , label: 'Monthly Report', page: 'monthlyreport' as NavigationPage },
+    { , label: 'Insights', page: 'insights' as NavigationPage },
+    { , label: 'Receipts', page: 'receipts' as NavigationPage },
+    { , label: 'Budget', page: 'budget' as NavigationPage },
+    {  label: 'Family', page: 'family' as NavigationPage },
+    { , label: 'Cashback', page: 'cashback' as NavigationPage },
+    { , label: 'Messages', page: 'chat' as NavigationPage },
+    { , label: 'Notifications', page: 'notifications' as NavigationPage },
+    { , label: 'Team', page: 'team' as NavigationPage },
+    { , label: 'Account', page: 'account' as NavigationPage },
+    { , label: 'Preferences', page: 'preferences' as NavigationPage },
+    { , label: 'Integrations', page: 'integrations' as NavigationPage },
+    { , label: 'Help & Support', page: 'help' as NavigationPage },
   ];
 
   return (
@@ -117,7 +145,9 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                   style={[styles.menuItem, currentPage === item.page && styles.menuItemActive]}
                   onPress={() => handleNavigate(item.page)}
                 >
-                  <Text style={styles.menuItemIcon}>{item.icon}</Text>
+                  <View style={styles.menuItemIcon}>
+                    {getIconForPage(item.page, currentPage === item.page)}
+                  </View>
                   <Text
                     style={[
                       styles.menuItemLabel,
@@ -217,8 +247,9 @@ const styles = StyleSheet.create({
     backgroundColor: palette.infoLight,
   },
   menuItemIcon: {
-    fontSize: 24,
     width: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   menuItemLabel: {
     ...typography.body,

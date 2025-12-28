@@ -6,6 +6,25 @@
 
 ---
 
+## 🚫 CRITICAL DEVELOPMENT RULES
+
+### ❌ NEVER USE EMOJIS IN CODE
+
+**STRICT REQUIREMENT: All UI elements MUST use design system icons from `src/components/Icons.tsx`**
+
+- ❌ **PROHIBITED**: Emoji characters (📱, 💰, 🔔, ✅, etc.)
+- ✅ **REQUIRED**: Icon components (`<DollarIcon />`, `<BellIcon />`, `<CheckmarkIcon />`, etc.)
+
+**Rationale:**
+- Emojis are inconsistent across platforms and OS versions
+- Icons provide precise design system compliance (#5159B0 color, stroke-width 2.5)
+- Accessibility: Icons can have proper ARIA labels
+- Professional appearance
+
+**Available Icons:** BellIcon, DollarIcon, CheckmarkIcon, TargetIcon, ChartIcon, UsersIcon, CameraIcon, LocationIcon, CalendarIcon, CartIcon, CreditCardIcon, TrendUpIcon, TrendDownIcon, WarningIcon, ClockIcon, StarIcon, LightbulbIcon, BagIcon, RefreshIcon
+
+---
+
 ## ✅ Compliance Verified
 
 - [x] Privacy strings compliant ([APP_STORE_PRIVACY_STRINGS.md](APP_STORE_PRIVACY_STRINGS.md))
