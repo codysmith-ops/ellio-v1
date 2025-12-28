@@ -34,7 +34,7 @@ export const TimelinePage: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>📅 Timeline</Text>
+        <Text style={styles.headerTitle}><CalendarIcon /> Timeline</Text>
         <Text style={styles.headerSubtitle}>Your tasks organized by due date</Text>
       </View>
 

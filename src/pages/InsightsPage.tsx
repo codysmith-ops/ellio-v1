@@ -13,7 +13,7 @@ export const InsightsPage: React.FC = () => {
     {
       id: 1,
       title: 'Switch to Chase Freedom for Dining',
-      icon: '💳',
+      icon: '<CreditCardIcon />',
       savings: 23.5,
       impact: 'high',
       description:
@@ -46,7 +46,7 @@ export const InsightsPage: React.FC = () => {
     {
       id: 4,
       title: 'Shop at Aldi for Groceries',
-      icon: '🛒',
+      icon: '<ChartIcon />',
       savings: 34.2,
       impact: 'medium',
       description:
@@ -71,7 +71,7 @@ export const InsightsPage: React.FC = () => {
     {
       id: 1,
       title: 'Friday Overspending Pattern',
-      icon: '📅',
+      icon: '<CalendarIcon />',
       description:
         'You spend 45% more on Fridays ($89 avg) vs. other days ($52 avg). Consider meal prepping for Friday lunches.',
       trend: 'Weekdays: $52 avg → Fridays: $89 avg',
@@ -89,7 +89,7 @@ export const InsightsPage: React.FC = () => {
     {
       id: 3,
       title: 'Impulse Shopping Trend',
-      icon: '🛍️',
+      icon: '<BagIcon />',
       description:
         '68% of your shopping purchases are under $25 and made after 8pm. Setting a 24-hour rule could reduce impulse buys.',
       trend: '17 impulse purchases this month totaling $287',
@@ -98,7 +98,7 @@ export const InsightsPage: React.FC = () => {
     {
       id: 4,
       title: 'Excellent Budget Discipline',
-      icon: '✅',
+      icon: '<CheckmarkIcon />',
       description:
         "You've stayed under budget for 11 consecutive weeks! You're in the top 5% of users.",
       trend: 'Streak: 11 weeks • Top 5% nationally',
@@ -110,7 +110,7 @@ export const InsightsPage: React.FC = () => {
     {
       id: 1,
       title: 'Unclaimed Cashback',
-      icon: '💰',
+      icon: '<DollarIcon />',
       amount: 47.23,
       description: 'You have $47.23 in cashback rewards ready to redeem from your Discover card.',
       action: 'Redeem Now',
@@ -167,7 +167,7 @@ export const InsightsPage: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>💡 Smart Insights</Text>
+        <Text style={styles.headerTitle}><LightbulbIcon /> Smart Insights</Text>
         <Text style={styles.headerSubtitle}>AI-powered recommendations to save more</Text>
       </View>
 
@@ -259,7 +259,7 @@ export const InsightsPage: React.FC = () => {
 
               <View style={styles.recFooter}>
                 <View style={styles.savingsTag}>
-                  <Text style={styles.savingsTagText}>💰 Save ${rec.savings.toFixed(2)}/mo</Text>
+                  <Text style={styles.savingsTagText}><DollarIcon /> Save ${rec.savings.toFixed(2)}/mo</Text>
                 </View>
                 <TouchableOpacity style={styles.actionButton}>
                   <Text style={styles.actionButtonText}>{rec.action}</Text>
@@ -302,7 +302,7 @@ export const InsightsPage: React.FC = () => {
           </View>
 
           {/* Immediate Actions */}
-          <Text style={styles.sectionLabel}>⚡ Immediate Actions</Text>
+          <Text style={styles.sectionLabel}><StarIcon /> Immediate Actions</Text>
           {opportunities
             .filter(o => o.type === 'immediate')
             .map(opp => (
@@ -324,7 +324,7 @@ export const InsightsPage: React.FC = () => {
             ))}
 
           {/* Action Required */}
-          <Text style={styles.sectionLabel}>🎯 Action Required</Text>
+          <Text style={styles.sectionLabel}><TargetIcon /> Action Required</Text>
           {opportunities
             .filter(o => o.type === 'action-required')
             .map(opp => (

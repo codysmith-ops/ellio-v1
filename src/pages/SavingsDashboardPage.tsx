@@ -46,7 +46,7 @@ export const SavingsDashboardPage: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>💰 Your Savings Dashboard</Text>
+        <Text style={styles.headerTitle}><DollarIcon /> Your Savings Dashboard</Text>
         <Text style={styles.headerSubtitle}>See how much you're saving</Text>
       </View>
 
@@ -72,13 +72,13 @@ export const SavingsDashboardPage: React.FC = () => {
           This {timeframe} • {percentageSaved}% savings rate
         </Text>
         <View style={styles.heroBadge}>
-          <Text style={styles.heroBadgeText}>🎉 Outstanding Performance!</Text>
+          <Text style={styles.heroBadgeText}><CheckmarkIcon /> Outstanding Performance!</Text>
         </View>
       </View>
 
       {/* Comparison Bars */}
       <View style={styles.comparisonCard}>
-        <Text style={styles.sectionTitle}>📊 Spending Comparison</Text>
+        <Text style={styles.sectionTitle}><ChartIcon /> Spending Comparison</Text>
 
         {/* Your Spending */}
         <View style={styles.comparisonRow}>
@@ -139,7 +139,7 @@ export const SavingsDashboardPage: React.FC = () => {
 
         <View style={styles.comparisonInsight}>
           <Text style={styles.insightText}>
-            💡 You're spending <Text style={styles.insightHighlight}>{percentageSaved}% less</Text>{' '}
+            <LightbulbIcon /> You're spending <Text style={styles.insightHighlight}>{percentageSaved}% less</Text>{' '}
             than you would without this app!
           </Text>
         </View>
@@ -151,7 +151,7 @@ export const SavingsDashboardPage: React.FC = () => {
 
         <View style={styles.breakdownItem}>
           <View style={styles.breakdownIcon}>
-            <Text style={styles.breakdownIconText}>💰</Text>
+            <Text style={styles.breakdownIconText}><DollarIcon /></Text>
           </View>
           <View style={styles.breakdownContent}>
             <Text style={styles.breakdownLabel}>Smart Spending Saved</Text>
@@ -162,7 +162,7 @@ export const SavingsDashboardPage: React.FC = () => {
 
         <View style={styles.breakdownItem}>
           <View style={styles.breakdownIcon}>
-            <Text style={styles.breakdownIconText}>💳</Text>
+            <Text style={styles.breakdownIconText}><CreditCardIcon /></Text>
           </View>
           <View style={styles.breakdownContent}>
             <Text style={styles.breakdownLabel}>Cashback Earned</Text>
@@ -173,7 +173,7 @@ export const SavingsDashboardPage: React.FC = () => {
 
         <View style={styles.breakdownItem}>
           <View style={styles.breakdownIcon}>
-            <Text style={styles.breakdownIconText}>📊</Text>
+            <Text style={styles.breakdownIconText}><ChartIcon /></Text>
           </View>
           <View style={styles.breakdownContent}>
             <Text style={styles.breakdownLabel}>vs. National Average</Text>
@@ -191,7 +191,7 @@ export const SavingsDashboardPage: React.FC = () => {
       {/* Projected Annual Impact */}
       {timeframe !== 'year' && (
         <View style={styles.projectionCard}>
-          <Text style={styles.projectionTitle}>📈 Projected Annual Impact</Text>
+          <Text style={styles.projectionTitle}><TrendUpIcon /> Projected Annual Impact</Text>
           <Text style={styles.projectionSubtitle}>If you maintain this pace...</Text>
 
           <View style={styles.projectionGrid}>
@@ -236,7 +236,7 @@ export const SavingsDashboardPage: React.FC = () => {
 
       {/* Performance Meter */}
       <View style={styles.meterCard}>
-        <Text style={styles.sectionTitle}>🎯 Performance Rating</Text>
+        <Text style={styles.sectionTitle}><TargetIcon /> Performance Rating</Text>
 
         <View style={styles.meterContainer}>
           <View style={styles.meterTrack}>
@@ -266,7 +266,7 @@ export const SavingsDashboardPage: React.FC = () => {
 
         <Text style={styles.ratingText}>
           {parseFloat(percentageSaved) >= 30
-            ? "🌟 Excellent! You're a savings superstar!"
+            ? "<StarIcon /> Excellent! You're a savings superstar!"
             : parseFloat(percentageSaved) >= 20
             ? '👍 Great job! Keep up the good work!'
             : '💪 Good start! You can save even more!'}
@@ -278,19 +278,19 @@ export const SavingsDashboardPage: React.FC = () => {
         <Text style={styles.sectionTitle}>🏆 Recent Wins</Text>
 
         <View style={styles.achievement}>
-          <Text style={styles.achievementIcon}>🎯</Text>
+          <Text style={styles.achievementIcon}><TargetIcon /></Text>
           <Text style={styles.achievementText}>Stayed under budget in 5/6 categories</Text>
         </View>
 
         <View style={styles.achievement}>
-          <Text style={styles.achievementIcon}>💳</Text>
+          <Text style={styles.achievementIcon}><CreditCardIcon /></Text>
           <Text style={styles.achievementText}>
             Used optimal credit card 18 times this {timeframe}
           </Text>
         </View>
 
         <View style={styles.achievement}>
-          <Text style={styles.achievementIcon}>📊</Text>
+          <Text style={styles.achievementIcon}><ChartIcon /></Text>
           <Text style={styles.achievementText}>
             Beat your average by ${(currentWithoutApp - currentActual - 50).toFixed(2)}
           </Text>

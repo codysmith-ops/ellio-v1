@@ -64,7 +64,7 @@ export const TaskAnalyticsPage: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>📈 Task Analytics</Text>
+        <Text style={styles.headerTitle}><TrendUpIcon /> Task Analytics</Text>
         <Text style={styles.headerSubtitle}>Your productivity insights</Text>
       </View>
 
@@ -95,7 +95,7 @@ export const TaskAnalyticsPage: React.FC = () => {
         </View>
         <Text style={styles.scoreDescription}>
           {productivityScore >= 80
-            ? '🌟 Excellent!'
+            ? '<StarIcon /> Excellent!'
             : productivityScore >= 60
               ? '👍 Good work!'
               : '💪 Keep going!'}
@@ -105,7 +105,7 @@ export const TaskAnalyticsPage: React.FC = () => {
       {/* Key Metrics Grid */}
       <View style={styles.metricsGrid}>
         <View style={styles.metricCard}>
-          <Text style={styles.metricIcon}>✅</Text>
+          <Text style={styles.metricIcon}><CheckmarkIcon /></Text>
           <Text style={styles.metricValue}>{completedTasks}</Text>
           <Text style={styles.metricLabel}>Completed</Text>
           <Text style={styles.metricPercent}>{completionRate.toFixed(0)}%</Text>
@@ -121,7 +121,7 @@ export const TaskAnalyticsPage: React.FC = () => {
         </View>
 
         <View style={styles.metricCard}>
-          <Text style={styles.metricIcon}>⏰</Text>
+          <Text style={styles.metricIcon}><ClockIcon /></Text>
           <Text style={styles.metricValue}>{onTimeTasks}</Text>
           <Text style={styles.metricLabel}>On Time</Text>
           <Text style={styles.metricPercent}>{onTimeRate.toFixed(0)}%</Text>
@@ -136,7 +136,7 @@ export const TaskAnalyticsPage: React.FC = () => {
 
       {/* Daily Completion Trend */}
       <View style={styles.trendCard}>
-        <Text style={styles.sectionTitle}>📊 Daily Completions</Text>
+        <Text style={styles.sectionTitle}><ChartIcon /> Daily Completions</Text>
         <View style={styles.chartContainer}>
           {last7Days.map((date, index) => {
             const count = dailyCompletions[index];
@@ -167,11 +167,11 @@ export const TaskAnalyticsPage: React.FC = () => {
 
       {/* Insights */}
       <View style={styles.insightsCard}>
-        <Text style={styles.sectionTitle}>💡 Insights</Text>
+        <Text style={styles.sectionTitle}><LightbulbIcon /> Insights</Text>
 
         {completionRate >= 70 && (
           <View style={styles.insightItem}>
-            <Text style={styles.insightIcon}>🎉</Text>
+            <Text style={styles.insightIcon}><CheckmarkIcon /></Text>
             <Text style={styles.insightText}>
               Great job! You're completing {completionRate.toFixed(0)}% of your tasks.
             </Text>
@@ -180,7 +180,7 @@ export const TaskAnalyticsPage: React.FC = () => {
 
         {overdueTasks > 0 && (
           <View style={styles.insightItem}>
-            <Text style={styles.insightIcon}>⚠️</Text>
+            <Text style={styles.insightIcon}><WarningIcon /></Text>
             <Text style={styles.insightText}>
               You have {overdueTasks} overdue {overdueTasks === 1 ? 'task' : 'tasks'}.
               Consider rescheduling or breaking them into smaller tasks.

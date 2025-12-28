@@ -14,12 +14,12 @@ export const MonthlyReportPage: React.FC = () => {
     receiptCount: 47,
     savingsVsAverage: 602.11,
     categoryBreakdown: [
-      { name: 'Groceries', spent: 487.23, budget: 500, icon: '🛒', color: '#4CAF50' },
-      { name: 'Dining', spent: 234.56, budget: 300, icon: '🍽️', color: '#FF9800' },
-      { name: 'Transport', spent: 156.78, budget: 200, icon: '🚗', color: '#2196F3' },
-      { name: 'Entertainment', spent: 123.45, budget: 150, icon: '🎬', color: '#9C27B0' },
-      { name: 'Shopping', spent: 189.87, budget: 250, icon: '🛍️', color: '#E91E63' },
-      { name: 'Utilities', spent: 56.0, budget: 100, icon: '⚡', color: '#FFC107' },
+      { name: 'Groceries', spent: 487.23, budget: 500, icon: '<ChartIcon />', color: '#4CAF50' },
+      { name: 'Dining', spent: 234.56, budget: 300, icon: '<ChartIcon />', color: '#FF9800' },
+      { name: 'Transport', spent: 156.78, budget: 200, icon: '<LocationIcon />', color: '#2196F3' },
+      { name: 'Entertainment', spent: 123.45, budget: 150, icon: '<StarIcon />', color: '#9C27B0' },
+      { name: 'Shopping', spent: 189.87, budget: 250, icon: '<BagIcon />', color: '#E91E63' },
+      { name: 'Utilities', spent: 56.0, budget: 100, icon: '<StarIcon />', color: '#FFC107' },
     ],
     topMerchants: [
       { name: 'Whole Foods', amount: 234.56, visits: 8 },
@@ -44,7 +44,7 @@ export const MonthlyReportPage: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>📊 Monthly Report</Text>
+        <Text style={styles.headerTitle}><ChartIcon /> Monthly Report</Text>
         <TouchableOpacity style={styles.monthSelector}>
           <Text style={styles.monthText}>{selectedMonth} ▼</Text>
         </TouchableOpacity>
@@ -55,22 +55,22 @@ export const MonthlyReportPage: React.FC = () => {
         <Text style={styles.summaryTitle}>Executive Summary</Text>
         <View style={styles.summaryGrid}>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryIcon}>💰</Text>
+            <Text style={styles.summaryIcon}><DollarIcon /></Text>
             <Text style={styles.summaryValue}>${monthData.totalSpent.toFixed(2)}</Text>
             <Text style={styles.summaryLabel}>Total Spent</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryIcon}>🎯</Text>
+            <Text style={styles.summaryIcon}><TargetIcon /></Text>
             <Text style={styles.summaryValue}>{percentOfBudget}%</Text>
             <Text style={styles.summaryLabel}>Of Budget</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryIcon}>💳</Text>
+            <Text style={styles.summaryIcon}><CreditCardIcon /></Text>
             <Text style={styles.summaryValue}>${monthData.cashbackEarned.toFixed(2)}</Text>
             <Text style={styles.summaryLabel}>Cashback</Text>
           </View>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryIcon}>📈</Text>
+            <Text style={styles.summaryIcon}><TrendUpIcon /></Text>
             <Text style={styles.summaryValue}>${totalValue.toFixed(2)}</Text>
             <Text style={styles.summaryLabel}>Total Value</Text>
           </View>
@@ -79,7 +79,7 @@ export const MonthlyReportPage: React.FC = () => {
 
       {/* Impact Visualization */}
       <View style={styles.impactCard}>
-        <Text style={styles.sectionTitle}>🎯 Your Impact</Text>
+        <Text style={styles.sectionTitle}><TargetIcon /> Your Impact</Text>
         <Text style={styles.impactSubtitle}>vs. Average American Household</Text>
 
         <View style={styles.comparisonContainer}>
@@ -105,7 +105,7 @@ export const MonthlyReportPage: React.FC = () => {
         </View>
 
         <View style={styles.savingsHighlight}>
-          <Text style={styles.savingsIcon}>🎉</Text>
+          <Text style={styles.savingsIcon}><CheckmarkIcon /></Text>
           <View style={styles.savingsContent}>
             <Text style={styles.savingsAmount}>
               You saved ${monthData.savingsVsAverage.toFixed(2)}
@@ -117,7 +117,7 @@ export const MonthlyReportPage: React.FC = () => {
 
       {/* Category Breakdown */}
       <View style={styles.categoryCard}>
-        <Text style={styles.sectionTitle}>📊 Category Breakdown</Text>
+        <Text style={styles.sectionTitle}><ChartIcon /> Category Breakdown</Text>
 
         {monthData.categoryBreakdown.map((category, index) => {
           const percent = (category.spent / category.budget) * 100;
@@ -167,7 +167,7 @@ export const MonthlyReportPage: React.FC = () => {
 
       {/* Weekly Trend Chart */}
       <View style={styles.trendCard}>
-        <Text style={styles.sectionTitle}>📈 Weekly Spending Trend</Text>
+        <Text style={styles.sectionTitle}><TrendUpIcon /> Weekly Spending Trend</Text>
 
         <View style={styles.chartContainer}>
           {monthData.weeklyTrend.map((week, index) => (
@@ -190,7 +190,7 @@ export const MonthlyReportPage: React.FC = () => {
 
         <View style={styles.trendInsight}>
           <Text style={styles.trendInsightText}>
-            💡 Week 4 was higher due to holiday shopping. Consider spreading purchases next month.
+            <LightbulbIcon /> Week 4 was higher due to holiday shopping. Consider spreading purchases next month.
           </Text>
         </View>
       </View>
@@ -241,10 +241,10 @@ export const MonthlyReportPage: React.FC = () => {
 
       {/* Smart Insights */}
       <View style={styles.insightsCard}>
-        <Text style={styles.sectionTitle}>💡 Smart Insights</Text>
+        <Text style={styles.sectionTitle}><LightbulbIcon /> Smart Insights</Text>
 
         <View style={styles.insightItem}>
-          <Text style={styles.insightIcon}>🛒</Text>
+          <Text style={styles.insightIcon}><ChartIcon /></Text>
           <View style={styles.insightContent}>
             <Text style={styles.insightTitle}>Grocery Optimization</Text>
             <Text style={styles.insightText}>
@@ -255,7 +255,7 @@ export const MonthlyReportPage: React.FC = () => {
         </View>
 
         <View style={styles.insightItem}>
-          <Text style={styles.insightIcon}>💳</Text>
+          <Text style={styles.insightIcon}><CreditCardIcon /></Text>
           <View style={styles.insightContent}>
             <Text style={styles.insightTitle}>Credit Card Rewards</Text>
             <Text style={styles.insightText}>
@@ -266,7 +266,7 @@ export const MonthlyReportPage: React.FC = () => {
         </View>
 
         <View style={styles.insightItem}>
-          <Text style={styles.insightIcon}>📅</Text>
+          <Text style={styles.insightIcon}><CalendarIcon /></Text>
           <View style={styles.insightContent}>
             <Text style={styles.insightTitle}>Shopping Pattern</Text>
             <Text style={styles.insightText}>
@@ -279,7 +279,7 @@ export const MonthlyReportPage: React.FC = () => {
 
       {/* Next Month Goals */}
       <View style={styles.goalsCard}>
-        <Text style={styles.sectionTitle}>🎯 Goals for Next Month</Text>
+        <Text style={styles.sectionTitle}><TargetIcon /> Goals for Next Month</Text>
 
         <TouchableOpacity style={styles.goalItem}>
           <View style={styles.goalCheckbox} />
@@ -309,7 +309,7 @@ export const MonthlyReportPage: React.FC = () => {
       {/* Export Options */}
       <View style={styles.exportCard}>
         <TouchableOpacity style={styles.exportButton}>
-          <Text style={styles.exportButtonText}>📊 Export Full Report (PDF)</Text>
+          <Text style={styles.exportButtonText}><ChartIcon /> Export Full Report (PDF)</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.exportButton, styles.exportButtonSecondary]}>
           <Text style={styles.exportButtonTextSecondary}>📤 Share Summary</Text>

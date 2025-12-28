@@ -132,21 +132,21 @@ export const WeeklySummaryPage: React.FC = () => {
         <Text style={styles.cardTitle}>This Week's Goals</Text>
         <View style={styles.goalsList}>
           <View style={styles.goalItem}>
-            <Text style={styles.goalIcon}>🎯</Text>
+            <Text style={styles.goalIcon}><TargetIcon /></Text>
             <View style={styles.goalContent}>
               <Text style={styles.goalText}>Maintain {completionRate >= 80 ? 'excellent' : 'good'} completion rate</Text>
               <Text style={styles.goalSubtext}>Current: {completionRate.toFixed(0)}%</Text>
             </View>
           </View>
           <View style={styles.goalItem}>
-            <Text style={styles.goalIcon}>⏰</Text>
+            <Text style={styles.goalIcon}><ClockIcon /></Text>
             <View style={styles.goalContent}>
               <Text style={styles.goalText}>Complete tasks on time</Text>
               <Text style={styles.goalSubtext}>Current: {onTimeRate.toFixed(0)}% on-time</Text>
             </View>
           </View>
           <View style={styles.goalItem}>
-            <Text style={styles.goalIcon}>📈</Text>
+            <Text style={styles.goalIcon}><TrendUpIcon /></Text>
             <View style={styles.goalContent}>
               <Text style={styles.goalText}>Stay consistent daily</Text>
               <Text style={styles.goalSubtext}>Track progress each day</Text>
@@ -161,25 +161,25 @@ export const WeeklySummaryPage: React.FC = () => {
         <View style={styles.insightsList}>
           {completionRate >= 80 && (
             <View style={styles.insightItem}>
-              <Text style={styles.insightIcon}>🎉</Text>
+              <Text style={styles.insightIcon}><CheckmarkIcon /></Text>
               <Text style={styles.insightText}>Excellent work! You're completing most of your tasks.</Text>
             </View>
           )}
           {onTimeRate < 70 && tasksWithDueDate.length > 0 && (
             <View style={styles.insightItem}>
-              <Text style={styles.insightIcon}>⚠️</Text>
+              <Text style={styles.insightIcon}><WarningIcon /></Text>
               <Text style={styles.insightText}>Consider setting more realistic due dates to improve on-time completion.</Text>
             </View>
           )}
           {totalThisWeek === 0 && (
             <View style={styles.insightItem}>
-              <Text style={styles.insightIcon}>💡</Text>
+              <Text style={styles.insightIcon}><LightbulbIcon /></Text>
               <Text style={styles.insightText}>No tasks this week. Start adding tasks to track your progress!</Text>
             </View>
           )}
           {completionRate < 50 && totalThisWeek > 0 && (
             <View style={styles.insightItem}>
-              <Text style={styles.insightIcon}>📊</Text>
+              <Text style={styles.insightIcon}><ChartIcon /></Text>
               <Text style={styles.insightText}>Focus on completing existing tasks before adding new ones.</Text>
             </View>
           )}
