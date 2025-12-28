@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { palette, spacing, radius, typography } from '../theme';
-import { LocationIcon, CameraIcon, ImageIcon, ReceiptIcon } from '../components/icons';
+import { LocationIcon, CameraIcon } from '../components/Icons';
 
 interface ReceiptItem {
   name: string;

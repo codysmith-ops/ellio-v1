@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useTodoStore } from '../store';
 import { palette, spacing, typography, radius, shadow } from '../theme';
 import {
   ChartIcon,
   TargetIcon,
   TrendUpIcon,
-  DollarIcon,
-  CreditCardIcon,
   ClockIcon,
   CheckmarkIcon,
   WarningIcon,
@@ -16,7 +14,7 @@ import {
 
 export const WeeklySummaryPage: React.FC = () => {
   const { tasks } = useTodoStore();
-  const [timeframe, setTimeframe] = useState<'week' | 'month'>('week');
+  const [timeframe] = useState<'week' | 'month'>('week');
 
   // Calculate weekly metrics
   const now = new Date();

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
 import {
   DollarIcon,
@@ -7,18 +7,13 @@ import {
   CreditCardIcon,
   TrendUpIcon,
   TargetIcon,
-  LocationIcon,
-  StarIcon,
-  BagIcon,
   CheckmarkIcon,
   LightbulbIcon,
   CalendarIcon,
 } from '../components/Icons';
 
-const { width } = Dimensions.get('window');
-
 export const MonthlyReportPage: React.FC = () => {
-  const [selectedMonth, setSelectedMonth] = useState('December 2025');
+  const [selectedMonth] = useState('December 2025');
 
   const monthData = {
     totalSpent: 1247.89,

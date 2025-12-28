@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import Svg, { Path, Circle, Line } from 'react-native-svg';
+import Svg, { Path, Circle, Line, Rect } from 'react-native-svg';
 
 interface IconProps {
   size?: number;

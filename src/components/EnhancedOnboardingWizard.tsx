@@ -5,7 +5,6 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  TextInput,
   Switch,
 } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';

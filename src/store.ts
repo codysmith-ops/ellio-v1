@@ -52,6 +52,7 @@ export type Task = {
   sharedWith?: string[];
   comments?: Comment[];
   lastModified?: number;
+  createdAt?: number;
   needsReimbursement?: boolean;
   receiptUri?: string;
   storeName?: string;
@@ -128,6 +129,7 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
       sharedWith: [],
       comments: [],
       lastModified: Date.now(),
+      createdAt: Date.now(),
     };
     set(state => ({ tasks: [task, ...state.tasks] }));
   },

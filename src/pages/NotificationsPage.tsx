@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
-import { palette, spacing, radius, typography } from '../theme';import { CheckIcon, MessageIcon, SettingsIcon, BellIcon } from '../components/icons';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { palette, spacing, radius, typography } from '../theme';
+import { BellIcon } from '../components/Icons';
 interface Notification {
   id: string;
   type: 'task' | 'chat' | 'system' | 'reminder';

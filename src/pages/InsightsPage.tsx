@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
-import { LightbulbIcon, ChartIcon, ClockIcon, DollarIcon, StarIcon, TargetIcon } from '../components/Icons';
-const { width } = Dimensions.get('window');
+import { LightbulbIcon, DollarIcon, StarIcon, TargetIcon } from '../components/Icons';
 
 export const InsightsPage: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<'recommendations' | 'patterns' | 'opportunities'>(

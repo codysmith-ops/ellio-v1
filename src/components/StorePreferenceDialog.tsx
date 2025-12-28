@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
+import { LightbulbIcon } from './Icons';
 
 interface StorePreferenceDialogProps {
   visible: boolean;
