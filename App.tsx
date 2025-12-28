@@ -32,16 +32,11 @@ import { MonthlyReportPage } from './src/pages/MonthlyReportPage';
 import { InsightsPage } from './src/pages/InsightsPage';
 import { TimelinePage } from './src/pages/TimelinePage';
 import { TaskAnalyticsPage } from './src/pages/TaskAnalyticsPage';
-import { TaskMeter } from './src/components/TaskMeter';
 import { BrandPreferenceDialog, BrandPreference } from './src/components/BrandPreferenceDialog';
 import { StorePreferenceDialog } from './src/components/StorePreferenceDialog';
 import { TaskCompletionDialog } from './src/components/TaskCompletionDialog';
 import { GeofenceMonitor } from './src/components/GeofenceMonitor';
-import {
-  getTaskIcon,
-  ScannerIcon,
-  CameraIcon,
-} from './src/components/TaskTypeIcons';
+import { getTaskIcon, ScannerIcon, CameraIcon } from './src/components/TaskTypeIcons';
 
 // Helper to detect task type from title
 const getTaskType = (title: string): string => {
@@ -674,7 +669,8 @@ const App = (): React.JSX.Element => {
             {taskFilter && (
               <TouchableOpacity
                 style={styles.clearFilterButton}
-                onPress={() => setTaskFilter(null)}>
+                onPress={() => setTaskFilter(null)}
+              >
                 <Text style={styles.clearFilterText}>Clear Filter ✕</Text>
               </TouchableOpacity>
             )}
@@ -710,10 +706,7 @@ const App = (): React.JSX.Element => {
                 return (
                   <View
                     key={task.id}
-                    style={[
-                      styles.taskCard,
-                      task.completed && styles.taskCardCompleted,
-                    ]}
+                    style={[styles.taskCard, task.completed && styles.taskCardCompleted]}
                   >
                     <TouchableOpacity
                       style={styles.taskCheckbox}
@@ -851,11 +844,17 @@ const App = (): React.JSX.Element => {
 // Helper function for relative time
 const formatRelativeTime = (timestamp: number): string => {
   const seconds = Math.floor((Date.now() - timestamp) / 1000);
-  if (seconds < 60) return 'just now';
+  if (seconds < 60) {
+    return 'just now';
+  }
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
+  if (minutes < 60) {
+    return `${minutes}m ago`;
+  }
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
+  if (hours < 24) {
+    return `${hours}h ago`;
+  }
   const days = Math.floor(hours / 24);
   return `${days}d ago`;
 };
