@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
-import { LightbulbIcon } from './Icons';
+import { LightbulbIcon, CheckmarkIcon } from './Icons';
 
 interface BrandPreferenceDialogProps {
   visible: boolean;
@@ -148,7 +148,7 @@ export const BrandPreferenceDialog: React.FC<BrandPreferenceDialogProps> = ({
                   onPress={() => setAcceptAlternatives(!acceptAlternatives)}
                 >
                   <View style={[styles.checkbox, acceptAlternatives && styles.checkboxChecked]}>
-                    {acceptAlternatives && <Text style={styles.checkmark}>✓</Text>}
+                    {acceptAlternatives && <CheckmarkIcon size={16} color="#FFFFFF" />}
                   </View>
                   <View style={styles.checkboxLabel}>
                     <Text style={styles.checkboxText}>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
-import { LightbulbIcon } from './Icons';
+import { LightbulbIcon, CheckmarkIcon } from './Icons';
 
 interface StorePreferenceDialogProps {
   visible: boolean;
@@ -138,7 +138,7 @@ export const StorePreferenceDialog: React.FC<StorePreferenceDialogProps> = ({
                     activeOpacity={0.7}
                   >
                     <View style={[styles.checkbox, isSelected && styles.checkboxSelected]}>
-                      {isSelected && <Text style={styles.checkmark}>✓</Text>}
+                      {isSelected && <CheckmarkIcon size={16} color="#FFFFFF" />}
                     </View>
                     <Text style={styles.storeIcon}>{store.icon}</Text>
                     <Text

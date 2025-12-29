@@ -436,7 +436,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   selectedGoals.includes('save-money') && styles.checkboxSelected,
                 ]}
               >
-                {selectedGoals.includes('save-money') && <Text style={styles.checkmark}>✓</Text>}
+                {selectedGoals.includes('save-money') && <CheckmarkIcon size={16} color={palette.surface} />}
               </View>
             </View>
           </TouchableOpacity>
@@ -462,7 +462,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   selectedGoals.includes('credit-points') && styles.checkboxSelected,
                 ]}
               >
-                {selectedGoals.includes('credit-points') && <Text style={styles.checkmark}>✓</Text>}
+                {selectedGoals.includes('credit-points') && <CheckmarkIcon size={16} color={palette.surface} />}
               </View>
             </View>
           </TouchableOpacity>
@@ -485,7 +485,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   selectedGoals.includes('budget') && styles.checkboxSelected,
                 ]}
               >
-                {selectedGoals.includes('budget') && <Text style={styles.checkmark}>✓</Text>}
+                {selectedGoals.includes('budget') && <CheckmarkIcon size={16} color={palette.surface} />}
               </View>
             </View>
           </TouchableOpacity>
@@ -511,7 +511,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   selectedGoals.includes('collaborate') && styles.checkboxSelected,
                 ]}
               >
-                {selectedGoals.includes('collaborate') && <Text style={styles.checkmark}>✓</Text>}
+                {selectedGoals.includes('collaborate') && <CheckmarkIcon size={16} color={palette.surface} />}
               </View>
             </View>
           </TouchableOpacity>
@@ -534,7 +534,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   selectedGoals.includes('organize') && styles.checkboxSelected,
                 ]}
               >
-                {selectedGoals.includes('organize') && <Text style={styles.checkmark}>✓</Text>}
+                {selectedGoals.includes('organize') && <CheckmarkIcon size={16} color={palette.surface} />}
               </View>
             </View>
           </TouchableOpacity>
@@ -562,7 +562,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   selectedGoals.includes('efficiency') && styles.checkboxSelected,
                 ]}
               >
-                {selectedGoals.includes('efficiency') && <Text style={styles.checkmark}>✓</Text>}
+                {selectedGoals.includes('efficiency') && <CheckmarkIcon size={16} color={palette.surface} />}
               </View>
             </View>
           </TouchableOpacity>
@@ -778,7 +778,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 locationPermissionGranted && styles.permissionButtonTextActive,
               ]}
             >
-              {locationPermissionGranted ? '✓ Location Enabled' : 'Enable Location'}
+              {locationPermissionGranted ? 'Location Enabled' : 'Enable Location'}
             </Text>
           </TouchableOpacity>
           <Text style={styles.permissionHint}>You can change this later in Settings</Text>
@@ -914,7 +914,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 notificationsEnabled && styles.permissionButtonTextActive,
               ]}
             >
-              {notificationsEnabled ? '✓ Notifications Enabled' : 'Enable Notifications'}
+              {notificationsEnabled ? 'Notifications Enabled' : 'Enable Notifications'}
             </Text>
           </TouchableOpacity>
           <Text style={styles.permissionHint}>You can customize notification types later</Text>
