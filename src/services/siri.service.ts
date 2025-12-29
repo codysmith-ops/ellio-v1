@@ -21,7 +21,9 @@ export const SiriService = {
    * Donate "Add to Shopping List" shortcut
    */
   async donateAddItemShortcut(itemName: string): Promise<void> {
-    if (Platform.OS !== 'ios') return;
+    if (Platform.OS !== 'ios') {
+      return;
+    }
 
     const shortcut: SiriShortcut = {
       activityType: 'com.codysmith.ellio.addItem',
@@ -42,7 +44,9 @@ export const SiriService = {
    * Donate "View Shopping List" shortcut
    */
   async donateViewListShortcut(): Promise<void> {
-    if (Platform.OS !== 'ios') return;
+    if (Platform.OS !== 'ios') {
+      return;
+    }
 
     const shortcut: SiriShortcut = {
       activityType: 'com.codysmith.ellio.viewList',

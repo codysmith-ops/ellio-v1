@@ -153,11 +153,11 @@ async function searchStoresForProduct(product: ProductInfo): Promise<StoreAvaila
     const longitude = -122.4194;
 
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?` +
+      'https://maps.googleapis.com/maps/api/place/nearbysearch/json?' +
         `location=${latitude},${longitude}&` +
-        `radius=5000&` +
+        'radius=5000&' +
         `keyword=${encodeURIComponent(searchQuery)}&` +
-        `type=store&` +
+        'type=store&' +
         `key=${apiKey}`
     );
 

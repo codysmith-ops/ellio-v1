@@ -36,9 +36,9 @@ class PushNotificationService {
     PushNotificationIOS.requestPermissions();
 
     // Handle notification received while app is in foreground
-    PushNotificationIOS.addEventListener('notification', (notification) => {
+    PushNotificationIOS.addEventListener('notification', notification => {
       console.log('📱 Notification received:', notification);
-      
+
       // Show alert
       const data = notification.getData();
       if (data.type === 'deal_alert') {
@@ -52,18 +52,18 @@ class PushNotificationService {
     });
 
     // Handle user tapping notification
-    PushNotificationIOS.addEventListener('localNotification', (notification) => {
+    PushNotificationIOS.addEventListener('localNotification', notification => {
       console.log('👆 Notification tapped:', notification);
     });
 
     // Handle registration for remote notifications
-    PushNotificationIOS.addEventListener('register', (token) => {
+    PushNotificationIOS.addEventListener('register', token => {
       console.log('🔑 Device token:', token);
       // TODO: Send token to your backend
     });
 
     // Handle registration failure
-    PushNotificationIOS.addEventListener('registrationError', (error) => {
+    PushNotificationIOS.addEventListener('registrationError', error => {
       console.error('❌ Registration failed:', error);
     });
   }
@@ -72,7 +72,9 @@ class PushNotificationService {
    * Schedule local notification
    */
   async scheduleNotification(notification: NotificationData, fireDate?: Date): Promise<void> {
-    if (Platform.OS !== 'ios') return;
+    if (Platform.OS !== 'ios') {
+      return;
+    }
 
     const details: any = {
       alertTitle: notification.title,
@@ -118,8 +120,8 @@ class PushNotificationService {
    */
   async getBadgeCount(): Promise<number> {
     if (Platform.OS === 'ios') {
-      return new Promise((resolve) => {
-        PushNotificationIOS.getApplicationIconBadgeNumber((count) => resolve(count));
+      return new Promise(resolve => {
+        PushNotificationIOS.getApplicationIconBadgeNumber(count => resolve(count));
       });
     }
     return 0;
@@ -153,7 +155,11 @@ class PushNotificationService {
   /**
    * Schedule deal notification
    */
-  async scheduleDealNotification(dealTitle: string, storeName: string, discount: string): Promise<void> {
+  async scheduleDealNotification(
+    dealTitle: string,
+    storeName: string,
+    discount: string
+  ): Promise<void> {
     await this.sendNotification({
       title: '💰 Flash Deal Alert!',
       body: `${dealTitle} - ${discount} off at ${storeName}`,
@@ -207,8 +213,8 @@ class PushNotificationService {
    */
   async checkPermissions(): Promise<boolean> {
     if (Platform.OS === 'ios') {
-      return new Promise((resolve) => {
-        PushNotificationIOS.checkPermissions((permissions) => {
+      return new Promise(resolve => {
+        PushNotificationIOS.checkPermissions(permissions => {
           resolve(permissions.alert === 1);
         });
       });
