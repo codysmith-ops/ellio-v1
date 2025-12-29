@@ -228,8 +228,8 @@ const searchPlacesByCategory = async (
   radius: number,
   category: StoreCategory
 ): Promise<StoreLocation[]> => {
-  // PRODUCTION: Replace with real Google Places API
-  const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY || 'YOUR_API_KEY';
+  // PRODUCTION: Using Google Places API from environment
+  const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY || '';
 
   const stores: StoreLocation[] = [];
 

@@ -75,7 +75,7 @@ export async function recognizeProductFromImage(
 ): Promise<ProductSearchResult | null> {
   try {
     // Option 1: Google Cloud Vision API (requires API key)
-    const apiKey = 'YOUR_GOOGLE_CLOUD_VISION_API_KEY'; // TODO: Add to env
+    const apiKey = process.env.GOOGLE_CLOUD_VISION_API_KEY || '';
 
     if (!apiKey || apiKey.startsWith('YOUR_')) {
       console.warn('Cloud Vision API key not configured, using basic image analysis');
@@ -140,7 +140,7 @@ async function searchStoresForProduct(product: ProductInfo): Promise<StoreAvaila
     const searchQuery = `${product.brand || ''} ${product.name}`.trim();
 
     // Use Google Places API to find stores
-    const apiKey = 'YOUR_GOOGLE_PLACES_API_KEY'; // TODO: Add to env
+    const apiKey = process.env.GOOGLE_PLACES_API_KEY || '';
 
     if (!apiKey || apiKey.startsWith('YOUR_')) {
       // Return mock data for now
