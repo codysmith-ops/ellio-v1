@@ -3,7 +3,7 @@
  * Enables "Hey Siri" voice commands for shopping list
  */
 
-import { NativeModules, Platform } from 'react-native';
+import { Platform } from 'react-native';
 
 interface SiriShortcut {
   activityType: string;
@@ -25,7 +25,7 @@ export const SiriService = {
       return;
     }
 
-    const shortcut: SiriShortcut = {
+    const _shortcut: SiriShortcut = {
       activityType: 'com.codysmith.ellio.addItem',
       title: `Add ${itemName} to shopping list`,
       userInfo: { item: itemName },
@@ -48,7 +48,7 @@ export const SiriService = {
       return;
     }
 
-    const shortcut: SiriShortcut = {
+    const _shortcut: SiriShortcut = {
       activityType: 'com.codysmith.ellio.viewList',
       title: 'View Shopping List',
       keywords: ['view', 'shopping', 'list', 'show'],

@@ -7,7 +7,6 @@ import {
   TextInput,
   ScrollView,
   Alert,
-  Image,
   Platform,
   PermissionsAndroid,
 } from 'react-native';

@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import Svg, { Path, Circle, Rect, Line, Polygon } from 'react-native-svg';
+import Svg, { Path, Circle, Rect, Line } from 'react-native-svg';
 import { CameraIcon, CalendarIcon } from './Icons';
 
 interface IconProps {

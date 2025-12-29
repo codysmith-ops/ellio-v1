@@ -82,18 +82,34 @@ export async function recognizeProductFromImage(
       return null;
     }
 
+    // Convert image to base64
+    const RNFS = require('react-native-fs');
+    let base64Image = '';
+    
+    // Handle different URI formats
+    const imageSource = imageUri.replace('file://', '');
+    
+    try {
+      base64Image = await RNFS.readFile(imageSource, 'base64');
+      console.log('✅ Image converted to base64, length:', base64Image.length);
+    } catch (readError) {
+      console.error('❌ Failed to read image file:', readError);
+      return null;
+    }
+
+    console.log('🔍 Calling Google Cloud Vision API...');
     const response = await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         requests: [
           {
-            image: { content: imageUri }, // Base64 encoded image
+            image: { content: base64Image }, // Base64 encoded image
             features: [
-              { type: 'LABEL_DETECTION', maxResults: 5 },
+              { type: 'LABEL_DETECTION', maxResults: 10 },
               { type: 'TEXT_DETECTION' },
-              { type: 'LOGO_DETECTION' },
-              { type: 'PRODUCT_SEARCH' },
+              { type: 'LOGO_DETECTION', maxResults: 5 },
+              { type: 'OBJECT_LOCALIZATION', maxResults: 10 },
             ],
           },
         ],
@@ -101,21 +117,50 @@ export async function recognizeProductFromImage(
     });
 
     const data = await response.json();
+    console.log('📸 Vision API Response:', JSON.stringify(data, null, 2));
 
     if (data.responses && data.responses[0]) {
       const result = data.responses[0];
 
-      // Extract product info from labels and logos
+      // Extract product info from labels, logos, and objects
       const labels = result.labelAnnotations?.map((l: any) => l.description) || [];
       const logos = result.logoAnnotations?.map((l: any) => l.description) || [];
+      const objects = result.localizedObjectAnnotations?.map((o: any) => o.name) || [];
       const text = result.textAnnotations?.[0]?.description || '';
 
+      console.log('🏷️ Labels detected:', labels);
+      console.log('🔖 Logos detected:', logos);
+      console.log('📦 Objects detected:', objects);
+      console.log('📝 Text detected:', text.substring(0, 100));
+
+      // Prioritize objects for product name (more accurate)
+      let productName = 'Unknown Product';
+      if (objects.length > 0) {
+        productName = objects[0]; // "Bottle", "Package", "Food", etc.
+      } else if (labels.length > 0) {
+        productName = labels[0];
+      }
+
+      // Try to extract brand from logos first, then text
+      let brandName = undefined;
+      if (logos.length > 0) {
+        brandName = logos[0];
+      } else {
+        brandName = extractBrandFromText(text);
+      }
+
+      // Determine category from labels (skip generic terms)
+      const genericTerms = ['product', 'package', 'bottle', 'food', 'drink', 'container'];
+      const category = labels.find(l => !genericTerms.includes(l.toLowerCase())) || labels[1];
+
       const productInfo: ProductInfo = {
-        name: labels[0] || 'Unknown Product',
-        brand: logos[0] || extractBrandFromText(text),
-        category: labels[1] || undefined,
-        description: labels.slice(0, 3).join(', '),
+        name: productName,
+        brand: brandName,
+        category: category,
+        description: labels.slice(0, 5).join(', '),
       };
+
+      console.log('✅ Product recognized:', productInfo);
 
       const stores = await searchStoresForProduct(productInfo);
 
@@ -125,6 +170,7 @@ export async function recognizeProductFromImage(
       };
     }
 
+    console.warn('⚠️ No results from Vision API');
     return null;
   } catch (error) {
     console.error('Image recognition error:', error);

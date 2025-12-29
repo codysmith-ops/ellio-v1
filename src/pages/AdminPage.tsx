@@ -100,7 +100,7 @@ export const AdminPage: React.FC = () => {
     Alert.alert('Edit User', `Edit ${user.name}?`);
   };
 
-  const handleDeleteUser = (user: User) => {
+  const _handleDeleteUser = (user: User) => {
     Alert.alert('Delete User', `Remove ${user.name} from the system?`, [
       { text: 'Cancel', style: 'cancel' },
       {

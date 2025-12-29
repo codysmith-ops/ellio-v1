@@ -3,12 +3,15 @@
 ## ✅ What's Been Configured
 
 ### 1. **Push Notifications** 🔔
+
 **Files Created:**
+
 - `src/services/pushNotification.service.ts` - Full notification service
 - `ios/NotificationService/NotificationService.swift` - Notification extension
 - Updated `AppDelegate.h` with UNUserNotificationCenterDelegate
 
 **Features:**
+
 - Local notifications (deals, reminders)
 - Remote push notifications (cloud sync)
 - Badge count management
@@ -17,6 +20,7 @@
 - Category-based notifications
 
 **Usage:**
+
 ```typescript
 import { notificationService } from './src/services/pushNotification.service';
 
@@ -37,13 +41,16 @@ await notificationService.scheduleProximityNotification('Target', 5);
 ---
 
 ### 2. **WidgetKit Extension** 📱
+
 **Files Created:**
+
 - `ios/ShoppingWidget/ShoppingWidget.swift` - Widget UI and logic
 - `ios/MobileTodoList/WidgetBridge.m` - Objective-C bridge
 - `ios/MobileTodoList/WidgetBridge.swift` - Swift bridge implementation
 - `src/services/widget.service.ts` - React Native widget service
 
 **Features:**
+
 - Home screen shopping list widget
 - Shows up to 10 items
 - Real-time updates via App Groups
@@ -51,6 +58,7 @@ await notificationService.scheduleProximityNotification('Target', 5);
 - Checkmark indicators for completed items
 
 **Usage:**
+
 ```typescript
 import { WidgetService } from './src/services/widget.service';
 
@@ -64,10 +72,13 @@ await WidgetService.updateWidget([
 ---
 
 ### 3. **App Groups** 🔗
+
 **Files Created:**
+
 - `ios/MobileTodoList/MobileTodoList.entitlements` - App capabilities
 
 **Configuration:**
+
 - App Group ID: `group.com.codysmith.ellio`
 - Enables data sharing between main app and widgets
 - Secure shared UserDefaults container
@@ -75,23 +86,28 @@ await WidgetService.updateWidget([
 ---
 
 ### 4. **SiriKit Shortcuts** 🎤
+
 **Files Created:**
+
 - `ios/Intents/Intents.intentdefinition` - Siri intent definitions
 - `src/services/siri.service.ts` - Siri shortcut service
 
 **Features:**
+
 - "Hey Siri, add milk to my shopping list"
 - "Hey Siri, show my shopping list"
 - Custom voice phrases
 - Siri suggestions based on usage patterns
 
 **Suggested Phrases:**
+
 - "Add to my shopping list"
 - "Show my shopping list"
 - "What do I need to buy?"
 - "Grocery time"
 
 **Usage:**
+
 ```typescript
 import { SiriService } from './src/services/siri.service';
 
@@ -105,7 +121,9 @@ await SiriService.donateViewListShortcut();
 ---
 
 ### 5. **Updated Permissions** ✅
+
 **Info.plist Additions:**
+
 - `NSSiriUsageDescription` - Siri voice commands
 - `NSUserNotificationsUsageDescription` - Push notifications
 - `UIBackgroundModes` - Remote notifications
@@ -115,6 +133,7 @@ await SiriService.donateViewListShortcut();
 ## 📋 Next Steps in Xcode
 
 ### Step 1: Add Widget Target
+
 1. Open `ios/MobileTodoList.xcworkspace` in Xcode
 2. File → New → Target → Widget Extension
 3. Product Name: `ShoppingWidget`
@@ -123,18 +142,24 @@ await SiriService.donateViewListShortcut();
 6. Add to MobileTodoList target: ✓
 
 ### Step 2: Configure Signing & Capabilities
+
 **For MobileTodoList target:**
+
+
 1. Signing & Capabilities tab
-2. + Capability → Push Notifications
-3. + Capability → App Groups
+2. - Capability → Push Notifications
+3. - Capability → App Groups
 4. Add group: `group.com.codysmith.ellio`
-5. + Capability → Siri
+5. - Capability → Siri
 
 **For ShoppingWidget target:**
+
 1. Add same App Group: `group.com.codysmith.ellio`
 
 ### Step 3: Add Files to Xcode
+
 **Drag these files into Xcode:**
+
 - `ios/ShoppingWidget/ShoppingWidget.swift` → ShoppingWidget target
 - `ios/MobileTodoList/WidgetBridge.swift` → MobileTodoList target
 - `ios/MobileTodoList/WidgetBridge.m` → MobileTodoList target
@@ -142,6 +167,7 @@ await SiriService.donateViewListShortcut();
 - `ios/NotificationService/NotificationService.swift` → Create NotificationService extension
 
 ### Step 4: Configure Bridging Header
+
 1. Select MobileTodoList target
 2. Build Settings → Search "bridging"
 3. Objective-C Bridging Header: `MobileTodoList/MobileTodoList-Bridging-Header.h`
@@ -150,7 +176,8 @@ await SiriService.donateViewListShortcut();
 
 ## 🧪 Testing
 
-### Test Push Notifications:
+### Test Push Notifications
+
 ```typescript
 // In App.tsx or any component
 import { notificationService } from './src/services/pushNotification.service';
@@ -166,7 +193,8 @@ useEffect(() => {
 }, []);
 ```
 
-### Test Widget:
+### Test Widget
+
 ```typescript
 // Update widget when tasks change
 useEffect(() => {
@@ -179,7 +207,8 @@ useEffect(() => {
 }, [tasks]);
 ```
 
-### Test Siri:
+### Test Siri
+
 1. Add an item to your list in the app
 2. Go to Settings → Siri & Search → Shortcuts
 3. Look for "Add [item] to shopping list"
@@ -209,9 +238,10 @@ useEffect(() => {
 
 ---
 
-## 🚀 Ready to Build!
+## 🚀 Ready to Build
 
 All native extensions are configured. Next:
+
 1. Open Xcode: `cd ios && open MobileTodoList.xcworkspace`
 2. Add targets and capabilities (see steps above)
 3. Build and run: ⌘R
