@@ -10,6 +10,8 @@ export interface ProductInfo {
   description?: string;
   imageUrl?: string;
   barcode?: string;
+  size?: string;
+  quantity?: number;
 }
 
 export interface StoreAvailability {
@@ -48,6 +50,8 @@ export async function recognizeProductFromBarcode(
         description: product.generic_name || undefined,
         imageUrl: product.image_url || undefined,
         barcode: barcode,
+        size: product.quantity || undefined, // e.g., "355 ml", "12 oz"
+        quantity: extractQuantityFromText(product.quantity || ''),
       };
 
       // Search stores for this product
@@ -153,11 +157,20 @@ export async function recognizeProductFromImage(
       const genericTerms = ['product', 'package', 'bottle', 'food', 'drink', 'container'];
       const category = labels.find(l => !genericTerms.includes(l.toLowerCase())) || labels[1];
 
+      // Extract size and quantity from detected text
+      const sizeInfo = extractSizeFromText(text);
+      const quantityInfo = extractQuantityFromText(text);
+
+      console.log('📏 Size detected:', sizeInfo);
+      console.log('🔢 Quantity detected:', quantityInfo);
+
       const productInfo: ProductInfo = {
         name: productName,
         brand: brandName,
         category: category,
         description: labels.slice(0, 5).join(', '),
+        size: sizeInfo,
+        quantity: quantityInfo,
       };
 
       console.log('✅ Product recognized:', productInfo);
@@ -277,6 +290,83 @@ function extractBrandFromText(text: string): string | undefined {
       return firstLine;
     }
   }
+  return undefined;
+}
+
+/**
+ * Extract size information from product text
+ * Recognizes patterns like: 12 oz, 500ml, 1L, 2 liter, 16 fl oz, etc.
+ */
+function extractSizeFromText(text: string): string | undefined {
+  const sizePatterns = [
+    // Volume patterns
+    /(\d+\.?\d*\s*(?:oz|ounce|ounces|fl oz|fluid ounce))/gi,
+    /(\d+\.?\d*\s*(?:ml|milliliter|milliliters))/gi,
+    /(\d+\.?\d*\s*(?:l|liter|liters|litre|litres))/gi,
+    /(\d+\.?\d*\s*(?:gal|gallon|gallons))/gi,
+    /(\d+\.?\d*\s*(?:pt|pint|pints))/gi,
+    /(\d+\.?\d*\s*(?:qt|quart|quarts))/gi,
+
+    // Weight patterns
+    /(\d+\.?\d*\s*(?:lb|lbs|pound|pounds))/gi,
+    /(\d+\.?\d*\s*(?:kg|kilogram|kilograms))/gi,
+    /(\d+\.?\d*\s*(?:g|gram|grams))/gi,
+    /(\d+\.?\d*\s*(?:mg|milligram|milligrams))/gi,
+
+    // Count patterns
+    /(\d+\s*(?:ct|count|pack|pk))/gi,
+  ];
+
+  for (const pattern of sizePatterns) {
+    const match = text.match(pattern);
+    if (match && match[0]) {
+      return match[0].trim();
+    }
+  }
+
+  return undefined;
+}
+
+/**
+ * Extract quantity from product text or size string
+ * Recognizes patterns like: 6 pack, 12 count, pack of 24, case of 12, etc.
+ */
+function extractQuantityFromText(text: string): number | undefined {
+  if (!text) {
+    return undefined;
+  }
+
+  const quantityPatterns = [
+    // Pack patterns
+    /(\d+)\s*(?:pack|pk|packs)/gi,
+    /pack\s*of\s*(\d+)/gi,
+
+    // Count patterns
+    /(\d+)\s*(?:count|ct|piece|pieces)/gi,
+    /(\d+)\s*(?:item|items)/gi,
+
+    // Case patterns
+    /case\s*of\s*(\d+)/gi,
+    /(\d+)\s*(?:case|cases)/gi,
+
+    // Box patterns
+    /box\s*of\s*(\d+)/gi,
+    /(\d+)\s*(?:box|boxes)/gi,
+
+    // General patterns
+    /(\d+)\s*(?:×|x|\/|per)/gi,
+  ];
+
+  for (const pattern of quantityPatterns) {
+    const match = text.match(pattern);
+    if (match && match[1]) {
+      const quantity = parseInt(match[1], 10);
+      if (quantity > 0) {
+        return quantity;
+      }
+    }
+  }
+
   return undefined;
 }
 

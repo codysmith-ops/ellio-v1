@@ -484,13 +484,32 @@ const App = (): React.JSX.Element => {
               if (result) {
                 // Auto-fill product details
                 setTitle(result.product.name);
+
+                // Build note with brand, size, and description
+                let noteText = '';
                 if (result.product.brand) {
-                  setNote(
-                    `Brand: ${result.product.brand}${
-                      result.product.description ? '\n' + result.product.description : ''
-                    }`
-                  );
+                  noteText += `Brand: ${result.product.brand}`;
                 }
+                if (result.product.size) {
+                  noteText += noteText
+                    ? `\nSize: ${result.product.size}`
+                    : `Size: ${result.product.size}`;
+                }
+                if (result.product.description) {
+                  noteText += noteText
+                    ? `\n${result.product.description}`
+                    : result.product.description;
+                }
+                if (noteText) {
+                  setNote(noteText);
+                }
+
+                // Auto-fill quantity if detected
+                if (result.product.quantity) {
+                  setQuantity(result.product.quantity.toString());
+                  console.log(`📦 Quantity auto-filled: ${result.product.quantity}`);
+                }
+
                 if (result.product.barcode) {
                   setSkuCode(result.product.barcode);
                 }
@@ -510,7 +529,11 @@ const App = (): React.JSX.Element => {
 
                   Alert.alert(
                     'Product Found!',
-                    `${result.product.name}\n\nAvailable at:\n${storeList}`,
+                    `${result.product.name}${
+                      result.product.size ? ' - ' + result.product.size : ''
+                    }${
+                      result.product.quantity ? '\nQuantity: ' + result.product.quantity : ''
+                    }\n\nAvailable at:\n${storeList}`,
                     [{ text: 'OK' }]
                   );
                 }
@@ -555,14 +578,15 @@ const App = (): React.JSX.Element => {
             )
             .join('\n');
 
-          Alert.alert(
-            'Product Found!',
-            `${result.product.name}\n\nAvailable at:\n${storeList}`,
-            [{ text: 'OK' }]
-          );
+          Alert.alert('Product Found!', `${result.product.name}\n\nAvailable at:\n${storeList}`, [
+            { text: 'OK' },
+          ]);
         }
       } else {
-        Alert.alert('Product Not Found', `Barcode ${barcode} not recognized. Please enter details manually.`);
+        Alert.alert(
+          'Product Not Found',
+          `Barcode ${barcode} not recognized. Please enter details manually.`
+        );
       }
     } catch (error) {
       console.error('Product recognition error:', error);

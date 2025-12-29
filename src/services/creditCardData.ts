@@ -104,7 +104,11 @@ const CREDIT_CARD_DATABASE: Record<string, CreditCardData> = {
     issuer: 'Citi',
     baseRate: 1,
     bonusCategories: [
-      { category: 'Top Category', rate: 5, description: 'Top eligible category each month (up to $500)' },
+      {
+        category: 'Top Category',
+        rate: 5,
+        description: 'Top eligible category each month (up to $500)',
+      },
     ],
     annualFee: 0,
     signUpBonus: '$200 after $1,500 spend in 6 months',
@@ -115,7 +119,11 @@ const CREDIT_CARD_DATABASE: Record<string, CreditCardData> = {
     issuer: 'Capital One',
     baseRate: 2,
     bonusCategories: [
-      { category: 'Hotels & Rentals', rate: 10, description: 'Hotels & Car Rentals through Capital One' },
+      {
+        category: 'Hotels & Rentals',
+        rate: 10,
+        description: 'Hotels & Car Rentals through Capital One',
+      },
     ],
     annualFee: 95,
     signUpBonus: '75,000 miles after $4,000 spend in 3 months',
@@ -140,7 +148,11 @@ const CREDIT_CARD_DATABASE: Record<string, CreditCardData> = {
     issuer: 'Discover',
     baseRate: 1,
     bonusCategories: [
-      { category: 'Rotating Categories', rate: 5, description: 'Rotating categories each quarter (up to $1,500)' },
+      {
+        category: 'Rotating Categories',
+        rate: 5,
+        description: 'Rotating categories each quarter (up to $1,500)',
+      },
     ],
     annualFee: 0,
     signUpBonus: 'Cashback Match: All cashback earned in first year matched',
@@ -180,8 +192,9 @@ export function getCreditCardData(cardName: string): CreditCardData | null {
 
   // Try partial match
   const normalizedSearch = cardName.toLowerCase();
-  const matchedKey = Object.keys(CREDIT_CARD_DATABASE).find(key =>
-    key.toLowerCase().includes(normalizedSearch) || normalizedSearch.includes(key.toLowerCase())
+  const matchedKey = Object.keys(CREDIT_CARD_DATABASE).find(
+    key =>
+      key.toLowerCase().includes(normalizedSearch) || normalizedSearch.includes(key.toLowerCase())
   );
 
   if (matchedKey) {
@@ -210,7 +223,9 @@ export function getBestCardForCategory(
 
   for (const cardName of userCards) {
     const cardData = getCreditCardData(cardName);
-    if (!cardData) continue;
+    if (!cardData) {
+      continue;
+    }
 
     // Check bonus categories
     const bonusCategory = cardData.bonusCategories.find(bc =>

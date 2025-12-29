@@ -706,14 +706,23 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                             // Auto-fill rewards from official data
                             const cardData = getCreditCardData(card);
                             if (cardData) {
-                              const rewardsText = cardData.bonusCategories.length > 0
-                                ? cardData.bonusCategories.map(bc => `${bc.rate}% ${bc.category}`).join(', ')
-                                : `${cardData.baseRate}% on everything`;
+                              const rewardsText =
+                                cardData.bonusCategories.length > 0
+                                  ? cardData.bonusCategories
+                                      .map(bc => `${bc.rate}% ${bc.category}`)
+                                      .join(', ')
+                                  : `${cardData.baseRate}% on everything`;
                               setRewardsType(rewardsText);
                               // Show user the auto-filled data
                               Alert.alert(
                                 'Card Details Loaded',
-                                `${cardData.name}\n\nRewards:\n${rewardsText}\n\nAnnual Fee: $${cardData.annualFee}${cardData.signUpBonus ? '\n\nSign-up Bonus: ' + cardData.signUpBonus : ''}`,
+                                `${cardData.name}\n\nRewards:\n${rewardsText}\n\nAnnual Fee: $${
+                                  cardData.annualFee
+                                }${
+                                  cardData.signUpBonus
+                                    ? '\n\nSign-up Bonus: ' + cardData.signUpBonus
+                                    : ''
+                                }`,
                                 [{ text: 'Got it!' }]
                               );
                             }
@@ -734,18 +743,20 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                     </Text>
                   </View>
                   {rewardsType && (
-                    <Text style={styles.helpText}>✓ Accurate data from {creditCardName} official website</Text>
+                    <Text style={styles.helpText}>
+                      ✓ Accurate data from {creditCardName} official website
+                    </Text>
                   )}
                 </View>
 
                 {/* Debit Card Option */}
-                <View style={styles.divider} />
+                <View style={styles.debitDivider} />
                 <TouchableOpacity
                   style={styles.debitToggle}
                   onPress={() => setUseDebitCard(!useDebitCard)}
                 >
-                  <View style={[styles.checkbox, useDebitCard && styles.checkboxChecked]}>
-                    {useDebitCard && <Text style={styles.checkmark}>✓</Text>}
+                  <View style={[styles.debitCheckbox, useDebitCard && styles.checkboxChecked]}>
+                    {useDebitCard && <Text style={styles.debitCheckmark}>✓</Text>}
                   </View>
                   <Text style={styles.debitToggleText}>I use a debit card (optional)</Text>
                 </TouchableOpacity>
@@ -771,7 +782,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                         onChangeText={setDebitRewardsInfo}
                         placeholderTextColor={palette.textTertiary}
                       />
-                      <Text style={styles.helpText}>Enter any cashback or rewards your debit card offers</Text>
+                      <Text style={styles.helpText}>
+                        Enter any cashback or rewards your debit card offers
+                      </Text>
                     </View>
                   </>
                 )}
@@ -1215,9 +1228,10 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
         : undefined;
 
       // Prepare debit card data
-      const debitCard = useDebitCard && debitCardName.trim()
-        ? { name: debitCardName, rewardsInfo: debitRewardsInfo }
-        : undefined;
+      const debitCard =
+        useDebitCard && debitCardName.trim()
+          ? { name: debitCardName, rewardsInfo: debitRewardsInfo }
+          : undefined;
 
       onComplete({
         name,
@@ -2100,7 +2114,7 @@ const styles = StyleSheet.create({
     color: palette.success,
     marginTop: spacing.xs,
   },
-  divider: {
+  debitDivider: {
     height: 1,
     backgroundColor: palette.border,
     marginVertical: spacing.lg,
@@ -2111,7 +2125,7 @@ const styles = StyleSheet.create({
     gap: spacing.md,
     paddingVertical: spacing.md,
   },
-  checkbox: {
+  debitCheckbox: {
     width: 24,
     height: 24,
     borderRadius: 6,
@@ -2124,7 +2138,7 @@ const styles = StyleSheet.create({
     backgroundColor: palette.primary,
     borderColor: palette.primary,
   },
-  checkmark: {
+  debitCheckmark: {
     color: palette.surface,
     fontSize: 16,
     fontWeight: '700',
