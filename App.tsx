@@ -33,6 +33,16 @@ import { MonthlyReportPage } from './src/pages/MonthlyReportPage';
 import { InsightsPage } from './src/pages/InsightsPage';
 import { TimelinePage } from './src/pages/TimelinePage';
 import { TaskAnalyticsPage } from './src/pages/TaskAnalyticsPage';
+import { AuditLogPage } from './src/pages/AuditLogPage';
+import { SearchPage } from './src/pages/SearchPage';
+import { ExportPage } from './src/pages/ExportPage';
+import { CalendarPage } from './src/pages/CalendarPage';
+import { DocumentsPage } from './src/pages/DocumentsPage';
+import { ApprovalsPage } from './src/pages/ApprovalsPage';
+import { TemplatesPage } from './src/pages/TemplatesPage';
+import { AdminPage } from './src/pages/AdminPage';
+import { SyncStatusPage } from './src/pages/SyncStatusPage';
+import { CompliancePage } from './src/pages/CompliancePage';
 import { TaskMeter } from './src/components/TaskMeter';
 import { BrandPreferenceDialog, BrandPreference } from './src/components/BrandPreferenceDialog';
 import { StorePreferenceDialog } from './src/components/StorePreferenceDialog';
@@ -510,6 +520,16 @@ const App = (): React.JSX.Element => {
         {currentPage === 'insights' && <InsightsPage />}
         {currentPage === 'timeline' && <TimelinePage />}
         {currentPage === 'analytics' && <TaskAnalyticsPage />}
+        {currentPage === 'auditlog' && <AuditLogPage />}
+        {currentPage === 'search' && <SearchPage />}
+        {currentPage === 'export' && <ExportPage />}
+        {currentPage === 'calendar' && <CalendarPage />}
+        {currentPage === 'documents' && <DocumentsPage />}
+        {currentPage === 'approvals' && <ApprovalsPage />}
+        {currentPage === 'templates' && <TemplatesPage />}
+        {currentPage === 'admin' && <AdminPage />}
+        {currentPage === 'syncstatus' && <SyncStatusPage />}
+        {currentPage === 'compliance' && <CompliancePage />}
         {currentPage === 'help' && (
           <View style={styles.placeholderPage}>
             <Text style={styles.placeholderText}>❓</Text>

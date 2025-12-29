@@ -43,7 +43,17 @@ export type NavigationPage =
   | 'monthlyreport'
   | 'insights'
   | 'timeline'
-  | 'analytics';
+  | 'analytics'
+  | 'auditlog'
+  | 'search'
+  | 'export'
+  | 'calendar'
+  | 'documents'
+  | 'approvals'
+  | 'templates'
+  | 'admin'
+  | 'syncstatus'
+  | 'compliance';
 
 interface NavigationMenuProps {
   currentPage: NavigationPage;
@@ -146,6 +156,16 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
     { icon: 'chat', label: 'Messages', page: 'chat' as NavigationPage },
     { icon: 'notifications', label: 'Notifications', page: 'notifications' as NavigationPage },
     { icon: 'team', label: 'Team', page: 'team' as NavigationPage },
+    { icon: 'auditlog', label: 'Audit Log', page: 'auditlog' as NavigationPage },
+    { icon: 'search', label: 'Search', page: 'search' as NavigationPage },
+    { icon: 'export', label: 'Export', page: 'export' as NavigationPage },
+    { icon: 'calendar', label: 'Calendar', page: 'calendar' as NavigationPage },
+    { icon: 'documents', label: 'Documents', page: 'documents' as NavigationPage },
+    { icon: 'approvals', label: 'Approvals', page: 'approvals' as NavigationPage },
+    { icon: 'templates', label: 'Templates', page: 'templates' as NavigationPage },
+    { icon: 'admin', label: 'Admin Panel', page: 'admin' as NavigationPage },
+    { icon: 'syncstatus', label: 'Sync Status', page: 'syncstatus' as NavigationPage },
+    { icon: 'compliance', label: 'Compliance', page: 'compliance' as NavigationPage },
     { icon: 'account', label: 'Account', page: 'account' as NavigationPage },
     { icon: 'preferences', label: 'Preferences', page: 'preferences' as NavigationPage },
     { icon: 'integrations', label: 'Integrations', page: 'integrations' as NavigationPage },
