@@ -10,6 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
+import { LocationIcon, CameraIcon, DollarIcon } from './Icons';
 import { Task } from '../store';
 import { launchImageLibrary } from 'react-native-image-picker';
 
@@ -124,7 +125,7 @@ export const TaskCompletionDialog: React.FC<TaskCompletionDialogProps> = ({
 
             {currentTask.needsReimbursement && (
               <View style={styles.reimbursementBanner}>
-                <MoneyIcon size={18} color={palette.success} />
+                <DollarIcon size={18} color={palette.success} />
                 <View style={styles.reimbursementContent}>
                   <Text style={styles.reimbursementTitle}>Reimbursement Required</Text>
                   <Text style={styles.reimbursementText}>

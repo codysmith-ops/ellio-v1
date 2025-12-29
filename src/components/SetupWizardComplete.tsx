@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
 import {
+  BagIcon,
   BellIcon,
   CameraIcon,
   CartIcon,
@@ -23,6 +24,7 @@ import {
   CreditCardIcon,
   DollarIcon,
   LocationIcon,
+  RefreshIcon,
   TargetIcon,
   UsersIcon,
   LightbulbIcon,

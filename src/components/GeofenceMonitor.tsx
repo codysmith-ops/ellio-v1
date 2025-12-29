@@ -64,7 +64,6 @@ export const GeofenceMonitor: React.FC<GeofenceMonitorProps> = ({ onTasksNearby 
         fastestInterval: 15000,
       }
     );
-    setIsMonitoring(true);
   };
 
   const checkNearbyTasks = (currentLat: number, currentLon: number) => {
