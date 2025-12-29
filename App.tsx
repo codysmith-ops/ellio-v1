@@ -56,6 +56,9 @@ import { getTaskIcon, ScannerIcon, CameraIcon } from './src/components/TaskTypeI
 import { TrashIcon } from './src/components/Icons';
 import { BarcodeScanner } from './src/components/BarcodeScanner';
 import { DueDatePicker } from './src/components/DueDatePicker';
+import { VoiceInput } from './src/components/VoiceInput';
+import { ParsedTask } from './src/services/taskParser.service';
+import { EllioButtons, EllioToasts, EllioHeaders, EllioEmptyStates } from './src/content/ellioTheme';
 
 // Helper to detect task type from title
 const getTaskType = (title: string): string => {
@@ -162,6 +165,7 @@ const App = (): React.JSX.Element => {
   const [showBarcodeScanner, setShowBarcodeScanner] = useState(false);
   const [showDueDatePicker, setShowDueDatePicker] = useState(false);
   const [dueDateLabel, setDueDateLabel] = useState('');
+  const [showVoiceInput, setShowVoiceInput] = useState(false);
 
   // Activity log state
   const [activityLog, setActivityLog] = useState<
@@ -599,6 +603,45 @@ const App = (): React.JSX.Element => {
     setDueDateLabel(label);
   };
 
+  const handleVoiceTasksGenerated = (parsedTasks: ParsedTask[]) => {
+    console.log('🎤 Adding tasks from voice input:', parsedTasks);
+
+    // Add each parsed task
+    parsedTasks.forEach(parsedTask => {
+      const newTask: Task = {
+        id: Date.now().toString() + Math.random(),
+        title: parsedTask.title,
+        completed: false,
+        category: parsedTask.category.toLowerCase(),
+        priority: parsedTask.priority,
+        createdAt: Date.now(),
+        dueDate: parsedTask.dueDate?.getTime(),
+        note: parsedTask.note,
+      };
+
+      addTask(newTask);
+
+      setActivityLog(prev => [
+        {
+          id: Date.now().toString(),
+          action: 'added',
+          timestamp: Date.now(),
+          taskTitle: newTask.title,
+        },
+        ...prev.slice(0, 9),
+      ]);
+    });
+
+    // Show success message
+    Alert.alert(
+      EllioToasts.added,
+      `Added ${parsedTasks.length} task${parsedTasks.length > 1 ? 's' : ''}`,
+      [{ text: EllioButtons.gotIt }]
+    );
+
+    setShowVoiceInput(false);
+  };
+
   const handleScanner = () => {
     setShowBarcodeScanner(true);
   };
@@ -782,6 +825,13 @@ const App = (): React.JSX.Element => {
               <CameraIcon size={24} color={palette.primary} />
               <Text style={styles.quickActionText}>Take Photo</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.quickAction}
+              onPress={() => setShowVoiceInput(true)}
+            >
+              <Text style={styles.microphoneIcon}>🎤</Text>
+              <Text style={styles.quickActionText}>Add by voice</Text>
+            </TouchableOpacity>
           </View>
 
           {skuCode ? (
@@ -860,7 +910,7 @@ const App = (): React.JSX.Element => {
           </View>
 
           <TouchableOpacity style={styles.primaryButton} onPress={handleAdd}>
-            <Text style={styles.primaryButtonText}>+ Add Task</Text>
+            <Text style={styles.primaryButtonText}>{EllioButtons.add}</Text>
           </TouchableOpacity>
         </View>
 
@@ -1081,6 +1131,13 @@ const App = (): React.JSX.Element => {
         onSelect={handleDueDateSelect}
       />
 
+      {/* Voice Input */}
+      <VoiceInput
+        visible={showVoiceInput}
+        onClose={() => setShowVoiceInput(false)}
+        onTasksGenerated={handleVoiceTasksGenerated}
+      />
+
       {/* Geofence Monitor */}
       {setupComplete && <GeofenceMonitor onTasksNearby={handleTasksNearby} />}
     </SafeAreaView>
@@ -1197,6 +1254,9 @@ const styles = StyleSheet.create({
   quickActionText: {
     ...typography.body,
     color: palette.primary,
+  },
+  microphoneIcon: {
+    fontSize: 24,
   },
   skuBadge: {
     flexDirection: 'row',
