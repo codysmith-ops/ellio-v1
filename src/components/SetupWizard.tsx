@@ -11,6 +11,7 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
+import { getCreditCardData } from '../services/creditCardData';
 import {
   CameraIcon,
   BellIcon,
@@ -50,6 +51,7 @@ export interface UserSetupData {
   budgetAmount?: number;
   budgetPeriod?: 'weekly' | 'monthly';
   creditCards?: Array<{ name: string; rewardsType: string }>;
+  debitCard?: { name: string; rewardsInfo: string };
   locationPermissionGranted?: boolean;
   selectedCategories?: Category[];
   displayName?: string;
@@ -81,6 +83,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
   const [rewardsType, setRewardsType] = useState('');
   const [showCardSuggestions, setShowCardSuggestions] = useState(false);
   const [showRewardsSuggestions, setShowRewardsSuggestions] = useState(false);
+  const [useDebitCard, setUseDebitCard] = useState(false);
+  const [debitCardName, setDebitCardName] = useState('');
+  const [debitRewardsInfo, setDebitRewardsInfo] = useState('');
 
   // Popular credit cards
   const popularCards = [
@@ -698,6 +703,20 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                           onPress={() => {
                             setCreditCardName(card);
                             setShowCardSuggestions(false);
+                            // Auto-fill rewards from official data
+                            const cardData = getCreditCardData(card);
+                            if (cardData) {
+                              const rewardsText = cardData.bonusCategories.length > 0
+                                ? cardData.bonusCategories.map(bc => `${bc.rate}% ${bc.category}`).join(', ')
+                                : `${cardData.baseRate}% on everything`;
+                              setRewardsType(rewardsText);
+                              // Show user the auto-filled data
+                              Alert.alert(
+                                'Card Details Loaded',
+                                `${cardData.name}\n\nRewards:\n${rewardsText}\n\nAnnual Fee: $${cardData.annualFee}${cardData.signUpBonus ? '\n\nSign-up Bonus: ' + cardData.signUpBonus : ''}`,
+                                [{ text: 'Got it!' }]
+                              );
+                            }
                           }}
                         >
                           <Text style={styles.suggestionText}>{card}</Text>
@@ -708,36 +727,54 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 </View>
 
                 <View style={styles.inputGroup}>
-                  <Text style={styles.label}>Rewards Type</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Start typing..."
-                    value={rewardsType}
-                    onChangeText={text => {
-                      setRewardsType(text);
-                      setShowRewardsSuggestions(text.length > 0);
-                    }}
-                    onFocus={() => setShowRewardsSuggestions(rewardsType.length > 0)}
-                    onBlur={() => setTimeout(() => setShowRewardsSuggestions(false), 200)}
-                    placeholderTextColor={palette.textTertiary}
-                  />
-                  {showRewardsSuggestions && filteredRewards.length > 0 && (
-                    <ScrollView style={styles.suggestionsContainer} nestedScrollEnabled>
-                      {filteredRewards.slice(0, 5).map((reward, index) => (
-                        <TouchableOpacity
-                          key={index}
-                          style={styles.suggestionItem}
-                          onPress={() => {
-                            setRewardsType(reward);
-                            setShowRewardsSuggestions(false);
-                          }}
-                        >
-                          <Text style={styles.suggestionText}>{reward}</Text>
-                        </TouchableOpacity>
-                      ))}
-                    </ScrollView>
+                  <Text style={styles.label}>Rewards (Auto-filled from official website)</Text>
+                  <View style={[styles.input, styles.readOnlyInput]}>
+                    <Text style={rewardsType ? styles.rewardsText : styles.rewardsPlaceholder}>
+                      {rewardsType || 'Select a card above to see rewards'}
+                    </Text>
+                  </View>
+                  {rewardsType && (
+                    <Text style={styles.helpText}>✓ Accurate data from {creditCardName} official website</Text>
                   )}
                 </View>
+
+                {/* Debit Card Option */}
+                <View style={styles.divider} />
+                <TouchableOpacity
+                  style={styles.debitToggle}
+                  onPress={() => setUseDebitCard(!useDebitCard)}
+                >
+                  <View style={[styles.checkbox, useDebitCard && styles.checkboxChecked]}>
+                    {useDebitCard && <Text style={styles.checkmark}>✓</Text>}
+                  </View>
+                  <Text style={styles.debitToggleText}>I use a debit card (optional)</Text>
+                </TouchableOpacity>
+
+                {useDebitCard && (
+                  <>
+                    <View style={styles.inputGroup}>
+                      <Text style={styles.label}>Debit Card Name</Text>
+                      <TextInput
+                        style={styles.input}
+                        placeholder="e.g., Chase Checking"
+                        value={debitCardName}
+                        onChangeText={setDebitCardName}
+                        placeholderTextColor={palette.textTertiary}
+                      />
+                    </View>
+                    <View style={styles.inputGroup}>
+                      <Text style={styles.label}>Debit Card Rewards/Cashback (if any)</Text>
+                      <TextInput
+                        style={styles.input}
+                        placeholder="e.g., 1% cashback on all purchases"
+                        value={debitRewardsInfo}
+                        onChangeText={setDebitRewardsInfo}
+                        placeholderTextColor={palette.textTertiary}
+                      />
+                      <Text style={styles.helpText}>Enter any cashback or rewards your debit card offers</Text>
+                    </View>
+                  </>
+                )}
 
                 <View style={styles.aiFeatureBox}>
                   <View style={styles.aiIconContainer}>
@@ -1177,6 +1214,11 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
         ? [{ name: creditCardName, rewardsType: rewardsType || 'cashback' }]
         : undefined;
 
+      // Prepare debit card data
+      const debitCard = useDebitCard && debitCardName.trim()
+        ? { name: debitCardName, rewardsInfo: debitRewardsInfo }
+        : undefined;
+
       onComplete({
         name,
         email,
@@ -1188,6 +1230,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
         budgetAmount: budgetAmount ? parseFloat(budgetAmount) : undefined,
         budgetPeriod,
         creditCards,
+        debitCard,
         locationPermissionGranted,
         selectedCategories,
         displayName: displayName || name,
@@ -2037,5 +2080,57 @@ const styles = StyleSheet.create({
   sampleButtonSecondaryText: {
     ...typography.bodyBold,
     color: palette.textSecondary,
+  },
+  readOnlyInput: {
+    backgroundColor: palette.backgroundSecondary,
+    justifyContent: 'center',
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.md,
+  },
+  rewardsText: {
+    ...typography.body,
+    color: palette.text,
+  },
+  rewardsPlaceholder: {
+    ...typography.body,
+    color: palette.textTertiary,
+  },
+  helpText: {
+    ...typography.caption,
+    color: palette.success,
+    marginTop: spacing.xs,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: palette.border,
+    marginVertical: spacing.lg,
+  },
+  debitToggle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+    paddingVertical: spacing.md,
+  },
+  checkbox: {
+    width: 24,
+    height: 24,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: palette.border,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkboxChecked: {
+    backgroundColor: palette.primary,
+    borderColor: palette.primary,
+  },
+  checkmark: {
+    color: palette.surface,
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  debitToggleText: {
+    ...typography.body,
+    color: palette.text,
   },
 });
