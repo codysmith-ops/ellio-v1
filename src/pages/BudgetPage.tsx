@@ -234,7 +234,7 @@ export const BudgetPage: React.FC = () => {
         ))}
 
         <View style={styles.tipsCard}>
-          <View style={styles.tipsTitleRow}>
+          <View style={styles.tipsTitle}>
             <LightbulbIcon size={18} color={palette.primary} />
             <Text style={styles.tipsTitle}>Budget Tips</Text>
           </View>

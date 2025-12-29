@@ -34,6 +34,7 @@ export const palette = {
   warningLight: 'rgba(217, 119, 6, 0.05)',
   error: '#DC2626',
   errorLight: 'rgba(220, 38, 38, 0.05)',
+  danger: '#DC2626', // Alias for error
   info: '#818CF8',
   infoLight: 'rgba(129, 140, 248, 0.05)',
 

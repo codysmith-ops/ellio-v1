@@ -156,7 +156,7 @@ export const ReportsPage: React.FC = () => {
           </View>
         </View>
         <View style={styles.insightCard}>
-          <AlertStarIcon size={24} alertType="warning" />
+          <AlertStarIcon size={24} color={palette.warning} />
           <View style={styles.insightContent}>
             <Text style={styles.insightTitle}>Overdue Tasks</Text>
             <Text style={styles.insightText}>

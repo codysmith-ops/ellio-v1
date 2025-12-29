@@ -371,7 +371,7 @@ export const searchAllNearbyStores = async (params: {
     if (!a.inStock && b.inStock) {
       return 1;
     }
-    return (a.distance || 999) - (b.distance || 999);
+    return (a.storeLocation?.distance || 999) - (b.storeLocation?.distance || 999);
   });
 };
 
@@ -392,7 +392,7 @@ export const filterStores = (
 
   if (filters.maxDistance) {
     const maxMeters = filters.maxDistance * 1609.34;
-    filtered = filtered.filter(s => (s.distance || 0) <= maxMeters);
+    filtered = filtered.filter(s => (s.storeLocation?.distance || 0) <= maxMeters);
   }
 
   if (filters.inStockOnly) {

@@ -245,7 +245,7 @@ export const FamilyPage: React.FC = () => {
         ))}
 
         <View style={styles.infoCard}>
-          <View style={styles.infoTitleRow}>
+          <View style={styles.infoTitle}>
             <LightbulbIcon size={18} color={palette.primary} />
             <Text style={styles.infoTitle}>Family Budgeting Tips</Text>
           </View>
