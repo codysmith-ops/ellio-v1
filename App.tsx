@@ -12,6 +12,10 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { launchCamera } from 'react-native-image-picker';
+import {
+  recognizeProductFromBarcode,
+  recognizeProductFromImage,
+} from './src/services/productRecognition';
 import { useTodoStore, Task } from './src/store';
 import { palette, radius, shadow, spacing, typography } from './src/theme';
 import { SetupWizard, UserSetupData } from './src/components/SetupWizard';
@@ -447,14 +451,15 @@ const App = (): React.JSX.Element => {
     ]);
   };
 
-  const handleCamera = () => {
+  const handleCamera = async () => {
     launchCamera(
       {
         mediaType: 'photo',
         cameraType: 'back',
         saveToPhotos: false,
+        includeBase64: true,
       },
-      response => {
+      async response => {
         if (response.didCancel) {
           return;
         }
@@ -463,22 +468,108 @@ const App = (): React.JSX.Element => {
           return;
         }
         if (response.assets && response.assets[0]) {
-          setImageUri(response.assets[0].uri);
+          const asset = response.assets[0];
+          setImageUri(asset.uri);
+
+          // Auto-recognize product and search stores
+          if (asset.base64) {
+            try {
+              const result = await recognizeProductFromImage(asset.base64);
+              if (result) {
+                // Auto-fill product details
+                setTitle(result.product.name);
+                if (result.product.brand) {
+                  setNote(
+                    `Brand: ${result.product.brand}${
+                      result.product.description ? '\n' + result.product.description : ''
+                    }`
+                  );
+                }
+                if (result.product.barcode) {
+                  setSkuCode(result.product.barcode);
+                }
+
+                // Show available stores
+                if (result.stores.length > 0) {
+                  const storeList = result.stores
+                    .filter(s => s.inStock)
+                    .slice(0, 3)
+                    .map(
+                      s =>
+                        `${s.storeName}${s.distance ? ` (${s.distance.toFixed(1)}mi)` : ''}${
+                          s.price ? ` - $${s.price.toFixed(2)}` : ''
+                        }`
+                    )
+                    .join('\n');
+
+                  Alert.alert(
+                    'Product Found!',
+                    `${result.product.name}\n\nAvailable at:\n${storeList}`,
+                    [{ text: 'OK' }]
+                  );
+                }
+              }
+            } catch (error) {
+              console.error('Product recognition error:', error);
+            }
+          }
         }
       }
     );
   };
 
-  const handleScanner = () => {
-    // Placeholder for barcode scanner
-    Alert.alert('Scanner', 'Barcode scanner will open here', [
+  const handleScanner = async () => {
+    // Placeholder for barcode scanner with auto-fill
+    Alert.alert('Scanner', 'Scan a barcode to auto-fill product details', [
       { text: 'Cancel', style: 'cancel' },
       {
         text: 'Simulate Scan',
-        onPress: () => {
-          const mockSku = `SKU-${Math.floor(Math.random() * 100000)}`;
-          setSkuCode(mockSku);
-          setTitle(`Product ${mockSku}`);
+        onPress: async () => {
+          // Simulate scanning a real barcode (Coca-Cola example)
+          const mockBarcode = '5449000000996'; // Coca-Cola barcode
+          setSkuCode(mockBarcode);
+
+          // Auto-recognize product
+          try {
+            const result = await recognizeProductFromBarcode(mockBarcode);
+            if (result) {
+              // Auto-fill all fields
+              setTitle(result.product.name);
+              if (result.product.brand) {
+                setNote(
+                  `Brand: ${result.product.brand}${
+                    result.product.description ? '\n' + result.product.description : ''
+                  }`
+                );
+              }
+
+              // Show available stores
+              if (result.stores.length > 0) {
+                const storeList = result.stores
+                  .filter(s => s.inStock)
+                  .slice(0, 3)
+                  .map(
+                    s =>
+                      `${s.storeName}${s.distance ? ` (${s.distance.toFixed(1)}mi)` : ''}${
+                        s.price ? ` - $${s.price.toFixed(2)}` : ''
+                      }`
+                  )
+                  .join('\n');
+
+                Alert.alert(
+                  'Product Found!',
+                  `${result.product.name}\n\nAvailable at:\n${storeList}`,
+                  [{ text: 'OK' }]
+                );
+              }
+            } else {
+              // Fallback to generic product
+              setTitle(`Product ${mockBarcode}`);
+            }
+          } catch (error) {
+            console.error('Barcode recognition error:', error);
+            setTitle(`Product ${mockBarcode}`);
+          }
         },
       },
     ]);

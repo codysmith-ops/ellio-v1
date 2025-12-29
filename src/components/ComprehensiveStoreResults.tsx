@@ -127,9 +127,9 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
       activeOpacity={0.7}
       accessible={true}
       accessibilityRole="button"
-      accessibilityLabel={`${item.store}, ${item.productName}${item.price ? `, $${item.price.toFixed(2)}` : ''}, ${
-        item.availability
-      }${
+      accessibilityLabel={`${item.store}, ${item.productName}${
+        item.price ? `, $${item.price.toFixed(2)}` : ''
+      }, ${item.availability}${
         item.storeLocation?.distance ? `, ${formatDistance(item.storeLocation.distance)} away` : ''
       }`}
       accessibilityHint="Double tap to view store details"
@@ -159,7 +159,9 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
           {item.productName}
         </Text>
         <View style={styles.priceRow}>
-          <Text style={styles.price}>{item.price ? `$${item.price.toFixed(2)}` : 'Price unavailable'}</Text>
+          <Text style={styles.price}>
+            {item.price ? `$${item.price.toFixed(2)}` : 'Price unavailable'}
+          </Text>
           {item.storeLocation?.rating && (
             <View style={styles.ratingContainer}>
               <StarIcon size={16} color="#D97706" filled />

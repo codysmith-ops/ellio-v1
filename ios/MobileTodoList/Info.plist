@@ -33,7 +33,11 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need your location to remind you of nearby tasks</string>
+	<string>We need your location to remind you of nearby tasks and find stores</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Allow location access to get reminders when you're near stores with your items</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Enable background location to notify you about nearby stores and deals</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Take photos of products to add to your shopping list</string>
 	<key>NSPhotoLibraryUsageDescription</key>

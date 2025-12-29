@@ -436,7 +436,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   selectedGoals.includes('save-money') && styles.checkboxSelected,
                 ]}
               >
-                {selectedGoals.includes('save-money') && <CheckmarkIcon size={16} color={palette.surface} />}
+                {selectedGoals.includes('save-money') && (
+                  <CheckmarkIcon size={16} color={palette.surface} />
+                )}
               </View>
             </View>
           </TouchableOpacity>
@@ -462,7 +464,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   selectedGoals.includes('credit-points') && styles.checkboxSelected,
                 ]}
               >
-                {selectedGoals.includes('credit-points') && <CheckmarkIcon size={16} color={palette.surface} />}
+                {selectedGoals.includes('credit-points') && (
+                  <CheckmarkIcon size={16} color={palette.surface} />
+                )}
               </View>
             </View>
           </TouchableOpacity>
@@ -485,7 +489,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   selectedGoals.includes('budget') && styles.checkboxSelected,
                 ]}
               >
-                {selectedGoals.includes('budget') && <CheckmarkIcon size={16} color={palette.surface} />}
+                {selectedGoals.includes('budget') && (
+                  <CheckmarkIcon size={16} color={palette.surface} />
+                )}
               </View>
             </View>
           </TouchableOpacity>
@@ -511,7 +517,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   selectedGoals.includes('collaborate') && styles.checkboxSelected,
                 ]}
               >
-                {selectedGoals.includes('collaborate') && <CheckmarkIcon size={16} color={palette.surface} />}
+                {selectedGoals.includes('collaborate') && (
+                  <CheckmarkIcon size={16} color={palette.surface} />
+                )}
               </View>
             </View>
           </TouchableOpacity>
@@ -534,7 +542,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   selectedGoals.includes('organize') && styles.checkboxSelected,
                 ]}
               >
-                {selectedGoals.includes('organize') && <CheckmarkIcon size={16} color={palette.surface} />}
+                {selectedGoals.includes('organize') && (
+                  <CheckmarkIcon size={16} color={palette.surface} />
+                )}
               </View>
             </View>
           </TouchableOpacity>
@@ -562,7 +572,9 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   selectedGoals.includes('efficiency') && styles.checkboxSelected,
                 ]}
               >
-                {selectedGoals.includes('efficiency') && <CheckmarkIcon size={16} color={palette.surface} />}
+                {selectedGoals.includes('efficiency') && (
+                  <CheckmarkIcon size={16} color={palette.surface} />
+                )}
               </View>
             </View>
           </TouchableOpacity>
