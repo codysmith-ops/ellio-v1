@@ -16,7 +16,7 @@ export const LocationPermissionManager = {
       return false;
     }
 
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       // First request "When In Use" permission
       Geolocation.requestAuthorization();
 
@@ -39,7 +39,7 @@ export const LocationPermissionManager = {
    * Check current location permission status
    */
   async checkPermission(): Promise<'denied' | 'whenInUse' | 'always'> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       Geolocation.getCurrentPosition(
         () => {
           // Permission granted (at least "When In Use")
@@ -47,7 +47,7 @@ export const LocationPermissionManager = {
           // User must check Settings app
           resolve('whenInUse');
         },
-        (error) => {
+        error => {
           if (error.code === 1) {
             resolve('denied');
           } else {
@@ -76,7 +76,7 @@ export const LocationPermissionManager = {
     } else {
       Alert.alert(
         'Enable Background Location',
-        'To get notified about deals when you\'re near stores, please:\n\n' +
+        "To get notified about deals when you're near stores, please:\n\n" +
           '1. Go to Settings > Privacy > Location Services\n' +
           '2. Find "Mobile Todo List"\n' +
           '3. Select "Always"\n\n' +
@@ -96,11 +96,11 @@ export const LocationPermissionManager = {
   startBackgroundLocationTracking(): void {
     // This will only work if user has granted "Always" permission
     Geolocation.watchPosition(
-      (position) => {
+      position => {
         console.log('📍 Background location update:', position.coords);
         // Trigger store proximity checks here
       },
-      (error) => {
+      error => {
         console.error('Background location error:', error);
       },
       {

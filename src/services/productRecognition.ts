@@ -85,10 +85,10 @@ export async function recognizeProductFromImage(
     // Convert image to base64
     const RNFS = require('react-native-fs');
     let base64Image = '';
-    
+
     // Handle different URI formats
     const imageSource = imageUri.replace('file://', '');
-    
+
     try {
       base64Image = await RNFS.readFile(imageSource, 'base64');
       console.log('✅ Image converted to base64, length:', base64Image.length);
@@ -142,7 +142,7 @@ export async function recognizeProductFromImage(
       }
 
       // Try to extract brand from logos first, then text
-      let brandName = undefined;
+      let brandName;
       if (logos.length > 0) {
         brandName = logos[0];
       } else {

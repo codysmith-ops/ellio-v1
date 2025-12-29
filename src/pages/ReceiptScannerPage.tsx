@@ -57,25 +57,82 @@ export const ReceiptScannerPage: React.FC = () => {
   const [selectedReceipt, setSelectedReceipt] = useState<ScannedReceipt | null>(null);
 
   const handleTakePhoto = async () => {
-    const result = await launchCamera({
-      mediaType: 'photo',
-      quality: 0.8,
-      saveToPhotos: false,
-    });
+    try {
+      console.log('📸 Attempting to launch camera...');
+      const result = await launchCamera({
+        mediaType: 'photo',
+        quality: 0.8,
+        saveToPhotos: false,
+        includeBase64: false,
+      });
 
-    if (result.assets && result.assets[0]) {
-      processReceipt(result.assets[0].uri);
+      console.log('📸 Camera result:', result);
+
+      if (result.didCancel) {
+        console.log('📸 User cancelled camera');
+        return;
+      }
+
+      if (result.errorCode) {
+        console.error('📸 Camera error:', result.errorCode, result.errorMessage);
+        Alert.alert(
+          'Camera Error',
+          result.errorMessage || 'Unable to open camera. Please check permissions in Settings.',
+          [{ text: 'OK' }]
+        );
+        return;
+      }
+
+      if (result.assets && result.assets[0]) {
+        console.log('📸 Photo captured successfully:', result.assets[0].uri);
+        processReceipt(result.assets[0].uri);
+      } else {
+        console.log('📸 No image captured');
+        Alert.alert('No Image', 'No photo was captured. Please try again.');
+      }
+    } catch (error) {
+      console.error('📸 Camera exception:', error);
+      Alert.alert(
+        'Camera Error',
+        'Failed to open camera. Please ensure camera permissions are granted in Settings.',
+        [{ text: 'OK' }]
+      );
     }
   };
 
   const handleChoosePhoto = async () => {
-    const result = await launchImageLibrary({
-      mediaType: 'photo',
-      quality: 0.8,
-    });
+    try {
+      console.log('🖼️ Attempting to launch photo library...');
+      const result = await launchImageLibrary({
+        mediaType: 'photo',
+        quality: 0.8,
+        includeBase64: false,
+      });
 
-    if (result.assets && result.assets[0]) {
-      processReceipt(result.assets[0].uri);
+      console.log('🖼️ Photo library result:', result);
+
+      if (result.didCancel) {
+        console.log('🖼️ User cancelled photo selection');
+        return;
+      }
+
+      if (result.errorCode) {
+        console.error('🖼️ Photo library error:', result.errorCode, result.errorMessage);
+        Alert.alert(
+          'Photo Library Error',
+          result.errorMessage || 'Unable to access photo library.',
+          [{ text: 'OK' }]
+        );
+        return;
+      }
+
+      if (result.assets && result.assets[0]) {
+        console.log('🖼️ Photo selected successfully:', result.assets[0].uri);
+        processReceipt(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.error('🖼️ Photo library exception:', error);
+      Alert.alert('Photo Library Error', 'Failed to access photo library.');
     }
   };
 
