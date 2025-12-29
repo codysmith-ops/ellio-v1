@@ -11,13 +11,13 @@
 export const EllioVoice = {
   // Signature phrases - use these consistently
   signatures: {
-    youreGood: "You're good.",
+    youreGood: 'You are good.',
     notAllAtOnce: 'Not all at once.',
     nextUp: 'Next up.',
-    whenReady: 'When you're ready.',
+    whenReady: 'When you are ready.',
     wantHelp: 'Want help with that?',
     allSet: 'All set.',
-    keepSimple: "We'll keep it simple.",
+    keepSimple: 'We will keep it simple.',
   },
 
   // Words to avoid

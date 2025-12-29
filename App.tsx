@@ -59,6 +59,7 @@ import { DueDatePicker } from './src/components/DueDatePicker';
 import { VoiceInput } from './src/components/VoiceInput';
 import { ParsedTask } from './src/services/taskParser.service';
 import { EllioButtons, EllioToasts, EllioHeaders, EllioEmptyStates } from './src/content/ellioTheme';
+import { ChatAssistant } from './src/components/ChatAssistant';
 
 // Helper to detect task type from title
 const getTaskType = (title: string): string => {
@@ -1140,6 +1141,17 @@ const App = (): React.JSX.Element => {
 
       {/* Geofence Monitor */}
       {setupComplete && <GeofenceMonitor onTasksNearby={handleTasksNearby} />}
+
+      {/* Chat Assistant */}
+      {setupComplete && (
+        <ChatAssistant
+          context={{
+            currentPage: currentPage,
+            userName: userName,
+          }}
+          tasks={tasks}
+        />
+      )}
     </SafeAreaView>
   );
 };
