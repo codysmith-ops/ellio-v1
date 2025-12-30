@@ -33,7 +33,7 @@ export interface ChatContext {
  */
 export function getWelcomeMessage(context: ChatContext): ChatMessage {
   const name = context.userName || 'there';
-  
+
   return {
     id: Date.now().toString(),
     text: `Hey ${name}! I'm here to help. ${EllioVoice.signatures.wantHelp}\n\nI know everything about this app and can:\n• Explain any feature\n• Fetch receipts or coupons\n• Answer questions\n• Guide you through setup\n\n${EllioVoice.signatures.whenReady}`,
@@ -46,10 +46,7 @@ export function getWelcomeMessage(context: ChatContext): ChatMessage {
 /**
  * Get response for user query
  */
-export function getAssistantResponse(
-  userMessage: string,
-  context: ChatContext
-): ChatMessage {
+export function getAssistantResponse(userMessage: string, context: ChatContext): ChatMessage {
   const query = userMessage.toLowerCase().trim();
 
   // Onboarding questions
@@ -143,7 +140,8 @@ function getOnboardingExplanation(topic: string): ChatMessage {
   const explanations: Record<string, string> = {
     data_collection: `${EllioVoice.signatures.keepSimple}\n\nYour name and email help us:\n• Save your data securely\n• Sync across devices\n• Send helpful reminders\n\nWe never sell your data. Ever. You can delete everything anytime.\n\nIt's like having a personal assistant who remembers your preferences.`,
 
-    credit_cards: `Great question! Here's why it helps:\n\n• Auto-suggest the best card for each store\n• Maximize your cashback earnings\n• Track which cards save you the most\n\nWe never charge your cards or see full numbers. Just names and rewards rates from official websites.\n\nThink of it as a smart wallet advisor.`,
+    credit_cards:
+      "Great question! Here's why it helps:\n\n• Auto-suggest the best card for each store\n• Maximize your cashback earnings\n• Track which cards save you the most\n\nWe never charge your cards or see full numbers. Just names and rewards rates from official websites.\n\nThink of it as a smart wallet advisor.",
 
     location: `Location helps in two ways:\n\n1. Find nearby stores automatically\n2. Remind you when you're near a task location\n\nWe only use it when the app is open. Never tracked in background unless you choose.\n\n${EllioVoice.signatures.youreGood}`,
 
@@ -164,15 +162,20 @@ function getOnboardingExplanation(topic: string): ChatMessage {
  */
 function getFeatureExplanation(feature: string): ChatMessage {
   const explanations: Record<string, string> = {
-    voice_input: `Voice input is magic:\n\n1. Tap the microphone 🎤\n2. Say your list naturally:\n   "Buy milk, then call dentist tomorrow"\n3. App organizes everything automatically\n\nIt detects categories, priorities, and due dates. No typing needed!\n\nWant to try it?`,
+    voice_input:
+      'Voice input is magic:\n\n1. Tap the microphone 🎤\n2. Say your list naturally:\n   "Buy milk, then call dentist tomorrow"\n3. App organizes everything automatically\n\nIt detects categories, priorities, and due dates. No typing needed!\n\nWant to try it?',
 
-    barcode_scanner: `The barcode scanner auto-fills product details:\n\n1. Tap "Scan SKU"\n2. Point at any barcode\n3. Product name, size, and stores appear\n\nWorks with groceries, household items, anything with a barcode.\n\nSaves tons of typing!`,
+    barcode_scanner:
+      'The barcode scanner auto-fills product details:\n\n1. Tap "Scan SKU"\n2. Point at any barcode\n3. Product name, size, and stores appear\n\nWorks with groceries, household items, anything with a barcode.\n\nSaves tons of typing!',
 
-    route_planning: `Smart routing saves time and gas:\n\n• Add tasks at different stores\n• App arranges stops by distance\n• Shows fastest path through all locations\n\nLike having a personal route planner.\n\nNo more backtracking!`,
+    route_planning:
+      'Smart routing saves time and gas:\n\n• Add tasks at different stores\n• App arranges stops by distance\n• Shows fastest path through all locations\n\nLike having a personal route planner.\n\nNo more backtracking!',
 
-    cashback: `Cashback matching is your money-saver:\n\n• Knows all your credit card rewards\n• Suggests best card for each store\n• Based on official rates from card websites\n\nExample: 3% at grocery stores with Chase Sapphire.\n\nMaximize every purchase!`,
+    cashback:
+      'Cashback matching is your money-saver:\n\n• Knows all your credit card rewards\n• Suggests best card for each store\n• Based on official rates from card websites\n\nExample: 3% at grocery stores with Chase Sapphire.\n\nMaximize every purchase!',
 
-    receipts: `Receipt tracking keeps you organized:\n\n• Take photo after shopping\n• Attach to task automatically\n• Find later for returns or records\n\nNo more lost receipts in your wallet!`,
+    receipts:
+      'Receipt tracking keeps you organized:\n\n• Take photo after shopping\n• Attach to task automatically\n• Find later for returns or records\n\nNo more lost receipts in your wallet!',
 
     categories: `Categories auto-organize your life:\n\n• Shopping (groceries, retail)\n• Work (meetings, emails)\n• Personal (home, errands)\n• Health (appointments, gym)\n• Finance (bills, payments)\n\nTasks sort themselves. ${EllioVoice.signatures.youreGood}`,
   };
@@ -193,9 +196,11 @@ function getHowToResponse(action: string): ChatMessage {
   const instructions: Record<string, string> = {
     add_task: `Adding tasks is easy:\n\n**Type it:**\n1. Enter title in "What do you need?"\n2. Tap "Add"\n\n**Say it:**\n1. Tap 🎤 microphone\n2. Speak your list\n3. Review and confirm\n\n**Scan it:**\n1. Tap "Scan SKU"\n2. Point at barcode\n3. Details auto-fill\n\n${EllioVoice.signatures.whenReady}`,
 
-    use_voice: `Voice input in 3 steps:\n\n1. **Tap** the microphone 🎤\n2. **Speak** naturally:\n   • Single: "Buy milk"\n   • Multiple: "Buy milk, then call mom tomorrow"\n3. **Confirm** the tasks\n\nThe app understands:\n• Categories (shopping, work, etc.)\n• Priorities (urgent, later)\n• Due dates (today, next week)\n\nTry it now!`,
+    use_voice:
+      'Voice input in 3 steps:\n\n1. **Tap** the microphone 🎤\n2. **Speak** naturally:\n   • Single: "Buy milk"\n   • Multiple: "Buy milk, then call mom tomorrow"\n3. **Confirm** the tasks\n\nThe app understands:\n• Categories (shopping, work, etc.)\n• Priorities (urgent, later)\n• Due dates (today, next week)\n\nTry it now!',
 
-    scan_barcode: `Scanning barcodes:\n\n1. Tap "Scan SKU" button\n2. Point camera at barcode\n3. Hold steady until beep\n4. Product details appear\n\nWorks with:\n• Groceries (UPC codes)\n• Household items\n• Any retail product\n\nNo typing needed!`,
+    scan_barcode:
+      'Scanning barcodes:\n\n1. Tap "Scan SKU" button\n2. Point camera at barcode\n3. Hold steady until beep\n4. Product details appear\n\nWorks with:\n• Groceries (UPC codes)\n• Household items\n• Any retail product\n\nNo typing needed!',
   };
 
   return {
@@ -232,7 +237,11 @@ function getDataFetchingResponse(dataType: string, context: ChatContext): ChatMe
 
     return {
       id: Date.now().toString(),
-      text: `Here are your next tasks:\n\n${taskList}\n\n${incomplete.length > 5 ? `...and ${incomplete.length - 5} more` : EllioVoice.signatures.notAllAtOnce}`,
+      text: `Here are your next tasks:\n\n${taskList}\n\n${
+        incomplete.length > 5
+          ? `...and ${incomplete.length - 5} more`
+          : EllioVoice.signatures.notAllAtOnce
+      }`,
       sender: 'assistant',
       timestamp: Date.now(),
       type: 'data',
@@ -242,7 +251,7 @@ function getDataFetchingResponse(dataType: string, context: ChatContext): ChatMe
   if (dataType === 'receipts') {
     return {
       id: Date.now().toString(),
-      text: `Receipt fetching coming soon!\n\nI'll be able to:\n• Find receipts by store\n• Search by date range\n• Export for records\n\nStay tuned!`,
+      text: "Receipt fetching coming soon!\n\nI'll be able to:\n• Find receipts by store\n• Search by date range\n• Export for records\n\nStay tuned!",
       sender: 'assistant',
       timestamp: Date.now(),
       type: 'data',
@@ -252,7 +261,7 @@ function getDataFetchingResponse(dataType: string, context: ChatContext): ChatMe
   if (dataType === 'coupons') {
     return {
       id: Date.now().toString(),
-      text: `Coupon finder coming soon!\n\nI'll search:\n• Store-specific deals\n• Manufacturer coupons\n• Digital offers\n\nYou'll save even more!`,
+      text: "Coupon finder coming soon!\n\nI'll search:\n• Store-specific deals\n• Manufacturer coupons\n• Digital offers\n\nYou'll save even more!",
       sender: 'assistant',
       timestamp: Date.now(),
       type: 'data',
@@ -286,10 +295,10 @@ function getGeneralHelp(): ChatMessage {
  */
 function getDefaultResponse(userMessage: string): ChatMessage {
   const responses = [
-    `Hmm, let me think about that...\n\nCan you rephrase? Or ask:\n• "What can you do?"\n• "How do I [action]?"\n• "Why do you need [data]?"`,
-    
-    `Good question! I'm still learning that one.\n\nTry:\n• "Help"\n• "Show my tasks"\n• "Explain [feature]"`,
-    
+    'Hmm, let me think about that...\n\nCan you rephrase? Or ask:\n• "What can you do?"\n• "How do I [action]?"\n• "Why do you need [data]?"',
+
+    'Good question! I\'m still learning that one.\n\nTry:\n• "Help"\n• "Show my tasks"\n• "Explain [feature]"',
+
     `I want to help, but I'm not sure about "${userMessage}".\n\nWhat would you like to know about:\n• Features?\n• Your data?\n• How to do something?`,
   ];
 
@@ -327,10 +336,5 @@ export function getSuggestedQuestions(context: ChatContext): string[] {
     ];
   }
 
-  return [
-    'What can you do?',
-    'How does this feature work?',
-    'Show my tasks',
-    'Help',
-  ];
+  return ['What can you do?', 'How does this feature work?', 'Show my tasks', 'Help'];
 }

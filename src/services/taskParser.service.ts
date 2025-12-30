@@ -65,7 +65,10 @@ function parseTaskSegment(segment: string): ParsedTask | null {
 
   // Remove common task prefixes
   const cleanText = text
-    .replace(/^(i need to|i have to|need to|have to|must|should|to|go|get|buy|add|create|make)\s+/i, '')
+    .replace(
+      /^(i need to|i have to|need to|have to|must|should|to|go|get|buy|add|create|make)\s+/i,
+      ''
+    )
     .trim();
 
   if (cleanText.length === 0) {

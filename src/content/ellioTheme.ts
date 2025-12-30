@@ -91,7 +91,7 @@ export const EllioHeaders = {
   nextUp: 'Next up',
   onDeck: 'On deck',
   atYourPace: 'At your pace',
-  whenReady: 'When you're ready',
+  whenReady: 'When you are ready',
   handled: 'Handled',
   today: 'Today',
   thisWeek: 'This week',
@@ -287,8 +287,12 @@ export function getTooltip(feature: keyof typeof EllioTooltips) {
  * Format task count with Ellio tone
  */
 export function formatTaskCount(count: number): string {
-  if (count === 0) return 'All clear.';
-  if (count === 1) return '1 task';
+  if (count === 0) {
+    return 'All clear.';
+  }
+  if (count === 1) {
+    return '1 task';
+  }
   return `${count} tasks`;
 }
 
@@ -296,7 +300,11 @@ export function formatTaskCount(count: number): string {
  * Format completion message
  */
 export function formatCompletionMessage(count: number): string {
-  if (count === 0) return EllioEmptyStates.noTasks.title;
-  if (count === 1) return 'Nice work.';
+  if (count === 0) {
+    return EllioEmptyStates.noTasks.title;
+  }
+  if (count === 1) {
+    return 'Nice work.';
+  }
   return `${count} done. ${EllioVoice.signatures.youreGood}`;
 }

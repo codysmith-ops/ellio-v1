@@ -58,7 +58,12 @@ import { BarcodeScanner } from './src/components/BarcodeScanner';
 import { DueDatePicker } from './src/components/DueDatePicker';
 import { VoiceInput } from './src/components/VoiceInput';
 import { ParsedTask } from './src/services/taskParser.service';
-import { EllioButtons, EllioToasts, EllioHeaders, EllioEmptyStates } from './src/content/ellioTheme';
+import {
+  EllioButtons,
+  EllioToasts,
+  EllioHeaders,
+  EllioEmptyStates,
+} from './src/content/ellioTheme';
 import { ChatAssistant } from './src/components/ChatAssistant';
 
 // Helper to detect task type from title
@@ -826,10 +831,7 @@ const App = (): React.JSX.Element => {
               <CameraIcon size={24} color={palette.primary} />
               <Text style={styles.quickActionText}>Take Photo</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.quickAction}
-              onPress={() => setShowVoiceInput(true)}
-            >
+            <TouchableOpacity style={styles.quickAction} onPress={() => setShowVoiceInput(true)}>
               <Text style={styles.microphoneIcon}>🎤</Text>
               <Text style={styles.quickActionText}>Add by voice</Text>
             </TouchableOpacity>

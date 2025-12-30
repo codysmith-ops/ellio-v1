@@ -4,15 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  StyleSheet,
-  Animated,
-  Alert,
-} from 'react-native';
+import { View, Text, TouchableOpacity, Modal, StyleSheet, Animated, Alert } from 'react-native';
 import { voiceInputService, VoiceInputResult } from '../services/voiceInput.service';
 import { parseTasksFromSpeech, ParsedTask } from '../services/taskParser.service';
 import { palette, spacing, radius, typography } from '../theme';
@@ -82,11 +74,9 @@ export const VoiceInput: React.FC<VoiceInputProps> = ({ visible, onClose, onTask
       });
     } catch (error) {
       console.error('Failed to start listening:', error);
-      Alert.alert(
-        EllioVoiceInput.error.permission,
-        'Enable microphone access in Settings.',
-        [{ text: EllioButtons.gotIt }]
-      );
+      Alert.alert(EllioVoiceInput.error.permission, 'Enable microphone access in Settings.', [
+        { text: EllioButtons.gotIt },
+      ]);
     }
   };
 

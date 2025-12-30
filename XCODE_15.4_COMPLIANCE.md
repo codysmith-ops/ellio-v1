@@ -256,9 +256,11 @@ xcrun simctl launch <device-id> org.reactjs.native.example.MobileTodoList
 
 1. ✅ **Build Verification:** Confirm app builds with Xcode 15.4
 2. ✅ **Icon Testing:** Verify all Icon components render correctly
-3. ⏳ **Firebase Re-integration:** Add compatible Firebase version when available
-4. ⏳ **Production Build:** Create .ipa for TestFlight
-5. ⏳ **App Store Submission:** Submit for review
+3. ✅ **Voice Input:** Voice-powered task generation with NLP parsing
+4. ✅ **Chat Assistant:** Intelligent onboarding guidance with context-aware responses
+5. ⏳ **Firebase Re-integration:** Add compatible Firebase version when available
+6. ⏳ **Production Build:** Create .ipa for TestFlight
+7. ⏳ **App Store Submission:** Submit for review
 
 ---
 
@@ -278,5 +280,24 @@ The codebase is **100% compliant** with Xcode 15.4 requirements:
 
 ---
 
-**Last Updated:** December 28, 2025  
+## 🆕 Recent Additions
+
+### Voice Input System
+- **Status:** ✅ COMPLETE
+- Natural language task parsing with category/priority/date detection
+- Speech-to-text integration with @react-native-voice/voice
+- Pulsing microphone UI with live transcription
+- Documentation: VOICE_INPUT_ELLIO_THEME.md
+
+### Chat Assistant
+- **Status:** ✅ COMPLETE
+- Context-aware intelligent responses
+- Onboarding guidance (email, credit cards, location, notifications)
+- Feature explanations and how-to instructions
+- Floating FAB with pulsing indicator
+- Documentation: CHAT_ASSISTANT.md
+
+---
+
+**Last Updated:** December 29, 2025  
 **Status:** ✅ PRODUCTION READY

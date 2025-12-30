@@ -70,7 +70,9 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ context, tasks }) 
   }, []);
 
   const handleSendMessage = () => {
-    if (!inputText.trim()) return;
+    if (!inputText.trim()) {
+      return;
+    }
 
     // Add user message
     const userMessage: ChatMessage = {
