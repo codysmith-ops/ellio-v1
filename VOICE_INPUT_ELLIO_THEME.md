@@ -10,7 +10,7 @@ Transform how users add tasks by **speaking naturally** instead of typing. The a
 
 ### Core Promise
 
-**"Calm momentum. One next step."**
+> "Calm momentum. One next step."
 
 Ellio helps people move forward without feeling behind.
 
@@ -164,7 +164,7 @@ The app understands natural language and automatically:
 
 ### Components
 
-**VoiceInput.tsx**
+#### VoiceInput.tsx
 
 - Modal with microphone button
 - Pulsing animation during recording
@@ -205,7 +205,7 @@ src/content/ellioTheme.ts
 
 ### Task Parser Service
 
-**parseTasksFromSpeech(transcription: string)**
+#### parseTasksFromSpeech(transcription: string)
 
 Returns:
 
@@ -274,7 +274,7 @@ Returns:
 
 ### 2. Record
 
-**User taps microphone**
+#### User taps microphone
 
 **State Changes:**
 
@@ -288,7 +288,7 @@ Returns:
 
 ### 3. Process
 
-**User taps to stop**
+#### User taps to stop
 
 **State Changes:**
 
@@ -314,7 +314,7 @@ Returns:
 
 ### 5. Confirm
 
-**User taps "Add"**
+#### User taps "Add"
 
 **Result:**
 
@@ -336,6 +336,7 @@ Returns:
 **Buttons:** "Continue" / "Not now"
 
 **If Denied:**
+
 - Show message: "Microphone permission is required."
 - Offer: "Enable in Settings"
 

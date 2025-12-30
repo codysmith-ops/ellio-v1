@@ -30,6 +30,7 @@ Every feature in Ellio must:
 ```
 
 **Problem:**
+
 - Implies continuous GPS tracking
 - Says "nearby stores" which sounds like geofencing
 - Uses "Always" permission (app doesn't need this)
@@ -80,7 +81,7 @@ Cashback Earned: $0.00
 
 **Calm Fix (Progressive Disclosure):**
 
-**State 1: No Receipts Scanned**
+#### State 1: No Receipts Scanned
 
 ```text
 💰 Money Saved
@@ -90,17 +91,18 @@ Learn how Ellio helps you save
 ```
 
 
-```texttate 2: 1-2 Receipts Scanned**
-```
+**State 2: 1-2 Receipts Scanned**
+
+```text
 💰 Money Saved
 $0.00 (not enough data yet)
 
 Scan 3+ receipts to see price comparisons
 ```
 
+#### State 3: 3+ Receipts Scanned
 
-```texttate 3: 3+ Receipts Scanned**
-```
+```text
 💰 Money Saved This Week
 $24.50
 
@@ -169,11 +171,13 @@ At this rate, you'll hit your goal by Friday.
 ### Gap #4: Advanced Features Lack Onboarding
 
 **Current State:**
+
 - Microphone icon (voice input) - no explanation
 - Scanner icon (barcode) - no explanation
 - Camera icon (product recognition) - no explanation
 
 **Problem:**
+
 - Users don't know these exist or how to use them
 - No tutorial, no tooltip, no first-time guide
 
@@ -183,7 +187,8 @@ At this rate, you'll hit your goal by Friday.
 **Calm Fix - Progressive Disclosure:**
 
 **First Time User Taps Microphone:**
-```
+
+```text
 🎤 Voice Task Entry
 
 Try saying:
@@ -197,7 +202,8 @@ Ellio understands natural language!
 ```
 
 **First Time User Taps Scanner:**
-```
+
+```text
 🔍 Barcode Scanner
 
 Point your camera at any product barcode.
@@ -210,7 +216,8 @@ Ellio will:
 ```
 
 **First Time User Taps Camera:**
-```
+
+```text
 📷 Smart Product Recognition
 
 Take a photo of any product label.
@@ -486,7 +493,7 @@ Tips for best results:
 [I'm Ready]
 ```
 
-**Step 2: (Camera view with overlay)**
+#### Step 2: (Camera view with overlay)
 
 ```text
 ┌─────────────────┐
