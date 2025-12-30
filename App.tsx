@@ -235,10 +235,12 @@ const App = (): React.JSX.Element => {
   const [showDueDatePicker, setShowDueDatePicker] = useState(false);
   const [dueDateLabel, setDueDateLabel] = useState('');
   const [showVoiceInput, setShowVoiceInput] = useState(false);
-  
+
   // Onboarding state
   const [showOnboarding, setShowOnboarding] = useState(false);
-  const [onboardingFeature, setOnboardingFeature] = useState<'voice' | 'camera' | 'barcode' | 'receipt'>('voice');
+  const [onboardingFeature, setOnboardingFeature] = useState<
+    'voice' | 'camera' | 'barcode' | 'receipt'
+  >('voice');
 
   // Check if first-time user for features
   useEffect(() => {
@@ -583,7 +585,7 @@ const App = (): React.JSX.Element => {
       await AsyncStorage.setItem('onboarding_camera', 'true');
       return;
     }
-    
+
     launchCamera(
       {
         mediaType: 'photo',
@@ -924,204 +926,210 @@ const App = (): React.JSX.Element => {
               </TouchableOpacity>
             </View>
 
-          {skuCode ? (
-            <View style={styles.skuBadge}>
-              <Text style={styles.skuBadgeText}>SKU: {skuCode}</Text>
-              <TouchableOpacity onPress={() => setSkuCode('')}>
-                <Text style={styles.skuClear}>✕</Text>
-              </TouchableOpacity>
-            </View>
-          ) : null}
-
-          {imageUri ? (
-            <View style={styles.imagePreview}>
-              <View style={styles.imagePreviewContent}>
-                <CameraIcon size={16} color={palette.textSecondary} />
-                <Text style={styles.imagePreviewText}>Photo attached</Text>
+            {skuCode ? (
+              <View style={styles.skuBadge}>
+                <Text style={styles.skuBadgeText}>SKU: {skuCode}</Text>
+                <TouchableOpacity onPress={() => setSkuCode('')}>
+                  <Text style={styles.skuClear}>✕</Text>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity onPress={() => setImageUri(undefined)}>
-                <Text style={styles.imageRemove}>✕</Text>
-              </TouchableOpacity>
+            ) : null}
+
+            {imageUri ? (
+              <View style={styles.imagePreview}>
+                <View style={styles.imagePreviewContent}>
+                  <CameraIcon size={16} color={palette.textSecondary} />
+                  <Text style={styles.imagePreviewText}>Photo attached</Text>
+                </View>
+                <TouchableOpacity onPress={() => setImageUri(undefined)}>
+                  <Text style={styles.imageRemove}>✕</Text>
+                </TouchableOpacity>
+              </View>
+            ) : null}
+
+            <TextInput
+              style={styles.input}
+              placeholder="Item name or description"
+              value={title}
+              onChangeText={setTitle}
+              placeholderTextColor={palette.textTertiary}
+            />
+
+            <TextInput
+              style={[styles.input, styles.textArea]}
+              placeholder="Notes (optional)"
+              value={note}
+              onChangeText={setNote}
+              multiline
+              numberOfLines={2}
+              placeholderTextColor={palette.textTertiary}
+            />
+
+            <View style={styles.formRow}>
+              <View style={styles.formHalf}>
+                <Text style={styles.fieldLabel}>Quantity</Text>
+                <TextInput
+                  style={styles.inputSmall}
+                  placeholder="1"
+                  value={quantity}
+                  onChangeText={setQuantity}
+                  keyboardType="number-pad"
+                  placeholderTextColor={palette.textTertiary}
+                />
+              </View>
+              <View style={styles.formHalf}>
+                <Text style={styles.fieldLabel}>Due Date</Text>
+                <TouchableOpacity
+                  style={styles.inputSmall}
+                  onPress={() => setShowDueDatePicker(true)}
+                >
+                  <Text style={dueDateLabel ? styles.inputText : styles.inputPlaceholder}>
+                    {dueDateLabel || 'Select date'}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          ) : null}
 
-          <TextInput
-            style={styles.input}
-            placeholder="Item name or description"
-            value={title}
-            onChangeText={setTitle}
-            placeholderTextColor={palette.textTertiary}
-          />
-
-          <TextInput
-            style={[styles.input, styles.textArea]}
-            placeholder="Notes (optional)"
-            value={note}
-            onChangeText={setNote}
-            multiline
-            numberOfLines={2}
-            placeholderTextColor={palette.textTertiary}
-          />
-
-          <View style={styles.formRow}>
-            <View style={styles.formHalf}>
-              <Text style={styles.fieldLabel}>Quantity</Text>
+            <View style={styles.formField}>
+              <Text style={styles.fieldLabel}>Assign To</Text>
               <TextInput
-                style={styles.inputSmall}
-                placeholder="1"
-                value={quantity}
-                onChangeText={setQuantity}
-                keyboardType="number-pad"
+                style={styles.input}
+                placeholder="Team member name"
+                value={assignedTo}
+                onChangeText={setAssignedTo}
                 placeholderTextColor={palette.textTertiary}
               />
             </View>
-            <View style={styles.formHalf}>
-              <Text style={styles.fieldLabel}>Due Date</Text>
-              <TouchableOpacity
-                style={styles.inputSmall}
-                onPress={() => setShowDueDatePicker(true)}
-              >
-                <Text style={dueDateLabel ? styles.inputText : styles.inputPlaceholder}>
-                  {dueDateLabel || 'Select date'}
-                </Text>
-              </TouchableOpacity>
+
+            <TouchableOpacity style={styles.primaryButton} onPress={handleAdd}>
+              <Text style={styles.primaryButtonText}>{EllioButtons.add}</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Activity Log */}
+          {activityLog.length > 0 && (
+            <View style={styles.card}>
+              <Text style={styles.cardTitle}>Recent Activity</Text>
+              <View style={styles.activityList}>
+                {activityLog.slice(0, 5).map(activity => (
+                  <View key={activity.id} style={styles.activityItem}>
+                    <View style={styles.activityIconContainer}>
+                      {activity.action === 'added' && <Text style={styles.activityIcon}>➕</Text>}
+                      {activity.action === 'completed' && (
+                        <Text style={styles.activityIcon}>✅</Text>
+                      )}
+                      {activity.action === 'uncompleted' && (
+                        <Text style={styles.activityIcon}>↩️</Text>
+                      )}
+                      {activity.action === 'deleted' && (
+                        <TrashIcon size={18} color={palette.error} />
+                      )}
+                    </View>
+                    <View style={styles.activityInfo}>
+                      <Text style={styles.activityText}>
+                        <Text style={styles.activityAction}>{activity.action}</Text>{' '}
+                        {activity.taskTitle}
+                      </Text>
+                      <Text style={styles.activityTime}>
+                        {formatRelativeTime(activity.timestamp)}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
+              </View>
             </View>
-          </View>
+          )}
 
-          <View style={styles.formField}>
-            <Text style={styles.fieldLabel}>Assign To</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Team member name"
-              value={assignedTo}
-              onChangeText={setAssignedTo}
-              placeholderTextColor={palette.textTertiary}
-            />
-          </View>
-
-          <TouchableOpacity style={styles.primaryButton} onPress={handleAdd}>
-            <Text style={styles.primaryButtonText}>{EllioButtons.add}</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Activity Log */}
-        {activityLog.length > 0 && (
+          {/* Tasks List */}
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Recent Activity</Text>
-            <View style={styles.activityList}>
-              {activityLog.slice(0, 5).map(activity => (
-                <View key={activity.id} style={styles.activityItem}>
-                  <View style={styles.activityIconContainer}>
-                    {activity.action === 'added' && <Text style={styles.activityIcon}>➕</Text>}
-                    {activity.action === 'completed' && <Text style={styles.activityIcon}>✅</Text>}
-                    {activity.action === 'uncompleted' && (
-                      <Text style={styles.activityIcon}>↩️</Text>
-                    )}
-                    {activity.action === 'deleted' && <TrashIcon size={18} color={palette.error} />}
-                  </View>
-                  <View style={styles.activityInfo}>
-                    <Text style={styles.activityText}>
-                      <Text style={styles.activityAction}>{activity.action}</Text>{' '}
-                      {activity.taskTitle}
-                    </Text>
-                    <Text style={styles.activityTime}>
-                      {formatRelativeTime(activity.timestamp)}
-                    </Text>
-                  </View>
-                </View>
-              ))}
+            <View style={styles.tasksHeader}>
+              <Text style={styles.cardTitle}>Tasks ({pendingCount} pending)</Text>
+              {taskFilter && (
+                <TouchableOpacity
+                  style={styles.clearFilterButton}
+                  onPress={() => setTaskFilter(null)}
+                >
+                  <Text style={styles.clearFilterText}>Clear Filter ✕</Text>
+                </TouchableOpacity>
+              )}
             </View>
-          </View>
-        )}
+            {tasks.length === 0 ? (
+              <View style={styles.emptyState}>
+                <Text style={styles.emptyStateText}>No tasks yet</Text>
+                <Text style={styles.emptyStateSubtext}>Add your first task above</Text>
+              </View>
+            ) : (
+              (() => {
+                // Apply filter based on task type
+                const filteredTasks = taskFilter
+                  ? tasks.filter(task => {
+                      if (task.completed) {
+                        return false;
+                      }
+                      return getTaskType(task.title) === taskFilter;
+                    })
+                  : tasks;
 
-        {/* Tasks List */}
-        <View style={styles.card}>
-          <View style={styles.tasksHeader}>
-            <Text style={styles.cardTitle}>Tasks ({pendingCount} pending)</Text>
-            {taskFilter && (
-              <TouchableOpacity
-                style={styles.clearFilterButton}
-                onPress={() => setTaskFilter(null)}
-              >
-                <Text style={styles.clearFilterText}>Clear Filter ✕</Text>
-              </TouchableOpacity>
+                if (filteredTasks.length === 0) {
+                  return (
+                    <View style={styles.emptyState}>
+                      <Text style={styles.emptyStateText}>No tasks in this category</Text>
+                      <Text style={styles.emptyStateSubtext}>Try a different filter</Text>
+                    </View>
+                  );
+                }
+
+                return filteredTasks.map(task => {
+                  const TaskIcon = getTaskIcon(task.title);
+                  return (
+                    <View
+                      key={task.id}
+                      style={[styles.taskCard, task.completed && styles.taskCardCompleted]}
+                    >
+                      <TouchableOpacity
+                        style={styles.taskCheckbox}
+                        onPress={() => handleToggle(task)}
+                      >
+                        <View style={[styles.checkbox, task.completed && styles.checkboxChecked]}>
+                          {task.completed && <Text style={styles.checkmark}>✓</Text>}
+                        </View>
+                      </TouchableOpacity>
+
+                      <View style={styles.taskIcon}>
+                        <TaskIcon size={24} color={palette.primary} />
+                      </View>
+
+                      <View style={styles.taskContent}>
+                        <Text
+                          style={[styles.taskTitle, task.completed && styles.taskTitleCompleted]}
+                        >
+                          {task.title}
+                        </Text>
+                        {task.note && <Text style={styles.taskNote}>{task.note}</Text>}
+                        <View style={styles.taskMeta}>
+                          {task.quantity && task.quantity > 1 && (
+                            <Text style={styles.taskMetaItem}>Qty: {task.quantity}</Text>
+                          )}
+                          {task.dueDate && (
+                            <Text style={styles.taskMetaItem}>
+                              Due: {new Date(task.dueDate).toLocaleDateString()}
+                            </Text>
+                          )}
+                        </View>
+                      </View>
+
+                      <TouchableOpacity
+                        style={styles.deleteButton}
+                        onPress={() => handleDelete(task)}
+                      >
+                        <Text style={styles.deleteButtonText}>×</Text>
+                      </TouchableOpacity>
+                    </View>
+                  );
+                });
+              })()
             )}
           </View>
-          {tasks.length === 0 ? (
-            <View style={styles.emptyState}>
-              <Text style={styles.emptyStateText}>No tasks yet</Text>
-              <Text style={styles.emptyStateSubtext}>Add your first task above</Text>
-            </View>
-          ) : (
-            (() => {
-              // Apply filter based on task type
-              const filteredTasks = taskFilter
-                ? tasks.filter(task => {
-                    if (task.completed) {
-                      return false;
-                    }
-                    return getTaskType(task.title) === taskFilter;
-                  })
-                : tasks;
-
-              if (filteredTasks.length === 0) {
-                return (
-                  <View style={styles.emptyState}>
-                    <Text style={styles.emptyStateText}>No tasks in this category</Text>
-                    <Text style={styles.emptyStateSubtext}>Try a different filter</Text>
-                  </View>
-                );
-              }
-
-              return filteredTasks.map(task => {
-                const TaskIcon = getTaskIcon(task.title);
-                return (
-                  <View
-                    key={task.id}
-                    style={[styles.taskCard, task.completed && styles.taskCardCompleted]}
-                  >
-                    <TouchableOpacity
-                      style={styles.taskCheckbox}
-                      onPress={() => handleToggle(task)}
-                    >
-                      <View style={[styles.checkbox, task.completed && styles.checkboxChecked]}>
-                        {task.completed && <Text style={styles.checkmark}>✓</Text>}
-                      </View>
-                    </TouchableOpacity>
-
-                    <View style={styles.taskIcon}>
-                      <TaskIcon size={24} color={palette.primary} />
-                    </View>
-
-                    <View style={styles.taskContent}>
-                      <Text style={[styles.taskTitle, task.completed && styles.taskTitleCompleted]}>
-                        {task.title}
-                      </Text>
-                      {task.note && <Text style={styles.taskNote}>{task.note}</Text>}
-                      <View style={styles.taskMeta}>
-                        {task.quantity && task.quantity > 1 && (
-                          <Text style={styles.taskMetaItem}>Qty: {task.quantity}</Text>
-                        )}
-                        {task.dueDate && (
-                          <Text style={styles.taskMetaItem}>
-                            Due: {new Date(task.dueDate).toLocaleDateString()}
-                          </Text>
-                        )}
-                      </View>
-                    </View>
-
-                    <TouchableOpacity
-                      style={styles.deleteButton}
-                      onPress={() => handleDelete(task)}
-                    >
-                      <Text style={styles.deleteButtonText}>×</Text>
-                    </TouchableOpacity>
-                  </View>
-                );
-              });
-            })()
-          )}
-        </View>
         </ScrollView>
       </View>
 

@@ -26,13 +26,13 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
       <Text style={styles.icon}>{icon}</Text>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.message}>{message}</Text>
-      
+
       {actionText && onActionPress && (
         <TouchableOpacity style={styles.primaryButton} onPress={onActionPress}>
           <Text style={styles.primaryButtonText}>{actionText}</Text>
         </TouchableOpacity>
       )}
-      
+
       {secondaryActionText && onSecondaryActionPress && (
         <TouchableOpacity style={styles.secondaryButton} onPress={onSecondaryActionPress}>
           <Text style={styles.secondaryButtonText}>{secondaryActionText}</Text>

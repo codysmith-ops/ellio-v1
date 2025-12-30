@@ -9,6 +9,7 @@
 ## 🧭 CORE PRINCIPLE
 
 Every feature in Ellio must:
+
 1. **Explain itself** - No mysteries, no "figure it out"
 2. **Show examples** - Mock data > empty screens
 3. **Calm tone** - Never urgent, never demanding
@@ -22,6 +23,7 @@ Every feature in Ellio must:
 ### Gap #1: Location Permission Strings Violate "No GPS" Requirement
 
 **Current State:**
+
 ```xml
 <key>NSLocationAlwaysUsageDescription</key>
 <string>Enable background location to notify you about nearby stores and deals</string>
@@ -37,17 +39,20 @@ Every feature in Ellio must:
 > "Why does Ellio need my location all the time? I thought it just scans receipts?"
 
 **Required Fix:**
+
 ```xml
 <key>NSLocationWhenInUseUsageDescription</key>
 <string>Ellio uses your approximate area (county and ZIP code) only when you scan a receipt, to help suggest nearby stores where items may be available. We never track your precise location or store location history.</string>
 ```
 
 **Remove entirely:**
+
 - NSLocationAlwaysUsageDescription
 - NSLocationAlwaysAndWhenInUseUsageDescription
 - Background mode: `<string>location</string>`
 
 **Add to Privacy Policy:**
+
 - "Receipt-Based Location Only"
 - "We extract county and ZIP from receipt headers via OCR"
 - "No GPS. No location history. No tracking."
@@ -65,6 +70,7 @@ Cashback Earned: $0.00
 ```
 
 **Problem:**
+
 - New users see zeros and think feature is broken
 - No explanation of where these numbers come from
 - No call-to-action to enable the feature
@@ -75,14 +81,16 @@ Cashback Earned: $0.00
 **Calm Fix (Progressive Disclosure):**
 
 **State 1: No Receipts Scanned**
-```
+
+```text
 💰 Money Saved
 Learn how Ellio helps you save
 
 [Scan your first receipt to see savings]
 ```
 
-**State 2: 1-2 Receipts Scanned**
+
+```texttate 2: 1-2 Receipts Scanned**
 ```
 💰 Money Saved
 $0.00 (not enough data yet)
@@ -90,7 +98,8 @@ $0.00 (not enough data yet)
 Scan 3+ receipts to see price comparisons
 ```
 
-**State 3: 3+ Receipts Scanned**
+
+```texttate 3: 3+ Receipts Scanned**
 ```
 💰 Money Saved This Week
 $24.50
@@ -124,7 +133,8 @@ Weekly Savings Goal: $[input field]
 **Calm Fix:**
 
 **Empty State:**
-```
+
+```text
 🎯 Weekly Savings Goal
 Not set yet
 
@@ -133,7 +143,8 @@ Set a goal to track your progress
 ```
 
 **With Goal Set:**
-```
+
+```text
 🎯 Weekly Savings Goal: $150
 Progress: $24.50 / $150 (16%)
 
@@ -144,6 +155,7 @@ At this rate, you'll hit your goal by Friday.
 ```
 
 **Add Celebration States:**
+
 - 50% reached: "Halfway there! 🌟"
 - 100% reached: "Goal crushed! You saved $150 this week. Nice work! 🎉"
 - Over 100%: "You exceeded your goal by $23.50! 🚀"
@@ -462,7 +474,8 @@ Receipt scanner exists but no tutorial.
 **First Receipt Scan Flow:**
 
 **Step 1:**
-```
+
+```text
 📷 Receipt Scanner
 
 Tips for best results:
@@ -474,7 +487,8 @@ Tips for best results:
 ```
 
 **Step 2: (Camera view with overlay)**
-```
+
+```text
 ┌─────────────────┐
 │                 │ ← Align receipt here
 │                 │
@@ -485,7 +499,8 @@ Tips for best results:
 Keep receipt flat and still...
 ```
 
-**Step 3: (Processing)**
+
+```texttep 3: (Processing)**
 ```
 🔍 Reading receipt...
 
@@ -533,20 +548,23 @@ Tasks likely support swipe-to-delete, but no affordance.
 **Calm Fix - Affordance Hints:**
 
 **First 3 Tasks: Show Hint**
-```
+
+```text
 ←  Swipe to delete
 □ Buy milk
 □ Return shoes
 ```
 
 **After 3 Swipes: Hide Hint**
-```
+
+```text
 □ Buy milk
 □ Return shoes
 ```
 
 **Add Help Button:**
-```
+
+```text
 ❓ Tip: Swipe left to delete, swipe right to edit
 ```
 
@@ -583,7 +601,8 @@ Try saying:
 ```
 
 **After Failed Recognition:**
-```
+
+```text
 ❌ Didn't catch that. Try:
 
 ✓ "Add [item]"
@@ -610,7 +629,8 @@ Tasks complete silently.
 - Savings milestone badges
 
 **Example:**
-```
+
+```text
 🎉 Nice work!
 
 You completed 10 tasks this week.
@@ -663,7 +683,8 @@ Users must configure everything.
 - Smart due dates (e.g., "return" tasks → 30 days)
 
 **Example:**
-```
+
+```text
 ✨ Ellio noticed:
 
 You often buy milk on Sundays.
@@ -687,7 +708,8 @@ Unknown if app works offline.
 - Show sync status
 
 **Example:**
-```
+
+```text
 🔄 Syncing...
 
 ✓ 12 tasks synced
@@ -704,7 +726,7 @@ Unknown if app works offline.
 ## 📊 UX GAP SUMMARY
 
 | Gap | Severity | Trust Impact | App Store Risk | Effort |
-|-----|----------|--------------|----------------|--------|
+| --- | -------- | ------------ | -------------- | ------ |
 | Location permissions | 🔴 CRITICAL | HIGH | HIGH | 1 hour |
 | $0.00 without explanation | 🔴 CRITICAL | HIGH | MEDIUM | 4 hours |
 | No savings goal feedback | 🟡 HIGH | MEDIUM | LOW | 3 hours |
@@ -727,22 +749,26 @@ Unknown if app works offline.
 ## 🎯 RECOMMENDED FIX PRIORITY
 
 ### Phase 1: App Store Blockers (1-2 days)
+
 1. Fix location permission strings
 2. Add explanations for $0.00 stats
 3. Add "How this works" tooltips for all stats
 
 ### Phase 2: Trust & Clarity (3-4 days)
-4. Create friendly empty states for all pages
+
+1. Create friendly empty states for all pages
 5. Add progressive disclosure for enterprise features
-6. Create receipt scanner tutorial
+3. Create receipt scanner tutorial
 
 ### Phase 3: Feature Discovery (2-3 days)
-7. Add onboarding for voice/camera/scanner
+
+1. Add onboarding for voice/camera/scanner
 8. Add savings goal progress bar
-9. Add voice command examples
+3. Add voice command examples
 
 ### Phase 4: Polish (2-3 days)
-10. Add swipe gesture hints
+
+1. Add swipe gesture hints
 11. Add celebration moments
 12. Add "What's New" dialog
 
@@ -751,6 +777,7 @@ Unknown if app works offline.
 ## 🧪 UX TESTING CHECKLIST
 
 Before App Store submission, test:
+
 - [ ] New user opens app → Sees friendly welcome, not overwhelming menu
 - [ ] User taps voice icon → Gets clear tutorial, not mystery
 - [ ] User sees $0.00 → Understands why, not confused
