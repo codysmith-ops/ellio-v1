@@ -82,34 +82,34 @@ export const radius = {
 };
 
 export const typography = {
-  // Typography hierarchy per design system (using iOS system fonts)
-  h1: { fontSize: 42, fontWeight: '700' as const, lineHeight: 48, fontFamily: 'System' },
-  h2: { fontSize: 32, fontWeight: '700' as const, lineHeight: 40, fontFamily: 'System' },
-  h3: { fontSize: 24, fontWeight: '700' as const, lineHeight: 32, fontFamily: 'System' },
+  // Typography hierarchy per design system - Quicksand for brand/headings (matches logo)
+  h1: { fontSize: 42, fontWeight: '700' as const, lineHeight: 48, fontFamily: 'Quicksand-Bold' },
+  h2: { fontSize: 32, fontWeight: '700' as const, lineHeight: 40, fontFamily: 'Quicksand-Bold' },
+  h3: { fontSize: 24, fontWeight: '700' as const, lineHeight: 32, fontFamily: 'Quicksand-Bold' },
   subtitle: {
     fontSize: 18,
     fontWeight: '600' as const,
     lineHeight: 24,
-    fontFamily: 'System',
+    fontFamily: 'Quicksand-SemiBold',
   },
-  body: { fontSize: 16, fontWeight: '400' as const, lineHeight: 24, fontFamily: 'System' },
+  body: { fontSize: 16, fontWeight: '400' as const, lineHeight: 24, fontFamily: 'Inter-Regular' },
   bodyBold: {
     fontSize: 16,
     fontWeight: '600' as const,
     lineHeight: 24,
-    fontFamily: 'System',
+    fontFamily: 'Inter-SemiBold',
   },
   secondary: {
     fontSize: 14,
     fontWeight: '400' as const,
     lineHeight: 20,
-    fontFamily: 'System',
+    fontFamily: 'Inter-Regular',
   },
   label: {
     fontSize: 12,
     fontWeight: '400' as const,
     lineHeight: 16,
-    fontFamily: 'System',
+    fontFamily: 'Inter-Medium',
     textTransform: 'uppercase' as const,
     letterSpacing: 1,
   },

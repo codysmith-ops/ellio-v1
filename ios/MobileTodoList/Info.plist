@@ -33,11 +33,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need your location to remind you of nearby tasks and find stores</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow location access to get reminders when you're near stores with your items</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Enable background location to notify you about nearby stores and deals</string>
+	<string>Ellio uses your approximate area (county and ZIP code) only when you scan a receipt, to help suggest nearby stores where items may be available. We never track your precise location or store location history.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Take photos of products to add to your shopping list</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -49,11 +45,10 @@
 	<key>NSSiriUsageDescription</key>
 	<string>Use Siri to add tasks and check your shopping list hands-free</string>
 	<key>NSUserNotificationsUsageDescription</key>
-	<string>Get notified about deals, reminders, and tasks near your location</string>
+	<string>Get notified about task reminders, savings milestones, and cashback opportunities.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
-		<string>location</string>
 		<string>fetch</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
@@ -70,5 +65,20 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Quicksand-Regular.ttf</string>
+		<string>Quicksand-Medium.ttf</string>
+		<string>Quicksand-SemiBold.ttf</string>
+		<string>Quicksand-Bold.ttf</string>
+		<string>Inter-Regular.ttf</string>
+		<string>Inter-Medium.ttf</string>
+		<string>Inter-SemiBold.ttf</string>
+		<string>Inter-Bold.ttf</string>
+		<string>Montserrat-Regular.ttf</string>
+		<string>Montserrat-Medium.ttf</string>
+		<string>Montserrat-SemiBold.ttf</string>
+		<string>Montserrat-Bold.ttf</string>
+	</array>
 </dict>
 </plist>

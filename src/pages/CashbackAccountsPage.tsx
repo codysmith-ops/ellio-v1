@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
 import { LightbulbIcon } from '../components/Icons';
+import { EmptyState } from '../components/EmptyState';
 import { getCreditCardData, getAllCreditCards } from '../services/creditCardData';
 
 interface CreditCard {

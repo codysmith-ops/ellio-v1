@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     ...typography.subtitle,
     color: palette.text,
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: 'Quicksand-Bold',
     fontSize: 20,
     marginLeft: spacing.xs,
   },

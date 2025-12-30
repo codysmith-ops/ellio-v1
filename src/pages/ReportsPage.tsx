@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
 import { TrendingUpIcon, AlertStarIcon, GoalIcon } from '../components/Icons';
+import { EmptyState } from '../components/EmptyState';
 
 interface StatCard {
   title: string;

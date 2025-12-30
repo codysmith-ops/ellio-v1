@@ -62,6 +62,22 @@ export const HomePage: React.FC<HomePageProps> = ({ tasks, userName, onNavigate 
     Alert.alert('Goal Updated', `Weekly savings goal set to $${weeklySavingsGoal}`);
   };
 
+  const showMoneySavedInfo = () => {
+    Alert.alert(
+      '💰 How Money Saved Works',
+      'Ellio compares prices on your receipts to average prices in your area (using county + ZIP from receipts, not GPS).\n\nThis shows how much you saved by shopping smart!\n\nScan 3+ receipts to see your savings.',
+      [{ text: 'Got It' }]
+    );
+  };
+
+  const showCashbackInfo = () => {
+    Alert.alert(
+      '💳 How Cashback Works',
+      'Connect your cashback apps (Rakuten, Ibotta, Fetch) and Ellio will track your total earnings in one place.\n\nLink accounts in Settings → Integrations.',
+      [{ text: 'Got It' }]
+    );
+  };
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       {/* Welcome Header */}
@@ -96,8 +112,13 @@ export const HomePage: React.FC<HomePageProps> = ({ tasks, userName, onNavigate 
 
         {/* Money Saved Card */}
         <TouchableOpacity style={styles.statCard} onPress={() => onNavigate('savingsdashboard')}>
-          <View style={styles.statIcon}>
-            <DollarIcon size={20} color={palette.success} />
+          <View style={styles.cardHeader}>
+            <View style={styles.statIcon}>
+              <DollarIcon size={20} color={palette.success} />
+            </View>
+            <TouchableOpacity onPress={showMoneySavedInfo} style={styles.helpButton}>
+              <Text style={styles.helpIcon}>?</Text>
+            </TouchableOpacity>
           </View>
           <Text style={styles.statValueSmall}>${moneySavedThisWeek.toFixed(2)}</Text>
           <Text style={styles.statLabelSmall}>Saved</Text>
@@ -105,8 +126,13 @@ export const HomePage: React.FC<HomePageProps> = ({ tasks, userName, onNavigate 
 
         {/* Cashback Card */}
         <TouchableOpacity style={styles.statCard} onPress={() => onNavigate('cashback')}>
-          <View style={styles.statIcon}>
-            <TrendUpIcon size={20} color={palette.primary} />
+          <View style={styles.cardHeader}>
+            <View style={styles.statIcon}>
+              <TrendUpIcon size={20} color={palette.primary} />
+            </View>
+            <TouchableOpacity onPress={showCashbackInfo} style={styles.helpButton}>
+              <Text style={styles.helpIcon}>?</Text>
+            </TouchableOpacity>
           </View>
           <Text style={styles.statValueSmall}>${cashbackEarned.toFixed(2)}</Text>
           <Text style={styles.statLabelSmall}>Cashback</Text>
@@ -166,13 +192,23 @@ export const HomePage: React.FC<HomePageProps> = ({ tasks, userName, onNavigate 
             ${moneySavedThisWeek.toFixed(2)} of ${savingsGoalNumber.toFixed(2)} (
             {Math.round(savingsProgress)}%)
           </Text>
+          {savingsProgress >= 50 && savingsProgress < 100 && (
+            <Text style={styles.encouragementText}>Halfway there! 🌟</Text>
+          )}
         </View>
 
         {savingsProgress >= 100 && (
           <View style={styles.goalAchieved}>
-            <CheckmarkIcon size={16} color={palette.success} />
-            <Text style={styles.goalAchievedText}>Goal achieved!</Text>
+            <Text style={styles.celebrationEmoji}>🎉</Text>
+            <Text style={styles.goalAchievedText}>
+              Goal crushed! You saved ${moneySavedThisWeek.toFixed(2)} this week!
+            </Text>
           </View>
+        )}
+        {savingsProgress > 100 && (
+          <Text style={styles.bonusText}>
+            +${(moneySavedThisWeek - savingsGoalNumber).toFixed(2)} above goal 🚀
+          </Text>
         )}
       </View>
 
@@ -239,11 +275,30 @@ const styles = StyleSheet.create({
     backgroundColor: palette.surface,
     padding: spacing.md,
     borderRadius: radius.lg,
-    ...shadow.sm,
+    ...shadow.light,
     width: '48%',
   },
   statCardLarge: {
     width: '100%',
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: spacing.sm,
+  },
+  helpButton: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: palette.primaryLight,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  helpIcon: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: palette.surface,
   },
   statIcon: {
     marginBottom: spacing.sm,
@@ -344,9 +399,15 @@ const styles = StyleSheet.create({
     backgroundColor: palette.success,
   },
   progressText: {
-    ...typography.caption,
+    ...typography.secondary,
     color: palette.textSecondary,
     textAlign: 'center',
+  },
+  encouragementText: {
+    ...typography.bodyBold,
+    color: palette.warning,
+    textAlign: 'center',
+    marginTop: spacing.xs,
   },
   goalAchieved: {
     flexDirection: 'row',
@@ -358,9 +419,20 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: palette.border,
   },
+  celebrationEmoji: {
+    fontSize: 20,
+  },
   goalAchievedText: {
     ...typography.bodyBold,
     color: palette.success,
+    flex: 1,
+  },
+  bonusText: {
+    ...typography.secondary,
+    color: palette.success,
+    textAlign: 'center',
+    marginTop: spacing.xs,
+    fontWeight: '600',
   },
   sectionTitle: {
     ...typography.h3,

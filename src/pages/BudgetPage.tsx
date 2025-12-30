@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
 import { LightbulbIcon } from '../components/Icons';
+import { EmptyState } from '../components/EmptyState';
 
 interface BudgetCategory {
   id: string;

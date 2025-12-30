@@ -9,6 +9,7 @@ import {
   LightbulbIcon,
   WarningIcon,
 } from '../components/Icons';
+import { EmptyState } from '../components/EmptyState';
 import { useTodoStore } from '../store';
 
 export const TaskAnalyticsPage: React.FC = () => {
@@ -67,6 +68,27 @@ export const TaskAnalyticsPage: React.FC = () => {
   });
 
   const maxDaily = Math.max(...dailyCompletions, 1);
+
+  // Show empty state if no tasks
+  if (totalTasks === 0) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>
+            <TrendUpIcon /> Task Analytics
+          </Text>
+          <Text style={styles.headerSubtitle}>Your productivity insights</Text>
+        </View>
+        <EmptyState
+          icon="📊"
+          title="No analytics yet"
+          message="Complete a few tasks to see your productivity metrics, trends, and insights. We'll show you completion rates, daily patterns, and personalized recommendations."
+          actionText="View Tasks"
+          onActionPress={() => {}}
+        />
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>

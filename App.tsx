@@ -48,6 +48,7 @@ import { ApprovalsPage } from './src/pages/ApprovalsPage';
 import { TemplatesPage } from './src/pages/TemplatesPage';
 import { AdminPage } from './src/pages/AdminPage';
 import { SyncStatusPage } from './src/pages/SyncStatusPage';
+import { FeatureOnboarding } from './src/components/FeatureOnboarding';
 import { CompliancePage } from './src/pages/CompliancePage';
 import { BrandPreferenceDialog, BrandPreference } from './src/components/BrandPreferenceDialog';
 import { StorePreferenceDialog } from './src/components/StorePreferenceDialog';
@@ -234,6 +235,27 @@ const App = (): React.JSX.Element => {
   const [showDueDatePicker, setShowDueDatePicker] = useState(false);
   const [dueDateLabel, setDueDateLabel] = useState('');
   const [showVoiceInput, setShowVoiceInput] = useState(false);
+  
+  // Onboarding state
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [onboardingFeature, setOnboardingFeature] = useState<'voice' | 'camera' | 'barcode' | 'receipt'>('voice');
+
+  // Check if first-time user for features
+  useEffect(() => {
+    const checkOnboarding = async () => {
+      try {
+        const voiceOnboarded = await AsyncStorage.getItem('onboarding_voice');
+        const cameraOnboarded = await AsyncStorage.getItem('onboarding_camera');
+        const barcodeOnboarded = await AsyncStorage.getItem('onboarding_barcode');
+        // Store onboarding flags for later use
+      } catch (error) {
+        console.log('Error checking onboarding:', error);
+      }
+    };
+    if (setupComplete) {
+      checkOnboarding();
+    }
+  }, [setupComplete]);
 
   // Activity log state
   const [activityLog, setActivityLog] = useState<
@@ -529,7 +551,39 @@ const App = (): React.JSX.Element => {
     ]);
   };
 
+  const handleOnboardingClose = () => {
+    setShowOnboarding(false);
+    // After showing onboarding, trigger the actual feature
+    setTimeout(() => {
+      if (onboardingFeature === 'voice') {
+        setShowVoiceInput(true);
+      } else if (onboardingFeature === 'barcode') {
+        setShowBarcodeScanner(true);
+      }
+      // Camera already triggered via handleCamera
+    }, 300);
+  };
+
+  const handleVoiceButton = async () => {
+    const onboarded = await AsyncStorage.getItem('onboarding_voice');
+    if (!onboarded) {
+      setOnboardingFeature('voice');
+      setShowOnboarding(true);
+      await AsyncStorage.setItem('onboarding_voice', 'true');
+    } else {
+      setShowVoiceInput(true);
+    }
+  };
+
   const handleCamera = async () => {
+    const onboarded = await AsyncStorage.getItem('onboarding_camera');
+    if (!onboarded) {
+      setOnboardingFeature('camera');
+      setShowOnboarding(true);
+      await AsyncStorage.setItem('onboarding_camera', 'true');
+      return;
+    }
+    
     launchCamera(
       {
         mediaType: 'photo',
@@ -710,8 +764,15 @@ const App = (): React.JSX.Element => {
     setShowVoiceInput(false);
   };
 
-  const handleScanner = () => {
-    setShowBarcodeScanner(true);
+  const handleScanner = async () => {
+    const onboarded = await AsyncStorage.getItem('onboarding_barcode');
+    if (!onboarded) {
+      setOnboardingFeature('barcode');
+      setShowOnboarding(true);
+      await AsyncStorage.setItem('onboarding_barcode', 'true');
+    } else {
+      setShowBarcodeScanner(true);
+    }
   };
 
   const _handleOldScanner = async () => {
@@ -857,7 +918,7 @@ const App = (): React.JSX.Element => {
                 <CameraIcon size={24} color={palette.primary} />
                 <Text style={styles.quickActionText}>Take Photo</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.quickAction} onPress={() => setShowVoiceInput(true)}>
+              <TouchableOpacity style={styles.quickAction} onPress={handleVoiceButton}>
                 <Text style={styles.microphoneIcon}>🎤</Text>
                 <Text style={styles.quickActionText}>Add by voice</Text>
               </TouchableOpacity>
@@ -1181,6 +1242,13 @@ const App = (): React.JSX.Element => {
           tasks={tasks}
         />
       )}
+
+      {/* Feature Onboarding */}
+      <FeatureOnboarding
+        visible={showOnboarding}
+        onClose={handleOnboardingClose}
+        feature={onboardingFeature}
+      />
     </SafeAreaView>
   );
 };
