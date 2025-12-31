@@ -1,0 +1,761 @@
+/**
+ * Icon Library - Design System Compliant SVG Icons
+ * All icons follow design system specifications with stroke-width: 2.5-3
+ * Brand color: #5159B0
+ */
+
+import React from 'react';
+import Svg, { Path, Circle, Line } from 'react-native-svg';
+
+interface IconProps {
+  size?: number;
+  color?: string;
+  strokeWidth?: number;
+  filled?: boolean;
+}
+
+// Location/Pin Icon
+export const LocationIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Circle cx="12" cy="10" r="3" stroke={color} strokeWidth={strokeWidth} />
+  </Svg>
+);
+
+// Phone Icon
+export const PhoneIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M22 16.92V19.92C22.0011 20.1985 21.9441 20.4742 21.8325 20.7293C21.7209 20.9845 21.5573 21.2136 21.3521 21.4019C21.1468 21.5901 20.9046 21.7335 20.6407 21.8227C20.3769 21.9119 20.0974 21.9451 19.82 21.92C16.7428 21.5856 13.787 20.5341 11.19 18.85C8.77382 17.3147 6.72533 15.2662 5.19 12.85C3.49998 10.2412 2.44824 7.27099 2.12 4.17997C2.095 3.90344 2.12787 3.62474 2.21649 3.3616C2.30512 3.09846 2.44756 2.85666 2.63476 2.65162C2.82196 2.44658 3.0498 2.28271 3.30379 2.17052C3.55777 2.05833 3.83233 2.00026 4.11 1.99997H7.11C7.59531 1.9952 8.06579 2.16705 8.43376 2.48351C8.80173 2.79996 9.04207 3.23945 9.11 3.71997C9.23662 4.68004 9.47145 5.6227 9.81 6.52997C9.94455 6.88793 9.9736 7.27691 9.89384 7.65086C9.81408 8.02481 9.6288 8.36811 9.36 8.63998L8.09 9.90997C9.51356 12.4135 11.5865 14.4864 14.09 15.91L15.36 14.64C15.6319 14.3711 15.9752 14.1859 16.3491 14.1061C16.7231 14.0263 17.1121 14.0553 17.47 14.19C18.3773 14.5285 19.3199 14.7634 20.28 14.89C20.7658 14.9585 21.2094 15.2032 21.5265 15.5775C21.8437 15.9518 22.0122 16.4296 22 16.92Z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Navigation/Compass Icon
+export const NavigationIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Circle cx="12" cy="12" r="10" stroke={color} strokeWidth={strokeWidth} />
+    <Path
+      d="M16.24 7.76L14.12 14.12L7.76 16.24L9.88 9.88L16.24 7.76Z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Link/External Icon
+export const LinkIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M10 13C10.4295 13.5741 10.9774 14.0491 11.6066 14.3929C12.2357 14.7367 12.9315 14.9411 13.6467 14.9923C14.3618 15.0435 15.0796 14.9403 15.7513 14.6897C16.4231 14.4392 17.0331 14.047 17.54 13.54L20.54 10.54C21.4508 9.59695 21.9548 8.33394 21.9434 7.02296C21.932 5.71198 21.4061 4.45791 20.4791 3.53087C19.5521 2.60383 18.298 2.07799 16.987 2.0666C15.676 2.0552 14.413 2.55918 13.47 3.46997L11.75 5.17997"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M14 11C13.5705 10.4259 13.0226 9.95083 12.3934 9.60704C11.7642 9.26324 11.0685 9.05888 10.3533 9.00768C9.63819 8.95648 8.92037 9.05965 8.24861 9.31023C7.57685 9.5608 6.96684 9.95302 6.45996 10.46L3.45996 13.46C2.54917 14.403 2.04519 15.666 2.05659 16.977C2.06798 18.288 2.59382 19.5421 3.52086 20.4691C4.4479 21.3961 5.70197 21.922 7.01295 21.9334C8.32393 21.9448 9.58694 21.4408 10.53 20.53L12.24 18.82"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Search Icon
+export const SearchIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Circle cx="11" cy="11" r="8" stroke={color} strokeWidth={strokeWidth} />
+    <Path
+      d="M21 21L16.65 16.65"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Star (Rating) Icon
+export const StarIcon: React.FC<IconProps> = ({ size = 20, color = '#5159B0', filled = false }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? color : 'none'}>
+    <Path
+      d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+      stroke={color}
+      strokeWidth={2.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// List Icon
+export const ListIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Line
+      x1="8"
+      y1="6"
+      x2="21"
+      y2="6"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+    />
+    <Line
+      x1="8"
+      y1="12"
+      x2="21"
+      y2="12"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+    />
+    <Line
+      x1="8"
+      y1="18"
+      x2="21"
+      y2="18"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+    />
+    <Line
+      x1="3"
+      y1="6"
+      x2="3.01"
+      y2="6"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+    />
+    <Line
+      x1="3"
+      y1="12"
+      x2="3.01"
+      y2="12"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+    />
+    <Line
+      x1="3"
+      y1="18"
+      x2="3.01"
+      y2="18"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+    />
+  </Svg>
+);
+
+// Folder/Group Icon
+export const FolderIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M22 19C22 19.5304 21.7893 20.0391 21.4142 20.4142C21.0391 20.7893 20.5304 21 20 21H4C3.46957 21 2.96086 20.7893 2.58579 20.4142C2.21071 20.0391 2 19.5304 2 19V5C2 4.46957 2.21071 3.96086 2.58579 3.58579C2.96086 3.21071 3.46957 3 4 3H9L11 6H20C20.5304 6 21.0391 6.21071 21.4142 6.58579C21.7893 6.96086 22 7.46957 22 8V19Z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Map Icon
+export const MapIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M1 6V22L8 18L16 22L23 18V2L16 6L8 2L1 6Z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Line
+      x1="8"
+      y1="2"
+      x2="8"
+      y2="18"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+    />
+    <Line
+      x1="16"
+      y1="6"
+      x2="16"
+      y2="22"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+    />
+  </Svg>
+);
+
+// Checkmark Icon
+export const CheckIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#059669',
+  strokeWidth = 3,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+    <Path
+      d="M3 10L8 15L17 5"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Alert Star Icon (for alerts/warnings)
+export const AlertStarIcon: React.FC<
+  IconProps & { alertType?: 'critical' | 'warning' | 'success' | 'info' }
+> = ({ size = 20, alertType = 'critical' }) => {
+  const colorMap = {
+    critical: '#DC2626',
+    warning: '#D97706',
+    success: '#059669',
+    info: '#818CF8',
+  };
+  const color = colorMap[alertType];
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+      <Path
+        d="M24 8L26.4 20.8L38 16L30.4 26.4L42 30L28.8 34.4L32 46L24 36L16 46L19.2 34.4L6 30L17.6 26.4L10 16L21.6 20.8L24 8Z"
+        fill={color}
+      />
+    </Svg>
+  );
+};
+
+// Target/AI Icon
+export const TargetIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 3,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+    <Circle cx="24" cy="24" r="18" stroke={color} strokeWidth={strokeWidth} fill="none" />
+    <Circle cx="24" cy="24" r="12" stroke={color} strokeWidth={strokeWidth} fill="none" />
+    <Circle cx="24" cy="24" r="4" fill={color} />
+  </Svg>
+);
+
+// Store/Building Icon
+export const StoreIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 2.58579 21.4142C2.21071 21.0391 2 20.5304 2 20V9H3Z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M9 22V12H15V22"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Filter Icon
+export const FilterIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// ChevronDown Icon
+export const ChevronDownIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M6 9L12 15L18 9"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// ChevronRight Icon
+export const ChevronRightIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M9 18L15 12L9 6"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Camera Icon
+export const CameraIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M23 19C23 19.5304 22.7893 20.0391 22.4142 20.4142C22.0391 20.7893 21.5304 21 21 21H3C2.46957 21 1.96086 20.7893 1.58579 20.4142C1.21071 20.0391 1 19.5304 1 19V8C1 7.46957 1.21071 6.96086 1.58579 6.58579C1.96086 6.21071 2.46957 6 3 6H7L9 3H15L17 6H21C21.5304 6 22.0391 6.21071 22.4142 6.58579C22.7893 6.96086 23 7.46957 23 8V19Z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Circle cx="12" cy="13" r="4" stroke={color} strokeWidth={strokeWidth} />
+  </Svg>
+);
+
+// Trash/Delete Icon
+export const TrashIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M3 6H5H21"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Question/Help Icon
+export const QuestionIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Circle cx="12" cy="12" r="10" stroke={color} strokeWidth={strokeWidth} />
+    <Path
+      d="M9.09 9C9.3251 8.33167 9.78915 7.76811 10.4 7.40913C11.0108 7.05016 11.7289 6.91894 12.4272 7.03871C13.1255 7.15849 13.7588 7.52152 14.2151 8.06353C14.6713 8.60553 14.9211 9.29152 14.92 10C14.92 12 11.92 13 11.92 13"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path d="M12 17H12.01" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" />
+  </Svg>
+);
+
+// Lightbulb/Tip Icon
+export const LightbulbIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M9 18H15M10 22H14M12 2C8.68629 2 6 4.68629 6 8C6 10.5 7 12 8 13.5V16C8 16.5304 8.21071 17.0391 8.58579 17.4142C8.96086 17.7893 9.46957 18 10 18H14C14.5304 18 15.0391 17.7893 15.4142 17.4142C15.7893 17.0391 16 16.5304 16 16V13.5C17 12 18 10.5 18 8C18 4.68629 15.3137 2 12 2Z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Receipt Icon
+export const ReceiptIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path d="M14 2V8H20M16 13H8M16 17H8M10 9H8" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
+  </Svg>
+);
+
+// Image/Gallery Icon
+export const ImageIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Rect x="3" y="3" width="18" height="18" rx="2" stroke={color} strokeWidth={strokeWidth} />
+    <Circle cx="8.5" cy="8.5" r="1.5" stroke={color} strokeWidth={strokeWidth} />
+    <Path
+      d="M21 15L16 10L5 21"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Calendar Icon
+export const CalendarIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Rect x="3" y="4" width="18" height="18" rx="2" stroke={color} strokeWidth={strokeWidth} />
+    <Path
+      d="M16 2V6M8 2V6M3 10H21"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Text/Label Icon
+export const TextIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M4 7V4H20V7M9 20H15M12 4V20"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Upload/Export Icon
+export const UploadIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M17 8L12 3M12 3L7 8M12 3V15"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Download/Import Icon
+export const DownloadIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M7 10L12 15M12 15L17 10M12 15V3"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Message/Chat Icon
+export const MessageIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92179 4.44061 8.37488 5.27072 7.03258C6.10083 5.69028 7.28825 4.6056 8.7 3.90003C9.87812 3.30496 11.1801 2.99659 12.5 3.00003H13C15.0843 3.11502 17.053 3.99479 18.5291 5.47089C20.0052 6.94699 20.885 8.91568 21 11V11.5Z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Package/Box Icon
+export const PackageIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M21 16V8C20.9996 7.64927 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64927 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path d="M3.27 6.96L12 12.01L20.73 6.96M12 22.08V12" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
+  </Svg>
+);
+
+// Users/Team Icon
+export const UsersIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Circle cx="9" cy="7" r="4" stroke={color} strokeWidth={strokeWidth} />
+    <Path
+      d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Bell/Notification Icon
+export const BellIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M18 8C18 6.4087 17.3679 4.88258 16.2426 3.75736C15.1174 2.63214 13.5913 2 12 2C10.4087 2 8.88258 2.63214 7.75736 3.75736C6.63214 4.88258 6 6.4087 6 8C6 15 3 17 3 17H21C21 17 18 15 18 8Z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Settings/Gear Icon
+export const SettingsIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Circle cx="12" cy="12" r="3" stroke={color} strokeWidth={strokeWidth} />
+    <Path
+      d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// TrendingUp/Chart Icon
+export const TrendingUpIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M23 6L13.5 15.5L8.5 10.5L1 18"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M17 6H23V12"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Target/Goal Icon
+export const GoalIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Circle cx="12" cy="12" r="10" stroke={color} strokeWidth={strokeWidth} />
+    <Circle cx="12" cy="12" r="6" stroke={color} strokeWidth={strokeWidth} />
+    <Circle cx="12" cy="12" r="2" stroke={color} strokeWidth={strokeWidth} />
+  </Svg>
+);
+
+// Empty Mail Icon
+export const MailOpenIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M3 9L12 13L21 9M3 9L12 5L21 9M3 9V20C3 20.2652 3.10536 20.5196 3.29289 20.7071C3.48043 20.8946 3.73478 21 4 21H20C20.2652 21 20.5196 20.8946 20.7071 20.7071C20.8946 20.5196 21 20.2652 21 20V9"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+// Money/Dollar Icon
+export const MoneyIcon: React.FC<IconProps> = ({
+  size = 20,
+  color = '#5159B0',
+  strokeWidth = 2.5,
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M12 1V23M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6313 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6313 13.6815 18 14.5717 18 15.5C18 16.4283 17.6313 17.3185 16.9749 17.9749C16.3185 18.6313 15.4283 19 14.5 19H6"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+export default {
+  LocationIcon,
+  PhoneIcon,
+  NavigationIcon,
+  LinkIcon,
+  SearchIcon,
+  StarIcon,
+  ListIcon,
+  FolderIcon,
+  MapIcon,
+  CheckIcon,
+  AlertStarIcon,
+  TargetIcon,
+  StoreIcon,
+  FilterIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+  CameraIcon,
+  TrashIcon,
+  QuestionIcon,
+  LightbulbIcon,
+  ReceiptIcon,
+  ImageIcon,
+  CalendarIcon,
+  TextIcon,
+  UploadIcon,
+  DownloadIcon,
+  MessageIcon,
+  PackageIcon,
+  UsersIcon,
+  BellIcon,
+  SettingsIcon,
+  TrendingUpIcon,
+  GoalIcon,
+  MailOpenIcon,
+  MoneyIcon,
+};

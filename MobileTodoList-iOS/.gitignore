@@ -1,0 +1,132 @@
+# ============================================
+# OSX
+# ============================================
+.DS_Store
+
+# ============================================
+# Firebase (SECURITY - Never commit real keys)
+# ============================================
+ios/MobileTodoList/GoogleService-Info.plist
+
+# ============================================
+# Xcode
+# ============================================
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+ios/.xcode.env.local
+ios/build/
+ios/Pods/
+ios/*.xcworkspace/xcuserdata/
+ios/*.xcodeproj/xcuserdata/
+ios/*.xcodeproj/project.xcworkspace/xcuserdata/
+ios/DerivedData/
+
+# ============================================
+# CocoaPods
+# ============================================
+ios/Pods/
+ios/Podfile.lock
+
+# ============================================
+# Node / npm / yarn
+# ============================================
+node_modules/
+npm-debug.log
+npm-debug.log*
+yarn-error.log
+yarn-error.log*
+package-lock.json
+
+# ============================================
+# React Native
+# ============================================
+.expo/
+.expo-shared/
+
+# ============================================
+# Bundle artifacts
+# ============================================
+*.jsbundle
+
+# ============================================
+# Fastlane
+# ============================================
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# ============================================
+# Environment
+# ============================================
+.env
+.env.local
+.env.*.local
+.env.development
+.env.staging
+.env.production
+
+# Keep template file
+!.env.example
+
+# ============================================
+# IDE
+# ============================================
+# Keep .vscode/ for tasks and settings
+!.vscode/
+.vscode/*
+!.vscode/tasks.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/xcode-build-protocol.json
+.idea/
+
+# ============================================
+# Xcode Build Automation System
+# ============================================
+# Backup files (created by xcode_auditor.py)
+.xcode_backup/
+
+# Audit reports (regenerated on each run)
+xcode-audit-report.json
+
+# Manual backups from fix_build_phases.sh
+*.pbxproj.backup.*
+
+# Temporary build logs
+ios/build.log
+
+# ============================================
+# Testing
+# ============================================
+coverage/
+
+# ============================================
+# Misc
+# ============================================
+*.log
+
+# ============================================
+# DO commit these files (don't add to .gitignore)
+# ============================================
+# ✅ .vscode/
+# ✅ xcode_auditor.py
+# ✅ fix_build_phases.sh
+# ✅ *.md documentation files
+# ✅ podfile_post_install_hook.rb
+# ✅ .github/workflows/
+# ============================================

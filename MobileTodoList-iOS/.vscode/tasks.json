@@ -1,0 +1,106 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "iOS: Preflight Check",
+      "type": "shell",
+      "command": "./scripts/preflight.sh",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "iOS: Clean Build (ENFORCED)",
+      "type": "shell",
+      "command": "./scripts/preflight.sh && cd ios && xcodebuild clean build -workspace MobileTodoList.xcworkspace -scheme MobileTodoList -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5'",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "iOS: Build (ENFORCED)",
+      "type": "shell",
+      "command": "./scripts/preflight.sh && cd ios && xcodebuild build -workspace MobileTodoList.xcworkspace -scheme MobileTodoList -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5'",
+      "group": "build",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "iOS: Test (ENFORCED)",
+      "type": "shell",
+      "command": "./scripts/preflight.sh && cd ios && xcodebuild test -workspace MobileTodoList.xcworkspace -scheme MobileTodoList -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5'",
+      "group": "test",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "iOS: Run on Simulator (ENFORCED)",
+      "type": "shell",
+      "command": "./scripts/preflight.sh && npx react-native run-ios --simulator='iPhone 15' --mode Debug",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "iOS: Install Pods",
+      "type": "shell",
+      "command": "cd ios && pod install",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Compliance: Audit BEFORE (Baseline)",
+      "type": "shell",
+      "command": "bash scripts/audit_before.sh",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "showReuseMessage": false
+      }
+    },
+    {
+      "label": "Compliance: Audit AFTER (Post-Change)",
+      "type": "shell",
+      "command": "bash scripts/audit_after.sh",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "showReuseMessage": false
+      }
+    },
+    {
+      "label": "Compliance: Full Audit Cycle (BEFORE → Code → AFTER)",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Compliance: Audit BEFORE (Baseline)",
+        "Compliance: Audit AFTER (Post-Change)"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    }
+  ]
+}

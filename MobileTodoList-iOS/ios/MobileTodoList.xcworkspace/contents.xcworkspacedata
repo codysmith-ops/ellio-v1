@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:MobileTodoList.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Podfile_FIXED">
+   </FileRef>
+   <FileRef
+      location = "group:fix_ios_build.sh">
+   </FileRef>
+   <FileRef
+      location = "group:IOS_BUILD_FIX_README.md">
+   </FileRef>
+   <FileRef
+      location = "group:PODFILE_PATCH.rb">
+   </FileRef>
+   <FileRef
+      location = "group:QUICK_FIX_COMMANDS.txt">
+   </FileRef>
+   <FileRef
+      location = "group:SUMMARY.txt">
+   </FileRef>
+   <FileRef
+      location = "group:START_HERE.sh">
+   </FileRef>
+   <FileRef
+      location = "group:FILE_GUIDE.txt">
+   </FileRef>
+   <FileRef
+      location = "group:CHECKLIST.txt">
+   </FileRef>
+   <FileRef
+      location = "group:INDEX.txt">
+   </FileRef>
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <FileRef
+      location = "group:one_line_fix.sh">
+   </FileRef>
+   <FileRef
+      location = "group:START_HERE_READ_FIRST.txt">
+   </FileRef>
+   <FileRef
+      location = "group:fix_ios_build 2.sh">
+   </FileRef>
+   <FileRef
+      location = "group:fix_xcode_build_phases.rb">
+   </FileRef>
+   <FileRef
+      location = "group:fix_all_ios_issues.sh">
+   </FileRef>
+   <FileRef
+      location = "group:fix_build_phase_warnings.py">
+   </FileRef>
+   <FileRef
+      location = "group:IOS_FIX_COMPLETE_GUIDE.md">
+   </FileRef>
+   <FileRef
+      location = "group:fix_everything.sh">
+   </FileRef>
+   <FileRef
+      location = "group:FIX_SUMMARY.md">
+   </FileRef>
+   <FileRef
+      location = "group:make_executable.sh">
+   </FileRef>
+   <FileRef
+      location = "group:START_HERE.md">
+   </FileRef>
+   <FileRef
+      location = "group:FILE_STRUCTURE_GUIDE.txt">
+   </FileRef>
+   <FileRef
+      location = "group:CHECKLIST.md">
+   </FileRef>
+   <FileRef
+      location = "group:VISUAL_GUIDE.txt">
+   </FileRef>
+   <FileRef
+      location = "group:NAVIGATION_INDEX.txt">
+   </FileRef>
+   <FileRef
+      location = "group:EXECUTIVE_SUMMARY.txt">
+   </FileRef>
+   <FileRef
+      location = "group:READ_ME_FIRST.sh">
+   </FileRef>
+   <FileRef
+      location = "group:xcode_auditor.py">
+   </FileRef>
+   <FileRef
+      location = "group:fix_build_phases.sh">
+   </FileRef>
+   <FileRef
+      location = "group:XCODE_PROTOCOL_GUIDE.md">
+   </FileRef>
+   <FileRef
+      location = "group:podfile_post_install_hook.rb">
+   </FileRef>
+   <FileRef
+      location = "group:AUTOMATED_FIX_README.md">
+   </FileRef>
+   <FileRef
+      location = "group:package.json.scripts.example">
+   </FileRef>
+   <FileRef
+      location = "group:QUICK_REFERENCE.md">
+   </FileRef>
+   <FileRef
+      location = "group:IMPLEMENTATION_CHECKLIST.md">
+   </FileRef>
+   <FileRef
+      location = "group:START_HERE_COMPLETE_SUMMARY.md">
+   </FileRef>
+   <FileRef
+      location = "group:gitignore_additions.txt">
+   </FileRef>
+   <FileRef
+      location = "group:fix_react_native_codegen.sh">
+   </FileRef>
+   <FileRef
+      location = "group:xcode_auditor 2.py">
+   </FileRef>
+   <FileRef
+      location = "group:fix_duplicate_lc++.py">
+   </FileRef>
+   <FileRef
+      location = "group:fix_duplicate_lc++.sh">
+   </FileRef>
+   <FileRef
+      location = "group:FIX_DUPLICATE_LC++_README.md">
+   </FileRef>
+   <FileRef
+      location = "group:run_lc++_fix.sh">
+   </FileRef>
+   <FileRef
+      location = "group:SOLUTION_SUMMARY.md">
+   </FileRef>
+   <FileRef
+      location = "group:QUICK_REFERENCE.txt">
+   </FileRef>
+   <FileRef
+      location = "group:FIX_BUILD_ERRORS.md">
+   </FileRef>
+   <FileRef
+      location = "group:fix_all_build_issues.sh">
+   </FileRef>
+   <FileRef
+      location = "group:Podfile.recommended">
+   </FileRef>
+   <FileRef
+      location = "group:QUICK_FIX.md">
+   </FileRef>
+   <FileRef
+      location = "group:check_environment.sh">
+   </FileRef>
+   <FileRef
+      location = "group:README 2.md">
+   </FileRef>
+   <FileRef
+      location = "group:VISUAL_GUIDE.md">
+   </FileRef>
+</Workspace>

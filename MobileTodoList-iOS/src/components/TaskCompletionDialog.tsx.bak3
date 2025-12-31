@@ -1,0 +1,381 @@
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Modal,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  Alert,
+} from 'react-native';
+import { palette, spacing, radius, typography } from '../theme';
+import { Task } from '../store';
+import { launchImageLibrary } from 'react-native-image-picker';
+
+interface TaskCompletionDialogProps {
+  visible: boolean;
+  tasks: Task[];
+  onComplete: (taskId: string, receiptUri?: string) => void;
+  onSkip: (taskId: string) => void;
+  onDismiss: () => void;
+  requireReceipt?: boolean;
+}
+
+export const TaskCompletionDialog: React.FC<TaskCompletionDialogProps> = ({
+  visible,
+  tasks,
+  onComplete,
+  onSkip,
+  onDismiss,
+  requireReceipt = false,
+}) => {
+  const [selectedTaskIndex, setSelectedTaskIndex] = useState(0);
+  const [receiptUri, setReceiptUri] = useState<string | undefined>();
+
+  const currentTask = tasks[selectedTaskIndex];
+
+  if (!currentTask) {
+    return null;
+  }
+
+  const handleUploadReceipt = () => {
+    launchImageLibrary(
+      {
+        mediaType: 'photo',
+        quality: 0.8,
+      },
+      response => {
+        if (response.didCancel) {
+          return;
+        }
+        if (response.errorMessage) {
+          Alert.alert('Error', 'Failed to upload receipt');
+          return;
+        }
+        if (response.assets && response.assets[0]) {
+          setReceiptUri(response.assets[0].uri);
+        }
+      }
+    );
+  };
+
+  const handleComplete = () => {
+    if (requireReceipt && !receiptUri && currentTask.needsReimbursement) {
+      Alert.alert(
+        'Receipt Required',
+        'This task requires a receipt for reimbursement. Please upload one or skip for now.',
+        [
+          { text: 'Upload Receipt', onPress: handleUploadReceipt },
+          { text: 'Skip', onPress: () => handleSkip(), style: 'cancel' },
+        ]
+      );
+      return;
+    }
+
+    onComplete(currentTask.id, receiptUri);
+    setReceiptUri(undefined);
+
+    // Move to next task if available
+    if (selectedTaskIndex < tasks.length - 1) {
+      setSelectedTaskIndex(selectedTaskIndex + 1);
+    } else {
+      onDismiss();
+    }
+  };
+
+  const handleSkip = () => {
+    onSkip(currentTask.id);
+    setReceiptUri(undefined);
+
+    if (selectedTaskIndex < tasks.length - 1) {
+      setSelectedTaskIndex(selectedTaskIndex + 1);
+    } else {
+      onDismiss();
+    }
+  };
+
+  return (
+    <Modal visible={visible} transparent animationType="slide" onRequestClose={onDismiss}>
+      <View style={styles.overlay}>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <View style={styles.locationBadge}>
+              <LocationIcon size={18} color={palette.textSecondary} />
+              <Text style={styles.locationText}>
+                You're at {currentTask.storeName || 'the store'}
+              </Text>
+            </View>
+            <TouchableOpacity onPress={onDismiss} style={styles.closeButton}>
+              <Text style={styles.closeIcon}>✕</Text>
+            </TouchableOpacity>
+          </View>
+
+          <ScrollView style={styles.content}>
+            <Text style={styles.title}>Did you complete this task?</Text>
+
+            <View style={styles.taskCard}>
+              <Text style={styles.taskTitle}>{currentTask.title}</Text>
+              {currentTask.note && <Text style={styles.taskNote}>{currentTask.note}</Text>}
+              {currentTask.quantity && currentTask.quantity > 1 && (
+                <Text style={styles.quantity}>Quantity: {currentTask.quantity}</Text>
+              )}
+            </View>
+
+            {currentTask.needsReimbursement && (
+              <View style={styles.reimbursementBanner}>
+                <MoneyIcon size={18} color={palette.success} />
+                <View style={styles.reimbursementContent}>
+                  <Text style={styles.reimbursementTitle}>Reimbursement Required</Text>
+                  <Text style={styles.reimbursementText}>
+                    Please upload a receipt for this purchase
+                  </Text>
+                </View>
+              </View>
+            )}
+
+            {receiptUri ? (
+              <View style={styles.receiptPreview}>
+                <Text style={styles.receiptLabel}>Receipt Uploaded</Text>
+                <Image source={{ uri: receiptUri }} style={styles.receiptImage} />
+                <TouchableOpacity
+                  onPress={() => setReceiptUri(undefined)}
+                  style={styles.removeReceipt}
+                >
+                  <Text style={styles.removeReceiptText}>Remove</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <TouchableOpacity style={styles.uploadButton} onPress={handleUploadReceipt}>
+                <CameraIcon size={20} color={palette.primary} />
+                <Text style={styles.uploadText}>Upload Receipt (Optional)</Text>
+              </TouchableOpacity>
+            )}
+
+            {tasks.length > 1 && (
+              <View style={styles.progress}>
+                <Text style={styles.progressText}>
+                  Task {selectedTaskIndex + 1} of {tasks.length}
+                </Text>
+                <View style={styles.progressBar}>
+                  {tasks.map((_, index) => (
+                    <View
+                      key={index}
+                      style={[
+                        styles.progressDot,
+                        index <= selectedTaskIndex && styles.progressDotActive,
+                      ]}
+                    />
+                  ))}
+                </View>
+              </View>
+            )}
+          </ScrollView>
+
+          <View style={styles.footer}>
+            <TouchableOpacity style={styles.skipButton} onPress={handleSkip}>
+              <Text style={styles.skipButtonText}>Not Yet</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.completeButton} onPress={handleComplete}>
+              <Text style={styles.completeButtonText}>✓ Complete</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
+const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
+  },
+  container: {
+    backgroundColor: palette.surface,
+    borderTopLeftRadius: radius.large,
+    borderTopRightRadius: radius.large,
+    maxHeight: '80%',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: spacing.lg,
+    borderBottomWidth: 1,
+    borderBottomColor: palette.border,
+  },
+  locationBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: palette.primaryLight || '#EBF5FF',
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderRadius: radius.medium,
+    gap: spacing.sm,
+  },
+  locationIcon: {
+    fontSize: 16,
+  },
+  locationText: {
+    ...typography.bodyBold,
+    color: palette.primary,
+  },
+  closeButton: {
+    width: 32,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  closeIcon: {
+    fontSize: 24,
+    color: palette.textSecondary,
+  },
+  content: {
+    padding: spacing.lg,
+  },
+  title: {
+    ...typography.h2,
+    color: palette.text,
+    marginBottom: spacing.lg,
+  },
+  taskCard: {
+    backgroundColor: palette.background,
+    padding: spacing.md,
+    borderRadius: radius.medium,
+    marginBottom: spacing.lg,
+  },
+  taskTitle: {
+    ...typography.bodyBold,
+    color: palette.text,
+    marginBottom: spacing.xs,
+  },
+  taskNote: {
+    ...typography.body,
+    color: palette.textSecondary,
+    marginBottom: spacing.xs,
+  },
+  quantity: {
+    ...typography.secondary,
+    color: palette.textTertiary,
+  },
+  reimbursementBanner: {
+    flexDirection: 'row',
+    gap: spacing.md,
+    backgroundColor: '#FFF4E6',
+    padding: spacing.md,
+    borderRadius: radius.medium,
+    marginBottom: spacing.lg,
+    borderWidth: 1,
+    borderColor: '#FFB020',
+  },
+  reimbursementIcon: {
+    fontSize: 24,
+  },
+  reimbursementContent: {
+    flex: 1,
+  },
+  reimbursementTitle: {
+    ...typography.bodyBold,
+    color: '#F59E0B',
+    marginBottom: 4,
+  },
+  reimbursementText: {
+    ...typography.secondary,
+    color: '#92400E',
+  },
+  uploadButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    backgroundColor: palette.surface,
+    borderWidth: 2,
+    borderColor: palette.border,
+    borderStyle: 'dashed',
+    paddingVertical: spacing.lg,
+    borderRadius: radius.medium,
+    marginBottom: spacing.lg,
+  },
+  uploadIcon: {
+    fontSize: 24,
+  },
+  uploadText: {
+    ...typography.bodyBold,
+    color: palette.textSecondary,
+  },
+  receiptPreview: {
+    marginBottom: spacing.lg,
+  },
+  receiptLabel: {
+    ...typography.bodyBold,
+    color: palette.success,
+    marginBottom: spacing.sm,
+  },
+  receiptImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: radius.medium,
+    marginBottom: spacing.sm,
+  },
+  removeReceipt: {
+    alignSelf: 'center',
+    paddingVertical: spacing.sm,
+  },
+  removeReceiptText: {
+    ...typography.body,
+    color: palette.error,
+  },
+  progress: {
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  progressText: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+  },
+  progressBar: {
+    flexDirection: 'row',
+    gap: spacing.xs,
+  },
+  progressDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: palette.border,
+  },
+  progressDotActive: {
+    backgroundColor: palette.primary,
+  },
+  footer: {
+    flexDirection: 'row',
+    gap: spacing.md,
+    padding: spacing.lg,
+    borderTopWidth: 1,
+    borderTopColor: palette.border,
+  },
+  skipButton: {
+    flex: 1,
+    paddingVertical: spacing.md,
+    alignItems: 'center',
+    borderRadius: radius.button,
+    borderWidth: 2,
+    borderColor: palette.border,
+  },
+  skipButtonText: {
+    ...typography.bodyBold,
+    color: palette.textSecondary,
+  },
+  completeButton: {
+    flex: 2,
+    paddingVertical: spacing.md,
+    alignItems: 'center',
+    backgroundColor: palette.success,
+    borderRadius: radius.button,
+  },
+  completeButtonText: {
+    ...typography.bodyBold,
+    color: '#FFFFFF',
+  },
+});

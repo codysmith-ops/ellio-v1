@@ -1,0 +1,358 @@
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { palette, spacing, radius, typography } from '../theme';
+import { BellIcon } from '../components/Icons';
+interface Notification {
+  id: string;
+  type: 'task' | 'chat' | 'system' | 'reminder';
+  title: string;
+  message: string;
+  timestamp: number;
+  read: boolean;
+  actionable?: boolean;
+}
+
+export const NotificationsPage: React.FC = () => {
+  const [notifications, setNotifications] = useState<Notification[]>([
+    {
+      id: '1',
+      type: 'task',
+      title: 'Task Due Soon',
+      message: 'Your task "Grocery Shopping" is due in 2 hours',
+      timestamp: Date.now() - 300000,
+      read: false,
+      actionable: true,
+    },
+    {
+      id: '2',
+      type: 'chat',
+      title: 'New Message',
+      message: 'Sarah sent you a message in Team Tasks',
+      timestamp: Date.now() - 600000,
+      read: false,
+      actionable: true,
+    },
+    {
+      id: '3',
+      type: 'task',
+      title: 'Task Completed',
+      message: 'John completed "Package Delivery"',
+      timestamp: Date.now() - 3600000,
+      read: true,
+      actionable: false,
+    },
+    {
+      id: '4',
+      type: 'reminder',
+      title: 'Daily Reminder',
+      message: 'You have 5 pending tasks for today',
+      timestamp: Date.now() - 7200000,
+      read: true,
+      actionable: false,
+    },
+    {
+      id: '5',
+      type: 'system',
+      title: 'App Update Available',
+      message: 'Version 1.1.0 is now available for download',
+      timestamp: Date.now() - 86400000,
+      read: true,
+      actionable: true,
+    },
+  ]);
+
+  const [filter, setFilter] = useState<'all' | 'unread'>('all');
+
+  const markAsRead = (id: string) => {
+    setNotifications(prev =>
+      prev.map(notif => (notif.id === id ? { ...notif, read: true } : notif))
+    );
+  };
+
+  const markAllAsRead = () => {
+    setNotifications(prev => prev.map(notif => ({ ...notif, read: true })));
+  };
+
+  const deleteNotification = (id: string) => {
+    setNotifications(prev => prev.filter(notif => notif.id !== id));
+  };
+
+  const formatTime = (timestamp: number): string => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffMinutes = Math.floor((now.getTime() - date.getTime()) / 60000);
+
+    if (diffMinutes < 1) {
+      return 'Just now';
+    }
+    if (diffMinutes < 60) {
+      return `${diffMinutes}m ago`;
+    }
+    if (diffMinutes < 1440) {
+      return `${Math.floor(diffMinutes / 60)}h ago`;
+    }
+    if (diffMinutes < 10080) {
+      return `${Math.floor(diffMinutes / 1440)}d ago`;
+    }
+    return date.toLocaleDateString();
+  };
+
+  const getIcon = (type: Notification['type']): string => {
+    switch (type) {
+      case 'task':
+        return 'checkmark-circle';
+      case 'chat':
+        return 'chat';
+      case 'system':
+        return 'settings';
+      case 'reminder':
+        return 'bell';
+      default:
+        return '•';
+    }
+  };
+
+  const filteredNotifications =
+    filter === 'unread' ? notifications.filter(n => !n.read) : notifications;
+
+  const unreadCount = notifications.filter(n => !n.read).length;
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Notifications</Text>
+        {unreadCount > 0 && (
+          <View style={styles.unreadBadge}>
+            <Text style={styles.unreadText}>{unreadCount}</Text>
+          </View>
+        )}
+      </View>
+
+      <View style={styles.filterContainer}>
+        <TouchableOpacity
+          style={[styles.filterButton, filter === 'all' && styles.filterButtonActive]}
+          onPress={() => setFilter('all')}
+        >
+          <Text
+            style={[styles.filterButtonText, filter === 'all' && styles.filterButtonTextActive]}
+          >
+            All
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.filterButton, filter === 'unread' && styles.filterButtonActive]}
+          onPress={() => setFilter('unread')}
+        >
+          <Text
+            style={[styles.filterButtonText, filter === 'unread' && styles.filterButtonTextActive]}
+          >
+            Unread ({unreadCount})
+          </Text>
+        </TouchableOpacity>
+        {unreadCount > 0 && (
+          <TouchableOpacity style={styles.markAllButton} onPress={markAllAsRead}>
+            <Text style={styles.markAllButtonText}>Mark all read</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+
+      <ScrollView style={styles.notificationsList}>
+        {filteredNotifications.length === 0 ? (
+          <View style={styles.emptyState}>
+            <BellIcon size={48} color={palette.textTertiary} />
+            <Text style={styles.emptyStateText}>No notifications</Text>
+            <Text style={styles.emptyStateSubtext}>
+              {filter === 'unread' ? "You're all caught up!" : "You'll see notifications here"}
+            </Text>
+          </View>
+        ) : (
+          filteredNotifications.map(notification => (
+            <TouchableOpacity
+              key={notification.id}
+              style={[styles.notificationCard, !notification.read && styles.notificationCardUnread]}
+              onPress={() => markAsRead(notification.id)}
+            >
+              <View style={styles.notificationIcon}>
+                <Text style={styles.notificationIconText}>{getIcon(notification.type)}</Text>
+              </View>
+              <View style={styles.notificationContent}>
+                <View style={styles.notificationHeader}>
+                  <Text style={styles.notificationTitle}>{notification.title}</Text>
+                  <Text style={styles.notificationTime}>{formatTime(notification.timestamp)}</Text>
+                </View>
+                <Text style={styles.notificationMessage}>{notification.message}</Text>
+                {notification.actionable && (
+                  <TouchableOpacity style={styles.actionButton}>
+                    <Text style={styles.actionButtonText}>View</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => deleteNotification(notification.id)}
+              >
+                <Text style={styles.deleteButtonText}>×</Text>
+              </TouchableOpacity>
+            </TouchableOpacity>
+          ))
+        )}
+      </ScrollView>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: palette.surface,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: spacing.lg,
+    borderBottomWidth: 1,
+    borderBottomColor: palette.border,
+  },
+  headerTitle: {
+    ...typography.h3,
+    color: palette.text,
+  },
+  unreadBadge: {
+    backgroundColor: palette.primary,
+    borderRadius: 12,
+    minWidth: 24,
+    height: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 8,
+    marginLeft: spacing.sm,
+  },
+  unreadText: {
+    ...typography.secondary,
+    color: palette.surface,
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  filterContainer: {
+    flexDirection: 'row',
+    padding: spacing.md,
+    gap: spacing.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: palette.border,
+  },
+  filterButton: {
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderRadius: radius.button,
+    borderWidth: 1,
+    borderColor: palette.border,
+    backgroundColor: palette.surface,
+  },
+  filterButtonActive: {
+    backgroundColor: palette.primary,
+    borderColor: palette.primary,
+  },
+  filterButtonText: {
+    ...typography.body,
+    color: palette.textSecondary,
+  },
+  filterButtonTextActive: {
+    ...typography.bodyBold,
+    color: palette.surface,
+  },
+  markAllButton: {
+    marginLeft: 'auto',
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+  },
+  markAllButtonText: {
+    ...typography.body,
+    color: palette.primary,
+  },
+  notificationsList: {
+    flex: 1,
+  },
+  emptyState: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: spacing.xxl * 2,
+  },
+  emptyStateIcon: {
+    fontSize: 64,
+    marginBottom: spacing.lg,
+  },
+  emptyStateText: {
+    ...typography.h3,
+    color: palette.textSecondary,
+    marginBottom: spacing.sm,
+  },
+  emptyStateSubtext: {
+    ...typography.body,
+    color: palette.textTertiary,
+  },
+  notificationCard: {
+    flexDirection: 'row',
+    padding: spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: palette.border,
+    backgroundColor: palette.surface,
+  },
+  notificationCardUnread: {
+    backgroundColor: palette.infoLight,
+  },
+  notificationIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: palette.background,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: spacing.md,
+  },
+  notificationIconText: {
+    fontSize: 20,
+  },
+  notificationContent: {
+    flex: 1,
+  },
+  notificationHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 4,
+  },
+  notificationTitle: {
+    ...typography.bodyBold,
+    color: palette.text,
+    flex: 1,
+  },
+  notificationTime: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+    marginLeft: spacing.sm,
+  },
+  notificationMessage: {
+    ...typography.body,
+    color: palette.textSecondary,
+    marginBottom: spacing.sm,
+  },
+  actionButton: {
+    alignSelf: 'flex-start',
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.md,
+    borderRadius: radius.badge,
+    backgroundColor: palette.primary,
+  },
+  actionButtonText: {
+    ...typography.secondary,
+    color: palette.surface,
+    fontWeight: '600',
+  },
+  deleteButton: {
+    padding: spacing.sm,
+  },
+  deleteButtonText: {
+    fontSize: 24,
+    color: palette.textTertiary,
+    lineHeight: 24,
+  },
+});

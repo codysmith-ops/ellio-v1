@@ -1,0 +1,25 @@
+# Audit artifacts (generated during compliance audits)
+*BEFORE_*.md
+*AFTER_*.md
+*AUDIT*.md
+*_LOCK.md
+*_INVENTORY.md
+*_SCAN*.md
+*_LOG.md
+*_RUNBOOK.md
+*COMPLIANCE*.md
+*INTEGRITY*.md
+
+# Build outputs
+ios/build/
+ios/Pods/
+ios/DerivedData/
+node_modules/
+coverage/
+
+# Metro
+.metro-health-check*
+
+# Xcode
+*.xcworkspace
+*.xcodeproj

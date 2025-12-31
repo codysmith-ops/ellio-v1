@@ -1,0 +1,819 @@
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { palette, spacing, radius, typography } from '../theme';
+import {
+  DollarIcon,
+  ChartIcon,
+  CreditCardIcon,
+  TrendUpIcon,
+  TargetIcon,
+  CheckmarkIcon,
+  LightbulbIcon,
+  CalendarIcon,
+} from '../components/Icons';
+
+export const MonthlyReportPage: React.FC = () => {
+  const [selectedMonth] = useState('December 2025');
+
+  const monthData = {
+    totalSpent: 1247.89,
+    budgeted: 1500.0,
+    cashbackEarned: 102.34,
+    receiptCount: 47,
+    savingsVsAverage: 602.11,
+    categoryBreakdown: [
+      { name: 'Groceries', spent: 487.23, budget: 500, icon: '<ChartIcon />', color: '#4CAF50' },
+      { name: 'Dining', spent: 234.56, budget: 300, icon: '<ChartIcon />', color: '#FF9800' },
+      { name: 'Transport', spent: 156.78, budget: 200, icon: '<LocationIcon />', color: '#2196F3' },
+      { name: 'Entertainment', spent: 123.45, budget: 150, icon: '<StarIcon />', color: '#9C27B0' },
+      { name: 'Shopping', spent: 189.87, budget: 250, icon: '<BagIcon />', color: '#E91E63' },
+      { name: 'Utilities', spent: 56.0, budget: 100, icon: '<StarIcon />', color: '#FFC107' },
+    ],
+    topMerchants: [
+      { name: 'Whole Foods', amount: 234.56, visits: 8 },
+      { name: "Trader Joe's", amount: 187.23, visits: 6 },
+      { name: 'Shell Gas', amount: 145.0, visits: 5 },
+      { name: 'Chipotle', amount: 87.5, visits: 7 },
+      { name: 'Amazon', amount: 156.78, visits: 4 },
+    ],
+    weeklyTrend: [
+      { week: 'Week 1', amount: 287.45 },
+      { week: 'Week 2', amount: 312.56 },
+      { week: 'Week 3', amount: 298.78 },
+      { week: 'Week 4', amount: 349.1 },
+    ],
+  };
+
+  const percentOfBudget = ((monthData.totalSpent / monthData.budgeted) * 100).toFixed(1);
+  const totalValue = monthData.savingsVsAverage + monthData.cashbackEarned;
+
+  const maxWeekly = Math.max(...monthData.weeklyTrend.map(w => w.amount));
+
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>
+          <ChartIcon /> Monthly Report
+        </Text>
+        <TouchableOpacity style={styles.monthSelector}>
+          <Text style={styles.monthText}>{selectedMonth} ▼</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Executive Summary */}
+      <View style={styles.summaryCard}>
+        <Text style={styles.summaryTitle}>Executive Summary</Text>
+        <View style={styles.summaryGrid}>
+          <View style={styles.summaryItem}>
+            <Text style={styles.summaryIcon}>
+              <DollarIcon />
+            </Text>
+            <Text style={styles.summaryValue}>${monthData.totalSpent.toFixed(2)}</Text>
+            <Text style={styles.summaryLabel}>Total Spent</Text>
+          </View>
+          <View style={styles.summaryItem}>
+            <Text style={styles.summaryIcon}>
+              <TargetIcon />
+            </Text>
+            <Text style={styles.summaryValue}>{percentOfBudget}%</Text>
+            <Text style={styles.summaryLabel}>Of Budget</Text>
+          </View>
+          <View style={styles.summaryItem}>
+            <Text style={styles.summaryIcon}>
+              <CreditCardIcon />
+            </Text>
+            <Text style={styles.summaryValue}>${monthData.cashbackEarned.toFixed(2)}</Text>
+            <Text style={styles.summaryLabel}>Cashback</Text>
+          </View>
+          <View style={styles.summaryItem}>
+            <Text style={styles.summaryIcon}>
+              <TrendUpIcon />
+            </Text>
+            <Text style={styles.summaryValue}>${totalValue.toFixed(2)}</Text>
+            <Text style={styles.summaryLabel}>Total Value</Text>
+          </View>
+        </View>
+      </View>
+
+      {/* Impact Visualization */}
+      <View style={styles.impactCard}>
+        <Text style={styles.sectionTitle}>
+          <TargetIcon /> Your Impact
+        </Text>
+        <Text style={styles.impactSubtitle}>vs. Average American Household</Text>
+
+        <View style={styles.comparisonContainer}>
+          <View style={styles.comparisonItem}>
+            <View style={styles.barWrapper}>
+              <View style={[styles.barYou, { height: '62%' }]} />
+              <Text style={styles.barLabel}>You</Text>
+            </View>
+            <Text style={styles.barAmount}>${monthData.totalSpent.toFixed(0)}</Text>
+          </View>
+
+          <View style={styles.vsText}>
+            <Text style={styles.vsLabel}>VS</Text>
+          </View>
+
+          <View style={styles.comparisonItem}>
+            <View style={styles.barWrapper}>
+              <View style={[styles.barAverage, { height: '100%' }]} />
+              <Text style={styles.barLabel}>Average</Text>
+            </View>
+            <Text style={styles.barAmount}>$2,050</Text>
+          </View>
+        </View>
+
+        <View style={styles.savingsHighlight}>
+          <Text style={styles.savingsIcon}>
+            <CheckmarkIcon />
+          </Text>
+          <View style={styles.savingsContent}>
+            <Text style={styles.savingsAmount}>
+              You saved ${monthData.savingsVsAverage.toFixed(2)}
+            </Text>
+            <Text style={styles.savingsText}>compared to the average household this month!</Text>
+          </View>
+        </View>
+      </View>
+
+      {/* Category Breakdown */}
+      <View style={styles.categoryCard}>
+        <Text style={styles.sectionTitle}>
+          <ChartIcon /> Category Breakdown
+        </Text>
+
+        {monthData.categoryBreakdown.map((category, index) => {
+          const percent = (category.spent / category.budget) * 100;
+          return (
+            <View key={index} style={styles.categoryItem}>
+              <View style={styles.categoryHeader}>
+                <View style={styles.categoryLeft}>
+                  <Text style={styles.categoryIcon}>{category.icon}</Text>
+                  <View>
+                    <Text style={styles.categoryName}>{category.name}</Text>
+                    <Text style={styles.categorySubtext}>
+                      ${category.spent.toFixed(2)} of ${category.budget.toFixed(2)}
+                    </Text>
+                  </View>
+                </View>
+                <Text
+                  style={[
+                    styles.categoryPercent,
+                    {
+                      color:
+                        percent > 90
+                          ? palette.error
+                          : percent > 75
+                          ? palette.warning
+                          : palette.success,
+                    },
+                  ]}
+                >
+                  {percent.toFixed(0)}%
+                </Text>
+              </View>
+              <View style={styles.categoryBar}>
+                <View
+                  style={[
+                    styles.categoryBarFill,
+                    {
+                      width: `${Math.min(percent, 100)}%`,
+                      backgroundColor: category.color,
+                    },
+                  ]}
+                />
+              </View>
+            </View>
+          );
+        })}
+      </View>
+
+      {/* Weekly Trend Chart */}
+      <View style={styles.trendCard}>
+        <Text style={styles.sectionTitle}>
+          <TrendUpIcon /> Weekly Spending Trend
+        </Text>
+
+        <View style={styles.chartContainer}>
+          {monthData.weeklyTrend.map((week, index) => (
+            <View key={index} style={styles.chartColumn}>
+              <View style={styles.chartBarWrapper}>
+                <View
+                  style={[
+                    styles.chartBar,
+                    {
+                      height: `${(week.amount / maxWeekly) * 100}%`,
+                    },
+                  ]}
+                />
+              </View>
+              <Text style={styles.chartAmount}>${week.amount.toFixed(0)}</Text>
+              <Text style={styles.chartLabel}>{week.week}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.trendInsight}>
+          <Text style={styles.trendInsightText}>
+            <LightbulbIcon /> Week 4 was higher due to holiday shopping. Consider spreading
+            purchases next month.
+          </Text>
+        </View>
+      </View>
+
+      {/* Top Merchants */}
+      <View style={styles.merchantsCard}>
+        <Text style={styles.sectionTitle}>Top Merchants</Text>
+
+        {monthData.topMerchants.map((merchant, index) => (
+          <View key={index} style={styles.merchantRow}>
+            <View style={styles.merchantRank}>
+              <Text style={styles.merchantRankText}>{index + 1}</Text>
+            </View>
+            <View style={styles.merchantInfo}>
+              <Text style={styles.merchantName}>{merchant.name}</Text>
+              <Text style={styles.merchantVisits}>{merchant.visits} visits</Text>
+            </View>
+            <Text style={styles.merchantAmount}>${merchant.amount.toFixed(2)}</Text>
+          </View>
+        ))}
+      </View>
+
+      {/* Receipt Stats */}
+      <View style={styles.statsCard}>
+        <Text style={styles.sectionTitle}>Receipt Stats</Text>
+
+        <View style={styles.statsGrid}>
+          <View style={styles.statItem}>
+            <Text style={styles.statValue}>{monthData.receiptCount}</Text>
+            <Text style={styles.statLabel}>Receipts Scanned</Text>
+          </View>
+          <View style={styles.statDivider} />
+          <View style={styles.statItem}>
+            <Text style={styles.statValue}>100%</Text>
+            <Text style={styles.statLabel}>Capture Rate</Text>
+          </View>
+          <View style={styles.statDivider} />
+          <View style={styles.statItem}>
+            <Text style={styles.statValue}>$26.53</Text>
+            <Text style={styles.statLabel}>Avg. Spending</Text>
+          </View>
+        </View>
+
+        <View style={styles.achievementBadge}>
+          <Text style={styles.achievementText}>
+            icon Perfect Month! You tracked every purchase!
+          </Text>
+        </View>
+      </View>
+
+      {/* Smart Insights */}
+      <View style={styles.insightsCard}>
+        <Text style={styles.sectionTitle}>
+          <LightbulbIcon /> Smart Insights
+        </Text>
+
+        <View style={styles.insightItem}>
+          <Text style={styles.insightIcon}>
+            <ChartIcon />
+          </Text>
+          <View style={styles.insightContent}>
+            <Text style={styles.insightTitle}>Grocery Optimization</Text>
+            <Text style={styles.insightText}>
+              You're spending $97/week on groceries. The average household spends $150/week. Keep it
+              up!
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.insightItem}>
+          <Text style={styles.insightIcon}>
+            <CreditCardIcon />
+          </Text>
+          <View style={styles.insightContent}>
+            <Text style={styles.insightTitle}>Credit Card Rewards</Text>
+            <Text style={styles.insightText}>
+              You earned $102.34 in cashback. Using your Chase Freedom on dining could earn an extra
+              $15/month.
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.insightItem}>
+          <Text style={styles.insightIcon}>
+            <CalendarIcon />
+          </Text>
+          <View style={styles.insightContent}>
+            <Text style={styles.insightTitle}>Shopping Pattern</Text>
+            <Text style={styles.insightText}>
+              You spend 40% more on Fridays. Try shopping mid-week for better deals and less impulse
+              buying.
+            </Text>
+          </View>
+        </View>
+      </View>
+
+      {/* Next Month Goals */}
+      <View style={styles.goalsCard}>
+        <Text style={styles.sectionTitle}>
+          <TargetIcon /> Goals for Next Month
+        </Text>
+
+        <TouchableOpacity style={styles.goalItem}>
+          <View style={styles.goalCheckbox} />
+          <View style={styles.goalContent}>
+            <Text style={styles.goalTitle}>Reduce dining by 15%</Text>
+            <Text style={styles.goalTarget}>Target: $199 (currently $235)</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.goalItem}>
+          <View style={styles.goalCheckbox} />
+          <View style={styles.goalContent}>
+            <Text style={styles.goalTitle}>Earn $120 in cashback</Text>
+            <Text style={styles.goalTarget}>17% increase from this month</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.goalItem}>
+          <View style={styles.goalCheckbox} />
+          <View style={styles.goalContent}>
+            <Text style={styles.goalTitle}>Stay under $1,400 total</Text>
+            <Text style={styles.goalTarget}>Save extra $100 for vacation fund</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      {/* Export Options */}
+      <View style={styles.exportCard}>
+        <TouchableOpacity style={styles.exportButton}>
+          <Text style={styles.exportButtonText}>
+            <ChartIcon /> Export Full Report (PDF)
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.exportButton, styles.exportButtonSecondary]}>
+          <Text style={styles.exportButtonTextSecondary}>icon Share Summary</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.bottomSpacer} />
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: palette.background,
+  },
+  header: {
+    padding: spacing.xl,
+    alignItems: 'center',
+    backgroundColor: palette.surface,
+    borderBottomWidth: 1,
+    borderBottomColor: palette.border,
+  },
+  headerTitle: {
+    ...typography.h2,
+    color: palette.text,
+    marginBottom: spacing.md,
+  },
+  monthSelector: {
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.lg,
+    backgroundColor: palette.background,
+    borderRadius: radius.button,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  monthText: {
+    ...typography.bodyBold,
+    color: palette.text,
+  },
+  summaryCard: {
+    margin: spacing.lg,
+    padding: spacing.lg,
+    backgroundColor: palette.primary,
+    borderRadius: radius.card,
+  },
+  summaryTitle: {
+    ...typography.h3,
+    color: palette.surface,
+    marginBottom: spacing.lg,
+    textAlign: 'center',
+  },
+  summaryGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.md,
+  },
+  summaryItem: {
+    width: '47%',
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    padding: spacing.md,
+    borderRadius: radius.card,
+    alignItems: 'center',
+  },
+  summaryIcon: {
+    fontSize: 32,
+    marginBottom: spacing.sm,
+  },
+  summaryValue: {
+    ...typography.h3,
+    color: palette.surface,
+    marginBottom: spacing.xs,
+  },
+  summaryLabel: {
+    ...typography.secondary,
+    color: palette.surface,
+    opacity: 0.9,
+  },
+  impactCard: {
+    margin: spacing.lg,
+    marginTop: 0,
+    padding: spacing.lg,
+    backgroundColor: palette.surface,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  sectionTitle: {
+    ...typography.h3,
+    color: palette.text,
+    marginBottom: spacing.md,
+  },
+  impactSubtitle: {
+    ...typography.body,
+    color: palette.textSecondary,
+    marginBottom: spacing.xl,
+    textAlign: 'center',
+  },
+  comparisonContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    height: 200,
+    marginBottom: spacing.xl,
+  },
+  comparisonItem: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  barWrapper: {
+    height: 160,
+    width: 80,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: spacing.sm,
+  },
+  barYou: {
+    width: '100%',
+    backgroundColor: palette.success,
+    borderTopLeftRadius: radius.card,
+    borderTopRightRadius: radius.card,
+    marginBottom: spacing.xs,
+  },
+  barAverage: {
+    width: '100%',
+    backgroundColor: palette.error,
+    borderTopLeftRadius: radius.card,
+    borderTopRightRadius: radius.card,
+    marginBottom: spacing.xs,
+  },
+  barLabel: {
+    ...typography.bodyBold,
+    color: palette.text,
+    fontSize: 12,
+  },
+  barAmount: {
+    ...typography.bodyBold,
+    color: palette.text,
+  },
+  vsText: {
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.xxl,
+  },
+  vsLabel: {
+    ...typography.bodyBold,
+    color: palette.textSecondary,
+    fontSize: 16,
+  },
+  savingsHighlight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: spacing.lg,
+    backgroundColor: palette.successLight,
+    borderRadius: radius.card,
+  },
+  savingsIcon: {
+    fontSize: 32,
+    marginRight: spacing.md,
+  },
+  savingsContent: {
+    flex: 1,
+  },
+  savingsAmount: {
+    ...typography.h3,
+    color: palette.success,
+    marginBottom: spacing.xs,
+  },
+  savingsText: {
+    ...typography.body,
+    color: palette.text,
+  },
+  categoryCard: {
+    margin: spacing.lg,
+    marginTop: 0,
+    padding: spacing.lg,
+    backgroundColor: palette.surface,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  categoryItem: {
+    marginBottom: spacing.lg,
+  },
+  categoryHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: spacing.sm,
+  },
+  categoryLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  categoryIcon: {
+    fontSize: 24,
+    marginRight: spacing.md,
+  },
+  categoryName: {
+    ...typography.bodyBold,
+    color: palette.text,
+  },
+  categorySubtext: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+    fontSize: 12,
+  },
+  categoryPercent: {
+    ...typography.h3,
+    fontSize: 18,
+  },
+  categoryBar: {
+    height: 8,
+    backgroundColor: palette.border,
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  categoryBarFill: {
+    height: '100%',
+    borderRadius: 4,
+  },
+  trendCard: {
+    margin: spacing.lg,
+    marginTop: 0,
+    padding: spacing.lg,
+    backgroundColor: palette.surface,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  chartContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    height: 180,
+    marginBottom: spacing.lg,
+    paddingTop: spacing.md,
+  },
+  chartColumn: {
+    flex: 1,
+    alignItems: 'center',
+    marginHorizontal: spacing.xs,
+  },
+  chartBarWrapper: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'flex-end',
+    marginBottom: spacing.sm,
+  },
+  chartBar: {
+    width: '100%',
+    backgroundColor: palette.primary,
+    borderTopLeftRadius: radius.badge,
+    borderTopRightRadius: radius.badge,
+    minHeight: 20,
+  },
+  chartAmount: {
+    ...typography.secondary,
+    color: palette.text,
+    fontSize: 12,
+    marginBottom: spacing.xs,
+  },
+  chartLabel: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+    fontSize: 11,
+  },
+  trendInsight: {
+    padding: spacing.md,
+    backgroundColor: palette.infoLight,
+    borderRadius: radius.card,
+  },
+  trendInsightText: {
+    ...typography.secondary,
+    color: palette.text,
+    lineHeight: 18,
+  },
+  merchantsCard: {
+    margin: spacing.lg,
+    marginTop: 0,
+    padding: spacing.lg,
+    backgroundColor: palette.surface,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  merchantRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: palette.border,
+  },
+  merchantRank: {
+    width: 32,
+    height: 32,
+    backgroundColor: palette.primary,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: spacing.md,
+  },
+  merchantRankText: {
+    ...typography.bodyBold,
+    color: palette.surface,
+    fontSize: 14,
+  },
+  merchantInfo: {
+    flex: 1,
+  },
+  merchantName: {
+    ...typography.bodyBold,
+    color: palette.text,
+  },
+  merchantVisits: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+    fontSize: 12,
+  },
+  merchantAmount: {
+    ...typography.bodyBold,
+    color: palette.text,
+  },
+  statsCard: {
+    margin: spacing.lg,
+    marginTop: 0,
+    padding: spacing.lg,
+    backgroundColor: palette.surface,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  statsGrid: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: spacing.lg,
+  },
+  statItem: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  statDivider: {
+    width: 1,
+    height: 40,
+    backgroundColor: palette.border,
+  },
+  statValue: {
+    ...typography.h3,
+    color: palette.text,
+    marginBottom: spacing.xs,
+  },
+  statLabel: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+    textAlign: 'center',
+  },
+  achievementBadge: {
+    padding: spacing.md,
+    backgroundColor: palette.successLight,
+    borderRadius: radius.card,
+  },
+  achievementText: {
+    ...typography.body,
+    color: palette.text,
+    textAlign: 'center',
+  },
+  insightsCard: {
+    margin: spacing.lg,
+    marginTop: 0,
+    padding: spacing.lg,
+    backgroundColor: palette.surface,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  insightItem: {
+    flexDirection: 'row',
+    marginBottom: spacing.lg,
+    padding: spacing.md,
+    backgroundColor: palette.background,
+    borderRadius: radius.card,
+  },
+  insightIcon: {
+    fontSize: 28,
+    marginRight: spacing.md,
+  },
+  insightContent: {
+    flex: 1,
+  },
+  insightTitle: {
+    ...typography.bodyBold,
+    color: palette.text,
+    marginBottom: spacing.xs,
+  },
+  insightText: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+    lineHeight: 18,
+  },
+  goalsCard: {
+    margin: spacing.lg,
+    marginTop: 0,
+    padding: spacing.lg,
+    backgroundColor: palette.surface,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  goalItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: spacing.md,
+    backgroundColor: palette.background,
+    borderRadius: radius.card,
+    marginBottom: spacing.sm,
+  },
+  goalCheckbox: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: palette.primary,
+    marginRight: spacing.md,
+  },
+  goalContent: {
+    flex: 1,
+  },
+  goalTitle: {
+    ...typography.bodyBold,
+    color: palette.text,
+    marginBottom: 2,
+  },
+  goalTarget: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+    fontSize: 12,
+  },
+  exportCard: {
+    margin: spacing.lg,
+    marginTop: 0,
+  },
+  exportButton: {
+    padding: spacing.lg,
+    backgroundColor: palette.primary,
+    borderRadius: radius.button,
+    alignItems: 'center',
+    marginBottom: spacing.sm,
+  },
+  exportButtonText: {
+    ...typography.bodyBold,
+    color: palette.surface,
+    fontSize: 16,
+  },
+  exportButtonSecondary: {
+    backgroundColor: palette.surface,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  exportButtonTextSecondary: {
+    ...typography.bodyBold,
+    color: palette.text,
+    fontSize: 16,
+  },
+  bottomSpacer: {
+    height: spacing.xxl,
+  },
+});

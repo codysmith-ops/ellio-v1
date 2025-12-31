@@ -1,0 +1,445 @@
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+} from 'react-native';
+import { palette, spacing, radius, typography } from '../theme';
+import { LightbulbIcon } from '../components/icons';
+
+interface BudgetCategory {
+  id: string;
+  name: string;
+  icon: string;
+  budgeted: number;
+  spent: number;
+  remaining: number;
+}
+
+export const BudgetPage: React.FC = () => {
+  const [timeframe, setTimeframe] = useState<'week' | 'month' | 'year'>('month');
+  const [categories, setCategories] = useState<BudgetCategory[]>([
+    {
+      id: '1',
+      name: 'Groceries',
+      icon: '🛒',
+      budgeted: 600,
+      spent: 427.45,
+      remaining: 172.55,
+    },
+    {
+      id: '2',
+      name: 'Dining Out',
+      icon: 'dining',
+      budgeted: 300,
+      spent: 278.9,
+      remaining: 21.1,
+    },
+    {
+      id: '3',
+      name: 'Transportation',
+      icon: '🚗',
+      budgeted: 200,
+      spent: 145.0,
+      remaining: 55.0,
+    },
+    {
+      id: '4',
+      name: 'Entertainment',
+      icon: '🎬',
+      budgeted: 150,
+      spent: 89.5,
+      remaining: 60.5,
+    },
+    {
+      id: '5',
+      name: 'Shopping',
+      icon: 'grocery',
+      budgeted: 400,
+      spent: 312.0,
+      remaining: 88.0,
+    },
+    {
+      id: '6',
+      name: 'Utilities',
+      icon: 'lightbulb',
+      budgeted: 250,
+      spent: 250.0,
+      remaining: 0,
+    },
+  ]);
+
+  const totalBudgeted = categories.reduce((sum, cat) => sum + cat.budgeted, 0);
+  const totalSpent = categories.reduce((sum, cat) => sum + cat.spent, 0);
+  const totalRemaining = categories.reduce((sum, cat) => sum + cat.remaining, 0);
+
+  const getProgressColor = (spent: number, budgeted: number) => {
+    const percentage = (spent / budgeted) * 100;
+    if (percentage >= 100) {
+      return palette.error;
+    }
+    if (percentage >= 85) {
+      return palette.warning;
+    }
+    return palette.success;
+  };
+
+  const getProgressPercentage = (spent: number, budgeted: number) => {
+    return Math.min((spent / budgeted) * 100, 100);
+  };
+
+  const handleAddCategory = () => {
+    Alert.alert('Add Category', 'Enter category details', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Add',
+        onPress: () => {
+          // Would show a form modal in production
+          Alert.alert('Success', 'Category added!');
+        },
+      },
+    ]);
+  };
+
+  const handleEditBudget = (category: BudgetCategory) => {
+    Alert.alert(`Edit ${category.name}`, `Current budget: $${category.budgeted}`, [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Update',
+        onPress: () => {
+          Alert.alert('Success', 'Budget updated!');
+        },
+      },
+    ]);
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Budget Tracker</Text>
+        <View style={styles.timeframeSelector}>
+          {(['week', 'month', 'year'] as const).map(tf => (
+            <TouchableOpacity
+              key={tf}
+              style={[styles.timeframeButton, timeframe === tf && styles.timeframeButtonActive]}
+              onPress={() => setTimeframe(tf)}
+            >
+              <Text style={[styles.timeframeText, timeframe === tf && styles.timeframeTextActive]}>
+                {tf.charAt(0).toUpperCase() + tf.slice(1)}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </View>
+
+      <View style={styles.summaryCard}>
+        <View style={styles.summaryRow}>
+          <View style={styles.summaryItem}>
+            <Text style={styles.summaryLabel}>Budgeted</Text>
+            <Text style={styles.summaryAmount}>${totalBudgeted.toFixed(2)}</Text>
+          </View>
+          <View style={styles.summaryDivider} />
+          <View style={styles.summaryItem}>
+            <Text style={styles.summaryLabel}>Spent</Text>
+            <Text style={[styles.summaryAmount, { color: palette.error }]}>
+              ${totalSpent.toFixed(2)}
+            </Text>
+          </View>
+          <View style={styles.summaryDivider} />
+          <View style={styles.summaryItem}>
+            <Text style={styles.summaryLabel}>Remaining</Text>
+            <Text style={[styles.summaryAmount, { color: palette.success }]}>
+              ${totalRemaining.toFixed(2)}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.overallProgress}>
+          <View style={styles.progressBarBackground}>
+            <View
+              style={[
+                styles.progressBarFill,
+                {
+                  width: `${getProgressPercentage(totalSpent, totalBudgeted)}%`,
+                  backgroundColor: getProgressColor(totalSpent, totalBudgeted),
+                },
+              ]}
+            />
+          </View>
+          <Text style={styles.progressText}>
+            {((totalSpent / totalBudgeted) * 100).toFixed(1)}% of budget used
+          </Text>
+        </View>
+      </View>
+
+      <ScrollView style={styles.categoriesList}>
+        <View style={styles.listHeader}>
+          <Text style={styles.listTitle}>Categories</Text>
+          <TouchableOpacity style={styles.addButton} onPress={handleAddCategory}>
+            <Text style={styles.addButtonText}>+ Add Category</Text>
+          </TouchableOpacity>
+        </View>
+
+        {categories.map(category => (
+          <TouchableOpacity
+            key={category.id}
+            style={styles.categoryCard}
+            onPress={() => handleEditBudget(category)}
+          >
+            <View style={styles.categoryIcon}>
+              <Text style={styles.categoryIconText}>{category.icon}</Text>
+            </View>
+            <View style={styles.categoryContent}>
+              <View style={styles.categoryHeader}>
+                <Text style={styles.categoryName}>{category.name}</Text>
+                <Text style={styles.categoryBudget}>${category.budgeted.toFixed(2)}</Text>
+              </View>
+              <View style={styles.categoryProgress}>
+                <View style={styles.progressBarBackground}>
+                  <View
+                    style={[
+                      styles.progressBarFill,
+                      {
+                        width: `${getProgressPercentage(category.spent, category.budgeted)}%`,
+                        backgroundColor: getProgressColor(category.spent, category.budgeted),
+                      },
+                    ]}
+                  />
+                </View>
+              </View>
+              <View style={styles.categoryFooter}>
+                <Text style={styles.spentText}>Spent: ${category.spent.toFixed(2)}</Text>
+                <Text
+                  style={[
+                    styles.remainingText,
+                    {
+                      color:
+                        category.remaining > 0
+                          ? palette.success
+                          : category.remaining === 0
+                          ? palette.textSecondary
+                          : palette.error,
+                    },
+                  ]}
+                >
+                  {category.remaining >= 0 ? 'Left: ' : 'Over: '}$
+                  {Math.abs(category.remaining).toFixed(2)}
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ))}
+
+        <View style={styles.tipsCard}>
+          <View style={styles.tipsTitleRow}>
+            <LightbulbIcon size={18} color={palette.primary} />
+            <Text style={styles.tipsTitle}>Budget Tips</Text>
+          </View>
+          <Text style={styles.tipItem}>
+            • You're close to your Dining Out limit - consider meal prepping
+          </Text>
+          <Text style={styles.tipItem}>
+            • Great job! You've stayed under budget in 4 categories
+          </Text>
+          <Text style={styles.tipItem}>
+            • Your Utilities budget is fully spent - no room for overage
+          </Text>
+        </View>
+
+        <View style={styles.bottomSpacer} />
+      </ScrollView>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: palette.surface,
+  },
+  header: {
+    padding: spacing.lg,
+    borderBottomWidth: 1,
+    borderBottomColor: palette.border,
+  },
+  headerTitle: {
+    ...typography.h3,
+    color: palette.text,
+    marginBottom: spacing.md,
+  },
+  timeframeSelector: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+  },
+  timeframeButton: {
+    flex: 1,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderRadius: radius.button,
+    borderWidth: 1,
+    borderColor: palette.border,
+    backgroundColor: palette.surface,
+    alignItems: 'center',
+  },
+  timeframeButtonActive: {
+    backgroundColor: palette.primary,
+    borderColor: palette.primary,
+  },
+  timeframeText: {
+    ...typography.body,
+    color: palette.textSecondary,
+  },
+  timeframeTextActive: {
+    ...typography.bodyBold,
+    color: palette.surface,
+  },
+  summaryCard: {
+    margin: spacing.md,
+    padding: spacing.lg,
+    backgroundColor: palette.background,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  summaryRow: {
+    flexDirection: 'row',
+    marginBottom: spacing.md,
+  },
+  summaryItem: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  summaryDivider: {
+    width: 1,
+    backgroundColor: palette.border,
+  },
+  summaryLabel: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+    marginBottom: spacing.xs,
+  },
+  summaryAmount: {
+    ...typography.h3,
+    color: palette.text,
+  },
+  overallProgress: {
+    gap: spacing.sm,
+  },
+  progressBarBackground: {
+    height: 8,
+    backgroundColor: palette.border,
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  progressBarFill: {
+    height: '100%',
+    borderRadius: 4,
+  },
+  progressText: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+    textAlign: 'center',
+  },
+  categoriesList: {
+    flex: 1,
+  },
+  listHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: spacing.md,
+  },
+  listTitle: {
+    ...typography.bodyBold,
+    color: palette.text,
+  },
+  addButton: {
+    backgroundColor: palette.primary,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderRadius: radius.button,
+  },
+  addButtonText: {
+    ...typography.bodyBold,
+    color: palette.surface,
+    fontSize: 14,
+  },
+  categoryCard: {
+    flexDirection: 'row',
+    padding: spacing.md,
+    marginHorizontal: spacing.md,
+    marginBottom: spacing.sm,
+    backgroundColor: palette.surface,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: palette.border,
+  },
+  categoryIcon: {
+    width: 48,
+    height: 48,
+    backgroundColor: palette.background,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: spacing.md,
+  },
+  categoryIconText: {
+    fontSize: 24,
+  },
+  categoryContent: {
+    flex: 1,
+  },
+  categoryHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: spacing.sm,
+  },
+  categoryName: {
+    ...typography.bodyBold,
+    color: palette.text,
+  },
+  categoryBudget: {
+    ...typography.body,
+    color: palette.textSecondary,
+  },
+  categoryProgress: {
+    marginBottom: spacing.sm,
+  },
+  categoryFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  spentText: {
+    ...typography.secondary,
+    color: palette.textSecondary,
+  },
+  remainingText: {
+    ...typography.secondary,
+    fontWeight: '600',
+  },
+  tipsCard: {
+    margin: spacing.md,
+    padding: spacing.lg,
+    backgroundColor: palette.infoLight,
+    borderRadius: radius.card,
+    borderWidth: 1,
+    borderColor: palette.info,
+  },
+  tipsTitle: {
+    ...typography.bodyBold,
+    color: palette.text,
+    marginBottom: spacing.md,
+  },
+  tipItem: {
+    ...typography.body,
+    color: palette.text,
+    marginBottom: spacing.sm,
+    lineHeight: 20,
+  },
+  bottomSpacer: {
+    height: spacing.xxl,
+  },
+});
