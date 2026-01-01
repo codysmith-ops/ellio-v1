@@ -72,7 +72,6 @@ export const ContextualTip: React.FC<ContextualTipProps> = ({
     >
       <View style={styles.bubble}>
         <View style={styles.header}>
-          <Text style={styles.icon}>💡</Text>
           <Text style={styles.label}>Tip</Text>
         </View>
         <Text style={styles.message}>{message}</Text>
@@ -113,10 +112,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 8,
-  },
-  icon: {
-    fontSize: 20,
-    marginRight: 8,
   },
   label: {
     color: '#FFF',
