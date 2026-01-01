@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
-import { palette, spacing, radius, typography } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography } from '../theme/ellioTokens';
 
 interface DueDatePickerProps {
   visible: boolean;
@@ -104,22 +104,22 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: spacing.lg,
+    padding: EllioSpacing.lg,
   },
   container: {
-    backgroundColor: palette.surface,
-    borderRadius: radius.xl,
+    backgroundColor: EllioColors.surface.background,
+    borderRadius: EllioRadius.xl,
     width: '100%',
     maxWidth: 400,
     overflow: 'hidden',
   },
   header: {
-    padding: spacing.lg,
+    padding: EllioSpacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: palette.border,
+    borderBottomColor: EllioColors.border.standard,
   },
   title: {
-    ...typography.h3,
+    ...EllioTypography.h3,
     color: palette.text,
     textAlign: 'center',
   },
@@ -127,25 +127,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: spacing.lg,
+    padding: EllioSpacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: palette.border,
+    borderBottomColor: EllioColors.border.standard,
   },
   optionLabel: {
-    ...typography.body,
+    ...EllioTypography.body,
     fontWeight: '600',
     color: palette.text,
   },
   optionDate: {
-    ...typography.caption,
-    color: palette.textSecondary,
+    ...EllioTypography.caption,
+    color: EllioColors.text.secondary,
   },
   cancelButton: {
-    padding: spacing.lg,
+    padding: EllioSpacing.lg,
     alignItems: 'center',
   },
   cancelButtonText: {
-    ...typography.button,
-    color: palette.error,
+    ...EllioTypography.button,
+    color: EllioColors.states.error.main,
   },
 });

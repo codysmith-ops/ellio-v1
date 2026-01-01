@@ -12,7 +12,7 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import { palette, spacing, radius, typography } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography } from '../theme/ellioTokens';
 
 interface InfoTooltipProps {
   title: string;
@@ -27,7 +27,7 @@ export const InfoTooltip: React.FC<InfoTooltipProps> = ({
   body,
   footnote,
   iconSize = 16,
-  iconColor = palette.textSecondary,
+  iconColor = EllioColors.text.secondary,
 }) => {
   const [visible, setVisible] = useState(false);
 
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 999,
     borderWidth: 1.5,
-    borderColor: palette.primary,
+    borderColor: EllioColors.primary.main,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'transparent',
@@ -112,9 +112,9 @@ const styles = StyleSheet.create({
     maxWidth: 400,
   },
   modal: {
-    backgroundColor: palette.surface,
-    borderRadius: radius.lg,
-    padding: spacing.lg,
+    backgroundColor: EllioColors.surface.background,
+    borderRadius: EllioRadius.lg,
+    padding: EllioSpacing.lg,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
@@ -125,10 +125,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: spacing.md,
+    marginBottom: EllioSpacing.md,
   },
   title: {
-    ...typography.h3,
+    ...EllioTypography.h3,
     color: palette.text,
     flex: 1,
   },
@@ -140,33 +140,33 @@ const styles = StyleSheet.create({
   },
   closeButtonText: {
     fontSize: 24,
-    color: palette.textSecondary,
+    color: EllioColors.text.secondary,
     fontWeight: '300',
   },
   contentContainer: {
     maxHeight: 400,
   },
   bodyText: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     lineHeight: 24,
   },
   footnote: {
-    ...typography.secondary,
-    color: palette.textTertiary,
-    marginTop: spacing.md,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.tertiary,
+    marginTop: EllioSpacing.md,
     fontStyle: 'italic',
   },
   gotItButton: {
-    marginTop: spacing.lg,
-    backgroundColor: palette.primary,
-    borderRadius: radius.md,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
+    marginTop: EllioSpacing.lg,
+    backgroundColor: EllioColors.primary.main,
+    borderRadius: EllioRadius.md,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.lg,
     alignItems: 'center',
   },
   gotItButtonText: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: '#fff',
   },
 });

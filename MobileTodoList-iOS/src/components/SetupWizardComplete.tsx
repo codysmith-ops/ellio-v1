@@ -13,7 +13,7 @@ import {
   Platform,
   PermissionsAndroid,
 } from 'react-native';
-import { palette, spacing, radius, typography } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography } from '../theme/ellioTokens';
 import {
   BagIcon,
   BellIcon,

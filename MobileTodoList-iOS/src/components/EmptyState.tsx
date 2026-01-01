@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { palette, spacing, radius, typography } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography } from '../theme/ellioTokens';
 
 interface EmptyStateProps {
   icon?: string;
@@ -133,70 +133,70 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: spacing.xl,
-    paddingVertical: spacing.xxl,
+    paddingHorizontal: EllioSpacing.xl,
+    paddingVertical: EllioSpacing.xxl,
   },
   icon: {
     fontSize: 64,
-    marginBottom: spacing.lg,
+    marginBottom: EllioSpacing.lg,
   },
   title: {
-    ...typography.h3,
+    ...EllioTypography.h3,
     color: palette.text,
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
     textAlign: 'center',
   },
   message: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
-    marginBottom: spacing.xl,
+    marginBottom: EllioSpacing.xl,
     lineHeight: 22,
   },
   bulletContainer: {
     width: '100%',
-    marginBottom: spacing.lg,
+    marginBottom: EllioSpacing.lg,
   },
   bulletRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   bulletIcon: {
-    ...typography.body,
-    color: palette.primary,
-    marginRight: spacing.sm,
+    ...EllioTypography.body,
+    color: EllioColors.primary.main,
+    marginRight: EllioSpacing.sm,
     fontWeight: 'bold',
   },
   bulletText: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     flex: 1,
   },
   helpText: {
-    ...typography.secondary,
-    color: palette.textTertiary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.tertiary,
     textAlign: 'center',
-    marginBottom: spacing.lg,
+    marginBottom: EllioSpacing.lg,
     fontStyle: 'italic',
   },
   primaryButton: {
-    backgroundColor: palette.primary,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.xl,
-    borderRadius: radius.button,
-    marginBottom: spacing.sm,
+    backgroundColor: EllioColors.primary.main,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.xl,
+    borderRadius: EllioRadius.button,
+    marginBottom: EllioSpacing.sm,
   },
   primaryButtonText: {
-    ...typography.bodyBold,
-    color: palette.surface,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.surface.background,
   },
   secondaryButton: {
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.xl,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.xl,
   },
   secondaryButtonText: {
-    ...typography.body,
-    color: palette.primary,
+    ...EllioTypography.body,
+    color: EllioColors.primary.main,
   },
 });

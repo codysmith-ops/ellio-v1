@@ -10,7 +10,7 @@ import {
   Platform,
   PermissionsAndroid,
 } from 'react-native';
-import { palette, spacing, radius, typography } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography } from '../theme/ellioTokens';
 import { getCreditCardData } from '../services/creditCardData';
 import {
   CameraIcon,
@@ -309,19 +309,19 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           <View style={styles.featuresContainer}>
             <Text style={styles.featuresTitle}>What you'll get:</Text>
             <View style={styles.featureRow}>
-              <CheckmarkIcon size={20} color={palette.primary} />
+              <CheckmarkIcon size={20} color={EllioColors.primary.main} />
               <Text style={styles.featureText}>Manage your tasks efficiently</Text>
             </View>
             <View style={styles.featureRow}>
-              <CameraIcon size={20} color={palette.primary} />
+              <CameraIcon size={20} color={EllioColors.primary.main} />
               <Text style={styles.featureText}>Scan barcodes or take photos</Text>
             </View>
             <View style={styles.featureRow}>
-              <BellIcon size={20} color={palette.primary} />
+              <BellIcon size={20} color={EllioColors.primary.main} />
               <Text style={styles.featureText}>Get timely reminders</Text>
             </View>
             <View style={styles.featureRow}>
-              <CheckmarkIcon size={20} color={palette.primary} />
+              <CheckmarkIcon size={20} color={EllioColors.primary.main} />
               <Text style={styles.featureText}>Customize to your workflow</Text>
             </View>
           </View>
@@ -340,7 +340,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               placeholder="Enter your name"
               value={name}
               onChangeText={setName}
-              placeholderTextColor={palette.textTertiary}
+              placeholderTextColor={EllioColors.text.tertiary}
             />
           </View>
           <View style={styles.inputGroup}>
@@ -352,7 +352,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               onChangeText={setEmail}
               keyboardType="email-address"
               autoCapitalize="none"
-              placeholderTextColor={palette.textTertiary}
+              placeholderTextColor={EllioColors.text.tertiary}
             />
           </View>
           <View style={styles.inputGroup}>
@@ -362,7 +362,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               placeholder="Your company name"
               value={company}
               onChangeText={setCompany}
-              placeholderTextColor={palette.textTertiary}
+              placeholderTextColor={EllioColors.text.tertiary}
             />
           </View>
         </View>
@@ -408,7 +408,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               <View style={styles.viewOptionHeader}>
                 <CheckmarkIcon
                   size={16}
-                  color={defaultView === 'list' ? palette.primary : palette.textSecondary}
+                  color={defaultView === 'list' ? EllioColors.primary.main : EllioColors.text.secondary}
                 />
                 <Text
                   style={[
@@ -439,7 +439,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               <View style={styles.viewOptionHeader}>
                 <ChartIcon
                   size={16}
-                  color={defaultView === 'grid' ? palette.primary : palette.textSecondary}
+                  color={defaultView === 'grid' ? EllioColors.primary.main : EllioColors.text.secondary}
                 />
                 <Text
                   style={[
@@ -475,7 +475,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           >
             <View style={styles.goalHeader}>
               <View style={styles.goalIconContainer}>
-                <DollarIcon size={32} color={palette.primary} />
+                <DollarIcon size={32} color={EllioColors.primary.main} />
               </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Save Money</Text>
@@ -490,7 +490,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 ]}
               >
                 {selectedGoals.includes('save-money') && (
-                  <CheckmarkIcon size={16} color={palette.surface} />
+                  <CheckmarkIcon size={16} color={EllioColors.surface.background} />
                 )}
               </View>
             </View>
@@ -505,7 +505,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           >
             <View style={styles.goalHeader}>
               <View style={styles.goalIconContainer}>
-                <CreditCardIcon size={32} color={palette.primary} />
+                <CreditCardIcon size={32} color={EllioColors.primary.main} />
               </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Maximize Credit Card Points</Text>
@@ -518,7 +518,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 ]}
               >
                 {selectedGoals.includes('credit-points') && (
-                  <CheckmarkIcon size={16} color={palette.surface} />
+                  <CheckmarkIcon size={16} color={EllioColors.surface.background} />
                 )}
               </View>
             </View>
@@ -530,7 +530,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           >
             <View style={styles.goalHeader}>
               <View style={styles.goalIconContainer}>
-                <ChartIcon size={32} color={palette.primary} />
+                <ChartIcon size={32} color={EllioColors.primary.main} />
               </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Stay Within Budget</Text>
@@ -543,7 +543,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 ]}
               >
                 {selectedGoals.includes('budget') && (
-                  <CheckmarkIcon size={16} color={palette.surface} />
+                  <CheckmarkIcon size={16} color={EllioColors.surface.background} />
                 )}
               </View>
             </View>
@@ -558,7 +558,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           >
             <View style={styles.goalHeader}>
               <View style={styles.goalIconContainer}>
-                <UsersIcon size={32} color={palette.primary} />
+                <UsersIcon size={32} color={EllioColors.primary.main} />
               </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Collaborate with Others</Text>
@@ -571,7 +571,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 ]}
               >
                 {selectedGoals.includes('collaborate') && (
-                  <CheckmarkIcon size={16} color={palette.surface} />
+                  <CheckmarkIcon size={16} color={EllioColors.surface.background} />
                 )}
               </View>
             </View>
@@ -583,7 +583,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           >
             <View style={styles.goalHeader}>
               <View style={styles.goalIconContainer}>
-                <CheckmarkIcon size={32} color={palette.primary} />
+                <CheckmarkIcon size={32} color={EllioColors.primary.main} />
               </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Stay Organized</Text>
@@ -596,7 +596,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 ]}
               >
                 {selectedGoals.includes('organize') && (
-                  <CheckmarkIcon size={16} color={palette.surface} />
+                  <CheckmarkIcon size={16} color={EllioColors.surface.background} />
                 )}
               </View>
             </View>
@@ -611,7 +611,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           >
             <View style={styles.goalHeader}>
               <View style={styles.goalIconContainer}>
-                <ClockIcon size={32} color={palette.primary} />
+                <ClockIcon size={32} color={EllioColors.primary.main} />
               </View>
               <View style={styles.goalInfo}>
                 <Text style={styles.goalTitle}>Maximize Efficiency</Text>
@@ -626,7 +626,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 ]}
               >
                 {selectedGoals.includes('efficiency') && (
-                  <CheckmarkIcon size={16} color={palette.surface} />
+                  <CheckmarkIcon size={16} color={EllioColors.surface.background} />
                 )}
               </View>
             </View>
@@ -657,7 +657,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       value={budgetAmount}
                       onChangeText={setBudgetAmount}
                       keyboardType="decimal-pad"
-                      placeholderTextColor={palette.textTertiary}
+                      placeholderTextColor={EllioColors.text.tertiary}
                     />
                   </View>
                 </View>
@@ -702,7 +702,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
 
                 <View style={styles.aiFeatureBox}>
                   <View style={styles.aiIconContainer}>
-                    <LightbulbIcon size={24} color={palette.primary} />
+                    <LightbulbIcon size={24} color={EllioColors.primary.main} />
                   </View>
                   <View style={styles.aiFeatureContent}>
                     <Text style={styles.aiFeatureTitle}>AI-Powered Budget Assistant</Text>
@@ -740,7 +740,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               }}
               onFocus={() => setShowCardSuggestions(creditCardName.length > 0)}
               onBlur={() => setTimeout(() => setShowCardSuggestions(false), 200)}
-              placeholderTextColor={palette.textTertiary}
+              placeholderTextColor={EllioColors.text.tertiary}
             />
             {showCardSuggestions && filteredCards.length > 0 && (
               <ScrollView style={styles.suggestionsContainer} nestedScrollEnabled>
@@ -818,7 +818,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   placeholder="e.g., Chase Checking"
                   value={debitCardName}
                   onChangeText={setDebitCardName}
-                  placeholderTextColor={palette.textTertiary}
+                  placeholderTextColor={EllioColors.text.tertiary}
                 />
               </View>
               <View style={styles.inputGroup}>
@@ -828,7 +828,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   placeholder="e.g., 1% cashback on all purchases"
                   value={debitRewardsInfo}
                   onChangeText={setDebitRewardsInfo}
-                  placeholderTextColor={palette.textTertiary}
+                  placeholderTextColor={EllioColors.text.tertiary}
                 />
                 <Text style={styles.helpText}>
                   Enter any cashback or rewards your debit card offers
@@ -839,7 +839,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
 
           <View style={styles.aiFeatureBox}>
             <View style={styles.aiIconContainer}>
-              <LightbulbIcon size={24} color={palette.primary} />
+              <LightbulbIcon size={24} color={EllioColors.primary.main} />
             </View>
             <View style={styles.aiFeatureContent}>
               <Text style={styles.aiFeatureTitle}>Smart Card Recommendations</Text>
@@ -861,7 +861,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
       content: (
         <View style={styles.permissionContent}>
           <View style={styles.permissionIconContainer}>
-            <LocationIcon size={64} color={palette.primary} />
+            <LocationIcon size={64} color={EllioColors.primary.main} />
           </View>
           <Text style={styles.permissionTitle}>Geofencing Magic</Text>
           <Text style={styles.permissionDescription}>
@@ -877,7 +877,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           >
             <LocationIcon
               size={20}
-              color={locationPermissionGranted ? palette.surface : palette.primary}
+              color={locationPermissionGranted ? EllioColors.surface.background : EllioColors.primary.main}
             />
             <Text
               style={[
@@ -934,8 +934,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -944,8 +944,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -954,8 +954,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -964,8 +964,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -974,8 +974,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -984,8 +984,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -994,8 +994,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -1004,8 +1004,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -1014,8 +1014,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -1024,8 +1024,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -1034,8 +1034,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -1044,8 +1044,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -1054,8 +1054,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -1064,8 +1064,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                       size={32}
                       color={
                         selectedCategories.includes(category)
-                          ? palette.primary
-                          : palette.textSecondary
+                          ? EllioColors.primary.main
+                          : EllioColors.text.secondary
                       }
                     />
                   )}
@@ -1084,7 +1084,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 </Text>
                 {selectedCategories.includes(category) && (
                   <View style={styles.categoryCheckmark}>
-                    <CheckmarkIcon size={16} color={palette.surface} />
+                    <CheckmarkIcon size={16} color={EllioColors.surface.background} />
                   </View>
                 )}
               </TouchableOpacity>
@@ -1103,7 +1103,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
       content: (
         <View style={styles.permissionContent}>
           <View style={styles.permissionIconContainer}>
-            <BellIcon size={64} color={palette.primary} />
+            <BellIcon size={64} color={EllioColors.primary.main} />
           </View>
           <Text style={styles.permissionTitle}>Never Miss a Task</Text>
           <Text style={styles.permissionDescription}>
@@ -1113,7 +1113,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             style={[styles.permissionButton, notificationsEnabled && styles.permissionButtonActive]}
             onPress={requestNotificationPermission}
           >
-            <BellIcon size={20} color={notificationsEnabled ? palette.surface : palette.primary} />
+            <BellIcon size={20} color={notificationsEnabled ? EllioColors.surface.background : EllioColors.primary.main} />
             <Text
               style={[
                 styles.permissionButtonText,
@@ -1142,7 +1142,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                     placeholder="Enter your display name"
                     value={displayName}
                     onChangeText={setDisplayName}
-                    placeholderTextColor={palette.textTertiary}
+                    placeholderTextColor={EllioColors.text.tertiary}
                   />
                 </View>
                 <View style={styles.inputGroup}>
@@ -1156,7 +1156,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                         onChangeText={text => updateCollaborator(index, text)}
                         keyboardType="email-address"
                         autoCapitalize="none"
-                        placeholderTextColor={palette.textTertiary}
+                        placeholderTextColor={EllioColors.text.tertiary}
                       />
                       {collaborators.length > 1 && (
                         <TouchableOpacity
@@ -1173,7 +1173,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   </TouchableOpacity>
                 </View>
                 <View style={styles.permissionRow}>
-                  <UsersIcon size={20} color={palette.primary} />
+                  <UsersIcon size={20} color={EllioColors.primary.main} />
                   <Text style={styles.permissionInfo}>
                     Collaborators can view and edit shared lists
                   </Text>
@@ -1215,7 +1215,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               >
                 <CameraIcon
                   size={32}
-                  color={cameraPreference === 'camera' ? palette.primary : palette.textSecondary}
+                  color={cameraPreference === 'camera' ? EllioColors.primary.main : EllioColors.text.secondary}
                 />
                 <Text
                   style={[
@@ -1235,7 +1235,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               >
                 <CheckmarkIcon
                   size={32}
-                  color={cameraPreference === 'library' ? palette.primary : palette.textSecondary}
+                  color={cameraPreference === 'library' ? EllioColors.primary.main : EllioColors.text.secondary}
                 />
                 <Text
                   style={[
@@ -1264,7 +1264,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             style={styles.tipsCarousel}
           >
             <View style={styles.tipSlide}>
-              <TargetIcon size={48} color={palette.primary} />
+              <TargetIcon size={48} color={EllioColors.primary.main} />
               <Text style={styles.tipTitle}>Smart Task Completion</Text>
               <Text style={styles.tipDescription}>
                 Tap a task near its store location to automatically mark it complete with receipt
@@ -1272,14 +1272,14 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               </Text>
             </View>
             <View style={styles.tipSlide}>
-              <ChartIcon size={48} color={palette.primary} />
+              <ChartIcon size={48} color={EllioColors.primary.main} />
               <Text style={styles.tipTitle}>Track Your Savings</Text>
               <Text style={styles.tipDescription}>
                 View dashboards showing how much you've saved compared to average spending.
               </Text>
             </View>
             <View style={styles.tipSlide}>
-              <CreditCardIcon size={48} color={palette.primary} />
+              <CreditCardIcon size={48} color={EllioColors.primary.main} />
               <Text style={styles.tipTitle}>Maximize Rewards</Text>
               <Text style={styles.tipDescription}>
                 AI recommends the best credit card for each purchase to maximize points and
@@ -1302,7 +1302,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
       content: (
         <View style={styles.sampleContent}>
           <View style={styles.sampleIconContainer}>
-            <CheckmarkIcon size={64} color={palette.primary} />
+            <CheckmarkIcon size={64} color={EllioColors.primary.main} />
           </View>
           <Text style={styles.sampleTitle}>Ready to Get Started?</Text>
           <Text style={styles.sampleDescription}>
@@ -1311,12 +1311,12 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           </Text>
           <View style={styles.samplePreview}>
             <View style={styles.sampleTaskCard}>
-              <CheckmarkIcon size={24} color={palette.primary} />
+              <CheckmarkIcon size={24} color={EllioColors.primary.main} />
               <View style={styles.sampleTaskInfo}>
                 <Text style={styles.sampleTaskTitle}>Buy groceries</Text>
                 <Text style={styles.sampleTaskDetails}>Whole Foods • $50 budget</Text>
               </View>
-              <DollarIcon size={20} color={palette.success} />
+              <DollarIcon size={20} color={EllioColors.states.success.main} />
             </View>
           </View>
           <View style={styles.sampleActions}>
@@ -1472,56 +1472,56 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: palette.background,
+    backgroundColor: EllioColors.surface.background,
   },
   header: {
     paddingTop: 60,
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.md,
+    paddingHorizontal: EllioSpacing.lg,
+    paddingBottom: EllioSpacing.md,
   },
   progressContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   progressDot: {
     width: 32,
     height: 6,
-    backgroundColor: palette.border,
-    borderRadius: radius.badge,
+    backgroundColor: EllioColors.border.standard,
+    borderRadius: EllioRadius.badge,
   },
   progressDotActive: {
-    backgroundColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
   },
   progressDotComplete: {
-    backgroundColor: palette.success,
+    backgroundColor: EllioColors.states.success.main,
   },
   content: {
     flex: 1,
   },
   contentContainer: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.xl,
+    paddingHorizontal: EllioSpacing.lg,
+    paddingTop: EllioSpacing.xl,
   },
   title: {
-    ...typography.h2,
+    ...EllioTypography.h2,
     color: palette.text,
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
     textAlign: 'center',
   },
   subtitle: {
-    ...typography.body,
-    color: palette.textSecondary,
-    marginBottom: spacing.xl,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
+    marginBottom: EllioSpacing.xl,
     textAlign: 'center',
   },
   welcomeContent: {
-    gap: spacing.lg,
+    gap: EllioSpacing.lg,
   },
   sectionTitle: {
-    ...typography.h3,
+    ...EllioTypography.h3,
     color: palette.text,
-    marginBottom: spacing.md,
+    marginBottom: EllioSpacing.md,
     textAlign: 'center',
   },
   appleSignInButton: {
@@ -1529,17 +1529,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#000000',
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
-    borderRadius: radius.button,
-    gap: spacing.sm,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.lg,
+    borderRadius: EllioRadius.button,
+    gap: EllioSpacing.sm,
   },
   appleIcon: {
     fontSize: 20,
     color: '#FFFFFF',
   },
   appleSignInText: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: '#FFFFFF',
   },
   googleSignInButton: {
@@ -1547,12 +1547,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#FFFFFF',
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
-    borderRadius: radius.button,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.lg,
+    borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: palette.border,
-    gap: spacing.sm,
+    borderColor: EllioColors.border.standard,
+    gap: EllioSpacing.sm,
   },
   googleIcon: {
     fontSize: 18,
@@ -1560,153 +1560,153 @@ const styles = StyleSheet.create({
     color: '#4285F4',
   },
   googleSignInText: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
   },
   divider: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.md,
-    marginVertical: spacing.md,
+    gap: EllioSpacing.md,
+    marginVertical: EllioSpacing.md,
   },
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: palette.border,
+    backgroundColor: EllioColors.border.standard,
   },
   dividerText: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
   },
   emailSignInButton: {
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
-    borderRadius: radius.button,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.lg,
+    borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: palette.primary,
+    borderColor: EllioColors.primary.main,
     backgroundColor: palette.infoLight,
     alignItems: 'center',
   },
   emailSignInText: {
-    ...typography.bodyBold,
-    color: palette.primary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.primary.main,
   },
   featuresContainer: {
-    marginTop: spacing.xl,
-    gap: spacing.md,
+    marginTop: EllioSpacing.xl,
+    gap: EllioSpacing.md,
   },
   featuresTitle: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   featureRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-    backgroundColor: palette.surface,
-    borderRadius: radius.card,
+    gap: EllioSpacing.sm,
+    paddingVertical: EllioSpacing.sm,
+    paddingHorizontal: EllioSpacing.md,
+    backgroundColor: EllioColors.surface.background,
+    borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
   },
   featureText: {
-    ...typography.body,
+    ...EllioTypography.body,
     color: palette.text,
     flex: 1,
   },
   formContent: {
-    gap: spacing.lg,
+    gap: EllioSpacing.lg,
   },
   inputGroup: {
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   label: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
   },
   input: {
-    ...typography.body,
-    backgroundColor: palette.surface,
+    ...EllioTypography.body,
+    backgroundColor: EllioColors.surface.background,
     borderWidth: 1,
-    borderColor: palette.border,
-    borderRadius: radius.button,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md,
+    borderColor: EllioColors.border.standard,
+    borderRadius: EllioRadius.button,
+    paddingHorizontal: EllioSpacing.md,
+    paddingVertical: EllioSpacing.md,
     color: palette.text,
   },
   preferencesContent: {
-    gap: spacing.xl,
+    gap: EllioSpacing.xl,
   },
   preferenceRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: palette.surface,
-    padding: spacing.md,
-    borderRadius: radius.card,
+    backgroundColor: EllioColors.surface.background,
+    padding: EllioSpacing.md,
+    borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
   },
   preferenceInfo: {
     flex: 1,
   },
   preferenceTitle: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
     marginBottom: 4,
   },
   preferenceSubtitle: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
   },
   toggle: {
     width: 50,
     height: 30,
     borderRadius: 15,
-    backgroundColor: palette.border,
+    backgroundColor: EllioColors.border.standard,
     padding: 2,
     justifyContent: 'center',
   },
   toggleActive: {
-    backgroundColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
   },
   toggleThumb: {
     width: 26,
     height: 26,
     borderRadius: 13,
-    backgroundColor: palette.surface,
+    backgroundColor: EllioColors.surface.background,
   },
   toggleThumbActive: {
     alignSelf: 'flex-end',
   },
   viewOptions: {
     flexDirection: 'row',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   viewOption: {
     flex: 1,
-    padding: spacing.lg,
-    borderRadius: radius.card,
+    padding: EllioSpacing.lg,
+    borderRadius: EllioRadius.card,
     borderWidth: 2,
-    borderColor: palette.border,
-    backgroundColor: palette.surface,
+    borderColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.surface.background,
     alignItems: 'center',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   viewOptionActive: {
-    borderColor: palette.primary,
+    borderColor: EllioColors.primary.main,
     backgroundColor: palette.infoLight,
   },
   viewPreview: {
     width: '100%',
     height: 80,
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   listPreviewItem: {
     height: 20,
-    backgroundColor: palette.border,
+    backgroundColor: EllioColors.border.standard,
     borderRadius: 4,
     marginBottom: 6,
   },
@@ -1718,119 +1718,119 @@ const styles = StyleSheet.create({
   gridPreviewItem: {
     flex: 1,
     height: 35,
-    backgroundColor: palette.border,
+    backgroundColor: EllioColors.border.standard,
     borderRadius: 4,
   },
   viewOptionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
     justifyContent: 'center',
   },
   viewOptionText: {
-    ...typography.bodyBold,
-    color: palette.textSecondary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.text.secondary,
   },
   viewOptionTextActive: {
-    color: palette.primary,
+    color: EllioColors.primary.main,
   },
   viewOptionDescription: {
-    ...typography.secondary,
-    color: palette.textTertiary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.tertiary,
     fontSize: 12,
   },
   footer: {
     flexDirection: 'row',
-    padding: spacing.lg,
-    gap: spacing.md,
+    padding: EllioSpacing.lg,
+    gap: EllioSpacing.md,
     borderTopWidth: 1,
-    borderTopColor: palette.border,
-    backgroundColor: palette.surface,
+    borderTopColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.surface.background,
   },
   backButton: {
     flex: 1,
-    paddingVertical: spacing.md,
+    paddingVertical: EllioSpacing.md,
     alignItems: 'center',
-    borderRadius: radius.button,
+    borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
   },
   backButtonText: {
-    ...typography.bodyBold,
-    color: palette.textSecondary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.text.secondary,
   },
   nextButton: {
     flex: 2,
-    paddingVertical: spacing.md,
+    paddingVertical: EllioSpacing.md,
     alignItems: 'center',
-    backgroundColor: palette.primary,
-    borderRadius: radius.button,
+    backgroundColor: EllioColors.primary.main,
+    borderRadius: EllioRadius.button,
   },
   nextButtonFull: {
     flex: 1,
   },
   nextButtonText: {
-    ...typography.bodyBold,
-    color: palette.surface,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.surface.background,
   },
   goalsContent: {
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   goalsIntro: {
-    ...typography.body,
-    color: palette.textSecondary,
-    marginBottom: spacing.md,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
+    marginBottom: EllioSpacing.md,
     textAlign: 'center',
     lineHeight: 22,
   },
   goalCard: {
-    backgroundColor: palette.surface,
+    backgroundColor: EllioColors.surface.background,
     borderWidth: 2,
-    borderColor: palette.border,
-    borderRadius: radius.large,
-    padding: spacing.md,
+    borderColor: EllioColors.border.standard,
+    borderRadius: EllioRadius.large,
+    padding: EllioSpacing.md,
   },
   goalCardSelected: {
-    borderColor: palette.primary,
-    backgroundColor: palette.primaryLight || '#EBF5FF',
+    borderColor: EllioColors.primary.main,
+    backgroundColor: EllioColors.primary.mainLight || '#EBF5FF',
   },
   goalHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   goalIconContainer: {
     width: 48,
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: radius.medium,
+    borderRadius: EllioRadius.medium,
     backgroundColor: '#FFFFFF',
   },
   goalInfo: {
     flex: 1,
   },
   goalTitle: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
     marginBottom: 4,
   },
   goalDescription: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
   },
   checkbox: {
     width: 24,
     height: 24,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
     alignItems: 'center',
     justifyContent: 'center',
   },
   checkboxSelected: {
-    backgroundColor: palette.primary,
-    borderColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
+    borderColor: EllioColors.primary.main,
   },
   checkmark: {
     color: '#FFFFFF',
@@ -1838,78 +1838,78 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   budgetContent: {
-    gap: spacing.lg,
+    gap: EllioSpacing.lg,
   },
   creditCardContent: {
-    gap: spacing.lg,
+    gap: EllioSpacing.lg,
   },
   configIntro: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     lineHeight: 22,
   },
   budgetInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: palette.border,
-    borderRadius: radius.medium,
-    paddingHorizontal: spacing.md,
-    backgroundColor: palette.surface,
+    borderColor: EllioColors.border.standard,
+    borderRadius: EllioRadius.medium,
+    paddingHorizontal: EllioSpacing.md,
+    backgroundColor: EllioColors.surface.background,
   },
   currencySymbol: {
-    ...typography.h3,
-    color: palette.textSecondary,
-    marginRight: spacing.sm,
+    ...EllioTypography.h3,
+    color: EllioColors.text.secondary,
+    marginRight: EllioSpacing.sm,
   },
   budgetInput: {
     flex: 1,
-    ...typography.h3,
+    ...EllioTypography.h3,
     color: palette.text,
-    paddingVertical: spacing.md,
+    paddingVertical: EllioSpacing.md,
   },
   periodSelector: {
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   periodButtons: {
     flexDirection: 'row',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   periodButton: {
     flex: 1,
-    paddingVertical: spacing.md,
+    paddingVertical: EllioSpacing.md,
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: palette.border,
-    borderRadius: radius.button,
-    backgroundColor: palette.surface,
+    borderColor: EllioColors.border.standard,
+    borderRadius: EllioRadius.button,
+    backgroundColor: EllioColors.surface.background,
   },
   periodButtonActive: {
-    borderColor: palette.primary,
-    backgroundColor: palette.primaryLight || '#EBF5FF',
+    borderColor: EllioColors.primary.main,
+    backgroundColor: EllioColors.primary.mainLight || '#EBF5FF',
   },
   periodButtonText: {
-    ...typography.bodyBold,
-    color: palette.textSecondary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.text.secondary,
   },
   periodButtonTextActive: {
-    color: palette.primary,
+    color: EllioColors.primary.main,
   },
   aiFeatureBox: {
     flexDirection: 'row',
-    gap: spacing.md,
-    backgroundColor: palette.primaryLight || '#EBF5FF',
-    padding: spacing.md,
-    borderRadius: radius.medium,
+    gap: EllioSpacing.md,
+    backgroundColor: EllioColors.primary.mainLight || '#EBF5FF',
+    padding: EllioSpacing.md,
+    borderRadius: EllioRadius.medium,
     borderWidth: 1,
-    borderColor: palette.primary + '30',
+    borderColor: EllioColors.primary.main + '30',
   },
   aiIconContainer: {
     width: 40,
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: radius.small,
+    borderRadius: EllioRadius.small,
     backgroundColor: '#FFFFFF',
   },
   aiFeatureContent: {
@@ -1917,27 +1917,27 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   aiFeatureTitle: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
   },
   aiFeatureText: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
     lineHeight: 18,
   },
   skipHint: {
-    ...typography.secondary,
-    color: palette.textTertiary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.tertiary,
     textAlign: 'center',
     fontStyle: 'italic',
   },
   suggestionsContainer: {
     maxHeight: 180,
     borderWidth: 1,
-    borderColor: palette.border,
-    borderRadius: radius.medium,
-    backgroundColor: palette.surface,
-    marginTop: spacing.xs,
+    borderColor: EllioColors.border.standard,
+    borderRadius: EllioRadius.medium,
+    backgroundColor: EllioColors.surface.background,
+    marginTop: EllioSpacing.xs,
     ...Platform.select({
       ios: {
         shadowColor: '#000',
@@ -1951,20 +1951,20 @@ const styles = StyleSheet.create({
     }),
   },
   suggestionItem: {
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.md,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: palette.border,
+    borderBottomColor: EllioColors.border.standard,
   },
   suggestionText: {
-    ...typography.body,
+    ...EllioTypography.body,
     color: palette.text,
   },
   // New onboarding step styles
   permissionContent: {
     alignItems: 'center',
-    gap: spacing.lg,
-    paddingVertical: spacing.xl,
+    gap: EllioSpacing.lg,
+    paddingVertical: EllioSpacing.xl,
   },
   permissionIconContainer: {
     width: 120,
@@ -1975,85 +1975,85 @@ const styles = StyleSheet.create({
     backgroundColor: palette.infoLight,
   },
   permissionTitle: {
-    ...typography.h2,
+    ...EllioTypography.h2,
     color: palette.text,
     textAlign: 'center',
   },
   permissionDescription: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
     lineHeight: 22,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: EllioSpacing.md,
   },
   permissionButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
-    borderRadius: radius.button,
+    gap: EllioSpacing.sm,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.lg,
+    borderRadius: EllioRadius.button,
     borderWidth: 2,
-    borderColor: palette.primary,
-    backgroundColor: palette.surface,
+    borderColor: EllioColors.primary.main,
+    backgroundColor: EllioColors.surface.background,
   },
   permissionButtonActive: {
-    backgroundColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
   },
   permissionButtonText: {
-    ...typography.bodyBold,
-    color: palette.primary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.primary.main,
   },
   permissionButtonTextActive: {
-    color: palette.surface,
+    color: EllioColors.surface.background,
   },
   permissionHint: {
-    ...typography.secondary,
-    color: palette.textTertiary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.tertiary,
     textAlign: 'center',
   },
   permissionRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
-    padding: spacing.md,
+    gap: EllioSpacing.sm,
+    padding: EllioSpacing.md,
     backgroundColor: palette.infoLight,
-    borderRadius: radius.medium,
+    borderRadius: EllioRadius.medium,
   },
   permissionInfo: {
-    ...typography.body,
+    ...EllioTypography.body,
     color: palette.text,
     flex: 1,
   },
   categoryContent: {
-    gap: spacing.lg,
+    gap: EllioSpacing.lg,
   },
   categoryIntro: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
     lineHeight: 22,
   },
   categoryGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   categoryCard: {
     width: '30%',
     aspectRatio: 1,
-    padding: spacing.md,
-    borderRadius: radius.card,
+    padding: EllioSpacing.md,
+    borderRadius: EllioRadius.card,
     borderWidth: 2,
-    borderColor: palette.border,
-    backgroundColor: palette.surface,
+    borderColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.surface.background,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
     position: 'relative',
   },
   categoryCardSelected: {
-    borderColor: palette.primary,
+    borderColor: EllioColors.primary.main,
     backgroundColor: palette.infoLight,
   },
   categoryIconContainer: {
@@ -2063,13 +2063,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   categoryLabel: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
   },
   categoryLabelActive: {
-    ...typography.bodyBold,
-    color: palette.primary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.primary.main,
   },
   categoryCheckmark: {
     position: 'absolute',
@@ -2078,23 +2078,23 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
     alignItems: 'center',
     justifyContent: 'center',
   },
   categoryWarning: {
-    ...typography.secondary,
-    color: palette.error,
+    ...EllioTypography.secondary,
+    color: EllioColors.states.error.main,
     textAlign: 'center',
   },
   collaborationContent: {
-    gap: spacing.lg,
+    gap: EllioSpacing.lg,
   },
   collaboratorRow: {
     flexDirection: 'row',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
     alignItems: 'center',
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   removeButton: {
     width: 32,
@@ -2102,90 +2102,90 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 16,
-    backgroundColor: palette.error,
+    backgroundColor: EllioColors.states.error.main,
   },
   removeButtonText: {
     fontSize: 24,
-    color: palette.surface,
+    color: EllioColors.surface.background,
     lineHeight: 24,
   },
   addButton: {
-    paddingVertical: spacing.sm,
+    paddingVertical: EllioSpacing.sm,
     alignItems: 'center',
   },
   addButtonText: {
-    ...typography.bodyBold,
-    color: palette.primary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.primary.main,
   },
   receiptContent: {
-    gap: spacing.lg,
+    gap: EllioSpacing.lg,
   },
   receiptOptions: {
     flexDirection: 'row',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   receiptOption: {
     flex: 1,
-    padding: spacing.lg,
-    borderRadius: radius.card,
+    padding: EllioSpacing.lg,
+    borderRadius: EllioRadius.card,
     borderWidth: 2,
-    borderColor: palette.border,
-    backgroundColor: palette.surface,
+    borderColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.surface.background,
     alignItems: 'center',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   receiptOptionActive: {
-    borderColor: palette.primary,
+    borderColor: EllioColors.primary.main,
     backgroundColor: palette.infoLight,
   },
   receiptOptionText: {
-    ...typography.bodyBold,
-    color: palette.textSecondary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.text.secondary,
   },
   receiptOptionTextActive: {
-    color: palette.primary,
+    color: EllioColors.primary.main,
   },
   tipsContent: {
-    gap: spacing.lg,
+    gap: EllioSpacing.lg,
   },
   tipsCarousel: {
     height: 300,
   },
   tipSlide: {
     width: 300,
-    padding: spacing.xl,
+    padding: EllioSpacing.xl,
     alignItems: 'center',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   tipTitle: {
-    ...typography.h3,
+    ...EllioTypography.h3,
     color: palette.text,
     textAlign: 'center',
   },
   tipDescription: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
     lineHeight: 22,
   },
   tipIndicators: {
     flexDirection: 'row',
     justifyContent: 'center',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   tipIndicator: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: palette.border,
+    backgroundColor: EllioColors.border.standard,
   },
   tipIndicatorActive: {
-    backgroundColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
   },
   sampleContent: {
     alignItems: 'center',
-    gap: spacing.lg,
-    paddingVertical: spacing.xl,
+    gap: EllioSpacing.lg,
+    paddingVertical: EllioSpacing.xl,
   },
   sampleIconContainer: {
     width: 100,
@@ -2196,121 +2196,121 @@ const styles = StyleSheet.create({
     backgroundColor: palette.infoLight,
   },
   sampleTitle: {
-    ...typography.h2,
+    ...EllioTypography.h2,
     color: palette.text,
     textAlign: 'center',
   },
   sampleDescription: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
     lineHeight: 22,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: EllioSpacing.md,
   },
   samplePreview: {
     width: '100%',
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: EllioSpacing.md,
   },
   sampleTaskCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.md,
-    padding: spacing.md,
-    borderRadius: radius.card,
+    gap: EllioSpacing.md,
+    padding: EllioSpacing.md,
+    borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: palette.border,
-    backgroundColor: palette.surface,
+    borderColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.surface.background,
   },
   sampleTaskInfo: {
     flex: 1,
   },
   sampleTaskTitle: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
   },
   sampleTaskDetails: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
   },
   sampleActions: {
     width: '100%',
-    gap: spacing.sm,
-    paddingHorizontal: spacing.md,
+    gap: EllioSpacing.sm,
+    paddingHorizontal: EllioSpacing.md,
   },
   sampleButtonPrimary: {
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
-    borderRadius: radius.button,
-    backgroundColor: palette.primary,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.lg,
+    borderRadius: EllioRadius.button,
+    backgroundColor: EllioColors.primary.main,
     alignItems: 'center',
   },
   sampleButtonPrimaryText: {
-    ...typography.bodyBold,
-    color: palette.surface,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.surface.background,
   },
   sampleButtonSecondary: {
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
-    borderRadius: radius.button,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.lg,
+    borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: palette.border,
-    backgroundColor: palette.surface,
+    borderColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.surface.background,
     alignItems: 'center',
   },
   sampleButtonSecondaryText: {
-    ...typography.bodyBold,
-    color: palette.textSecondary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.text.secondary,
   },
   readOnlyInput: {
-    backgroundColor: palette.backgroundSecondary,
+    backgroundColor: EllioColors.surface.backgroundSecondary,
     justifyContent: 'center',
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md,
+    paddingHorizontal: EllioSpacing.md,
+    paddingVertical: EllioSpacing.md,
   },
   rewardsText: {
-    ...typography.body,
+    ...EllioTypography.body,
     color: palette.text,
   },
   rewardsPlaceholder: {
-    ...typography.body,
-    color: palette.textTertiary,
+    ...EllioTypography.body,
+    color: EllioColors.text.tertiary,
   },
   helpText: {
-    ...typography.caption,
-    color: palette.success,
-    marginTop: spacing.xs,
+    ...EllioTypography.caption,
+    color: EllioColors.states.success.main,
+    marginTop: EllioSpacing.xs,
   },
   debitDivider: {
     height: 1,
-    backgroundColor: palette.border,
-    marginVertical: spacing.lg,
+    backgroundColor: EllioColors.border.standard,
+    marginVertical: EllioSpacing.lg,
   },
   debitToggle: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.md,
-    paddingVertical: spacing.md,
+    gap: EllioSpacing.md,
+    paddingVertical: EllioSpacing.md,
   },
   debitCheckbox: {
     width: 24,
     height: 24,
     borderRadius: 6,
     borderWidth: 2,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
     alignItems: 'center',
     justifyContent: 'center',
   },
   checkboxChecked: {
-    backgroundColor: palette.primary,
-    borderColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
+    borderColor: EllioColors.primary.main,
   },
   debitCheckmark: {
-    color: palette.surface,
+    color: EllioColors.surface.background,
     fontSize: 16,
     fontWeight: '700',
   },
   debitToggleText: {
-    ...typography.body,
+    ...EllioTypography.body,
     color: palette.text,
   },
 });

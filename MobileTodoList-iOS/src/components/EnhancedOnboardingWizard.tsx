@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
-import { palette, spacing, radius, typography } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography } from '../theme/ellioTokens';
 import { FeatureTip } from './FeatureTip';
 
 interface EnhancedOnboardingProps {
@@ -127,7 +127,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({ on
                 <Switch
                   value={preferences.enableReceiptScanning}
                   onValueChange={v => updatePreference('enableReceiptScanning', v)}
-                  trackColor={{ false: palette.border, true: palette.primary }}
+                  trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
                 />
                 <View style={styles.featureInfo}>
                   <Text style={styles.featureTitle}>Receipt Scanning</Text>
@@ -141,7 +141,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({ on
                 <Switch
                   value={preferences.enableCashbackOptimization}
                   onValueChange={v => updatePreference('enableCashbackOptimization', v)}
-                  trackColor={{ false: palette.border, true: palette.primary }}
+                  trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
                 />
                 <View style={styles.featureInfo}>
                   <Text style={styles.featureTitle}>icon Cashback Optimization</Text>
@@ -155,7 +155,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({ on
                 <Switch
                   value={preferences.enableBudgetTracking}
                   onValueChange={v => updatePreference('enableBudgetTracking', v)}
-                  trackColor={{ false: palette.border, true: palette.primary }}
+                  trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
                 />
                 <View style={styles.featureInfo}>
                   <Text style={styles.featureTitle}>Smart Budgeting</Text>
@@ -188,7 +188,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({ on
                 <Switch
                   value={preferences.enableGeolocationPrompts}
                   onValueChange={v => updatePreference('enableGeolocationPrompts', v)}
-                  trackColor={{ false: palette.border, true: palette.primary }}
+                  trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
                 />
                 <View style={styles.featureInfo}>
                   <Text style={styles.featureTitle}>Receipt Upload Prompts</Text>
@@ -219,7 +219,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({ on
                 <Switch
                   value={preferences.gradualFeatureIntroduction}
                   onValueChange={v => updatePreference('gradualFeatureIntroduction', v)}
-                  trackColor={{ false: palette.border, true: palette.primary }}
+                  trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
                 />
                 <View style={styles.featureInfo}>
                   <Text style={styles.featureTitle}>Gradual Feature Introduction</Text>
@@ -233,7 +233,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({ on
                 <Switch
                   value={preferences.enableFeatureTips}
                   onValueChange={v => updatePreference('enableFeatureTips', v)}
-                  trackColor={{ false: palette.border, true: palette.primary }}
+                  trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
                 />
                 <View style={styles.featureInfo}>
                   <Text style={styles.featureTitle}>Feature Tips & Hints</Text>
@@ -359,263 +359,263 @@ The more you use the app, the smarter it gets! Your data is encrypted and never 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: palette.surface,
+    backgroundColor: EllioColors.surface.background,
   },
   progressContainer: {
-    padding: spacing.lg,
+    padding: EllioSpacing.lg,
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: palette.border,
+    borderBottomColor: EllioColors.border.standard,
   },
   progressBar: {
     flexDirection: 'row',
-    gap: spacing.sm,
-    marginBottom: spacing.sm,
+    gap: EllioSpacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   progressDot: {
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: palette.border,
+    backgroundColor: EllioColors.border.standard,
   },
   progressDotActive: {
-    backgroundColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
   },
   progressText: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
   },
   scrollContainer: {
     flex: 1,
   },
   scrollContent: {
-    padding: spacing.xl,
+    padding: EllioSpacing.xl,
   },
   stepContent: {
     alignItems: 'center',
   },
   stepIcon: {
     fontSize: 64,
-    marginBottom: spacing.lg,
+    marginBottom: EllioSpacing.lg,
   },
   stepTitle: {
-    ...typography.h2,
+    ...EllioTypography.h2,
     color: palette.text,
     textAlign: 'center',
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   stepDescription: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
-    marginBottom: spacing.xl,
+    marginBottom: EllioSpacing.xl,
     lineHeight: 22,
   },
   optionsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
     width: '100%',
   },
   optionCard: {
     flex: 1,
     minWidth: '45%',
-    padding: spacing.lg,
-    backgroundColor: palette.background,
-    borderRadius: radius.card,
+    padding: EllioSpacing.lg,
+    backgroundColor: EllioColors.surface.background,
+    borderRadius: EllioRadius.card,
     borderWidth: 2,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
     alignItems: 'center',
   },
   optionCardActive: {
-    borderColor: palette.primary,
-    backgroundColor: palette.primaryLight,
+    borderColor: EllioColors.primary.main,
+    backgroundColor: EllioColors.primary.mainLight,
   },
   optionIcon: {
     fontSize: 40,
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   optionLabel: {
-    ...typography.body,
+    ...EllioTypography.body,
     color: palette.text,
     textAlign: 'center',
   },
   optionLabelActive: {
-    ...typography.bodyBold,
-    color: palette.primary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.primary.main,
   },
   learnMoreButton: {
-    marginBottom: spacing.lg,
-    padding: spacing.sm,
+    marginBottom: EllioSpacing.lg,
+    padding: EllioSpacing.sm,
   },
   learnMoreText: {
-    ...typography.body,
-    color: palette.primary,
+    ...EllioTypography.body,
+    color: EllioColors.primary.main,
     textAlign: 'center',
   },
   featuresList: {
     width: '100%',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   featureItem: {
     flexDirection: 'row',
-    padding: spacing.md,
-    backgroundColor: palette.background,
-    borderRadius: radius.card,
+    padding: EllioSpacing.md,
+    backgroundColor: EllioColors.surface.background,
+    borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
     alignItems: 'flex-start',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   featureInfo: {
     flex: 1,
   },
   featureTitle: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
     marginBottom: 4,
   },
   featureDescription: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
     lineHeight: 18,
   },
   demoCard: {
     width: '100%',
-    padding: spacing.lg,
+    padding: EllioSpacing.lg,
     backgroundColor: palette.infoLight,
-    borderRadius: radius.card,
+    borderRadius: EllioRadius.card,
     borderWidth: 1,
     borderColor: palette.info,
-    marginBottom: spacing.lg,
+    marginBottom: EllioSpacing.lg,
   },
   demoTitle: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   demoText: {
-    ...typography.body,
+    ...EllioTypography.body,
     color: palette.text,
     lineHeight: 20,
   },
   privacyNote: {
-    marginTop: spacing.lg,
-    padding: spacing.md,
-    backgroundColor: palette.successLight,
-    borderRadius: radius.card,
+    marginTop: EllioSpacing.lg,
+    padding: EllioSpacing.md,
+    backgroundColor: EllioColors.states.success.mainLight,
+    borderRadius: EllioRadius.card,
   },
   privacyText: {
-    ...typography.body,
+    ...EllioTypography.body,
     color: palette.text,
     textAlign: 'center',
   },
   infoBox: {
-    marginTop: spacing.lg,
-    padding: spacing.md,
-    backgroundColor: palette.background,
-    borderRadius: radius.card,
+    marginTop: EllioSpacing.lg,
+    padding: EllioSpacing.md,
+    backgroundColor: EllioColors.surface.background,
+    borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
   },
   infoText: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
     lineHeight: 20,
   },
   numberSelector: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.xl,
-    marginVertical: spacing.xl,
+    gap: EllioSpacing.xl,
+    marginVertical: EllioSpacing.xl,
   },
   numberButton: {
     width: 56,
     height: 56,
-    backgroundColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
     borderRadius: 28,
     alignItems: 'center',
     justifyContent: 'center',
   },
   numberButtonText: {
-    ...typography.h2,
-    color: palette.surface,
+    ...EllioTypography.h2,
+    color: EllioColors.surface.background,
   },
   numberDisplay: {
     alignItems: 'center',
   },
   numberValue: {
-    ...typography.h1,
+    ...EllioTypography.h1,
     color: palette.text,
     fontSize: 48,
   },
   numberLabel: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
   },
   summaryCard: {
     width: '100%',
-    padding: spacing.lg,
-    backgroundColor: palette.background,
-    borderRadius: radius.card,
+    padding: EllioSpacing.lg,
+    backgroundColor: EllioColors.surface.background,
+    borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
   },
   summaryTitle: {
-    ...typography.h3,
+    ...EllioTypography.h3,
     color: palette.text,
     textAlign: 'center',
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   summaryText: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
-    marginBottom: spacing.md,
+    marginBottom: EllioSpacing.md,
   },
   summaryList: {
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   summaryItem: {
-    ...typography.body,
+    ...EllioTypography.body,
     color: palette.text,
     lineHeight: 24,
   },
   buttonContainer: {
     flexDirection: 'row',
-    padding: spacing.lg,
-    gap: spacing.md,
+    padding: EllioSpacing.lg,
+    gap: EllioSpacing.md,
     borderTopWidth: 1,
-    borderTopColor: palette.border,
+    borderTopColor: EllioColors.border.standard,
   },
   backButton: {
     flex: 1,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
-    borderRadius: radius.button,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.lg,
+    borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
     alignItems: 'center',
   },
   backButtonText: {
-    ...typography.bodyBold,
-    color: palette.textSecondary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.text.secondary,
   },
   nextButton: {
     flex: 2,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
-    backgroundColor: palette.primary,
-    borderRadius: radius.button,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.lg,
+    backgroundColor: EllioColors.primary.main,
+    borderRadius: EllioRadius.button,
     alignItems: 'center',
   },
   nextButtonFull: {
     flex: 1,
   },
   nextButtonText: {
-    ...typography.bodyBold,
-    color: palette.surface,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.surface.background,
     fontSize: 16,
   },
 });

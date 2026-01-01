@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
-import { palette, spacing, radius, typography } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography } from '../theme/ellioTokens';
 import { LightbulbIcon, CheckmarkIcon } from './Icons';
 
 interface StorePreferenceDialogProps {
@@ -153,7 +153,7 @@ export const StorePreferenceDialog: React.FC<StorePreferenceDialogProps> = ({
             </View>
 
             <View style={styles.tipBox}>
-              <LightbulbIcon size={16} color={palette.primary} />
+              <LightbulbIcon size={16} color={EllioColors.primary.main} />
               <Text style={styles.tipText}>
                 We'll use these preferences to help you find the best deals and optimize your
                 shopping trips!
@@ -191,133 +191,133 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   dialog: {
-    backgroundColor: palette.background,
-    borderTopLeftRadius: radius.card * 2,
-    borderTopRightRadius: radius.card * 2,
+    backgroundColor: EllioColors.surface.background,
+    borderTopLeftRadius: EllioRadius.card * 2,
+    borderTopRightRadius: EllioRadius.card * 2,
     maxHeight: '90%',
   },
   header: {
-    padding: spacing.lg,
+    padding: EllioSpacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: palette.border,
+    borderBottomColor: EllioColors.border.standard,
   },
   title: {
-    ...typography.h3,
+    ...EllioTypography.h3,
     color: palette.text,
     marginBottom: 4,
   },
   subtitle: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
   },
   content: {
-    padding: spacing.lg,
+    padding: EllioSpacing.lg,
   },
   storeGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: spacing.md,
-    marginBottom: spacing.lg,
+    gap: EllioSpacing.md,
+    marginBottom: EllioSpacing.lg,
   },
   storeCard: {
     width: '47%',
-    backgroundColor: palette.surface,
-    borderRadius: radius.card,
+    backgroundColor: EllioColors.surface.background,
+    borderRadius: EllioRadius.card,
     borderWidth: 2,
-    borderColor: palette.border,
-    padding: spacing.md,
+    borderColor: EllioColors.border.standard,
+    padding: EllioSpacing.md,
     alignItems: 'center',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
     position: 'relative',
   },
   storeCardSelected: {
-    borderColor: palette.primary,
+    borderColor: EllioColors.primary.main,
     backgroundColor: palette.infoLight,
   },
   checkbox: {
     position: 'absolute',
-    top: spacing.sm,
-    right: spacing.sm,
+    top: EllioSpacing.sm,
+    right: EllioSpacing.sm,
     width: 24,
     height: 24,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: palette.border,
-    backgroundColor: palette.surface,
+    borderColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.surface.background,
     alignItems: 'center',
     justifyContent: 'center',
   },
   checkboxSelected: {
-    backgroundColor: palette.primary,
-    borderColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
+    borderColor: EllioColors.primary.main,
   },
   checkmark: {
-    color: palette.surface,
+    color: EllioColors.surface.background,
     fontSize: 16,
     fontWeight: '700',
   },
   storeIcon: {
     fontSize: 32,
-    marginTop: spacing.sm,
+    marginTop: EllioSpacing.sm,
   },
   storeName: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
     textAlign: 'center',
     fontSize: 14,
   },
   storeNameSelected: {
-    color: palette.primary,
+    color: EllioColors.primary.main,
   },
   tipBox: {
     flexDirection: 'row',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
     backgroundColor: palette.infoLight,
-    padding: spacing.md,
-    borderRadius: radius.card,
+    padding: EllioSpacing.md,
+    borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: palette.primary,
-    marginBottom: spacing.md,
+    borderColor: EllioColors.primary.main,
+    marginBottom: EllioSpacing.md,
   },
   tipIcon: {
     fontSize: 20,
   },
   tipText: {
-    ...typography.secondary,
-    color: palette.primary,
+    ...EllioTypography.secondary,
+    color: EllioColors.primary.main,
     flex: 1,
   },
   footer: {
     flexDirection: 'row',
-    padding: spacing.lg,
-    gap: spacing.md,
+    padding: EllioSpacing.lg,
+    gap: EllioSpacing.md,
     borderTopWidth: 1,
-    borderTopColor: palette.border,
+    borderTopColor: EllioColors.border.standard,
   },
   skipButton: {
     flex: 1,
-    paddingVertical: spacing.md,
+    paddingVertical: EllioSpacing.md,
     alignItems: 'center',
-    borderRadius: radius.button,
+    borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
   },
   skipButtonText: {
-    ...typography.bodyBold,
-    color: palette.textSecondary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.text.secondary,
   },
   submitButton: {
     flex: 2,
-    paddingVertical: spacing.md,
+    paddingVertical: EllioSpacing.md,
     alignItems: 'center',
-    backgroundColor: palette.primary,
-    borderRadius: radius.button,
+    backgroundColor: EllioColors.primary.main,
+    borderRadius: EllioRadius.button,
   },
   submitButtonDisabled: {
-    backgroundColor: palette.border,
+    backgroundColor: EllioColors.border.standard,
   },
   submitButtonText: {
-    ...typography.bodyBold,
-    color: palette.surface,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.surface.background,
   },
 });

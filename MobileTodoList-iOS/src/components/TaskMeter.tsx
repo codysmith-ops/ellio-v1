@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { palette, spacing, radius, typography } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography } from '../theme/ellioTokens';
 import { Task } from '../store';
 
 export type TimeframeType = 'today' | 'week' | 'month' | 'all';
@@ -223,11 +223,11 @@ export const TaskMeter: React.FC<TaskMeterProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: palette.surface,
-    marginHorizontal: spacing.lg,
-    marginTop: spacing.lg,
-    padding: spacing.lg,
-    borderRadius: radius.card,
+    backgroundColor: EllioColors.surface.background,
+    marginHorizontal: EllioSpacing.lg,
+    marginTop: EllioSpacing.lg,
+    padding: EllioSpacing.lg,
+    borderRadius: EllioRadius.card,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -235,49 +235,49 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   header: {
-    marginBottom: spacing.md,
+    marginBottom: EllioSpacing.md,
   },
   title: {
-    ...typography.subtitle,
+    ...EllioTypography.subtitle,
     color: palette.text,
     marginBottom: 4,
   },
   subtitle: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
   },
   emptyState: {
-    paddingVertical: spacing.md,
+    paddingVertical: EllioSpacing.md,
     alignItems: 'center',
   },
   emptyText: {
-    ...typography.body,
-    color: palette.textTertiary,
+    ...EllioTypography.body,
+    color: EllioColors.text.tertiary,
     fontStyle: 'italic',
   },
   meterBar: {
     flexDirection: 'row',
     height: 24,
-    borderRadius: radius.button,
+    borderRadius: EllioRadius.button,
     overflow: 'hidden',
-    marginBottom: spacing.md,
+    marginBottom: EllioSpacing.md,
   },
   meterSegment: {
     height: '100%',
   },
   legend: {
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   legendItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: spacing.xs,
+    paddingVertical: EllioSpacing.xs,
   },
   legendLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
     flex: 1,
   },
   legendDot: {
@@ -289,21 +289,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   legendLabel: {
-    ...typography.body,
+    ...EllioTypography.body,
     color: palette.text,
   },
   legendRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.xs,
+    gap: EllioSpacing.xs,
   },
   legendCount: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
     fontSize: 16,
   },
   legendPercent: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
   },
 });

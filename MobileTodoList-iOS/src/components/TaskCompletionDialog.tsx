@@ -9,7 +9,7 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import { palette, spacing, radius, typography } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography } from '../theme/ellioTokens';
 import { LocationIcon, CameraIcon, DollarIcon } from './Icons';
 import { Task } from '../store';
 import { launchImageLibrary } from 'react-native-image-picker';
@@ -102,7 +102,7 @@ export const TaskCompletionDialog: React.FC<TaskCompletionDialogProps> = ({
         <View style={styles.container}>
           <View style={styles.header}>
             <View style={styles.locationBadge}>
-              <LocationIcon size={18} color={palette.textSecondary} />
+              <LocationIcon size={18} color={EllioColors.text.secondary} />
               <Text style={styles.locationText}>
                 You're at {currentTask.storeName || 'the store'}
               </Text>
@@ -125,7 +125,7 @@ export const TaskCompletionDialog: React.FC<TaskCompletionDialogProps> = ({
 
             {currentTask.needsReimbursement && (
               <View style={styles.reimbursementBanner}>
-                <DollarIcon size={18} color={palette.success} />
+                <DollarIcon size={18} color={EllioColors.states.success.main} />
                 <View style={styles.reimbursementContent}>
                   <Text style={styles.reimbursementTitle}>Reimbursement Required</Text>
                   <Text style={styles.reimbursementText}>
@@ -148,7 +148,7 @@ export const TaskCompletionDialog: React.FC<TaskCompletionDialogProps> = ({
               </View>
             ) : (
               <TouchableOpacity style={styles.uploadButton} onPress={handleUploadReceipt}>
-                <CameraIcon size={20} color={palette.primary} />
+                <CameraIcon size={20} color={EllioColors.primary.main} />
                 <Text style={styles.uploadText}>Upload Receipt (Optional)</Text>
               </TouchableOpacity>
             )}
@@ -194,34 +194,34 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   container: {
-    backgroundColor: palette.surface,
-    borderTopLeftRadius: radius.large,
-    borderTopRightRadius: radius.large,
+    backgroundColor: EllioColors.surface.background,
+    borderTopLeftRadius: EllioRadius.large,
+    borderTopRightRadius: EllioRadius.large,
     maxHeight: '80%',
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: spacing.lg,
+    padding: EllioSpacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: palette.border,
+    borderBottomColor: EllioColors.border.standard,
   },
   locationBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: palette.primaryLight || '#EBF5FF',
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    borderRadius: radius.medium,
-    gap: spacing.sm,
+    backgroundColor: EllioColors.primary.mainLight || '#EBF5FF',
+    paddingHorizontal: EllioSpacing.md,
+    paddingVertical: EllioSpacing.sm,
+    borderRadius: EllioRadius.medium,
+    gap: EllioSpacing.sm,
   },
   locationIcon: {
     fontSize: 16,
   },
   locationText: {
-    ...typography.bodyBold,
-    color: palette.primary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.primary.main,
   },
   closeButton: {
     width: 32,
@@ -231,43 +231,43 @@ const styles = StyleSheet.create({
   },
   closeIcon: {
     fontSize: 24,
-    color: palette.textSecondary,
+    color: EllioColors.text.secondary,
   },
   content: {
-    padding: spacing.lg,
+    padding: EllioSpacing.lg,
   },
   title: {
-    ...typography.h2,
+    ...EllioTypography.h2,
     color: palette.text,
-    marginBottom: spacing.lg,
+    marginBottom: EllioSpacing.lg,
   },
   taskCard: {
-    backgroundColor: palette.background,
-    padding: spacing.md,
-    borderRadius: radius.medium,
-    marginBottom: spacing.lg,
+    backgroundColor: EllioColors.surface.background,
+    padding: EllioSpacing.md,
+    borderRadius: EllioRadius.medium,
+    marginBottom: EllioSpacing.lg,
   },
   taskTitle: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
-    marginBottom: spacing.xs,
+    marginBottom: EllioSpacing.xs,
   },
   taskNote: {
-    ...typography.body,
-    color: palette.textSecondary,
-    marginBottom: spacing.xs,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
+    marginBottom: EllioSpacing.xs,
   },
   quantity: {
-    ...typography.secondary,
-    color: palette.textTertiary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.tertiary,
   },
   reimbursementBanner: {
     flexDirection: 'row',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
     backgroundColor: '#FFF4E6',
-    padding: spacing.md,
-    borderRadius: radius.medium,
-    marginBottom: spacing.lg,
+    padding: EllioSpacing.md,
+    borderRadius: EllioRadius.medium,
+    marginBottom: EllioSpacing.lg,
     borderWidth: 1,
     borderColor: '#FFB020',
   },
@@ -278,105 +278,105 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   reimbursementTitle: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: '#F59E0B',
     marginBottom: 4,
   },
   reimbursementText: {
-    ...typography.secondary,
+    ...EllioTypography.secondary,
     color: '#92400E',
   },
   uploadButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: spacing.sm,
-    backgroundColor: palette.surface,
+    gap: EllioSpacing.sm,
+    backgroundColor: EllioColors.surface.background,
     borderWidth: 2,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
     borderStyle: 'dashed',
-    paddingVertical: spacing.lg,
-    borderRadius: radius.medium,
-    marginBottom: spacing.lg,
+    paddingVertical: EllioSpacing.lg,
+    borderRadius: EllioRadius.medium,
+    marginBottom: EllioSpacing.lg,
   },
   uploadIcon: {
     fontSize: 24,
   },
   uploadText: {
-    ...typography.bodyBold,
-    color: palette.textSecondary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.text.secondary,
   },
   receiptPreview: {
-    marginBottom: spacing.lg,
+    marginBottom: EllioSpacing.lg,
   },
   receiptLabel: {
-    ...typography.bodyBold,
-    color: palette.success,
-    marginBottom: spacing.sm,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.states.success.main,
+    marginBottom: EllioSpacing.sm,
   },
   receiptImage: {
     width: '100%',
     height: 200,
-    borderRadius: radius.medium,
-    marginBottom: spacing.sm,
+    borderRadius: EllioRadius.medium,
+    marginBottom: EllioSpacing.sm,
   },
   removeReceipt: {
     alignSelf: 'center',
-    paddingVertical: spacing.sm,
+    paddingVertical: EllioSpacing.sm,
   },
   removeReceiptText: {
-    ...typography.body,
-    color: palette.error,
+    ...EllioTypography.body,
+    color: EllioColors.states.error.main,
   },
   progress: {
     alignItems: 'center',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   progressText: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
   },
   progressBar: {
     flexDirection: 'row',
-    gap: spacing.xs,
+    gap: EllioSpacing.xs,
   },
   progressDot: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: palette.border,
+    backgroundColor: EllioColors.border.standard,
   },
   progressDotActive: {
-    backgroundColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
   },
   footer: {
     flexDirection: 'row',
-    gap: spacing.md,
-    padding: spacing.lg,
+    gap: EllioSpacing.md,
+    padding: EllioSpacing.lg,
     borderTopWidth: 1,
-    borderTopColor: palette.border,
+    borderTopColor: EllioColors.border.standard,
   },
   skipButton: {
     flex: 1,
-    paddingVertical: spacing.md,
+    paddingVertical: EllioSpacing.md,
     alignItems: 'center',
-    borderRadius: radius.button,
+    borderRadius: EllioRadius.button,
     borderWidth: 2,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
   },
   skipButtonText: {
-    ...typography.bodyBold,
-    color: palette.textSecondary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.text.secondary,
   },
   completeButton: {
     flex: 2,
-    paddingVertical: spacing.md,
+    paddingVertical: EllioSpacing.md,
     alignItems: 'center',
-    backgroundColor: palette.success,
-    borderRadius: radius.button,
+    backgroundColor: EllioColors.states.success.main,
+    borderRadius: EllioRadius.button,
   },
   completeButtonText: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: '#FFFFFF',
   },
 });

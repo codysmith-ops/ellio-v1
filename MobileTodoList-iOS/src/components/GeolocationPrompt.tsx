@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import { launchCamera } from 'react-native-image-picker';
-import { palette, spacing, radius, typography, shadow } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography, EllioShadow } from '../theme/ellioTokens';
 import { LocationIcon, CameraIcon } from './Icons';
 
 interface GeolocationPromptProps {
@@ -81,8 +81,8 @@ export const GeolocationPrompt: React.FC<GeolocationPromptProps> = ({
         >
           <View style={styles.iconContainer}>
             <View style={styles.iconGroup}>
-              <LocationIcon size={28} color={palette.primary} />
-              <CameraIcon size={28} color={palette.primary} />
+              <LocationIcon size={28} color={EllioColors.primary.main} />
+              <CameraIcon size={28} color={EllioColors.primary.main} />
             </View>
           </View>
           <Text style={styles.title}>Leaving {storeName}?</Text>
@@ -93,7 +93,7 @@ export const GeolocationPrompt: React.FC<GeolocationPromptProps> = ({
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.uploadButton} onPress={handleTakePhoto}>
               <View style={styles.uploadButtonContent}>
-                <CameraIcon size={18} color={palette.surface} />
+                <CameraIcon size={18} color={EllioColors.surface.background} />
                 <Text style={styles.uploadButtonText}>Upload Receipt</Text>
               </View>
             </TouchableOpacity>
@@ -113,68 +113,68 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: spacing.lg,
+    padding: EllioSpacing.lg,
   },
   promptCard: {
-    backgroundColor: palette.surface,
-    borderRadius: radius.card,
-    padding: spacing.xl,
+    backgroundColor: EllioColors.surface.background,
+    borderRadius: EllioRadius.card,
+    padding: EllioSpacing.xl,
     width: '100%',
     maxWidth: 400,
-    ...shadow.large,
+    ...EllioShadow.large,
   },
   iconContainer: {
     alignItems: 'center',
-    marginBottom: spacing.md,
+    marginBottom: EllioSpacing.md,
   },
   iconGroup: {
     flexDirection: 'row',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   icon: {
     fontSize: 48,
   },
   title: {
-    ...typography.h3,
+    ...EllioTypography.h3,
     color: palette.text,
     textAlign: 'center',
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   message: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
-    marginBottom: spacing.lg,
+    marginBottom: EllioSpacing.lg,
     lineHeight: 22,
   },
   buttonContainer: {
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   uploadButton: {
-    backgroundColor: palette.primary,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
-    borderRadius: radius.button,
+    backgroundColor: EllioColors.primary.main,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.lg,
+    borderRadius: EllioRadius.button,
     alignItems: 'center',
   },
   uploadButtonContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   uploadButtonText: {
-    ...typography.bodyBold,
-    color: palette.surface,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.surface.background,
     fontSize: 16,
   },
   skipButton: {
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
-    borderRadius: radius.button,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.lg,
+    borderRadius: EllioRadius.button,
     alignItems: 'center',
   },
   skipButtonText: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
   },
 });

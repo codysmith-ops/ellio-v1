@@ -24,7 +24,7 @@ import {
   getAssistantResponse,
   getSuggestedQuestions,
 } from '../services/chatAssistant.service';
-import { palette, spacing, radius, typography } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography } from '../theme/ellioTokens';
 import { EllioButtons } from '../content/ellioTheme';
 import { Task } from '../store';
 import { EllioElephantLogo } from './EllioElephantLogo';
@@ -230,7 +230,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({ context, tasks }) 
             <TextInput
               style={styles.input}
               placeholder="Ask me anything..."
-              placeholderTextColor={palette.textTertiary}
+              placeholderTextColor={EllioColors.text.tertiary}
               value={inputText}
               onChangeText={setInputText}
               onSubmitEditing={handleSendMessage}
@@ -255,15 +255,15 @@ const styles = StyleSheet.create({
   // Floating Action Button
   fab: {
     position: 'absolute',
-    bottom: spacing.xxl,
-    right: spacing.lg,
+    bottom: EllioSpacing.xxl,
+    right: EllioSpacing.lg,
     zIndex: 1000,
   },
   fabButton: {
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
@@ -282,36 +282,36 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: palette.success,
+    backgroundColor: EllioColors.states.success.main,
     borderWidth: 2,
-    borderColor: palette.surface,
+    borderColor: EllioColors.surface.background,
   },
 
   // Modal
   container: {
     flex: 1,
-    backgroundColor: palette.surface,
+    backgroundColor: EllioColors.surface.background,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
+    paddingHorizontal: EllioSpacing.lg,
+    paddingVertical: EllioSpacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: palette.border,
-    backgroundColor: palette.surfaceElevated,
+    borderBottomColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.surface.backgroundElevated,
   },
   headerContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   assistantAvatar: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -319,27 +319,27 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   headerText: {
-    gap: spacing.xs,
+    gap: EllioSpacing.xs,
   },
   headerTitle: {
-    ...typography.h3,
+    ...EllioTypography.h3,
     color: palette.text,
   },
   headerSubtitle: {
-    ...typography.caption,
-    color: palette.textSecondary,
+    ...EllioTypography.caption,
+    color: EllioColors.text.secondary,
   },
   closeButton: {
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: palette.surface,
+    backgroundColor: EllioColors.surface.background,
     alignItems: 'center',
     justifyContent: 'center',
   },
   closeButtonText: {
     fontSize: 20,
-    color: palette.textSecondary,
+    color: EllioColors.text.secondary,
   },
 
   // Messages
@@ -347,36 +347,36 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   messagesContent: {
-    padding: spacing.lg,
-    gap: spacing.md,
+    padding: EllioSpacing.lg,
+    gap: EllioSpacing.md,
   },
   messageBubble: {
     maxWidth: '80%',
-    padding: spacing.md,
-    borderRadius: radius.md,
-    gap: spacing.xs,
+    padding: EllioSpacing.md,
+    borderRadius: EllioRadius.md,
+    gap: EllioSpacing.xs,
   },
   userBubble: {
     alignSelf: 'flex-end',
-    backgroundColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
     borderBottomRightRadius: 4,
   },
   assistantBubble: {
     alignSelf: 'flex-start',
-    backgroundColor: palette.surfaceElevated,
+    backgroundColor: EllioColors.surface.backgroundElevated,
     borderBottomLeftRadius: 4,
   },
   messageText: {
-    ...typography.body,
+    ...EllioTypography.body,
   },
   userText: {
-    color: palette.surface,
+    color: EllioColors.surface.background,
   },
   assistantText: {
     color: palette.text,
   },
   messageTime: {
-    ...typography.caption,
+    ...EllioTypography.caption,
     fontSize: 11,
   },
   userTime: {
@@ -384,79 +384,79 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   assistantTime: {
-    color: palette.textTertiary,
+    color: EllioColors.text.tertiary,
   },
 
   // Typing Indicator
   typingIndicator: {
     flexDirection: 'row',
-    gap: spacing.xs,
-    paddingVertical: spacing.xs,
+    gap: EllioSpacing.xs,
+    paddingVertical: EllioSpacing.xs,
   },
   typingDot: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: palette.textTertiary,
+    backgroundColor: EllioColors.text.tertiary,
   },
 
   // Suggested Questions
   suggestionsContainer: {
-    marginTop: spacing.lg,
-    gap: spacing.sm,
+    marginTop: EllioSpacing.lg,
+    gap: EllioSpacing.sm,
   },
   suggestionsLabel: {
-    ...typography.caption,
-    color: palette.textSecondary,
-    marginBottom: spacing.xs,
+    ...EllioTypography.caption,
+    color: EllioColors.text.secondary,
+    marginBottom: EllioSpacing.xs,
   },
   suggestionButton: {
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-    borderRadius: radius.md,
+    paddingVertical: EllioSpacing.sm,
+    paddingHorizontal: EllioSpacing.md,
+    borderRadius: EllioRadius.md,
     borderWidth: 1,
-    borderColor: palette.border,
-    backgroundColor: palette.surface,
+    borderColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.surface.background,
   },
   suggestionText: {
-    ...typography.body,
-    color: palette.primary,
+    ...EllioTypography.body,
+    color: EllioColors.primary.main,
   },
 
   // Input
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    gap: spacing.sm,
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
+    gap: EllioSpacing.sm,
+    paddingHorizontal: EllioSpacing.lg,
+    paddingVertical: EllioSpacing.md,
     borderTopWidth: 1,
-    borderTopColor: palette.border,
-    backgroundColor: palette.surfaceElevated,
+    borderTopColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.surface.backgroundElevated,
   },
   input: {
     flex: 1,
-    ...typography.body,
+    ...EllioTypography.body,
     color: palette.text,
-    backgroundColor: palette.surface,
-    borderRadius: radius.md,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
+    backgroundColor: EllioColors.surface.background,
+    borderRadius: EllioRadius.md,
+    paddingHorizontal: EllioSpacing.md,
+    paddingVertical: EllioSpacing.sm,
     maxHeight: 100,
     borderWidth: 1,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
   },
   sendButton: {
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.sm,
-    borderRadius: radius.md,
-    backgroundColor: palette.primary,
+    paddingHorizontal: EllioSpacing.lg,
+    paddingVertical: EllioSpacing.sm,
+    borderRadius: EllioRadius.md,
+    backgroundColor: EllioColors.primary.main,
   },
   sendButtonDisabled: {
-    backgroundColor: palette.border,
+    backgroundColor: EllioColors.border.standard,
   },
   sendButtonText: {
-    ...typography.bodyBold,
-    color: palette.surface,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.surface.background,
   },
 });

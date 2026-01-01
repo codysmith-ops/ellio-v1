@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, Modal } from 'react-native';
 import { RNCamera } from 'react-native-camera';
-import { palette, spacing, radius, typography } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography } from '../theme/ellioTokens';
 
 interface BarcodeScannerProps {
   visible: boolean;
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 40,
     height: 40,
-    borderColor: palette.primary,
+    borderColor: EllioColors.primary.main,
     borderWidth: 4,
   },
   topLeft: {
@@ -132,21 +132,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.6)',
     alignItems: 'center',
-    paddingTop: spacing.xl,
+    paddingTop: EllioSpacing.xl,
   },
   instructionText: {
-    ...typography.body,
+    ...EllioTypography.body,
     color: '#fff',
-    marginBottom: spacing.xl,
+    marginBottom: EllioSpacing.xl,
   },
   closeButton: {
-    backgroundColor: palette.primary,
-    paddingHorizontal: spacing.xl,
-    paddingVertical: spacing.md,
-    borderRadius: radius.lg,
+    backgroundColor: EllioColors.primary.main,
+    paddingHorizontal: EllioSpacing.xl,
+    paddingVertical: EllioSpacing.md,
+    borderRadius: EllioRadius.lg,
   },
   closeButtonText: {
-    ...typography.button,
+    ...EllioTypography.button,
     color: '#fff',
   },
 });

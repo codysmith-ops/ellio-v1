@@ -21,6 +21,11 @@ import {
   CheckmarkIcon,
   LocationIcon,
   CameraIcon,
+  HomeIcon,
+  CartIcon,
+  UserIcon,
+  SettingsIcon,
+  PlugIcon,
 } from './Icons';
 import { EllioLogo } from './EllioLogo';
 
@@ -98,9 +103,9 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
 
     switch (page) {
       case 'home':
-        return <CheckmarkIcon size={size} color={color} />;
+        return <HomeIcon size={size} color={color} />;
       case 'shoppinglist':
-        return <CheckmarkIcon size={size} color={color} />;
+        return <CartIcon size={size} color={color} />;
       case 'timeline':
         return <CalendarIcon size={size} color={color} />;
       case 'analytics':
@@ -128,11 +133,11 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
       case 'team':
         return <UsersIcon size={size} color={color} />;
       case 'account':
-        return <CheckmarkIcon size={size} color={color} />;
+        return <UserIcon size={size} color={color} />;
       case 'preferences':
-        return <CheckmarkIcon size={size} color={color} />;
+        return <SettingsIcon size={size} color={color} />;
       case 'integrations':
-        return <CheckmarkIcon size={size} color={color} />;
+        return <PlugIcon size={size} color={color} />;
       case 'help':
         return <LightbulbIcon size={size} color={color} />;
       default:

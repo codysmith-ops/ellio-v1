@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Animated,
 } from 'react-native';
-import { palette, spacing, radius, typography, shadow } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography, EllioShadow } from '../theme/ellioTokens';
 
 interface FeatureTipProps {
   visible: boolean;
@@ -81,62 +81,62 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: spacing.xl,
+    padding: EllioSpacing.xl,
   },
   tipBubble: {
-    backgroundColor: palette.surface,
-    borderRadius: radius.card,
-    padding: spacing.xl,
+    backgroundColor: EllioColors.surface.background,
+    borderRadius: EllioRadius.card,
+    padding: EllioSpacing.xl,
     width: '100%',
     maxWidth: 380,
     maxHeight: '80%',
-    ...shadow.large,
+    ...EllioShadow.large,
   },
   iconContainer: {
     alignItems: 'center',
-    marginBottom: spacing.md,
+    marginBottom: EllioSpacing.md,
   },
   icon: {
     fontSize: 40,
   },
   title: {
-    ...typography.h3,
+    ...EllioTypography.h3,
     color: palette.text,
     textAlign: 'center',
-    marginBottom: spacing.md,
+    marginBottom: EllioSpacing.md,
   },
   messageContainer: {
     maxHeight: 300,
-    marginBottom: spacing.lg,
+    marginBottom: EllioSpacing.lg,
   },
   message: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
     lineHeight: 22,
   },
   buttonContainer: {
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   gotItButton: {
-    backgroundColor: palette.primary,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
-    borderRadius: radius.button,
+    backgroundColor: EllioColors.primary.main,
+    paddingVertical: EllioSpacing.md,
+    paddingHorizontal: EllioSpacing.lg,
+    borderRadius: EllioRadius.button,
     alignItems: 'center',
   },
   gotItButtonText: {
-    ...typography.bodyBold,
-    color: palette.surface,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.surface.background,
   },
   disableButton: {
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-    borderRadius: radius.button,
+    paddingVertical: EllioSpacing.sm,
+    paddingHorizontal: EllioSpacing.md,
+    borderRadius: EllioRadius.button,
     alignItems: 'center',
   },
   disableButtonText: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
   },
 });

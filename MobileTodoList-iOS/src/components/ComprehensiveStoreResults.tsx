@@ -21,7 +21,7 @@ import {
   filterStores,
   groupStoresByType,
 } from '../services/storeDiscovery';
-import { palette, spacing, radius } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius } from '../theme/ellioTokens';
 import {
   LocationIcon,
   PhoneIcon,
@@ -102,15 +102,15 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
 
   const getAvailabilityColor = (availability: string): string => {
     if (availability === 'In Stock') {
-      return palette.success;
+      return EllioColors.states.success.main;
     }
     if (availability === 'Low Stock') {
-      return palette.warning;
+      return EllioColors.states.warning.main;
     }
     if (availability === 'Out of Stock') {
-      return palette.error;
+      return EllioColors.states.error.main;
     }
-    return palette.textSecondary;
+    return EllioColors.text.secondary;
   };
 
   const openNavigation = (result: StoreResult) => {
@@ -174,7 +174,7 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
       {item.storeLocation && (
         <View style={styles.cardFooter}>
           <View style={styles.addressContainer}>
-            <LocationIcon size={14} color={palette.textSecondary} />
+            <LocationIcon size={14} color={EllioColors.text.secondary} />
             <Text style={styles.address} numberOfLines={1}>
               {item.storeLocation.address}
             </Text>
@@ -189,7 +189,7 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
                 accessibilityLabel={`Call ${item.store}`}
                 accessibilityHint="Double tap to call this store"
               >
-                <PhoneIcon size={16} color={palette.primary} />
+                <PhoneIcon size={16} color={EllioColors.primary.main} />
                 <Text style={styles.actionButton}>Call</Text>
               </TouchableOpacity>
             )}
@@ -201,7 +201,7 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
               accessibilityLabel="Navigate to store"
               accessibilityHint="Double tap to open navigation in Maps"
             >
-              <NavigationIcon size={16} color={palette.primary} />
+              <NavigationIcon size={16} color={EllioColors.primary.main} />
               <Text style={styles.actionButton}>Navigate</Text>
             </TouchableOpacity>
             {item.url && (
@@ -213,7 +213,7 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
                 accessibilityLabel="View store website"
                 accessibilityHint="Double tap to open store website"
               >
-                <LinkIcon size={16} color={palette.primary} />
+                <LinkIcon size={16} color={EllioColors.primary.main} />
                 <Text style={styles.actionButton}>View</Text>
               </TouchableOpacity>
             )}
@@ -249,9 +249,9 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
       >
         <View style={styles.filterToggleContent}>
           {filters.showFilters ? (
-            <ChevronDownIcon size={18} color={palette.primary} />
+            <ChevronDownIcon size={18} color={EllioColors.primary.main} />
           ) : (
-            <ChevronRightIcon size={18} color={palette.primary} />
+            <ChevronRightIcon size={18} color={EllioColors.primary.main} />
           )}
           <Text style={styles.filterToggleText}>Filters</Text>
         </View>
@@ -271,7 +271,7 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
             <Switch
               value={filters.inStockOnly}
               onValueChange={v => setFilters(p => ({ ...p, inStockOnly: v }))}
-              trackColor={{ false: palette.border, true: palette.primary }}
+              trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
             />
           </View>
 
@@ -352,7 +352,7 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
       <View style={styles.viewModeSelector}>
         {(['list', 'grouped', 'map'] as const).map(mode => {
           const isActive = viewMode === mode;
-          const iconColor = isActive ? palette.primary : palette.textTertiary;
+          const iconColor = isActive ? EllioColors.primary.main : EllioColors.text.tertiary;
           return (
             <TouchableOpacity
               key={mode}
@@ -401,7 +401,7 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
         </ScrollView>
       ) : (
         <View style={styles.mapPlaceholder}>
-          <MapIcon size={64} color={palette.textTertiary} />
+          <MapIcon size={64} color={EllioColors.text.tertiary} />
           <Text style={styles.mapPlaceholderText}>Map view coming soon</Text>
           <Text style={styles.mapPlaceholderSubtext}>
             Will show all {filteredResults.length} stores on interactive map
@@ -415,19 +415,19 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: palette.background,
+    backgroundColor: EllioColors.surface.background,
   },
   header: {
-    padding: spacing.md,
-    backgroundColor: palette.surface,
+    padding: EllioSpacing.md,
+    backgroundColor: EllioColors.surface.background,
     borderBottomWidth: 1,
-    borderBottomColor: palette.border,
+    borderBottomColor: EllioColors.border.standard,
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: '700',
     color: palette.text,
-    marginBottom: spacing.xs,
+    marginBottom: EllioSpacing.xs,
   },
   headerStats: {
     flexDirection: 'row',
@@ -435,36 +435,36 @@ const styles = StyleSheet.create({
   },
   statText: {
     fontSize: 14,
-    color: palette.textSecondary,
+    color: EllioColors.text.secondary,
   },
   statDivider: {
-    marginHorizontal: spacing.sm,
-    color: palette.textSecondary,
+    marginHorizontal: EllioSpacing.sm,
+    color: EllioColors.text.secondary,
   },
   filterToggle: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: spacing.md,
-    backgroundColor: palette.surface,
+    padding: EllioSpacing.md,
+    backgroundColor: EllioColors.surface.background,
     borderBottomWidth: 1,
-    borderBottomColor: palette.border,
+    borderBottomColor: EllioColors.border.standard,
   },
   filterToggleContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   filterToggleText: {
     fontSize: 16,
     fontWeight: '600',
-    color: palette.primary,
+    color: EllioColors.primary.main,
   },
   activeFilterBadge: {
-    backgroundColor: palette.primary,
-    paddingHorizontal: spacing.sm,
+    backgroundColor: EllioColors.primary.main,
+    paddingHorizontal: EllioSpacing.sm,
     paddingVertical: 4,
-    borderRadius: radius.badge, // 6px per design system
+    borderRadius: EllioRadius.badge, // 6px per design system
   },
   activeFilterText: {
     color: '#fff',
@@ -472,16 +472,16 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   filtersPanel: {
-    backgroundColor: palette.surface,
-    padding: spacing.md,
+    backgroundColor: EllioColors.surface.background,
+    padding: EllioSpacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: palette.border,
+    borderBottomColor: EllioColors.border.standard,
   },
   filterRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: spacing.md,
+    marginBottom: EllioSpacing.md,
   },
   filterLabel: {
     fontSize: 16,
@@ -490,27 +490,27 @@ const styles = StyleSheet.create({
   filterSectionTitle: {
     fontSize: 14,
     fontWeight: '600',
-    color: palette.textSecondary,
-    marginTop: spacing.sm,
-    marginBottom: spacing.sm,
+    color: EllioColors.text.secondary,
+    marginTop: EllioSpacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   distanceButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: spacing.md,
+    marginBottom: EllioSpacing.md,
   },
   distanceButton: {
     flex: 1,
-    padding: spacing.sm,
+    padding: EllioSpacing.sm,
     marginHorizontal: 4,
-    borderRadius: radius.button, // 8px per design system
+    borderRadius: EllioRadius.button, // 8px per design system
     borderWidth: 1,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
     alignItems: 'center',
   },
   distanceButtonActive: {
-    backgroundColor: palette.primary,
-    borderColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
+    borderColor: EllioColors.primary.main,
   },
   distanceButtonText: {
     fontSize: 14,
@@ -522,26 +522,26 @@ const styles = StyleSheet.create({
   },
   storeTypeFilters: {
     flexDirection: 'row',
-    gap: spacing.sm,
-    marginBottom: spacing.md,
+    gap: EllioSpacing.sm,
+    marginBottom: EllioSpacing.md,
   },
   storeTypeChip: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    borderRadius: radius.full,
+    paddingHorizontal: EllioSpacing.md,
+    paddingVertical: EllioSpacing.sm,
+    borderRadius: EllioRadius.full,
     borderWidth: 1,
-    borderColor: palette.border,
-    backgroundColor: palette.background,
+    borderColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.surface.background,
   },
   storeTypeChipActive: {
-    backgroundColor: palette.primary,
-    borderColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
+    borderColor: EllioColors.primary.main,
   },
   storeTypeIcon: {
     fontSize: 16,
-    marginRight: spacing.xs,
+    marginRight: EllioSpacing.xs,
   },
   storeTypeLabel: {
     fontSize: 14,
@@ -552,29 +552,29 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   clearFiltersButton: {
-    padding: spacing.sm,
+    padding: EllioSpacing.sm,
     alignItems: 'center',
   },
   clearFiltersText: {
     fontSize: 14,
-    color: palette.error,
+    color: EllioColors.states.error.main,
     fontWeight: '600',
   },
   viewModeSelector: {
     flexDirection: 'row',
-    backgroundColor: palette.surface,
+    backgroundColor: EllioColors.surface.background,
     borderBottomWidth: 1,
-    borderBottomColor: palette.border,
+    borderBottomColor: EllioColors.border.standard,
   },
   viewModeButton: {
     flex: 1,
-    padding: spacing.md,
+    padding: EllioSpacing.md,
     alignItems: 'center',
     borderBottomWidth: 2,
     borderBottomColor: 'transparent',
   },
   viewModeButtonActive: {
-    borderBottomColor: palette.primary,
+    borderBottomColor: EllioColors.primary.main,
   },
   viewModeText: {
     fontSize: 24,
@@ -586,12 +586,12 @@ const styles = StyleSheet.create({
   sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: spacing.md,
-    backgroundColor: palette.surfaceElevated,
+    padding: EllioSpacing.md,
+    backgroundColor: EllioColors.surface.backgroundElevated,
   },
   sectionIcon: {
     fontSize: 20,
-    marginRight: spacing.sm,
+    marginRight: EllioSpacing.sm,
   },
   sectionTitle: {
     fontSize: 16,
@@ -599,22 +599,22 @@ const styles = StyleSheet.create({
     color: palette.text,
   },
   storeCard: {
-    backgroundColor: palette.surface,
-    marginHorizontal: spacing.md,
-    marginVertical: spacing.sm,
-    padding: spacing.md,
-    borderRadius: radius.card, // 12px per design system
+    backgroundColor: EllioColors.surface.background,
+    marginHorizontal: EllioSpacing.md,
+    marginVertical: EllioSpacing.sm,
+    padding: EllioSpacing.md,
+    borderRadius: EllioRadius.card, // 12px per design system
     borderWidth: 1,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
   },
   cardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   storeLogo: {
     fontSize: 32,
-    marginRight: spacing.sm,
+    marginRight: EllioSpacing.sm,
   },
   headerInfo: {
     flex: 1,
@@ -626,12 +626,12 @@ const styles = StyleSheet.create({
   },
   distance: {
     fontSize: 13,
-    color: palette.textSecondary,
+    color: EllioColors.text.secondary,
   },
   availabilityBadge: {
-    paddingHorizontal: spacing.sm,
+    paddingHorizontal: EllioSpacing.sm,
     paddingVertical: 4,
-    borderRadius: radius.badge, // 6px per design system
+    borderRadius: EllioRadius.badge, // 6px per design system
   },
   availabilityText: {
     fontSize: 11,
@@ -639,12 +639,12 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   cardBody: {
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   productName: {
     fontSize: 14,
     color: palette.text,
-    marginBottom: spacing.xs,
+    marginBottom: EllioSpacing.xs,
   },
   priceRow: {
     flexDirection: 'row',
@@ -654,7 +654,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     fontWeight: '700',
-    color: palette.primary,
+    color: EllioColors.primary.main,
   },
   ratingContainer: {
     flexDirection: 'row',
@@ -664,56 +664,56 @@ const styles = StyleSheet.create({
   rating: {
     fontSize: 14,
     fontWeight: '600',
-    color: palette.textSecondary,
+    color: EllioColors.text.secondary,
   },
   cardFooter: {
     borderTopWidth: 1,
-    borderTopColor: palette.border,
-    paddingTop: spacing.sm,
+    borderTopColor: EllioColors.border.standard,
+    paddingTop: EllioSpacing.sm,
   },
   addressContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   address: {
     flex: 1,
     fontSize: 13,
-    color: palette.textSecondary,
+    color: EllioColors.text.secondary,
   },
   actions: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   actionButtonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    paddingHorizontal: spacing.sm,
+    paddingHorizontal: EllioSpacing.sm,
     paddingVertical: 6,
   },
   actionButton: {
     fontSize: 13,
-    color: palette.primary,
+    color: EllioColors.primary.main,
     fontWeight: '600',
   },
   emptyState: {
-    padding: spacing.xl,
+    padding: EllioSpacing.xl,
     alignItems: 'center',
   },
   emptyText: {
     fontSize: 16,
-    color: palette.textSecondary,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
   },
   mapPlaceholder: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: spacing.xl,
-    gap: spacing.md,
+    padding: EllioSpacing.xl,
+    gap: EllioSpacing.md,
   },
   mapPlaceholderText: {
     fontSize: 18,
@@ -722,7 +722,7 @@ const styles = StyleSheet.create({
   },
   mapPlaceholderSubtext: {
     fontSize: 14,
-    color: palette.textSecondary,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
   },
 });

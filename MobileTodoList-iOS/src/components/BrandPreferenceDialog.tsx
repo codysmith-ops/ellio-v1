@@ -8,7 +8,7 @@ import {
   Modal,
   ScrollView,
 } from 'react-native';
-import { palette, spacing, radius, typography } from '../theme';
+import { EllioColors, EllioSpacing, EllioRadius, EllioTypography } from '../theme/ellioTokens';
 import { LightbulbIcon, CheckmarkIcon } from './Icons';
 
 interface BrandPreferenceDialogProps {
@@ -135,7 +135,7 @@ export const BrandPreferenceDialog: React.FC<BrandPreferenceDialogProps> = ({
                   placeholder="e.g., Cascade, Tide"
                   value={customBrand}
                   onChangeText={setCustomBrand}
-                  placeholderTextColor={palette.textTertiary}
+                  placeholderTextColor={EllioColors.text.tertiary}
                   autoFocus
                 />
               </View>
@@ -171,12 +171,12 @@ export const BrandPreferenceDialog: React.FC<BrandPreferenceDialogProps> = ({
                 onChangeText={setSpecificDetails}
                 multiline
                 numberOfLines={3}
-                placeholderTextColor={palette.textTertiary}
+                placeholderTextColor={EllioColors.text.tertiary}
               />
             </View>
 
             <View style={styles.tipBox}>
-              <LightbulbIcon size={16} color={palette.primary} />
+              <LightbulbIcon size={16} color={EllioColors.primary.main} />
               <Text style={styles.tipText}>
                 We'll remember your preference for similar items in the future!
               </Text>
@@ -211,75 +211,75 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   dialog: {
-    backgroundColor: palette.background,
-    borderTopLeftRadius: radius.card * 2,
-    borderTopRightRadius: radius.card * 2,
+    backgroundColor: EllioColors.surface.background,
+    borderTopLeftRadius: EllioRadius.card * 2,
+    borderTopRightRadius: EllioRadius.card * 2,
     maxHeight: '85%',
   },
   header: {
-    padding: spacing.lg,
+    padding: EllioSpacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: palette.border,
+    borderBottomColor: EllioColors.border.standard,
   },
   title: {
-    ...typography.h3,
+    ...EllioTypography.h3,
     color: palette.text,
     marginBottom: 4,
   },
   subtitle: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
   },
   content: {
-    padding: spacing.lg,
+    padding: EllioSpacing.lg,
   },
   sectionTitle: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
-    marginBottom: spacing.md,
+    marginBottom: EllioSpacing.md,
   },
   brandGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: spacing.sm,
-    marginBottom: spacing.lg,
+    gap: EllioSpacing.sm,
+    marginBottom: EllioSpacing.lg,
   },
   brandOption: {
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-    borderRadius: radius.button,
-    backgroundColor: palette.surface,
+    paddingVertical: EllioSpacing.sm,
+    paddingHorizontal: EllioSpacing.md,
+    borderRadius: EllioRadius.button,
+    backgroundColor: EllioColors.surface.background,
     borderWidth: 2,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
   },
   brandOptionSelected: {
-    borderColor: palette.primary,
+    borderColor: EllioColors.primary.main,
     backgroundColor: palette.infoLight,
   },
   brandOptionText: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
   },
   brandOptionTextSelected: {
-    ...typography.bodyBold,
-    color: palette.primary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.primary.main,
   },
   customInputContainer: {
-    marginBottom: spacing.lg,
+    marginBottom: EllioSpacing.lg,
   },
   label: {
-    ...typography.bodyBold,
+    ...EllioTypography.bodyBold,
     color: palette.text,
-    marginBottom: spacing.sm,
+    marginBottom: EllioSpacing.sm,
   },
   input: {
-    ...typography.body,
-    backgroundColor: palette.surface,
+    ...EllioTypography.body,
+    backgroundColor: EllioColors.surface.background,
     borderWidth: 1,
-    borderColor: palette.border,
-    borderRadius: radius.button,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md,
+    borderColor: EllioColors.border.standard,
+    borderRadius: EllioRadius.button,
+    paddingHorizontal: EllioSpacing.md,
+    paddingVertical: EllioSpacing.md,
     color: palette.text,
   },
   textArea: {
@@ -287,30 +287,30 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
   alternativesSection: {
-    marginBottom: spacing.lg,
-    backgroundColor: palette.surface,
-    padding: spacing.md,
-    borderRadius: radius.card,
+    marginBottom: EllioSpacing.lg,
+    backgroundColor: EllioColors.surface.background,
+    padding: EllioSpacing.md,
+    borderRadius: EllioRadius.card,
   },
   checkboxRow: {
     flexDirection: 'row',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   checkbox: {
     width: 24,
     height: 24,
     borderRadius: 6,
     borderWidth: 2,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
     alignItems: 'center',
     justifyContent: 'center',
   },
   checkboxChecked: {
-    backgroundColor: palette.primary,
-    borderColor: palette.primary,
+    backgroundColor: EllioColors.primary.main,
+    borderColor: EllioColors.primary.main,
   },
   checkmark: {
-    color: palette.surface,
+    color: EllioColors.surface.background,
     fontSize: 16,
     fontWeight: '700',
   },
@@ -318,66 +318,66 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   checkboxText: {
-    ...typography.body,
+    ...EllioTypography.body,
     color: palette.text,
     marginBottom: 2,
   },
   checkboxSubtext: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
   },
   detailsSection: {
-    marginBottom: spacing.lg,
+    marginBottom: EllioSpacing.lg,
   },
   tipBox: {
     flexDirection: 'row',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
     backgroundColor: palette.infoLight,
-    padding: spacing.md,
-    borderRadius: radius.card,
+    padding: EllioSpacing.md,
+    borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: palette.primary,
-    marginBottom: spacing.md,
+    borderColor: EllioColors.primary.main,
+    marginBottom: EllioSpacing.md,
   },
   tipIcon: {
     fontSize: 20,
   },
   tipText: {
-    ...typography.secondary,
-    color: palette.primary,
+    ...EllioTypography.secondary,
+    color: EllioColors.primary.main,
     flex: 1,
   },
   footer: {
     flexDirection: 'row',
-    padding: spacing.lg,
-    gap: spacing.md,
+    padding: EllioSpacing.lg,
+    gap: EllioSpacing.md,
     borderTopWidth: 1,
-    borderTopColor: palette.border,
+    borderTopColor: EllioColors.border.standard,
   },
   cancelButton: {
     flex: 1,
-    paddingVertical: spacing.md,
+    paddingVertical: EllioSpacing.md,
     alignItems: 'center',
-    borderRadius: radius.button,
+    borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.standard,
   },
   cancelButtonText: {
-    ...typography.bodyBold,
-    color: palette.textSecondary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.text.secondary,
   },
   confirmButton: {
     flex: 2,
-    paddingVertical: spacing.md,
+    paddingVertical: EllioSpacing.md,
     alignItems: 'center',
-    backgroundColor: palette.primary,
-    borderRadius: radius.button,
+    backgroundColor: EllioColors.primary.main,
+    borderRadius: EllioRadius.button,
   },
   confirmButtonDisabled: {
-    backgroundColor: palette.border,
+    backgroundColor: EllioColors.border.standard,
   },
   confirmButtonText: {
-    ...typography.bodyBold,
-    color: palette.surface,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.surface.background,
   },
 });
