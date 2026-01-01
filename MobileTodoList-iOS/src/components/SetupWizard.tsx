@@ -690,146 +690,143 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           },
         ]
       : []),
-    ...(selectedGoals.includes('credit-points')
-      ? [
-          {
-            title: 'Maximize Your Rewards',
-            subtitle: 'Tell us about your credit cards',
-            content: (
-              <View style={styles.creditCardContent}>
-                <Text style={styles.configIntro}>
-                  Add your credit cards and we'll suggest which card to use for each purchase to
-                  maximize your points and cashback.
-                </Text>
+    // Step 6: Credit Cards (AUTOMATIC FOR ALL USERS)
+    {
+      title: 'Maximize Your Rewards',
+      subtitle: 'Tell us about your credit cards (optional)',
+      content: (
+        <View style={styles.creditCardContent}>
+          <Text style={styles.configIntro}>
+            Add your credit cards and we'll suggest which card to use for each purchase to
+            maximize your points and cashback.
+          </Text>
 
-                <View style={styles.inputGroup}>
-                  <Text style={styles.label}>Card Name</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Start typing..."
-                    value={creditCardName}
-                    onChangeText={text => {
-                      setCreditCardName(text);
-                      setShowCardSuggestions(text.length > 0);
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Card Name</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Start typing..."
+              value={creditCardName}
+              onChangeText={text => {
+                setCreditCardName(text);
+                setShowCardSuggestions(text.length > 0);
+              }}
+              onFocus={() => setShowCardSuggestions(creditCardName.length > 0)}
+              onBlur={() => setTimeout(() => setShowCardSuggestions(false), 200)}
+              placeholderTextColor={palette.textTertiary}
+            />
+            {showCardSuggestions && filteredCards.length > 0 && (
+              <ScrollView style={styles.suggestionsContainer} nestedScrollEnabled>
+                {filteredCards.slice(0, 5).map((card, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={styles.suggestionItem}
+                    onPress={() => {
+                      setCreditCardName(card);
+                      setShowCardSuggestions(false);
+                      // Auto-fill rewards from official data
+                      const cardData = getCreditCardData(card);
+                      if (cardData) {
+                        const rewardsText =
+                          cardData.bonusCategories.length > 0
+                            ? cardData.bonusCategories
+                                .map(bc => `${bc.rate}% ${bc.category}`)
+                                .join(', ')
+                            : `${cardData.baseRate}% on everything`;
+                        setRewardsType(rewardsText);
+                        // Show user the auto-filled data
+                        Alert.alert(
+                          'Card Details Loaded',
+                          `${cardData.name}\n\nRewards:\n${rewardsText}\n\nAnnual Fee: $${
+                            cardData.annualFee
+                          }${
+                            cardData.signUpBonus
+                              ? '\n\nSign-up Bonus: ' + cardData.signUpBonus
+                              : ''
+                          }`,
+                          [{ text: 'Got it!' }]
+                        );
+                      }
                     }}
-                    onFocus={() => setShowCardSuggestions(creditCardName.length > 0)}
-                    onBlur={() => setTimeout(() => setShowCardSuggestions(false), 200)}
-                    placeholderTextColor={palette.textTertiary}
-                  />
-                  {showCardSuggestions && filteredCards.length > 0 && (
-                    <ScrollView style={styles.suggestionsContainer} nestedScrollEnabled>
-                      {filteredCards.slice(0, 5).map((card, index) => (
-                        <TouchableOpacity
-                          key={index}
-                          style={styles.suggestionItem}
-                          onPress={() => {
-                            setCreditCardName(card);
-                            setShowCardSuggestions(false);
-                            // Auto-fill rewards from official data
-                            const cardData = getCreditCardData(card);
-                            if (cardData) {
-                              const rewardsText =
-                                cardData.bonusCategories.length > 0
-                                  ? cardData.bonusCategories
-                                      .map(bc => `${bc.rate}% ${bc.category}`)
-                                      .join(', ')
-                                  : `${cardData.baseRate}% on everything`;
-                              setRewardsType(rewardsText);
-                              // Show user the auto-filled data
-                              Alert.alert(
-                                'Card Details Loaded',
-                                `${cardData.name}\n\nRewards:\n${rewardsText}\n\nAnnual Fee: $${
-                                  cardData.annualFee
-                                }${
-                                  cardData.signUpBonus
-                                    ? '\n\nSign-up Bonus: ' + cardData.signUpBonus
-                                    : ''
-                                }`,
-                                [{ text: 'Got it!' }]
-                              );
-                            }
-                          }}
-                        >
-                          <Text style={styles.suggestionText}>{card}</Text>
-                        </TouchableOpacity>
-                      ))}
-                    </ScrollView>
-                  )}
-                </View>
+                  >
+                    <Text style={styles.suggestionText}>{card}</Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            )}
+          </View>
 
-                <View style={styles.inputGroup}>
-                  <Text style={styles.label}>Rewards (Auto-filled from official website)</Text>
-                  <View style={[styles.input, styles.readOnlyInput]}>
-                    <Text style={rewardsType ? styles.rewardsText : styles.rewardsPlaceholder}>
-                      {rewardsType || 'Select a card above to see rewards'}
-                    </Text>
-                  </View>
-                  {rewardsType && (
-                    <Text style={styles.helpText}>
-                      ✓ Accurate data from {creditCardName} official website
-                    </Text>
-                  )}
-                </View>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Rewards (Auto-filled from official website)</Text>
+            <View style={[styles.input, styles.readOnlyInput]}>
+              <Text style={rewardsType ? styles.rewardsText : styles.rewardsPlaceholder}>
+                {rewardsType || 'Select a card above to see rewards'}
+              </Text>
+            </View>
+            {rewardsType && (
+              <Text style={styles.helpText}>
+                ✓ Accurate data from {creditCardName} official website
+              </Text>
+            )}
+          </View>
 
-                {/* Debit Card Option */}
-                <View style={styles.debitDivider} />
-                <TouchableOpacity
-                  style={styles.debitToggle}
-                  onPress={() => setUseDebitCard(!useDebitCard)}
-                >
-                  <View style={[styles.debitCheckbox, useDebitCard && styles.checkboxChecked]}>
-                    {useDebitCard && <Text style={styles.debitCheckmark}>✓</Text>}
-                  </View>
-                  <Text style={styles.debitToggleText}>I use a debit card (optional)</Text>
-                </TouchableOpacity>
+          {/* Debit Card Option */}
+          <View style={styles.debitDivider} />
+          <TouchableOpacity
+            style={styles.debitToggle}
+            onPress={() => setUseDebitCard(!useDebitCard)}
+          >
+            <View style={[styles.debitCheckbox, useDebitCard && styles.checkboxChecked]}>
+              {useDebitCard && <Text style={styles.debitCheckmark}>✓</Text>}
+            </View>
+            <Text style={styles.debitToggleText}>I use a debit card (optional)</Text>
+          </TouchableOpacity>
 
-                {useDebitCard && (
-                  <>
-                    <View style={styles.inputGroup}>
-                      <Text style={styles.label}>Debit Card Name</Text>
-                      <TextInput
-                        style={styles.input}
-                        placeholder="e.g., Chase Checking"
-                        value={debitCardName}
-                        onChangeText={setDebitCardName}
-                        placeholderTextColor={palette.textTertiary}
-                      />
-                    </View>
-                    <View style={styles.inputGroup}>
-                      <Text style={styles.label}>Debit Card Rewards/Cashback (if any)</Text>
-                      <TextInput
-                        style={styles.input}
-                        placeholder="e.g., 1% cashback on all purchases"
-                        value={debitRewardsInfo}
-                        onChangeText={setDebitRewardsInfo}
-                        placeholderTextColor={palette.textTertiary}
-                      />
-                      <Text style={styles.helpText}>
-                        Enter any cashback or rewards your debit card offers
-                      </Text>
-                    </View>
-                  </>
-                )}
-
-                <View style={styles.aiFeatureBox}>
-                  <View style={styles.aiIconContainer}>
-                    <LightbulbIcon size={24} color={palette.primary} />
-                  </View>
-                  <View style={styles.aiFeatureContent}>
-                    <Text style={styles.aiFeatureTitle}>Smart Card Recommendations</Text>
-                    <Text style={styles.aiFeatureText}>
-                      Our AI analyzes category bonuses, rotating rewards, and special offers to
-                      recommend the best card for each purchase.
-                    </Text>
-                  </View>
-                </View>
-
-                <Text style={styles.skipHint}>You can add more cards later in settings</Text>
+          {useDebitCard && (
+            <>
+              <View style={styles.inputGroup}>
+                <Text style={styles.label}>Debit Card Name</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="e.g., Chase Checking"
+                  value={debitCardName}
+                  onChangeText={setDebitCardName}
+                  placeholderTextColor={palette.textTertiary}
+                />
               </View>
-            ),
-          },
-        ]
-      : []),
+              <View style={styles.inputGroup}>
+                <Text style={styles.label}>Debit Card Rewards/Cashback (if any)</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="e.g., 1% cashback on all purchases"
+                  value={debitRewardsInfo}
+                  onChangeText={setDebitRewardsInfo}
+                  placeholderTextColor={palette.textTertiary}
+                />
+                <Text style={styles.helpText}>
+                  Enter any cashback or rewards your debit card offers
+                </Text>
+              </View>
+            </>
+          )}
+
+          <View style={styles.aiFeatureBox}>
+            <View style={styles.aiIconContainer}>
+              <LightbulbIcon size={24} color={palette.primary} />
+            </View>
+            <View style={styles.aiFeatureContent}>
+              <Text style={styles.aiFeatureTitle}>Smart Card Recommendations</Text>
+              <Text style={styles.aiFeatureText}>
+                Our AI analyzes category bonuses, rotating rewards, and special offers to
+                recommend the best card for each purchase.
+              </Text>
+            </View>
+          </View>
+
+          <Text style={styles.skipHint}>You can skip this step or add more cards later in settings</Text>
+        </View>
+      ),
+    },
     // Step 7: Location Permission (MUST HAVE)
     {
       title: 'Enable Location Services',
