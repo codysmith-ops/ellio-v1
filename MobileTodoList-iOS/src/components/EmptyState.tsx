@@ -35,7 +35,7 @@ export const EMPTY_STATE_CONFIGS: Record<
     icon: '💰',
     title: 'Set your first budget',
     message:
-      'Set a budget to track your spending and get alerts when you're close to limits.',
+      'Set a budget to track your spending and get alerts when you\'re close to limits.',
     actionText: 'Set Your First Budget',
     helpText: 'Not sure where to start? Most people begin with a $500/month grocery budget.',
   },

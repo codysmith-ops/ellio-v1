@@ -891,6 +891,7 @@ const App = (): React.JSX.Element => {
             <Text style={styles.placeholderTitle}>Help & Support</Text>
             <Text style={styles.placeholderSubtitle}>Documentation and support coming soon</Text>
           </View>
+        )}
         </PageTipContainer>
       </SafeAreaView>
     );
