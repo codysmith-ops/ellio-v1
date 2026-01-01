@@ -139,7 +139,7 @@ export const WeeklySummaryPage: React.FC = () => {
 
   const handleShare = async () => {
     try {
-      const message = `My Ellio Weekly Summary:\n\n📊 Grade: ${grade}\n✅ Completed: ${completedThisWeek} tasks\n🎯 Completion Rate: ${completionRate.toFixed(0)}%\n⏰ On-Time Rate: ${onTimeRate.toFixed(0)}%\n\n${wins.length > 0 ? `🌟 This Week's Wins:\n${wins.map(w => `• ${w}`).join('\n')}\n\n` : ''}Keep crushing it! 💪`;
+      const message = `My ellio Weekly Summary:\n\n📊 Grade: ${grade}\n✅ Completed: ${completedThisWeek} tasks\n🎯 Completion Rate: ${completionRate.toFixed(0)}%\n⏰ On-Time Rate: ${onTimeRate.toFixed(0)}%\n\n${wins.length > 0 ? `🌟 This Week's Wins:\n${wins.map(w => `• ${w}`).join('\n')}\n\n` : ''}Keep crushing it! 💪`;
       
       await Share.share({
         message,

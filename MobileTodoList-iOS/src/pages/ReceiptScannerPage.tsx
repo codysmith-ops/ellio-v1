@@ -354,7 +354,7 @@ export const ReceiptScannerPage: React.FC = () => {
               onPress={() => {
                 Alert.alert(
                   '💡 How We Calculate Savings',
-                  `Ellio compares your receipt prices to:\n\n1. Average prices in your area (county + ZIP)\n2. Prices at other stores you've shopped\n3. Historical prices for the same items\n\nThis week: ${weeklySavings.receiptsCount} receipts analyzed\nTotal saved: $${weeklySavings.totalSaved.toFixed(2)}\n\nData source: Your receipts + aggregated pricing data from your area (no GPS).`,
+                  `ellio compares your receipt prices to:\n\n1. Average prices in your area (county + ZIP)\n2. Prices at other stores you've shopped\n3. Historical prices for the same items\n\nThis week: ${weeklySavings.receiptsCount} receipts analyzed\nTotal saved: $${weeklySavings.totalSaved.toFixed(2)}\n\nData source: Your receipts + aggregated pricing data from your area (no GPS).`,
                   [{ text: 'Got it' }]
                 );
               }}

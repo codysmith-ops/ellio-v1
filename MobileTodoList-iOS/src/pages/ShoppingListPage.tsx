@@ -29,7 +29,7 @@ export const ShoppingListPage: React.FC<ShoppingListPageProps> = ({ onNavigate }
     if (value) {
       Alert.alert(
         'Automated Shopping Enabled',
-        'Ellio will now automatically add recurring items to your shopping list based on your purchase patterns.'
+        'ellio will now automatically add recurring items to your shopping list based on your purchase patterns.'
       );
     }
   };
@@ -86,7 +86,7 @@ export const ShoppingListPage: React.FC<ShoppingListPageProps> = ({ onNavigate }
           <View style={styles.infoList}>
             <View style={styles.infoItem}>
               <Text style={styles.infoBullet}>📊</Text>
-              <Text style={styles.infoText}>Ellio learns from your purchase patterns</Text>
+              <Text style={styles.infoText}>ellio learns from your purchase patterns</Text>
             </View>
             <View style={styles.infoItem}>
               <Text style={styles.infoBullet}>🔄</Text>

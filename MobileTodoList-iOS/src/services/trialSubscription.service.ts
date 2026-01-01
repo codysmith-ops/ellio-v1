@@ -62,7 +62,7 @@ async function scheduleTrialExpiryReminder(trialEndDate: Date): Promise<void> {
     await scheduleNotification({
       id: TRIAL_REMINDER_NOTIFICATION_ID,
       title: '⏰ Trial Ending Tomorrow',
-      body: 'Your Ellio free trial ends tomorrow. Continue saving with premium features!',
+      body: 'Your ellio free trial ends tomorrow. Continue saving with premium features!',
       data: { type: 'trial_expiry' },
       date: reminderDate,
     });

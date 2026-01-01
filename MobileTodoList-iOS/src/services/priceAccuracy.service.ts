@@ -326,7 +326,7 @@ export function getSavingsExplanation(log: SavingsLog): string {
     })
     .join('\n\n');
   
-  return `💡 How We Calculate Savings\n\nEllio compares your receipt prices to:\n1. Average prices in your area (${log.location.county || 'county'} + ${log.location.zipCode || 'ZIP'})\n2. Prices at other stores you've shopped\n3. Historical prices for the same items\n\n${examples}\n\nTotal across ${log.itemComparisons.length} items: $${log.totalSavings.toFixed(2)}\n\nData source: Your receipts + aggregated pricing data from your area (no GPS).`;
+  return `💡 How We Calculate Savings\n\nellio compares your receipt prices to:\n1. Average prices in your area (${log.location.county || 'county'} + ${log.location.zipCode || 'ZIP'})\n2. Prices at other stores you've shopped\n3. Historical prices for the same items\n\n${examples}\n\nTotal across ${log.itemComparisons.length} items: $${log.totalSavings.toFixed(2)}\n\nData source: Your receipts + aggregated pricing data from your area (no GPS).`;
 }
 
 /**

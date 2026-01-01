@@ -35,7 +35,7 @@ const FEATURE_THRESHOLDS: FeatureThreshold[] = [
     feature: 'budget',
     threshold: 5,
     counterKey: '@ellio_receipt_count',
-    description: 'Ellio can suggest a budget based on your spending',
+    description: 'ellio can suggest a budget based on your spending',
   },
   {
     feature: 'timeline',

@@ -96,27 +96,27 @@ export const EllioTooltips = {
 export const EllioOnboarding = {
   // Screen 1: Welcome
   welcome: {
-    title: 'Welcome to Ellio',
-    body: "One next step at a time.\nAdd what you need—Ellio keeps it calm.",
+    title: 'Welcome to ellio',
+    body: "One next step at a time.\nAdd what you need—ellio keeps it calm.",
     button: 'Get started',
   },
 
   // Screen 2: Not all at once
   notAllAtOnce: {
     title: 'Not all at once',
-    body: "Ellio focuses on what's next.\nEverything else can wait.",
+    body: "ellio focuses on what's next.\nEverything else can wait.",
     button: 'Continue',
   },
 
   // Screen 3: Features
   features: {
-    title: 'A few things Ellio can do',
+    title: 'A few things ellio can do',
     items: [
       'Scan receipts to track spending',
       'Voice-add tasks naturally',
       "Suggest what's next",
     ],
-    button: 'Start using Ellio',
+    button: 'Start using ellio',
   },
 
   // Permission pre-prompts
