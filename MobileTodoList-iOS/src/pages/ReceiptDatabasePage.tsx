@@ -15,10 +15,8 @@ import {
   Alert,
 } from 'react-native';
 import {
-  getAllReceipts,
   filterReceipts,
   getReceiptStats,
-  addReceipt,
   deleteReceipt,
   updateReceipt,
   Receipt,

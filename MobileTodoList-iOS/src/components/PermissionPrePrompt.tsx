@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { palette, spacing, radius, typography } from '../theme';
 
-export type PermissionType = 'microphone' | 'camera' | 'location';
+export type PermissionType = 'microphone' | 'camera' | 'location' | 'notifications';
 
 export interface PermissionPrePromptProps {
   visible: boolean;

@@ -30,7 +30,6 @@ export const PageTipContainer: React.FC<PageTipContainerProps> = ({
       const tipPageName = PAGE_NAME_MAP[currentPage] || currentPage;
       
       // Check if we've already shown a tip this session
-      const sessionKey = `tip_shown_session_${Date.now()}`;
       const shownThisSession = await AsyncStorage.getItem('tip_shown_this_session');
       
       if (shownThisSession) {
