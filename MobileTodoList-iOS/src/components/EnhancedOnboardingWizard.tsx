@@ -127,7 +127,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({ on
                 <Switch
                   value={preferences.enableReceiptScanning}
                   onValueChange={v => updatePreference('enableReceiptScanning', v)}
-                  trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
+                  trackColor={{ false: EllioColors.border.main, true: EllioColors.primary.main }}
                 />
                 <View style={styles.featureInfo}>
                   <Text style={styles.featureTitle}>Receipt Scanning</Text>
@@ -141,7 +141,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({ on
                 <Switch
                   value={preferences.enableCashbackOptimization}
                   onValueChange={v => updatePreference('enableCashbackOptimization', v)}
-                  trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
+                  trackColor={{ false: EllioColors.border.main, true: EllioColors.primary.main }}
                 />
                 <View style={styles.featureInfo}>
                   <Text style={styles.featureTitle}>icon Cashback Optimization</Text>
@@ -155,7 +155,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({ on
                 <Switch
                   value={preferences.enableBudgetTracking}
                   onValueChange={v => updatePreference('enableBudgetTracking', v)}
-                  trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
+                  trackColor={{ false: EllioColors.border.main, true: EllioColors.primary.main }}
                 />
                 <View style={styles.featureInfo}>
                   <Text style={styles.featureTitle}>Smart Budgeting</Text>
@@ -188,7 +188,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({ on
                 <Switch
                   value={preferences.enableGeolocationPrompts}
                   onValueChange={v => updatePreference('enableGeolocationPrompts', v)}
-                  trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
+                  trackColor={{ false: EllioColors.border.main, true: EllioColors.primary.main }}
                 />
                 <View style={styles.featureInfo}>
                   <Text style={styles.featureTitle}>Receipt Upload Prompts</Text>
@@ -219,7 +219,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({ on
                 <Switch
                   value={preferences.gradualFeatureIntroduction}
                   onValueChange={v => updatePreference('gradualFeatureIntroduction', v)}
-                  trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
+                  trackColor={{ false: EllioColors.border.main, true: EllioColors.primary.main }}
                 />
                 <View style={styles.featureInfo}>
                   <Text style={styles.featureTitle}>Gradual Feature Introduction</Text>
@@ -233,7 +233,7 @@ export const EnhancedOnboardingWizard: React.FC<EnhancedOnboardingProps> = ({ on
                 <Switch
                   value={preferences.enableFeatureTips}
                   onValueChange={v => updatePreference('enableFeatureTips', v)}
-                  trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
+                  trackColor={{ false: EllioColors.border.main, true: EllioColors.primary.main }}
                 />
                 <View style={styles.featureInfo}>
                   <Text style={styles.featureTitle}>Feature Tips & Hints</Text>
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.lg,
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: EllioColors.border.standard,
+    borderBottomColor: EllioColors.border.main,
   },
   progressBar: {
     flexDirection: 'row',
@@ -376,7 +376,7 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.border.main,
   },
   progressDotActive: {
     backgroundColor: EllioColors.primary.main,
@@ -424,12 +424,12 @@ const styles = StyleSheet.create({
     backgroundColor: EllioColors.surface.background,
     borderRadius: EllioRadius.card,
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     alignItems: 'center',
   },
   optionCardActive: {
     borderColor: EllioColors.primary.main,
-    backgroundColor: EllioColors.primary.mainLight,
+    backgroundColor: EllioColors.primary.light,
   },
   optionIcon: {
     fontSize: 40,
@@ -463,7 +463,7 @@ const styles = StyleSheet.create({
     backgroundColor: EllioColors.surface.background,
     borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     alignItems: 'flex-start',
     gap: EllioSpacing.md,
   },
@@ -502,7 +502,7 @@ const styles = StyleSheet.create({
   privacyNote: {
     marginTop: EllioSpacing.lg,
     padding: EllioSpacing.md,
-    backgroundColor: EllioColors.states.success.mainLight,
+    backgroundColor: EllioColors.states.success.light,
     borderRadius: EllioRadius.card,
   },
   privacyText: {
@@ -516,7 +516,7 @@ const styles = StyleSheet.create({
     backgroundColor: EllioColors.surface.background,
     borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
   },
   infoText: {
     ...EllioTypography.body,
@@ -560,7 +560,7 @@ const styles = StyleSheet.create({
     backgroundColor: EllioColors.surface.background,
     borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
   },
   summaryTitle: {
     ...EllioTypography.h3,
@@ -587,7 +587,7 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.lg,
     gap: EllioSpacing.md,
     borderTopWidth: 1,
-    borderTopColor: EllioColors.border.standard,
+    borderTopColor: EllioColors.border.main,
   },
   backButton: {
     flex: 1,
@@ -595,7 +595,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: EllioSpacing.lg,
     borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     alignItems: 'center',
   },
   backButtonText: {

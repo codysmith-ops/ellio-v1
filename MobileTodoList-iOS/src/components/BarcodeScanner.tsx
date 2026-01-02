@@ -143,10 +143,10 @@ const styles = StyleSheet.create({
     backgroundColor: EllioColors.primary.main,
     paddingHorizontal: EllioSpacing.xl,
     paddingVertical: EllioSpacing.md,
-    borderRadius: EllioRadius.lg,
+    borderRadius: EllioRadius.large,
   },
   closeButtonText: {
-    ...EllioTypography.button,
+    ...EllioTypography.bodyBold,
     color: '#fff',
   },
 });

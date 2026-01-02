@@ -205,15 +205,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: EllioSpacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: EllioColors.border.standard,
+    borderBottomColor: EllioColors.border.main,
   },
   locationBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: EllioColors.primary.mainLight || '#EBF5FF',
+    backgroundColor: EllioColors.primary.light || '#EBF5FF',
     paddingHorizontal: EllioSpacing.md,
     paddingVertical: EllioSpacing.sm,
-    borderRadius: EllioRadius.medium,
+    borderRadius: EllioRadius.card,
     gap: EllioSpacing.sm,
   },
   locationIcon: {
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
   taskCard: {
     backgroundColor: EllioColors.surface.background,
     padding: EllioSpacing.md,
-    borderRadius: EllioRadius.medium,
+    borderRadius: EllioRadius.card,
     marginBottom: EllioSpacing.lg,
   },
   taskTitle: {
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     gap: EllioSpacing.md,
     backgroundColor: '#FFF4E6',
     padding: EllioSpacing.md,
-    borderRadius: EllioRadius.medium,
+    borderRadius: EllioRadius.card,
     marginBottom: EllioSpacing.lg,
     borderWidth: 1,
     borderColor: '#FFB020',
@@ -293,10 +293,10 @@ const styles = StyleSheet.create({
     gap: EllioSpacing.sm,
     backgroundColor: EllioColors.surface.background,
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     borderStyle: 'dashed',
     paddingVertical: EllioSpacing.lg,
-    borderRadius: EllioRadius.medium,
+    borderRadius: EllioRadius.card,
     marginBottom: EllioSpacing.lg,
   },
   uploadIcon: {
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
   receiptImage: {
     width: '100%',
     height: 200,
-    borderRadius: EllioRadius.medium,
+    borderRadius: EllioRadius.card,
     marginBottom: EllioSpacing.sm,
   },
   removeReceipt: {
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.border.main,
   },
   progressDotActive: {
     backgroundColor: EllioColors.primary.main,
@@ -354,7 +354,7 @@ const styles = StyleSheet.create({
     gap: EllioSpacing.md,
     padding: EllioSpacing.lg,
     borderTopWidth: 1,
-    borderTopColor: EllioColors.border.standard,
+    borderTopColor: EllioColors.border.main,
   },
   skipButton: {
     flex: 1,
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: EllioRadius.button,
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
   },
   skipButtonText: {
     ...EllioTypography.bodyBold,

@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   tooltip: {
     backgroundColor: EllioColors.surface.background,
-    borderRadius: EllioRadius.xl,
+    borderRadius: EllioRadius.large,
     padding: EllioSpacing.xl,
     width: '100%',
     maxWidth: 340,
@@ -113,10 +113,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700' as const,
     color: EllioColors.primary.main,
-    backgroundColor: EllioColors.primary.mainLight,
+    backgroundColor: EllioColors.primary.light,
     paddingHorizontal: EllioSpacing.sm,
     paddingVertical: EllioSpacing.xs,
-    borderRadius: EllioRadius.sm,
+    borderRadius: EllioRadius.button,
     alignSelf: 'flex-start',
   },
   title: {
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   showMeButton: {
     flex: 1,
     backgroundColor: EllioColors.primary.main,
-    borderRadius: EllioRadius.md,
+    borderRadius: EllioRadius.card,
     paddingVertical: EllioSpacing.md,
     alignItems: 'center',
   },
@@ -153,11 +153,11 @@ const styles = StyleSheet.create({
   notNowButton: {
     flex: 1,
     backgroundColor: 'transparent',
-    borderRadius: EllioRadius.md,
+    borderRadius: EllioRadius.card,
     paddingVertical: EllioSpacing.md,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
   },
   notNowButtonText: {
     ...EllioTypography.bodyBold,

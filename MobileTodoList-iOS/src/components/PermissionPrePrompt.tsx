@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
   modal: {
     backgroundColor: EllioColors.surface.background,
-    borderRadius: EllioRadius.xl,
+    borderRadius: EllioRadius.large,
     padding: EllioSpacing.xl,
     width: '100%',
     maxWidth: 400,
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   },
   benefitsContainer: {
     backgroundColor: EllioColors.surface.background,
-    borderRadius: EllioRadius.md,
+    borderRadius: EllioRadius.card,
     padding: EllioSpacing.md,
     marginBottom: EllioSpacing.lg,
   },
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   },
   privacyContainer: {
     backgroundColor: '#F0F4FF',
-    borderRadius: EllioRadius.md,
+    borderRadius: EllioRadius.card,
     padding: EllioSpacing.md,
     marginBottom: EllioSpacing.xl,
   },
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   },
   allowButton: {
     backgroundColor: EllioColors.primary.main,
-    borderRadius: EllioRadius.md,
+    borderRadius: EllioRadius.card,
     paddingVertical: EllioSpacing.md + 2,
     alignItems: 'center',
     marginBottom: EllioSpacing.sm,

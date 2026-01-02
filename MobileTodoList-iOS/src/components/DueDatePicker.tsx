@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: EllioColors.surface.background,
-    borderRadius: EllioRadius.xl,
+    borderRadius: EllioRadius.large,
     width: '100%',
     maxWidth: 400,
     overflow: 'hidden',
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   header: {
     padding: EllioSpacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: EllioColors.border.standard,
+    borderBottomColor: EllioColors.border.main,
   },
   title: {
     ...EllioTypography.h3,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: EllioSpacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: EllioColors.border.standard,
+    borderBottomColor: EllioColors.border.main,
   },
   optionLabel: {
     ...EllioTypography.body,
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cancelButtonText: {
-    ...EllioTypography.button,
+    ...EllioTypography.bodyBold,
     color: EllioColors.states.error.main,
   },
 });

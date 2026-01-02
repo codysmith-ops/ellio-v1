@@ -271,7 +271,7 @@ export const ComprehensiveStoreResults: React.FC<Props> = ({
             <Switch
               value={filters.inStockOnly}
               onValueChange={v => setFilters(p => ({ ...p, inStockOnly: v }))}
-              trackColor={{ false: EllioColors.border.standard, true: EllioColors.primary.main }}
+              trackColor={{ false: EllioColors.border.main, true: EllioColors.primary.main }}
             />
           </View>
 
@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.md,
     backgroundColor: EllioColors.surface.background,
     borderBottomWidth: 1,
-    borderBottomColor: EllioColors.border.standard,
+    borderBottomColor: EllioColors.border.main,
   },
   headerTitle: {
     fontSize: 20,
@@ -448,7 +448,7 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.md,
     backgroundColor: EllioColors.surface.background,
     borderBottomWidth: 1,
-    borderBottomColor: EllioColors.border.standard,
+    borderBottomColor: EllioColors.border.main,
   },
   filterToggleContent: {
     flexDirection: 'row',
@@ -475,7 +475,7 @@ const styles = StyleSheet.create({
     backgroundColor: EllioColors.surface.background,
     padding: EllioSpacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: EllioColors.border.standard,
+    borderBottomColor: EllioColors.border.main,
   },
   filterRow: {
     flexDirection: 'row',
@@ -505,7 +505,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     borderRadius: EllioRadius.button, // 8px per design system
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     alignItems: 'center',
   },
   distanceButtonActive: {
@@ -532,7 +532,7 @@ const styles = StyleSheet.create({
     paddingVertical: EllioSpacing.sm,
     borderRadius: EllioRadius.full,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     backgroundColor: EllioColors.surface.background,
   },
   storeTypeChipActive: {
@@ -564,7 +564,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: EllioColors.surface.background,
     borderBottomWidth: 1,
-    borderBottomColor: EllioColors.border.standard,
+    borderBottomColor: EllioColors.border.main,
   },
   viewModeButton: {
     flex: 1,
@@ -587,7 +587,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: EllioSpacing.md,
-    backgroundColor: EllioColors.surface.backgroundElevated,
+    backgroundColor: EllioColors.surface.elevated,
   },
   sectionIcon: {
     fontSize: 20,
@@ -605,7 +605,7 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.md,
     borderRadius: EllioRadius.card, // 12px per design system
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
   },
   cardHeader: {
     flexDirection: 'row',
@@ -668,7 +668,7 @@ const styles = StyleSheet.create({
   },
   cardFooter: {
     borderTopWidth: 1,
-    borderTopColor: EllioColors.border.standard,
+    borderTopColor: EllioColors.border.main,
     paddingTop: EllioSpacing.sm,
   },
   addressContainer: {

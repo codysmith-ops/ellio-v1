@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
   trialBanner: {
     backgroundColor: '#FEF3C7',
     padding: EllioSpacing.md,
-    borderRadius: EllioRadius.md,
+    borderRadius: EllioRadius.card,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: EllioSpacing.lg,
@@ -370,7 +370,7 @@ const styles = StyleSheet.create({
   statCard: {
     backgroundColor: EllioColors.surface.background,
     padding: EllioSpacing.md,
-    borderRadius: EllioRadius.lg,
+    borderRadius: EllioRadius.large,
     ...shadow.light,
     width: '48%',
   },
@@ -412,7 +412,7 @@ const styles = StyleSheet.create({
   goalCard: {
     backgroundColor: EllioColors.surface.background,
     padding: EllioSpacing.lg,
-    borderRadius: EllioRadius.lg,
+    borderRadius: EllioRadius.large,
     ...EllioShadow.light,
     marginBottom: EllioSpacing.xl,
   },
@@ -507,7 +507,7 @@ const styles = StyleSheet.create({
     marginTop: EllioSpacing.md,
     paddingTop: EllioSpacing.md,
     borderTopWidth: 1,
-    borderTopColor: EllioColors.border.standard,
+    borderTopColor: EllioColors.border.main,
   },
   celebrationEmoji: {
     fontSize: 20,
@@ -541,7 +541,7 @@ const styles = StyleSheet.create({
     backgroundColor: EllioColors.surface.background,
     width: '48%',
     padding: EllioSpacing.lg,
-    borderRadius: EllioRadius.lg,
+    borderRadius: EllioRadius.large,
     alignItems: 'center',
     ...EllioShadow.light,
   },

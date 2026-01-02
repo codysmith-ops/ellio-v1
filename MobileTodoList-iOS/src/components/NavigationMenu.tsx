@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     paddingVertical: EllioSpacing.md,
     backgroundColor: EllioColors.surface.background,
     borderBottomWidth: 1,
-    borderBottomColor: EllioColors.border.standard,
+    borderBottomColor: EllioColors.border.main,
   },
   menuButton: {
     padding: EllioSpacing.sm,
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
   },
   menuDivider: {
     height: 1,
-    backgroundColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.border.main,
   },
   menuItems: {
     maxHeight: 400,

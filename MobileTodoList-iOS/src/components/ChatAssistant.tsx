@@ -299,8 +299,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: EllioSpacing.lg,
     paddingVertical: EllioSpacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: EllioColors.border.standard,
-    backgroundColor: EllioColors.surface.backgroundElevated,
+    borderBottomColor: EllioColors.border.main,
+    backgroundColor: EllioColors.surface.elevated,
   },
   headerContent: {
     flexDirection: 'row',
@@ -353,7 +353,7 @@ const styles = StyleSheet.create({
   messageBubble: {
     maxWidth: '80%',
     padding: EllioSpacing.md,
-    borderRadius: EllioRadius.md,
+    borderRadius: EllioRadius.card,
     gap: EllioSpacing.xs,
   },
   userBubble: {
@@ -363,7 +363,7 @@ const styles = StyleSheet.create({
   },
   assistantBubble: {
     alignSelf: 'flex-start',
-    backgroundColor: EllioColors.surface.backgroundElevated,
+    backgroundColor: EllioColors.surface.elevated,
     borderBottomLeftRadius: 4,
   },
   messageText: {
@@ -413,9 +413,9 @@ const styles = StyleSheet.create({
   suggestionButton: {
     paddingVertical: EllioSpacing.sm,
     paddingHorizontal: EllioSpacing.md,
-    borderRadius: EllioRadius.md,
+    borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     backgroundColor: EllioColors.surface.background,
   },
   suggestionText: {
@@ -431,29 +431,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: EllioSpacing.lg,
     paddingVertical: EllioSpacing.md,
     borderTopWidth: 1,
-    borderTopColor: EllioColors.border.standard,
-    backgroundColor: EllioColors.surface.backgroundElevated,
+    borderTopColor: EllioColors.border.main,
+    backgroundColor: EllioColors.surface.elevated,
   },
   input: {
     flex: 1,
     ...EllioTypography.body,
     color: palette.text,
     backgroundColor: EllioColors.surface.background,
-    borderRadius: EllioRadius.md,
+    borderRadius: EllioRadius.card,
     paddingHorizontal: EllioSpacing.md,
     paddingVertical: EllioSpacing.sm,
     maxHeight: 100,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
   },
   sendButton: {
     paddingHorizontal: EllioSpacing.lg,
     paddingVertical: EllioSpacing.sm,
-    borderRadius: EllioRadius.md,
+    borderRadius: EllioRadius.card,
     backgroundColor: EllioColors.primary.main,
   },
   sendButtonDisabled: {
-    backgroundColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.border.main,
   },
   sendButtonText: {
     ...EllioTypography.bodyBold,

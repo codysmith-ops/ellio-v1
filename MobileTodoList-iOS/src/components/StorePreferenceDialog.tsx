@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   header: {
     padding: EllioSpacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: EllioColors.border.standard,
+    borderBottomColor: EllioColors.border.main,
   },
   title: {
     ...EllioTypography.h3,
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     backgroundColor: EllioColors.surface.background,
     borderRadius: EllioRadius.card,
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     padding: EllioSpacing.md,
     alignItems: 'center',
     gap: EllioSpacing.sm,
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     backgroundColor: EllioColors.surface.background,
     alignItems: 'center',
     justifyContent: 'center',
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.lg,
     gap: EllioSpacing.md,
     borderTopWidth: 1,
-    borderTopColor: EllioColors.border.standard,
+    borderTopColor: EllioColors.border.main,
   },
   skipButton: {
     flex: 1,
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
   },
   skipButtonText: {
     ...EllioTypography.bodyBold,
@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
     borderRadius: EllioRadius.button,
   },
   submitButtonDisabled: {
-    backgroundColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.border.main,
   },
   submitButtonText: {
     ...EllioTypography.bodyBold,

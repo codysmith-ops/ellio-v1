@@ -1487,7 +1487,7 @@ const styles = StyleSheet.create({
   progressDot: {
     width: 32,
     height: 6,
-    backgroundColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.border.main,
     borderRadius: EllioRadius.badge,
   },
   progressDotActive: {
@@ -1505,7 +1505,7 @@ const styles = StyleSheet.create({
   },
   title: {
     ...EllioTypography.h2,
-    color: palette.text,
+    color: EllioColors.text.primary,
     marginBottom: EllioSpacing.sm,
     textAlign: 'center',
   },
@@ -1520,7 +1520,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     ...EllioTypography.h3,
-    color: palette.text,
+    color: EllioColors.text.primary,
     marginBottom: EllioSpacing.md,
     textAlign: 'center',
   },
@@ -1551,7 +1551,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: EllioSpacing.lg,
     borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     gap: EllioSpacing.sm,
   },
   googleIcon: {
@@ -1561,7 +1561,7 @@ const styles = StyleSheet.create({
   },
   googleSignInText: {
     ...EllioTypography.bodyBold,
-    color: palette.text,
+    color: EllioColors.text.primary,
   },
   divider: {
     flexDirection: 'row',
@@ -1572,7 +1572,7 @@ const styles = StyleSheet.create({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.border.main,
   },
   dividerText: {
     ...EllioTypography.secondary,
@@ -1584,7 +1584,7 @@ const styles = StyleSheet.create({
     borderRadius: EllioRadius.button,
     borderWidth: 1,
     borderColor: EllioColors.primary.main,
-    backgroundColor: palette.infoLight,
+    backgroundColor: EllioColors.surface.elevated,
     alignItems: 'center',
   },
   emailSignInText: {
@@ -1597,7 +1597,7 @@ const styles = StyleSheet.create({
   },
   featuresTitle: {
     ...EllioTypography.bodyBold,
-    color: palette.text,
+    color: EllioColors.text.primary,
     marginBottom: EllioSpacing.sm,
   },
   featureRow: {
@@ -1609,11 +1609,11 @@ const styles = StyleSheet.create({
     backgroundColor: EllioColors.surface.background,
     borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
   },
   featureText: {
     ...EllioTypography.body,
-    color: palette.text,
+    color: EllioColors.text.primary,
     flex: 1,
   },
   formContent: {
@@ -1624,17 +1624,17 @@ const styles = StyleSheet.create({
   },
   label: {
     ...EllioTypography.bodyBold,
-    color: palette.text,
+    color: EllioColors.text.primary,
   },
   input: {
     ...EllioTypography.body,
     backgroundColor: EllioColors.surface.background,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     borderRadius: EllioRadius.button,
     paddingHorizontal: EllioSpacing.md,
     paddingVertical: EllioSpacing.md,
-    color: palette.text,
+    color: EllioColors.text.primary,
   },
   preferencesContent: {
     gap: EllioSpacing.xl,
@@ -1647,14 +1647,14 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.md,
     borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
   },
   preferenceInfo: {
     flex: 1,
   },
   preferenceTitle: {
     ...EllioTypography.bodyBold,
-    color: palette.text,
+    color: EllioColors.text.primary,
     marginBottom: 4,
   },
   preferenceSubtitle: {
@@ -1665,7 +1665,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 30,
     borderRadius: 15,
-    backgroundColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.border.main,
     padding: 2,
     justifyContent: 'center',
   },
@@ -1690,14 +1690,14 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.lg,
     borderRadius: EllioRadius.card,
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     backgroundColor: EllioColors.surface.background,
     alignItems: 'center',
     gap: EllioSpacing.md,
   },
   viewOptionActive: {
     borderColor: EllioColors.primary.main,
-    backgroundColor: palette.infoLight,
+    backgroundColor: EllioColors.surface.elevated,
   },
   viewPreview: {
     width: '100%',
@@ -1706,7 +1706,7 @@ const styles = StyleSheet.create({
   },
   listPreviewItem: {
     height: 20,
-    backgroundColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.border.main,
     borderRadius: 4,
     marginBottom: 6,
   },
@@ -1718,7 +1718,7 @@ const styles = StyleSheet.create({
   gridPreviewItem: {
     flex: 1,
     height: 35,
-    backgroundColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.border.main,
     borderRadius: 4,
   },
   viewOptionHeader: {
@@ -1744,7 +1744,7 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.lg,
     gap: EllioSpacing.md,
     borderTopWidth: 1,
-    borderTopColor: EllioColors.border.standard,
+    borderTopColor: EllioColors.border.main,
     backgroundColor: EllioColors.surface.background,
   },
   backButton: {
@@ -1753,7 +1753,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
   },
   backButtonText: {
     ...EllioTypography.bodyBold,
@@ -1786,13 +1786,13 @@ const styles = StyleSheet.create({
   goalCard: {
     backgroundColor: EllioColors.surface.background,
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     borderRadius: EllioRadius.large,
     padding: EllioSpacing.md,
   },
   goalCardSelected: {
     borderColor: EllioColors.primary.main,
-    backgroundColor: EllioColors.primary.mainLight || '#EBF5FF',
+    backgroundColor: EllioColors.primary.light || '#EBF5FF',
   },
   goalHeader: {
     flexDirection: 'row',
@@ -1804,7 +1804,7 @@ const styles = StyleSheet.create({
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: EllioRadius.medium,
+    borderRadius: EllioRadius.card,
     backgroundColor: '#FFFFFF',
   },
   goalInfo: {
@@ -1812,7 +1812,7 @@ const styles = StyleSheet.create({
   },
   goalTitle: {
     ...EllioTypography.bodyBold,
-    color: palette.text,
+    color: EllioColors.text.primary,
     marginBottom: 4,
   },
   goalDescription: {
@@ -1824,7 +1824,7 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -1852,8 +1852,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
-    borderRadius: EllioRadius.medium,
+    borderColor: EllioColors.border.main,
+    borderRadius: EllioRadius.card,
     paddingHorizontal: EllioSpacing.md,
     backgroundColor: EllioColors.surface.background,
   },
@@ -1865,7 +1865,7 @@ const styles = StyleSheet.create({
   budgetInput: {
     flex: 1,
     ...EllioTypography.h3,
-    color: palette.text,
+    color: EllioColors.text.primary,
     paddingVertical: EllioSpacing.md,
   },
   periodSelector: {
@@ -1880,13 +1880,13 @@ const styles = StyleSheet.create({
     paddingVertical: EllioSpacing.md,
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     borderRadius: EllioRadius.button,
     backgroundColor: EllioColors.surface.background,
   },
   periodButtonActive: {
     borderColor: EllioColors.primary.main,
-    backgroundColor: EllioColors.primary.mainLight || '#EBF5FF',
+    backgroundColor: EllioColors.primary.light || '#EBF5FF',
   },
   periodButtonText: {
     ...EllioTypography.bodyBold,
@@ -1898,9 +1898,9 @@ const styles = StyleSheet.create({
   aiFeatureBox: {
     flexDirection: 'row',
     gap: EllioSpacing.md,
-    backgroundColor: EllioColors.primary.mainLight || '#EBF5FF',
+    backgroundColor: EllioColors.primary.light || '#EBF5FF',
     padding: EllioSpacing.md,
-    borderRadius: EllioRadius.medium,
+    borderRadius: EllioRadius.card,
     borderWidth: 1,
     borderColor: EllioColors.primary.main + '30',
   },
@@ -1909,7 +1909,7 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: EllioRadius.small,
+    borderRadius: EllioRadius.buttonall,
     backgroundColor: '#FFFFFF',
   },
   aiFeatureContent: {
@@ -1918,7 +1918,7 @@ const styles = StyleSheet.create({
   },
   aiFeatureTitle: {
     ...EllioTypography.bodyBold,
-    color: palette.text,
+    color: EllioColors.text.primary,
   },
   aiFeatureText: {
     ...EllioTypography.secondary,
@@ -1934,8 +1934,8 @@ const styles = StyleSheet.create({
   suggestionsContainer: {
     maxHeight: 180,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
-    borderRadius: EllioRadius.medium,
+    borderColor: EllioColors.border.main,
+    borderRadius: EllioRadius.card,
     backgroundColor: EllioColors.surface.background,
     marginTop: EllioSpacing.xs,
     ...Platform.select({
@@ -1954,11 +1954,11 @@ const styles = StyleSheet.create({
     paddingVertical: EllioSpacing.md,
     paddingHorizontal: EllioSpacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: EllioColors.border.standard,
+    borderBottomColor: EllioColors.border.main,
   },
   suggestionText: {
     ...EllioTypography.body,
-    color: palette.text,
+    color: EllioColors.text.primary,
   },
   // New onboarding step styles
   permissionContent: {
@@ -1972,11 +1972,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 60,
-    backgroundColor: palette.infoLight,
+    backgroundColor: EllioColors.surface.elevated,
   },
   permissionTitle: {
     ...EllioTypography.h2,
-    color: palette.text,
+    color: EllioColors.text.primary,
     textAlign: 'center',
   },
   permissionDescription: {
@@ -2017,12 +2017,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: EllioSpacing.sm,
     padding: EllioSpacing.md,
-    backgroundColor: palette.infoLight,
-    borderRadius: EllioRadius.medium,
+    backgroundColor: EllioColors.surface.elevated,
+    borderRadius: EllioRadius.card,
   },
   permissionInfo: {
     ...EllioTypography.body,
-    color: palette.text,
+    color: EllioColors.text.primary,
     flex: 1,
   },
   categoryContent: {
@@ -2045,7 +2045,7 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.md,
     borderRadius: EllioRadius.card,
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     backgroundColor: EllioColors.surface.background,
     alignItems: 'center',
     justifyContent: 'center',
@@ -2054,7 +2054,7 @@ const styles = StyleSheet.create({
   },
   categoryCardSelected: {
     borderColor: EllioColors.primary.main,
-    backgroundColor: palette.infoLight,
+    backgroundColor: EllioColors.surface.elevated,
   },
   categoryIconContainer: {
     width: 48,
@@ -2129,14 +2129,14 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.lg,
     borderRadius: EllioRadius.card,
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     backgroundColor: EllioColors.surface.background,
     alignItems: 'center',
     gap: EllioSpacing.md,
   },
   receiptOptionActive: {
     borderColor: EllioColors.primary.main,
-    backgroundColor: palette.infoLight,
+    backgroundColor: EllioColors.surface.elevated,
   },
   receiptOptionText: {
     ...EllioTypography.bodyBold,
@@ -2159,7 +2159,7 @@ const styles = StyleSheet.create({
   },
   tipTitle: {
     ...EllioTypography.h3,
-    color: palette.text,
+    color: EllioColors.text.primary,
     textAlign: 'center',
   },
   tipDescription: {
@@ -2177,7 +2177,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.border.main,
   },
   tipIndicatorActive: {
     backgroundColor: EllioColors.primary.main,
@@ -2193,11 +2193,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
-    backgroundColor: palette.infoLight,
+    backgroundColor: EllioColors.surface.elevated,
   },
   sampleTitle: {
     ...EllioTypography.h2,
-    color: palette.text,
+    color: EllioColors.text.primary,
     textAlign: 'center',
   },
   sampleDescription: {
@@ -2218,7 +2218,7 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.md,
     borderRadius: EllioRadius.card,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     backgroundColor: EllioColors.surface.background,
   },
   sampleTaskInfo: {
@@ -2226,7 +2226,7 @@ const styles = StyleSheet.create({
   },
   sampleTaskTitle: {
     ...EllioTypography.bodyBold,
-    color: palette.text,
+    color: EllioColors.text.primary,
   },
   sampleTaskDetails: {
     ...EllioTypography.secondary,
@@ -2253,7 +2253,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: EllioSpacing.lg,
     borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     backgroundColor: EllioColors.surface.background,
     alignItems: 'center',
   },
@@ -2269,7 +2269,7 @@ const styles = StyleSheet.create({
   },
   rewardsText: {
     ...EllioTypography.body,
-    color: palette.text,
+    color: EllioColors.text.primary,
   },
   rewardsPlaceholder: {
     ...EllioTypography.body,
@@ -2282,7 +2282,7 @@ const styles = StyleSheet.create({
   },
   debitDivider: {
     height: 1,
-    backgroundColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.border.main,
     marginVertical: EllioSpacing.lg,
   },
   debitToggle: {
@@ -2296,7 +2296,7 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 6,
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -2311,6 +2311,6 @@ const styles = StyleSheet.create({
   },
   debitToggleText: {
     ...EllioTypography.body,
-    color: palette.text,
+    color: EllioColors.text.primary,
   },
 });

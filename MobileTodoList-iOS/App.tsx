@@ -17,7 +17,7 @@ import {
   recognizeProductFromImage,
 } from './src/services/productRecognition';
 import { useTodoStore, Task } from './src/store';
-import { palette, radius, shadow, spacing, typography } from './src/theme';
+import { EllioColors, EllioRadius, EllioShadow, EllioSpacing, EllioTypography } from './src/theme/ellioTokens';
 import { SetupWizard, UserSetupData } from './src/components/SetupWizard';
 import { NavigationMenu, NavigationPage } from './src/components/NavigationMenu';
 import { HomePage } from './src/components/HomePage';
@@ -844,7 +844,7 @@ const App = (): React.JSX.Element => {
   if (!setupComplete) {
     return (
       <SafeAreaView style={styles.safe}>
-        <StatusBar barStyle="dark-content" backgroundColor={palette.background} />
+        <StatusBar barStyle="dark-content" backgroundColor={EllioColors.surface.background} />
         <SetupWizard onComplete={handleSetupComplete} />
       </SafeAreaView>
     );
@@ -854,7 +854,7 @@ const App = (): React.JSX.Element => {
   if (currentPage !== 'home') {
     return (
       <SafeAreaView style={styles.safe}>
-        <StatusBar barStyle="dark-content" backgroundColor={palette.background} />
+        <StatusBar barStyle="dark-content" backgroundColor={EllioColors.surface.background} />
         <NavigationMenu currentPage={currentPage} onNavigate={setCurrentPage} userName={userName} />
         <PageTipContainer currentPage={currentPage}>
         {currentPage === 'account' && <AccountPage />}
@@ -900,7 +900,7 @@ const App = (): React.JSX.Element => {
   // Home page
   return (
     <SafeAreaView style={styles.safe}>
-      <StatusBar barStyle="dark-content" backgroundColor={palette.background} />
+      <StatusBar barStyle="dark-content" backgroundColor={EllioColors.surface.background} />
       <NavigationMenu currentPage={currentPage} onNavigate={setCurrentPage} userName={userName} />
 
       <PageTipContainer currentPage={currentPage}>
@@ -920,11 +920,11 @@ const App = (): React.JSX.Element => {
             {/* Scanner and Camera Buttons */}
             <View style={styles.quickActions}>
               <TouchableOpacity style={styles.quickAction} onPress={handleScanner}>
-                <ScannerIcon size={24} color={palette.primary} />
+                <ScannerIcon size={24} color={EllioColors.primary.main} />
                 <Text style={styles.quickActionText}>Scan SKU</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.quickAction} onPress={handleCamera}>
-                <CameraIcon size={24} color={palette.primary} />
+                <CameraIcon size={24} color={EllioColors.primary.main} />
                 <Text style={styles.quickActionText}>Take Photo</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.quickAction} onPress={handleVoiceButton}>
@@ -945,7 +945,7 @@ const App = (): React.JSX.Element => {
             {imageUri ? (
               <View style={styles.imagePreview}>
                 <View style={styles.imagePreviewContent}>
-                  <CameraIcon size={16} color={palette.textSecondary} />
+                  <CameraIcon size={16} color={EllioColors.text.secondary} />
                   <Text style={styles.imagePreviewText}>Photo attached</Text>
                 </View>
                 <TouchableOpacity onPress={() => setImageUri(undefined)}>
@@ -959,7 +959,7 @@ const App = (): React.JSX.Element => {
               placeholder="Item name or description"
               value={title}
               onChangeText={setTitle}
-              placeholderTextColor={palette.textTertiary}
+              placeholderTextColor={EllioColors.text.tertiary}
             />
 
             <TextInput
@@ -969,7 +969,7 @@ const App = (): React.JSX.Element => {
               onChangeText={setNote}
               multiline
               numberOfLines={2}
-              placeholderTextColor={palette.textTertiary}
+              placeholderTextColor={EllioColors.text.tertiary}
             />
 
             <View style={styles.formRow}>
@@ -981,7 +981,7 @@ const App = (): React.JSX.Element => {
                   value={quantity}
                   onChangeText={setQuantity}
                   keyboardType="number-pad"
-                  placeholderTextColor={palette.textTertiary}
+                  placeholderTextColor={EllioColors.text.tertiary}
                 />
               </View>
               <View style={styles.formHalf}>
@@ -1004,7 +1004,7 @@ const App = (): React.JSX.Element => {
                 placeholder="Team member name"
                 value={assignedTo}
                 onChangeText={setAssignedTo}
-                placeholderTextColor={palette.textTertiary}
+                placeholderTextColor={EllioColors.text.tertiary}
               />
             </View>
 
@@ -1029,7 +1029,7 @@ const App = (): React.JSX.Element => {
                         <Text style={styles.activityIcon}>↩️</Text>
                       )}
                       {activity.action === 'deleted' && (
-                        <TrashIcon size={18} color={palette.error} />
+                        <TrashIcon size={18} color={EllioColors.states.error.main} />
                       )}
                     </View>
                     <View style={styles.activityInfo}>
@@ -1103,7 +1103,7 @@ const App = (): React.JSX.Element => {
                       </TouchableOpacity>
 
                       <View style={styles.taskIcon}>
-                        <TaskIcon size={24} color={palette.primary} />
+                        <TaskIcon size={24} color={EllioColors.primary.main} />
                       </View>
 
                       <View style={styles.taskContent}>
@@ -1290,7 +1290,7 @@ const formatRelativeTime = (timestamp: number): string => {
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: palette.background,
+    backgroundColor: EllioColors.surface.background,
   },
   flex: {
     flex: 1,
@@ -1299,89 +1299,89 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingBottom: spacing.xl,
+    paddingBottom: EllioSpacing.xl,
   },
   hero: {
-    backgroundColor: palette.primary,
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.lg,
-    paddingBottom: spacing.xl,
+    backgroundColor: EllioColors.primary.main,
+    paddingHorizontal: EllioSpacing.lg,
+    paddingTop: EllioSpacing.lg,
+    paddingBottom: EllioSpacing.xl,
   },
   heroTitle: {
-    ...typography.h3,
-    color: palette.surface,
-    marginBottom: spacing.lg,
+    ...EllioTypography.h3,
+    color: EllioColors.surface.background,
+    marginBottom: EllioSpacing.lg,
   },
   statsRow: {
     flexDirection: 'row',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   statCard: {
     flex: 1,
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    borderRadius: radius.card,
-    padding: spacing.md,
+    borderRadius: EllioRadius.card,
+    padding: EllioSpacing.md,
     alignItems: 'center',
   },
   statValue: {
-    ...typography.h2,
-    color: palette.surface,
+    ...EllioTypography.h2,
+    color: EllioColors.surface.background,
     marginBottom: 4,
   },
   statLabel: {
-    ...typography.secondary,
-    color: palette.labelOnDark,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.inverse,
   },
   card: {
-    backgroundColor: palette.surface,
-    marginHorizontal: spacing.lg,
-    marginTop: spacing.lg,
-    padding: spacing.lg,
-    borderRadius: radius.card,
-    ...shadow,
+    backgroundColor: EllioColors.surface.background,
+    marginHorizontal: EllioSpacing.lg,
+    marginTop: EllioSpacing.lg,
+    padding: EllioSpacing.lg,
+    borderRadius: EllioRadius.card,
+    ...EllioShadow.medium,
   },
   cardTitle: {
-    ...typography.subtitle,
-    color: palette.text,
-    marginBottom: spacing.md,
+    ...EllioTypography.subtitle,
+    color: EllioColors.text.primary,
+    marginBottom: EllioSpacing.md,
   },
   tasksHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: spacing.md,
+    marginBottom: EllioSpacing.md,
   },
   clearFilterButton: {
-    backgroundColor: palette.border,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.xs,
-    borderRadius: radius.button,
+    backgroundColor: EllioColors.border.main,
+    paddingHorizontal: EllioSpacing.md,
+    paddingVertical: EllioSpacing.xs,
+    borderRadius: EllioRadius.button,
   },
   clearFilterText: {
-    ...typography.secondary,
-    color: palette.text,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.primary,
     fontWeight: '600',
   },
   quickActions: {
     flexDirection: 'row',
-    gap: spacing.md,
-    marginBottom: spacing.md,
+    gap: EllioSpacing.md,
+    marginBottom: EllioSpacing.md,
   },
   quickAction: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: spacing.sm,
-    paddingVertical: spacing.md,
-    backgroundColor: palette.infoLight,
-    borderRadius: radius.button,
+    gap: EllioSpacing.sm,
+    paddingVertical: EllioSpacing.md,
+    backgroundColor: EllioColors.states.info.light,
+    borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: palette.primary,
+    borderColor: EllioColors.primary.main,
   },
   quickActionText: {
-    ...typography.body,
-    color: palette.primary,
+    ...EllioTypography.body,
+    color: EllioColors.primary.main,
   },
   microphoneIcon: {
     fontSize: 24,
@@ -1390,55 +1390,55 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: palette.successLight,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    borderRadius: radius.badge,
-    marginBottom: spacing.md,
+    backgroundColor: EllioColors.states.success.light,
+    paddingHorizontal: EllioSpacing.md,
+    paddingVertical: EllioSpacing.sm,
+    borderRadius: EllioRadius.badge,
+    marginBottom: EllioSpacing.md,
   },
   skuBadgeText: {
-    ...typography.body,
-    color: palette.success,
+    ...EllioTypography.body,
+    color: EllioColors.states.success.main,
   },
   skuClear: {
-    ...typography.bodyBold,
-    color: palette.success,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.states.success.main,
     fontSize: 20,
   },
   imagePreview: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: palette.infoLight,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    borderRadius: radius.badge,
-    marginBottom: spacing.md,
+    backgroundColor: EllioColors.states.info.light,
+    paddingHorizontal: EllioSpacing.md,
+    paddingVertical: EllioSpacing.sm,
+    borderRadius: EllioRadius.badge,
+    marginBottom: EllioSpacing.md,
   },
   imagePreviewContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
+    gap: EllioSpacing.sm,
   },
   imagePreviewText: {
-    ...typography.body,
-    color: palette.primary,
+    ...EllioTypography.body,
+    color: EllioColors.primary.main,
   },
   imageRemove: {
-    ...typography.bodyBold,
-    color: palette.primary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.primary.main,
     fontSize: 20,
   },
   input: {
-    ...typography.body,
-    backgroundColor: palette.background,
+    ...EllioTypography.body,
+    backgroundColor: EllioColors.surface.background,
     borderWidth: 1,
-    borderColor: palette.border,
-    borderRadius: radius.button,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md,
-    marginBottom: spacing.md,
-    color: palette.text,
+    borderColor: EllioColors.border.main,
+    borderRadius: EllioRadius.button,
+    paddingHorizontal: EllioSpacing.md,
+    paddingVertical: EllioSpacing.md,
+    marginBottom: EllioSpacing.md,
+    color: EllioColors.text.primary,
   },
   textArea: {
     height: 60,
@@ -1446,48 +1446,48 @@ const styles = StyleSheet.create({
   },
   formRow: {
     flexDirection: 'row',
-    gap: spacing.md,
-    marginBottom: spacing.md,
+    gap: EllioSpacing.md,
+    marginBottom: EllioSpacing.md,
   },
   formHalf: {
     flex: 1,
   },
   formField: {
-    marginBottom: spacing.md,
+    marginBottom: EllioSpacing.md,
   },
   fieldLabel: {
-    ...typography.secondary,
-    color: palette.textSecondary,
-    marginBottom: spacing.sm,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
+    marginBottom: EllioSpacing.sm,
   },
   inputSmall: {
-    ...typography.body,
-    backgroundColor: palette.background,
+    ...EllioTypography.body,
+    backgroundColor: EllioColors.surface.background,
     borderWidth: 1,
-    borderColor: palette.border,
-    borderRadius: radius.button,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    color: palette.text,
+    borderColor: EllioColors.border.main,
+    borderRadius: EllioRadius.button,
+    paddingHorizontal: EllioSpacing.md,
+    paddingVertical: EllioSpacing.sm,
+    color: EllioColors.text.primary,
   },
   primaryButton: {
-    backgroundColor: palette.primary,
-    paddingVertical: spacing.md,
-    borderRadius: radius.button,
+    backgroundColor: EllioColors.primary.main,
+    paddingVertical: EllioSpacing.md,
+    borderRadius: EllioRadius.button,
     alignItems: 'center',
-    marginTop: spacing.sm,
+    marginTop: EllioSpacing.sm,
   },
   primaryButtonText: {
-    ...typography.bodyBold,
-    color: palette.surface,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.surface.background,
   },
   activityList: {
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   activityItem: {
     flexDirection: 'row',
-    gap: spacing.md,
-    paddingVertical: spacing.sm,
+    gap: EllioSpacing.md,
+    paddingVertical: EllioSpacing.sm,
     alignItems: 'center',
   },
   activityIconContainer: {
@@ -1501,60 +1501,60 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   activityText: {
-    ...typography.body,
-    color: palette.text,
+    ...EllioTypography.body,
+    color: EllioColors.text.primary,
   },
   activityAction: {
-    ...typography.bodyBold,
-    color: palette.primary,
+    ...EllioTypography.bodyBold,
+    color: EllioColors.primary.main,
   },
   activityTime: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
     marginTop: 2,
   },
   emptyState: {
     alignItems: 'center',
-    paddingVertical: spacing.xl,
+    paddingVertical: EllioSpacing.xl,
   },
   emptyStateText: {
-    ...typography.subtitle,
-    color: palette.textSecondary,
+    ...EllioTypography.subtitle,
+    color: EllioColors.text.secondary,
     marginBottom: 4,
   },
   emptyStateSubtext: {
-    ...typography.secondary,
-    color: palette.textTertiary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.tertiary,
   },
   taskCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.md,
-    paddingVertical: spacing.md,
+    gap: EllioSpacing.md,
+    paddingVertical: EllioSpacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: palette.border,
+    borderBottomColor: EllioColors.border.main,
   },
   taskCardCompleted: {
     opacity: 0.6,
   },
   taskCheckbox: {
-    padding: spacing.xs,
+    padding: EllioSpacing.xs,
   },
   checkbox: {
     width: 24,
     height: 24,
     borderRadius: 6,
     borderWidth: 2,
-    borderColor: palette.border,
+    borderColor: EllioColors.border.main,
     alignItems: 'center',
     justifyContent: 'center',
   },
   checkboxChecked: {
-    backgroundColor: palette.success,
-    borderColor: palette.success,
+    backgroundColor: EllioColors.states.success.main,
+    borderColor: EllioColors.states.success.main,
   },
   checkmark: {
-    color: palette.surface,
+    color: EllioColors.surface.background,
     fontSize: 16,
     fontWeight: '700',
   },
@@ -1568,62 +1568,62 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   taskTitle: {
-    ...typography.body,
-    color: palette.text,
+    ...EllioTypography.body,
+    color: EllioColors.text.primary,
     marginBottom: 2,
   },
   taskTitleCompleted: {
     textDecorationLine: 'line-through',
-    color: palette.textSecondary,
+    color: EllioColors.text.secondary,
   },
   taskNote: {
-    ...typography.secondary,
-    color: palette.textSecondary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.secondary,
     marginBottom: 4,
   },
   taskMeta: {
     flexDirection: 'row',
-    gap: spacing.md,
+    gap: EllioSpacing.md,
   },
   taskMetaItem: {
-    ...typography.secondary,
-    color: palette.textTertiary,
+    ...EllioTypography.secondary,
+    color: EllioColors.text.tertiary,
   },
   deleteButton: {
-    padding: spacing.sm,
+    padding: EllioSpacing.sm,
   },
   deleteButtonText: {
     fontSize: 28,
-    color: palette.error,
+    color: EllioColors.states.error.main,
     lineHeight: 28,
   },
   placeholderPage: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: spacing.xl,
+    padding: EllioSpacing.xl,
   },
   placeholderText: {
     fontSize: 64,
-    marginBottom: spacing.lg,
+    marginBottom: EllioSpacing.lg,
   },
   placeholderTitle: {
-    ...typography.h2,
-    color: palette.text,
-    marginBottom: spacing.sm,
+    ...EllioTypography.h2,
+    color: EllioColors.text.primary,
+    marginBottom: EllioSpacing.sm,
   },
   placeholderSubtitle: {
-    ...typography.body,
-    color: palette.textSecondary,
+    ...EllioTypography.body,
+    color: EllioColors.text.secondary,
     textAlign: 'center',
   },
   inputText: {
-    ...typography.body,
-    color: palette.text,
+    ...EllioTypography.body,
+    color: EllioColors.text.primary,
   },
   inputPlaceholder: {
-    ...typography.body,
-    color: palette.textTertiary,
+    ...EllioTypography.body,
+    color: EllioColors.text.tertiary,
   },
 });
 

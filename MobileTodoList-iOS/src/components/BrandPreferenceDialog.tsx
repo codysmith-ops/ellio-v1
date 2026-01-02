@@ -219,11 +219,11 @@ const styles = StyleSheet.create({
   header: {
     padding: EllioSpacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: EllioColors.border.standard,
+    borderBottomColor: EllioColors.border.main,
   },
   title: {
     ...EllioTypography.h3,
-    color: palette.text,
+    color: EllioColors.text.primary,
     marginBottom: 4,
   },
   subtitle: {
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     ...EllioTypography.bodyBold,
-    color: palette.text,
+    color: EllioColors.text.primary,
     marginBottom: EllioSpacing.md,
   },
   brandGrid: {
@@ -250,11 +250,11 @@ const styles = StyleSheet.create({
     borderRadius: EllioRadius.button,
     backgroundColor: EllioColors.surface.background,
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
   },
   brandOptionSelected: {
     borderColor: EllioColors.primary.main,
-    backgroundColor: palette.infoLight,
+    backgroundColor: EllioColors.states.info.light,
   },
   brandOptionText: {
     ...EllioTypography.body,
@@ -269,18 +269,18 @@ const styles = StyleSheet.create({
   },
   label: {
     ...EllioTypography.bodyBold,
-    color: palette.text,
+    color: EllioColors.text.primary,
     marginBottom: EllioSpacing.sm,
   },
   input: {
     ...EllioTypography.body,
     backgroundColor: EllioColors.surface.background,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     borderRadius: EllioRadius.button,
     paddingHorizontal: EllioSpacing.md,
     paddingVertical: EllioSpacing.md,
-    color: palette.text,
+    color: EllioColors.text.primary,
   },
   textArea: {
     height: 80,
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 6,
     borderWidth: 2,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -319,7 +319,7 @@ const styles = StyleSheet.create({
   },
   checkboxText: {
     ...EllioTypography.body,
-    color: palette.text,
+    color: EllioColors.text.primary,
     marginBottom: 2,
   },
   checkboxSubtext: {
@@ -332,7 +332,7 @@ const styles = StyleSheet.create({
   tipBox: {
     flexDirection: 'row',
     gap: EllioSpacing.md,
-    backgroundColor: palette.infoLight,
+    backgroundColor: EllioColors.states.info.light,
     padding: EllioSpacing.md,
     borderRadius: EllioRadius.card,
     borderWidth: 1,
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.lg,
     gap: EllioSpacing.md,
     borderTopWidth: 1,
-    borderTopColor: EllioColors.border.standard,
+    borderTopColor: EllioColors.border.main,
   },
   cancelButton: {
     flex: 1,
@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: EllioRadius.button,
     borderWidth: 1,
-    borderColor: EllioColors.border.standard,
+    borderColor: EllioColors.border.main,
   },
   cancelButtonText: {
     ...EllioTypography.bodyBold,
@@ -374,7 +374,7 @@ const styles = StyleSheet.create({
     borderRadius: EllioRadius.button,
   },
   confirmButtonDisabled: {
-    backgroundColor: EllioColors.border.standard,
+    backgroundColor: EllioColors.border.main,
   },
   confirmButtonText: {
     ...EllioTypography.bodyBold,

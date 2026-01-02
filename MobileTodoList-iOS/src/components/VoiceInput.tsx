@@ -226,8 +226,8 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: EllioColors.surface.background,
-    borderTopLeftRadius: EllioRadius.xl,
-    borderTopRightRadius: EllioRadius.xl,
+    borderTopLeftRadius: EllioRadius.large,
+    borderTopRightRadius: EllioRadius.large,
     paddingHorizontal: EllioSpacing.lg,
     paddingTop: EllioSpacing.xl,
     paddingBottom: EllioSpacing.xxl,
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: EllioColors.surface.backgroundElevated,
+    backgroundColor: EllioColors.surface.elevated,
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 10,
@@ -286,8 +286,8 @@ const styles = StyleSheet.create({
     marginBottom: EllioSpacing.xl,
   },
   transcriptionContainer: {
-    backgroundColor: EllioColors.surface.backgroundElevated,
-    borderRadius: EllioRadius.md,
+    backgroundColor: EllioColors.surface.elevated,
+    borderRadius: EllioRadius.card,
     padding: EllioSpacing.md,
     marginBottom: EllioSpacing.lg,
   },
@@ -314,8 +314,8 @@ const styles = StyleSheet.create({
     marginBottom: EllioSpacing.md,
   },
   taskCard: {
-    backgroundColor: EllioColors.surface.backgroundElevated,
-    borderRadius: EllioRadius.md,
+    backgroundColor: EllioColors.surface.elevated,
+    borderRadius: EllioRadius.card,
     padding: EllioSpacing.md,
     marginBottom: EllioSpacing.sm,
     borderLeftWidth: 3,
@@ -346,8 +346,8 @@ const styles = StyleSheet.create({
   cancelButton: {
     flex: 1,
     paddingVertical: EllioSpacing.md,
-    borderRadius: EllioRadius.md,
-    backgroundColor: EllioColors.surface.backgroundElevated,
+    borderRadius: EllioRadius.card,
+    backgroundColor: EllioColors.surface.elevated,
     alignItems: 'center',
   },
   cancelButtonText: {
@@ -357,7 +357,7 @@ const styles = StyleSheet.create({
   confirmButton: {
     flex: 1,
     paddingVertical: EllioSpacing.md,
-    borderRadius: EllioRadius.md,
+    borderRadius: EllioRadius.card,
     backgroundColor: EllioColors.primary.main,
     alignItems: 'center',
   },

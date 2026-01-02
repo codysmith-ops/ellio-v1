@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     padding: EllioSpacing.xl,
     width: '100%',
     maxWidth: 400,
-    ...EllioShadow.large,
+    ...EllioShadow.elevated,
   },
   iconContainer: {
     alignItems: 'center',

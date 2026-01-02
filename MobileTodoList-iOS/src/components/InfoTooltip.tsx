@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   },
   modal: {
     backgroundColor: EllioColors.surface.background,
-    borderRadius: EllioRadius.lg,
+    borderRadius: EllioRadius.large,
     padding: EllioSpacing.lg,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   gotItButton: {
     marginTop: EllioSpacing.lg,
     backgroundColor: EllioColors.primary.main,
-    borderRadius: EllioRadius.md,
+    borderRadius: EllioRadius.card,
     paddingVertical: EllioSpacing.md,
     paddingHorizontal: EllioSpacing.lg,
     alignItems: 'center',

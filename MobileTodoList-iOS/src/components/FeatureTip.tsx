@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 380,
     maxHeight: '80%',
-    ...EllioShadow.large,
+    ...EllioShadow.elevated,
   },
   iconContainer: {
     alignItems: 'center',
